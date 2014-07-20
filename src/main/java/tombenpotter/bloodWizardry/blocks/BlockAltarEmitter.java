@@ -1,0 +1,67 @@
+package tombenpotter.bloodWizardry.blocks;
+
+import WayofTime.alchemicalWizardry.AlchemicalWizardry;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+import net.minecraft.block.BlockContainer;
+import net.minecraft.block.material.Material;
+import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.ChatComponentText;
+import net.minecraft.world.IBlockAccess;
+import net.minecraft.world.World;
+import tombenpotter.bloodWizardry.BloodWizardry;
+import tombenpotter.bloodWizardry.tile.TileAltarEmitter;
+
+public class BlockAltarEmitter extends BlockContainer {
+
+    public BlockAltarEmitter(Material material) {
+        super(material);
+        setHardness(5.0F);
+        setCreativeTab(AlchemicalWizardry.tabBloodMagic);
+    }
+
+    @SideOnly(Side.CLIENT)
+    @Override
+    public void registerBlockIcons(IIconRegister ri) {
+        this.blockIcon = ri.registerIcon(BloodWizardry.texturePath + ":AltarEmitter");
+    }
+
+    @Override
+    public TileEntity createNewTileEntity(World var1, int var2) {
+        return new TileAltarEmitter();
+    }
+
+    @Override
+    public boolean canProvidePower() {
+        return true;
+    }
+
+    @Override
+    public int isProvidingWeakPower(IBlockAccess access, int x, int y, int z, int p_149709_5_) {
+        if (access.getTileEntity(x, y, z) != null && access.getTileEntity(x, y, z) instanceof TileAltarEmitter) {
+            TileAltarEmitter tile = (TileAltarEmitter) access.getTileEntity(x, y, z);
+            if (tile.isOverBloodAsked)
+                return 15;
+        }
+        return 0;
+    }
+
+    @Override
+    public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int p_149727_6_, float p_149727_7_, float p_149727_8_, float p_149727_9_) {
+        if (world.getTileEntity(x, y, z) != null && world.getTileEntity(x, y, z) instanceof TileAltarEmitter && !world.isRemote) {
+            TileAltarEmitter tile = (TileAltarEmitter) world.getTileEntity(x, y, z);
+            if (!player.isSneaking()) {
+                tile.bloodAsked += 100;
+                player.addChatMessage(new ChatComponentText("Blood Required: " + String.valueOf(tile.bloodAsked)));
+                world.notifyBlocksOfNeighborChange(x, y, z, this);
+            } else {
+                tile.bloodAsked -= 100;
+                player.addChatMessage(new ChatComponentText("Blood Required: " + String.valueOf(tile.bloodAsked)));
+                world.notifyBlocksOfNeighborChange(x, y, z, this);
+            }
+        }
+        return true;
+    }
+}
