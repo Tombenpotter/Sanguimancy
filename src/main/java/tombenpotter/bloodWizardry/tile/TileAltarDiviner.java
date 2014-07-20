@@ -163,36 +163,44 @@ public class TileAltarDiviner extends TileEntity implements IInventory {
     @Override
     public void updateEntity() {
         if (!worldObj.isRemote) {
-            if (worldObj.getTileEntity(this.xCoord, this.yCoord + 1, this.zCoord) != null) {
-                TEAltar tile = (TEAltar) worldObj.getTileEntity(this.xCoord, this.yCoord + 1, this.zCoord);
-                if (worldObj.getBlock(this.xCoord, this.yCoord + 1, this.zCoord) instanceof BlockAltar) {
-                    if (tile instanceof TEAltar) {
-                        int tier = tile.getTier();
-                        if (getStackInSlot(0) != null) {
-                            ItemStack stack = getStackInSlot(0);
-                            if (AltarRecipeRegistry.isRequiredItemValid(stack, tier)) {
-                                int containedBlood = tile.getCurrentBlood();
-                                AltarRecipe recipe = AltarRecipeRegistry.getAltarRecipeForItemAndTier(stack, tier);
-                                int bloodRequired = recipe.liquidRequired;
-                                if (bloodRequired * stack.stackSize <= containedBlood) {
-                                    if (tile.getStackInSlot(0) == null) {
-                                        tile.setInventorySlotContents(0, stack);
-                                        setInventorySlotContents(0, null);
-                                        tile.markDirty();
-                                        worldObj.markBlockForUpdate(((TEAltar) tile).xCoord, ((TEAltar) tile).yCoord, ((TEAltar) tile).zCoord);
-                                        worldObj.markBlockForUpdate(this.xCoord, this.yCoord, this.zCoord);
-                                    } else if (tile.getStackInSlot(0).getItem() == stack.getItem() && tile.getStackInSlot(0).stackSize + stack.stackSize <= 64) {
-                                        int s1 = tile.getStackInSlot(0).stackSize;
-                                        tile.getStackInSlot(0).stackSize = s1 + stack.stackSize;
-                                        setInventorySlotContents(0, null);
-                                        worldObj.markBlockForUpdate(((TEAltar) tile).xCoord, ((TEAltar) tile).yCoord, ((TEAltar) tile).zCoord);
-                                        worldObj.markBlockForUpdate(this.xCoord, this.yCoord, this.zCoord);
-                                    }
-                                    worldObj.markBlockForUpdate(this.xCoord, this.yCoord + 1, this.zCoord);
-                                }
-                            }
-                        }
+            if (worldObj.getBlock(xCoord, yCoord + 1, zCoord) != null && worldObj.getTileEntity(xCoord, yCoord + 1, zCoord) != null && worldObj.getBlock(xCoord, yCoord + 1, zCoord) instanceof BlockAltar && worldObj.getTileEntity(xCoord, yCoord + 1, zCoord) instanceof TEAltar) {
+                checkBloodAndMoveItems(xCoord, yCoord + 1, zCoord);
+            } else if (worldObj.getBlock(xCoord, yCoord - 1, zCoord) != null && worldObj.getTileEntity(xCoord, yCoord - 1, zCoord) != null && worldObj.getBlock(xCoord, yCoord - 1, zCoord) instanceof BlockAltar && worldObj.getTileEntity(xCoord, yCoord - 1, zCoord) instanceof TEAltar) {
+                checkBloodAndMoveItems(xCoord, yCoord - 1, zCoord);
+            } else if (worldObj.getBlock(xCoord + 1, yCoord, zCoord) != null && worldObj.getTileEntity(xCoord + 1, yCoord, zCoord) != null && worldObj.getBlock(xCoord + 1, yCoord, zCoord) instanceof BlockAltar && worldObj.getTileEntity(xCoord + 1, yCoord, zCoord) instanceof TEAltar) {
+                checkBloodAndMoveItems(xCoord + 1, yCoord, zCoord);
+            } else if (worldObj.getBlock(xCoord - 1, yCoord, zCoord) != null && worldObj.getTileEntity(xCoord - 1, yCoord, zCoord) != null && worldObj.getBlock(xCoord - 1, yCoord, zCoord) instanceof BlockAltar && worldObj.getTileEntity(xCoord - 1, yCoord, zCoord) instanceof TEAltar) {
+                checkBloodAndMoveItems(xCoord - 1, yCoord, zCoord);
+            } else if (worldObj.getBlock(xCoord, yCoord, zCoord + 1) != null && worldObj.getTileEntity(xCoord, yCoord, zCoord + 1) != null && worldObj.getBlock(xCoord, yCoord, zCoord + 1) instanceof BlockAltar && worldObj.getTileEntity(xCoord, yCoord, zCoord + 1) instanceof TEAltar) {
+                checkBloodAndMoveItems(xCoord, yCoord, zCoord + 1);
+            } else if (worldObj.getBlock(xCoord, yCoord, zCoord - 1) != null && worldObj.getTileEntity(xCoord, yCoord, zCoord - 1) != null && worldObj.getBlock(xCoord, yCoord, zCoord - 1) instanceof BlockAltar && worldObj.getTileEntity(xCoord, yCoord, zCoord - 1) instanceof TEAltar) {
+                checkBloodAndMoveItems(xCoord, yCoord, zCoord - 1);
+            }
+        }
+    }
+
+    public void checkBloodAndMoveItems(int x, int y, int z) {
+        TEAltar tile = (TEAltar) worldObj.getTileEntity(x, y, z);
+        int tier = tile.getTier();
+        if (getStackInSlot(0) != null) {
+            ItemStack stack = getStackInSlot(0);
+            if (AltarRecipeRegistry.isRequiredItemValid(stack, tier)) {
+                int containedBlood = tile.getCurrentBlood();
+                AltarRecipe recipe = AltarRecipeRegistry.getAltarRecipeForItemAndTier(stack, tier);
+                int bloodRequired = recipe.liquidRequired;
+                if (bloodRequired * stack.stackSize <= containedBlood) {
+                    if (tile.getStackInSlot(0) == null) {
+                        tile.setInventorySlotContents(0, stack);
+                        this.setInventorySlotContents(0, null);
+                        worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+                        tile.startCycle();
+                    } else if (tile.getStackInSlot(0).getItem() == stack.getItem() && tile.getStackInSlot(0).stackSize + stack.stackSize <= 64) {
+                        int s1 = tile.getStackInSlot(0).stackSize;
+                        tile.getStackInSlot(0).stackSize = s1 + stack.stackSize;
+                        this.setInventorySlotContents(0, null);
+                        worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
                     }
+                    worldObj.markBlockForUpdate(x, y, z);
                 }
             }
         }
