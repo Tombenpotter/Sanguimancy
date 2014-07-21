@@ -1,9 +1,12 @@
 package tombenpotter.bloodWizardry.blocks;
 
 import WayofTime.alchemicalWizardry.AlchemicalWizardry;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
@@ -11,6 +14,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
+import tombenpotter.bloodWizardry.BloodWizardry;
 import tombenpotter.bloodWizardry.tile.TileAltarDiviner;
 
 import java.util.Random;
@@ -28,6 +32,27 @@ public class BlockAltarDiviner extends BlockContainer {
         return new TileAltarDiviner();
     }
 
+    @SideOnly(Side.CLIENT)
+    @Override
+    public void registerBlockIcons(IIconRegister ir) {
+        this.blockIcon = ir.registerIcon(BloodWizardry.texturePath + ":AltarDiviner");
+    }
+
+    @Override
+    public boolean renderAsNormalBlock() {
+        return false;
+    }
+
+    @Override
+    public int getRenderType() {
+        return -1;
+    }
+
+    @Override
+    public boolean isOpaqueCube() {
+        return false;
+    }
+
     @Override
     public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int p_149727_6_, float p_149727_7_, float p_149727_8_, float p_149727_9_) {
         if (player.getHeldItem() != null) {
@@ -43,6 +68,7 @@ public class BlockAltarDiviner extends BlockContainer {
             ItemStack stack = tile.getStackInSlot(0);
             player.inventory.addItemStackToInventory(stack);
         }
+        world.markBlockForUpdate(x, y, z);
         return true;
     }
 

@@ -32,7 +32,9 @@ public class BloodWizardry {
 
     @Mod.EventHandler
     public void load(FMLInitializationEvent event) {
+        proxy.load();
         RitualRegistry.registerRituals();
+        RecipesRegistry.registerAltarRecipes();
     }
 
     @Mod.EventHandler
