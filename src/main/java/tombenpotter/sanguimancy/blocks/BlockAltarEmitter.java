@@ -1,4 +1,4 @@
-package tombenpotter.bloodWizardry.blocks;
+package tombenpotter.sanguimancy.blocks;
 
 import WayofTime.alchemicalWizardry.AlchemicalWizardry;
 import cpw.mods.fml.relauncher.Side;
@@ -11,8 +11,8 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import tombenpotter.bloodWizardry.BloodWizardry;
-import tombenpotter.bloodWizardry.tile.TileAltarEmitter;
+import tombenpotter.sanguimancy.Sanguimancy;
+import tombenpotter.sanguimancy.tile.TileAltarEmitter;
 
 public class BlockAltarEmitter extends BlockContainer {
 
@@ -25,7 +25,7 @@ public class BlockAltarEmitter extends BlockContainer {
     @SideOnly(Side.CLIENT)
     @Override
     public void registerBlockIcons(IIconRegister ri) {
-        this.blockIcon = ri.registerIcon(BloodWizardry.texturePath + ":AltarEmitter");
+        this.blockIcon = ri.registerIcon(Sanguimancy.texturePath + ":AltarEmitter");
     }
 
     @Override

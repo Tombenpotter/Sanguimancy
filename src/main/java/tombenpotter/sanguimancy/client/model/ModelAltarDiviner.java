@@ -1,4 +1,4 @@
-package tombenpotter.bloodWizardry.client.model;
+package tombenpotter.sanguimancy.client.model;
 
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;

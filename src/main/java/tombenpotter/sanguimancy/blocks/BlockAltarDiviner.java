@@ -1,4 +1,4 @@
-package tombenpotter.bloodWizardry.blocks;
+package tombenpotter.sanguimancy.blocks;
 
 import WayofTime.alchemicalWizardry.AlchemicalWizardry;
 import cpw.mods.fml.relauncher.Side;
@@ -14,8 +14,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
-import tombenpotter.bloodWizardry.BloodWizardry;
-import tombenpotter.bloodWizardry.tile.TileAltarDiviner;
+import tombenpotter.sanguimancy.Sanguimancy;
+import tombenpotter.sanguimancy.tile.TileAltarDiviner;
 
 import java.util.Random;
 
@@ -35,7 +35,7 @@ public class BlockAltarDiviner extends BlockContainer {
     @SideOnly(Side.CLIENT)
     @Override
     public void registerBlockIcons(IIconRegister ir) {
-        this.blockIcon = ir.registerIcon(BloodWizardry.texturePath + ":AltarDiviner");
+        this.blockIcon = ir.registerIcon(Sanguimancy.texturePath + ":AltarDiviner");
     }
 
     @Override

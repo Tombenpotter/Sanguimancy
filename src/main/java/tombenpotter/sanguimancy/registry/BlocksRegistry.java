@@ -1,10 +1,10 @@
-package tombenpotter.bloodWizardry.registry;
+package tombenpotter.sanguimancy.registry;
 
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
-import tombenpotter.bloodWizardry.blocks.BlockAltarEmitter;
-import tombenpotter.bloodWizardry.blocks.BlockAltarDiviner;
+import tombenpotter.sanguimancy.blocks.BlockAltarEmitter;
+import tombenpotter.sanguimancy.blocks.BlockAltarDiviner;
 
 public class BlocksRegistry {
 

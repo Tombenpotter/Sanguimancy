@@ -1,10 +1,10 @@
-package tombenpotter.bloodWizardry.registry;
+package tombenpotter.sanguimancy.registry;
 
 import WayofTime.alchemicalWizardry.api.rituals.Rituals;
-import tombenpotter.bloodWizardry.rituals.RitualEffectDrillOfTheDead;
-import tombenpotter.bloodWizardry.rituals.RitualEffectLighting;
-import tombenpotter.bloodWizardry.rituals.RitualEffectObsidian;
-import tombenpotter.bloodWizardry.rituals.RitualEffectTrash;
+import tombenpotter.sanguimancy.rituals.RitualEffectDrillOfTheDead;
+import tombenpotter.sanguimancy.rituals.RitualEffectLighting;
+import tombenpotter.sanguimancy.rituals.RitualEffectObsidian;
+import tombenpotter.sanguimancy.rituals.RitualEffectTrash;
 
 public class RitualRegistry {
 

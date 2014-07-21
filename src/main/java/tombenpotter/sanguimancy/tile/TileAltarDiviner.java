@@ -1,4 +1,4 @@
-package tombenpotter.bloodWizardry.tile;
+package tombenpotter.sanguimancy.tile;
 
 import WayofTime.alchemicalWizardry.api.altarRecipeRegistry.AltarRecipe;
 import WayofTime.alchemicalWizardry.api.altarRecipeRegistry.AltarRecipeRegistry;

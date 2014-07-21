@@ -1,4 +1,4 @@
-package tombenpotter.bloodWizardry.tile;
+package tombenpotter.sanguimancy.tile;
 
 import WayofTime.alchemicalWizardry.common.block.BlockAltar;
 import WayofTime.alchemicalWizardry.common.tileEntity.TEAltar;

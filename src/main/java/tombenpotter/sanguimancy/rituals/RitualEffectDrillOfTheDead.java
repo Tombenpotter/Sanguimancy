@@ -1,4 +1,4 @@
-package tombenpotter.bloodWizardry.rituals;
+package tombenpotter.sanguimancy.rituals;
 
 import WayofTime.alchemicalWizardry.api.rituals.IMasterRitualStone;
 import WayofTime.alchemicalWizardry.api.rituals.RitualComponent;

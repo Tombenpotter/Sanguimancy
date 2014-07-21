@@ -1,8 +1,8 @@
-package tombenpotter.bloodWizardry.registry;
+package tombenpotter.sanguimancy.registry;
 
 import cpw.mods.fml.common.registry.GameRegistry;
-import tombenpotter.bloodWizardry.tile.TileAltarEmitter;
-import tombenpotter.bloodWizardry.tile.TileAltarDiviner;
+import tombenpotter.sanguimancy.tile.TileAltarEmitter;
+import tombenpotter.sanguimancy.tile.TileAltarDiviner;
 
 public class TERegistry {
 

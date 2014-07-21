@@ -1,4 +1,4 @@
-package tombenpotter.bloodWizardry.registry;
+package tombenpotter.sanguimancy.registry;
 
 import WayofTime.alchemicalWizardry.ModBlocks;
 import WayofTime.alchemicalWizardry.api.altarRecipeRegistry.AltarRecipeRegistry;

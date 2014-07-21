@@ -1,4 +1,4 @@
-package tombenpotter.bloodWizardry.client.render;
+package tombenpotter.sanguimancy.client.render;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.RenderItem;
@@ -11,14 +11,14 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
 import org.lwjgl.opengl.GL11;
-import tombenpotter.bloodWizardry.BloodWizardry;
-import tombenpotter.bloodWizardry.client.model.ModelAltarDiviner;
-import tombenpotter.bloodWizardry.tile.TileAltarDiviner;
+import tombenpotter.sanguimancy.Sanguimancy;
+import tombenpotter.sanguimancy.client.model.ModelAltarDiviner;
+import tombenpotter.sanguimancy.tile.TileAltarDiviner;
 
 public class RenderAltarDiviner extends TileEntitySpecialRenderer {
     public ModelAltarDiviner model = new ModelAltarDiviner();
     private final RenderItem customRenderItem;
-    public ResourceLocation texture = new ResourceLocation(BloodWizardry.texturePath + ":textures/blocks/AltarDiviner.png");
+    public ResourceLocation texture = new ResourceLocation(Sanguimancy.texturePath + ":textures/blocks/AltarDiviner.png");
 
     public RenderAltarDiviner() {
         customRenderItem = new RenderItem() {
