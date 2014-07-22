@@ -55,20 +55,22 @@ public class BlockAltarDiviner extends BlockContainer {
 
     @Override
     public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int p_149727_6_, float p_149727_7_, float p_149727_8_, float p_149727_9_) {
-        if (player.getHeldItem() != null) {
+        TileAltarDiviner tile = (TileAltarDiviner) world.getTileEntity(x, y, z);
+        if (player.getHeldItem() == null && tile.getStackInSlot(0) != null) {
+            ItemStack stack = tile.getStackInSlot(0);
+            tile.setInventorySlotContents(0, null);
+            player.inventory.addItemStackToInventory(stack);
+            world.markBlockForUpdate(x, y, z);
+        } else if (player.getHeldItem() != null && tile.getStackInSlot(0) == null) {
             ItemStack stack = player.getHeldItem().copy();
             stack.stackSize = player.getHeldItem().stackSize;
-            TileAltarDiviner tile = (TileAltarDiviner) world.getTileEntity(x, y, z);
             tile.setInventorySlotContents(0, stack);
-            if (!player.capabilities.isCreativeMode)
+            if (!player.capabilities.isCreativeMode) {
                 for (int i = 0; i <= stack.stackSize; i++)
                     player.inventory.consumeInventoryItem(stack.getItem());
-        } else {
-            TileAltarDiviner tile = (TileAltarDiviner) world.getTileEntity(x, y, z);
-            ItemStack stack = tile.getStackInSlot(0);
-            player.inventory.addItemStackToInventory(stack);
+            }
+            world.markBlockForUpdate(x, y, z);
         }
-        world.markBlockForUpdate(x, y, z);
         return true;
     }
 

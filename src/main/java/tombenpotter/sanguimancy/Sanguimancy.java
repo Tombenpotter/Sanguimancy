@@ -11,7 +11,7 @@ import tombenpotter.sanguimancy.registry.RecipesRegistry;
 import tombenpotter.sanguimancy.registry.RitualRegistry;
 import tombenpotter.sanguimancy.registry.TERegistry;
 
-@Mod(modid = Sanguimancy.modid, name = Sanguimancy.name, version = "0.3.0", dependencies = "required-after:AWWayofTime")
+@Mod(modid = Sanguimancy.modid, name = Sanguimancy.name, version = "0.4.0", dependencies = "required-after:AWWayofTime")
 public class Sanguimancy {
 
     public static final String modid = "Sanguimancy";

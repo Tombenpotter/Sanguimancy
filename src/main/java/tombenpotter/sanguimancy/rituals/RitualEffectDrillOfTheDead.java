@@ -6,6 +6,7 @@ import WayofTime.alchemicalWizardry.api.rituals.RitualEffect;
 import WayofTime.alchemicalWizardry.api.soulNetwork.LifeEssenceNetwork;
 import WayofTime.alchemicalWizardry.common.tileEntity.TEAltar;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.boss.IBossDisplayData;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
@@ -89,11 +90,11 @@ public class RitualEffectDrillOfTheDead extends RitualEffect {
             while (iterator2.hasNext()) {
                 entity = (EntityLivingBase) iterator2.next();
 
-                if (entity instanceof EntityPlayer) {
+                if (entity instanceof EntityPlayer || entity instanceof IBossDisplayData) {
                     continue;
                 }
 
-                entity.attackEntityFrom(DamageSource.causePlayerDamage(entityOwner), entity.getMaxHealth() * 2);
+                entity.attackEntityFrom(DamageSource.outOfWorld, entity.getMaxHealth() * 2);
                 entityCount++;
                 tileAltar.sacrificialDaggerCall(this.amount, true);
             }
@@ -105,7 +106,7 @@ public class RitualEffectDrillOfTheDead extends RitualEffect {
 
     @Override
     public int getCostPerRefresh() {
-        return 20;
+        return 75;
     }
 
     @Override
