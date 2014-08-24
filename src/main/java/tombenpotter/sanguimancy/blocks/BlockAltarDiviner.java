@@ -66,7 +66,7 @@ public class BlockAltarDiviner extends BlockContainer {
             stack.stackSize = player.getHeldItem().stackSize;
             tile.setInventorySlotContents(0, stack);
             if (!player.capabilities.isCreativeMode) {
-                for (int i = 0; i <= stack.stackSize; i++)
+                for (int i = 0; i < stack.stackSize; i++)
                     player.inventory.consumeInventoryItem(stack.getItem());
             }
             world.markBlockForUpdate(x, y, z);

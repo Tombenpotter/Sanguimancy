@@ -56,7 +56,7 @@ public class BlockAltarEmitter extends BlockContainer {
                 tile.bloodAsked += 100;
                 player.addChatMessage(new ChatComponentText("Blood Required: " + String.valueOf(tile.bloodAsked)));
                 world.notifyBlocksOfNeighborChange(x, y, z, this);
-            } else {
+            } else if (tile.bloodAsked >= 100) {
                 tile.bloodAsked -= 100;
                 player.addChatMessage(new ChatComponentText("Blood Required: " + String.valueOf(tile.bloodAsked)));
                 world.notifyBlocksOfNeighborChange(x, y, z, this);

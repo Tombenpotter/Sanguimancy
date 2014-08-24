@@ -4,6 +4,9 @@ import WayofTime.alchemicalWizardry.api.rituals.IMasterRitualStone;
 import WayofTime.alchemicalWizardry.api.rituals.RitualComponent;
 import WayofTime.alchemicalWizardry.api.rituals.RitualEffect;
 import WayofTime.alchemicalWizardry.api.soulNetwork.LifeEssenceNetwork;
+import WayofTime.alchemicalWizardry.common.entity.mob.EntityDemon;
+import WayofTime.alchemicalWizardry.common.entity.mob.EntityElemental;
+import WayofTime.alchemicalWizardry.common.spell.complex.effect.SpellHelper;
 import WayofTime.alchemicalWizardry.common.tileEntity.TEAltar;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.boss.IBossDisplayData;
@@ -36,7 +39,7 @@ public class RitualEffectDrillOfTheDead extends RitualEffect {
         int z = ritualStone.getZCoord();
         TEAltar tileAltar = null;
         boolean testFlag = false;
-        EntityPlayer entityOwner = MinecraftServer.getServer().getConfigurationManager().getPlayerForUsername(owner);
+        EntityPlayer entityOwner = SpellHelper.getPlayerForUsername(owner);
 
         if (data == null) {
             data = new LifeEssenceNetwork(owner);
@@ -64,7 +67,7 @@ public class RitualEffectDrillOfTheDead extends RitualEffect {
 
         int d0 = 10;
         int vertRange = 5;
-        AxisAlignedBB axisalignedbb = AxisAlignedBB.getAABBPool().getAABB((double) x, (double) y, (double) z, (double) (x + 1), (double) (y + 1), (double) (z + 1)).expand(d0, vertRange, d0);
+        AxisAlignedBB axisalignedbb = AxisAlignedBB.getBoundingBox((double) x, (double) y, (double) z, (double) (x + 1), (double) (y + 1), (double) (z + 1)).expand(d0, vertRange, d0);
         List list = world.getEntitiesWithinAABB(EntityLivingBase.class, axisalignedbb);
         Iterator iterator1 = list.iterator();
         EntityLivingBase entity;
@@ -90,7 +93,7 @@ public class RitualEffectDrillOfTheDead extends RitualEffect {
             while (iterator2.hasNext()) {
                 entity = (EntityLivingBase) iterator2.next();
 
-                if (entity instanceof EntityPlayer || entity instanceof IBossDisplayData) {
+                if (entity instanceof EntityPlayer || entity instanceof IBossDisplayData || entity instanceof EntityElemental || entity instanceof EntityDemon) {
                     continue;
                 }
 

@@ -37,7 +37,7 @@ public class RitualEffectTrash extends RitualEffect {
         }
 
         if (currentEssence < this.getCostPerRefresh()) {
-            EntityPlayer entityOwner = MinecraftServer.getServer().getConfigurationManager().getPlayerForUsername(owner);
+            EntityPlayer entityOwner = SpellHelper.getPlayerForUsername(owner);
 
             if (entityOwner == null) {
                 return;

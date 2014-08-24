@@ -39,7 +39,7 @@ public class RitualEffectObsidian extends RitualEffect {
 
         if (world.isAirBlock(x, y + 1, z) && !(block instanceof BlockSpectralContainer)) {
             if (currentEssence < this.getCostPerRefresh()) {
-                EntityPlayer entityOwner = MinecraftServer.getServer().getConfigurationManager().getPlayerForUsername(owner);
+                EntityPlayer entityOwner = SpellHelper.getPlayerForUsername(owner);
 
                 if (entityOwner == null) {
                     return;
