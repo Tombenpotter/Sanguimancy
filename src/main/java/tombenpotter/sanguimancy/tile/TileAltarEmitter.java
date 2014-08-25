@@ -54,8 +54,8 @@ public class TileAltarEmitter extends TileEntity {
                     isOverBloodAsked = false;
                     worldObj.notifyBlocksOfNeighborChange(xCoord, yCoord, zCoord, block);
                 }
-            } else if (worldObj.getBlock(xCoord - 1, yCoord, zCoord - 1) != null && worldObj.getTileEntity(xCoord - 1, yCoord, zCoord - 1) != null && worldObj.getBlock(xCoord - 1, yCoord, zCoord - 1) instanceof BlockAltar && worldObj.getTileEntity(xCoord - 1, yCoord, zCoord - 1) instanceof TEAltar) {
-                TEAltar tile = (TEAltar) worldObj.getTileEntity(xCoord - 1, yCoord, zCoord - 1);
+            } else if (worldObj.getBlock(xCoord - 1, yCoord, zCoord + 1) != null && worldObj.getTileEntity(xCoord - 1, yCoord, zCoord + 1) != null && worldObj.getBlock(xCoord - 1, yCoord, zCoord + 1) instanceof BlockAltar && worldObj.getTileEntity(xCoord - 1, yCoord, zCoord + 1) instanceof TEAltar) {
+                TEAltar tile = (TEAltar) worldObj.getTileEntity(xCoord - 1, yCoord, zCoord + 1);
                 Block block = worldObj.getBlock(xCoord, yCoord, zCoord);
                 int containedBlood = tile.getCurrentBlood();
                 if (containedBlood >= bloodAsked && bloodAsked > 0) {

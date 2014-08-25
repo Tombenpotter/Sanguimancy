@@ -29,7 +29,7 @@ public class BlockAltarEmitter extends BlockContainer {
     }
 
     @Override
-    public TileEntity createNewTileEntity(World var1, int var2) {
+    public TileEntity createNewTileEntity(World world, int var2) {
         return new TileAltarEmitter();
     }
 

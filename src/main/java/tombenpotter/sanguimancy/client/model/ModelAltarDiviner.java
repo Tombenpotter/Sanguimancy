@@ -9,7 +9,6 @@ public class ModelAltarDiviner extends ModelBase {
     ModelRenderer Leg2;
     ModelRenderer Leg3;
     ModelRenderer Leg4;
-    ModelRenderer Plate;
 
     public ModelAltarDiviner() {
         textureWidth = 64;
@@ -39,12 +38,6 @@ public class ModelAltarDiviner extends ModelBase {
         Leg4.setTextureSize(64, 32);
         Leg4.mirror = true;
         setRotation(Leg4, 0F, 0F, 0F);
-        Plate = new ModelRenderer(this, 0, 17);
-        Plate.addBox(0F, 0F, 0F, 16, 1, 16);
-        Plate.setRotationPoint(-8F, 12F, -8F);
-        Plate.setTextureSize(64, 32);
-        Plate.mirror = true;
-        setRotation(Plate, 0F, 0F, 0F);
     }
 
     public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
@@ -54,7 +47,6 @@ public class ModelAltarDiviner extends ModelBase {
         Leg2.render(f5);
         Leg3.render(f5);
         Leg4.render(f5);
-        Plate.render(f5);
     }
 
     private void setRotation(ModelRenderer model, float x, float y, float z) {
@@ -67,4 +59,10 @@ public class ModelAltarDiviner extends ModelBase {
         super.setRotationAngles(f, f1, f2, f3, f4, f5, entity);
     }
 
+    public void renderAll() {
+        this.Leg1.render(0.625F);
+        this.Leg2.render(0.625F);
+        this.Leg3.render(0.625F);
+        this.Leg4.render(0.625F);
+    }
 }
