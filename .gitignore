@@ -13,5 +13,4 @@ asm/*
 *.classpath
 *.project
 /bin
-libs/*
 MCFPost.txt
