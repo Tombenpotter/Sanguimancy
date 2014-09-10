@@ -9,6 +9,7 @@ import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ChatComponentText;
+import net.minecraft.util.StatCollector;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import tombenpotter.sanguimancy.Sanguimancy;
@@ -54,11 +55,11 @@ public class BlockAltarEmitter extends BlockContainer {
             TileAltarEmitter tile = (TileAltarEmitter) world.getTileEntity(x, y, z);
             if (!player.isSneaking()) {
                 tile.bloodAsked += 100;
-                player.addChatMessage(new ChatComponentText("Blood Required: " + String.valueOf(tile.bloodAsked)));
+                player.addChatMessage(new ChatComponentText(StatCollector.translateToLocal("chat.Sanguimancy.blood.required") + ": " + String.valueOf(tile.bloodAsked)));
                 world.notifyBlocksOfNeighborChange(x, y, z, this);
             } else if (tile.bloodAsked >= 100) {
                 tile.bloodAsked -= 100;
-                player.addChatMessage(new ChatComponentText("Blood Required: " + String.valueOf(tile.bloodAsked)));
+                player.addChatMessage(new ChatComponentText(StatCollector.translateToLocal("chat.Sanguimancy.blood.required") + ": " + String.valueOf(tile.bloodAsked)));
                 world.notifyBlocksOfNeighborChange(x, y, z, this);
             }
         }

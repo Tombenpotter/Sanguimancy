@@ -17,8 +17,10 @@ public class Sanguimancy {
     public static final String modid = "Sanguimancy";
     public static final String name = "Sanguimancy";
     public static final String texturePath = "sanguimancy";
+	public static final String clientProxy = "tombenpotter.sanguimancy.proxies.ClientProxy";
+	public static final String commonProxy = "tombenpotter.sanguimancy.proxies.CommonProxy";
 
-    @SidedProxy(clientSide = "tombenpotter.sanguimancy.proxies.ClientProxy", serverSide = "tombenpotter.sanguimancy.proxies.CommonProxy")
+    @SidedProxy(clientSide = clientProxy, serverSide = commonProxy)
     public static CommonProxy proxy;
     @Mod.Instance(Sanguimancy.modid)
     public static Sanguimancy instance;

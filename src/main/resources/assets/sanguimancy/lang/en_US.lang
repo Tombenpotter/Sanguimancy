@@ -1,2 +1,20 @@
-tile.altarDiviner.name=Altar Diviner
-tile.altarEmitter.name=Altar Emitter
+#Blocks
+tile.Sanguimancy.altarDiviner.name=Altar Diviner
+tile.Sanguimancy.altarEmitter.name=Altar Emitter
+
+#Items
+
+#Rituals
+ritual.Sanguimancy.enlightenment=The Enlightenment
+ritual.Sanguimancy.great.deletion=The Great Deletion
+ritual.Sanguimancy.vulcanos.frigius=The Vulcanos Frigius
+ritual.Sanguimancy.drill.dead=Drill of the Dead
+
+#Chat Messages
+chat.Sanguimancy.blood.required=Blood Required
+
+#Tooltips
+info.Sanguimancy.tooltip.shift.info=Press Shift for info
+info.Sanguimancy.tooltip.place.corner.1=Place in the corner of a
+info.Sanguimancy.tooltip.place.corner.2=9x9 platform around the altar
+info.Sanguimancy.tooltip.place.altar=Place adjacent to altar

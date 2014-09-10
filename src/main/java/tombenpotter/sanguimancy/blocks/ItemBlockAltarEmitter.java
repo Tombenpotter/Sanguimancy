@@ -7,6 +7,7 @@ import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.StatCollector;
 
 import java.util.List;
 
@@ -18,10 +19,10 @@ public class ItemBlockAltarEmitter extends ItemBlock {
     @SideOnly(Side.CLIENT)
     public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean p_77624_4_) {
         if (!GuiScreen.isShiftKeyDown())
-            list.add("Press Shift for info");
+            list.add(StatCollector.translateToLocal("info.Sanguimancy.tooltip.shift.info"));
         else {
-            list.add("Place in the corner of a ");
-            list.add("9x9 platform around the altar");
+            list.add(StatCollector.translateToLocal("info.Sanguimancy.tooltip.place.corner.1"));
+            list.add(StatCollector.translateToLocal("info.Sanguimancy.tooltip.place.corner.2"));
         }
     }
 }
