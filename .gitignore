@@ -13,4 +13,5 @@ asm/*
 *.classpath
 *.project
 /bin
+*.db
 MCFPost.txt

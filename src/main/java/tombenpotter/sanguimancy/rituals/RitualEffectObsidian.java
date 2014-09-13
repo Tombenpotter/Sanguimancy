@@ -4,13 +4,12 @@ import WayofTime.alchemicalWizardry.api.rituals.IMasterRitualStone;
 import WayofTime.alchemicalWizardry.api.rituals.RitualComponent;
 import WayofTime.alchemicalWizardry.api.rituals.RitualEffect;
 import WayofTime.alchemicalWizardry.api.soulNetwork.LifeEssenceNetwork;
+import WayofTime.alchemicalWizardry.api.soulNetwork.SoulNetworkHandler;
 import WayofTime.alchemicalWizardry.common.block.BlockSpectralContainer;
 import WayofTime.alchemicalWizardry.common.spell.complex.effect.SpellHelper;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
-import net.minecraft.potion.Potion;
-import net.minecraft.potion.PotionEffect;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.World;
 
@@ -40,12 +39,10 @@ public class RitualEffectObsidian extends RitualEffect {
         if (world.isAirBlock(x, y + 1, z) && !(block instanceof BlockSpectralContainer)) {
             if (currentEssence < this.getCostPerRefresh()) {
                 EntityPlayer entityOwner = SpellHelper.getPlayerForUsername(owner);
-
                 if (entityOwner == null) {
                     return;
                 }
-
-                entityOwner.addPotionEffect(new PotionEffect(Potion.confusion.id, 80));
+                SoulNetworkHandler.causeNauseaToPlayer(owner);
             } else {
                 for (int i = 0; i < 10; i++) {
                     SpellHelper.sendIndexedParticleToAllAround(world, x, y, z, 20, world.provider.dimensionId, 3, x, y, z);

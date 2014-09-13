@@ -1,25 +1,21 @@
 package tombenpotter.sanguimancy.rituals;
 
+import WayofTime.alchemicalWizardry.AlchemicalWizardry;
 import WayofTime.alchemicalWizardry.api.rituals.IMasterRitualStone;
 import WayofTime.alchemicalWizardry.api.rituals.RitualComponent;
 import WayofTime.alchemicalWizardry.api.rituals.RitualEffect;
 import WayofTime.alchemicalWizardry.api.soulNetwork.LifeEssenceNetwork;
-import WayofTime.alchemicalWizardry.common.entity.mob.EntityDemon;
-import WayofTime.alchemicalWizardry.common.entity.mob.EntityElemental;
+import WayofTime.alchemicalWizardry.api.soulNetwork.SoulNetworkHandler;
 import WayofTime.alchemicalWizardry.common.spell.complex.effect.SpellHelper;
 import WayofTime.alchemicalWizardry.common.tileEntity.TEAltar;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.boss.IBossDisplayData;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.potion.Potion;
-import net.minecraft.potion.PotionEffect;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 public class RitualEffectDrillOfTheDead extends RitualEffect {
@@ -66,45 +62,26 @@ public class RitualEffectDrillOfTheDead extends RitualEffect {
         }
 
         int d0 = 10;
-        int vertRange = 5;
+        int vertRange = 10;
         AxisAlignedBB axisalignedbb = AxisAlignedBB.getBoundingBox((double) x, (double) y, (double) z, (double) (x + 1), (double) (y + 1), (double) (z + 1)).expand(d0, vertRange, d0);
-        List list = world.getEntitiesWithinAABB(EntityLivingBase.class, axisalignedbb);
-        Iterator iterator1 = list.iterator();
-        EntityLivingBase entity;
+        List<EntityLivingBase> list = world.getEntitiesWithinAABB(EntityLivingBase.class, axisalignedbb);
         int entityCount = 0;
-        boolean flag = false;
-
-        while (iterator1.hasNext()) {
-            entity = (EntityLivingBase) iterator1.next();
-            entityCount++;
-        }
-
-        if (currentEssence < this.getCostPerRefresh() * entityCount) {
-            if (entityOwner == null) {
-                return;
-            }
-
-            entityOwner.addPotionEffect(new PotionEffect(Potion.confusion.id, 80));
-            entityOwner.addPotionEffect(new PotionEffect(Potion.blindness.id, 80));
+        if (currentEssence < this.getCostPerRefresh() * list.size()) {
+            SoulNetworkHandler.causeNauseaToPlayer(owner);
         } else {
-            Iterator iterator2 = list.iterator();
-            entityCount = 0;
-
-            while (iterator2.hasNext()) {
-                entity = (EntityLivingBase) iterator2.next();
-
-                if (entity instanceof EntityPlayer || entity instanceof IBossDisplayData || entity instanceof EntityElemental || entity instanceof EntityDemon) {
+            for (EntityLivingBase livingEntity : list) {
+                if (livingEntity instanceof EntityPlayer || AlchemicalWizardry.wellBlacklist.contains(livingEntity.getClass())) {
                     continue;
                 }
-
-                entity.attackEntityFrom(DamageSource.outOfWorld, entity.getMaxHealth() * 2);
-                entityCount++;
-                tileAltar.sacrificialDaggerCall(this.amount, true);
+                if (livingEntity.attackEntityFrom(DamageSource.outOfWorld, livingEntity.getMaxHealth() * 2)) {
+                    entityCount++;
+                    tileAltar.sacrificialDaggerCall(this.amount, true);
+                }
             }
-
             data.currentEssence = currentEssence - this.getCostPerRefresh() * entityCount;
             data.markDirty();
         }
+
     }
 
     @Override

@@ -1,2 +1,9 @@
+#Blocks
 tile.altarDiviner.name=Altar Diviner
 tile.altarEmitter.name=Altar Emitter
+tile.sacrificeTransfer.name=Sacrifice Transferrer
+
+#Items
+item.PlayerSacrificer.unattuned.name=Unattuned Player Sacrifice Stone
+item.PlayerSacrificer.attuned.name=Attuned Player Sacrifice Stone
+item.PlayerSacrificer.focused.name=Focused Player Sacrifice Stone

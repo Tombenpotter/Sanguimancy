@@ -1,0 +1,5 @@
+Version 1.1.0-Pre1:
+Added a	 new mechanic, the Player sacrifice. This allows a player to take all the LP from another player's Soul Network, and transfer it to his own. More details will come later.
+
+Version 1.0.0:
+First release of the mod. It includes 4 rituals, and two blocks.
