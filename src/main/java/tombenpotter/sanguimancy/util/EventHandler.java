@@ -48,6 +48,8 @@ public class EventHandler {
 
                         data.currentEssence = 0;
                         data.markDirty();
+                        NBTTagCompound tag = SoulCorruptionHelper.getModTag(player, Sanguimancy.modid);
+                        SoulCorruptionHelper.incrementCorruption(tag);
                     }
                 }
             }
@@ -67,7 +69,9 @@ public class EventHandler {
     @SubscribeEvent
     public void onPlayerTick(TickEvent.PlayerTickEvent event) {
         NBTTagCompound tag = SoulCorruptionHelper.getModTag(event.player, Sanguimancy.modid);
-        if (SoulCorruptionHelper.getCorruptionLevel(tag) >= 15) SoulCorruptionHelper.spawnChickenFollower(event.player);
-        if (SoulCorruptionHelper.getCorruptionLevel(tag) >= 40) SoulCorruptionHelper.randomTeleport(event.player);
+        if (SoulCorruptionHelper.isCorruptionOver(tag, 5)) SoulCorruptionHelper.spawnChickenFollower(event.player);
+        if (SoulCorruptionHelper.isCorruptionOver(tag, 20)) SoulCorruptionHelper.killGrass(event.player);
+        if (SoulCorruptionHelper.isCorruptionOver(tag, 35)) SoulCorruptionHelper.hurtAndHealAnimals(event.player);
+        if (SoulCorruptionHelper.isCorruptionOver(tag, 55)) SoulCorruptionHelper.randomTeleport(event.player);
     }
 }

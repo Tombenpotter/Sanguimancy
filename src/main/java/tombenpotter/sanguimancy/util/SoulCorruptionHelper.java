@@ -1,11 +1,17 @@
 package tombenpotter.sanguimancy.util;
 
 import net.minecraft.entity.effect.EntityLightningBolt;
+import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
+import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.DamageSource;
 import tombenpotter.sanguimancy.entity.EntityChickenMinion;
+
+import java.util.List;
 
 public class SoulCorruptionHelper {
 
@@ -32,6 +38,18 @@ public class SoulCorruptionHelper {
 
     public static int getCorruptionLevel(NBTTagCompound tag) {
         return tag.getInteger(soulCorruptionTag);
+    }
+
+    public static boolean isCorruptionEqual(NBTTagCompound tag, int level) {
+        return (tag.getInteger(soulCorruptionTag) == level);
+    }
+
+    public static boolean isCorruptionOver(NBTTagCompound tag, int level) {
+        return (tag.getInteger(soulCorruptionTag) >= level);
+    }
+
+    public static boolean isCorruptionLower(NBTTagCompound tag, int level) {
+        return (tag.getInteger(soulCorruptionTag) <= level);
     }
 
     public static void negateCorruption(NBTTagCompound tag) {
@@ -98,7 +116,30 @@ public class SoulCorruptionHelper {
             int j = (int) (player.posY + player.worldObj.rand.nextInt(15) - player.worldObj.rand.nextInt(15));
             int k = (int) (player.posZ + player.worldObj.rand.nextInt(15) - player.worldObj.rand.nextInt(15));
             if (j <= 5) j = j + 10;
-            player.setPositionAndUpdate(i, j, k);
+            for (int f = 0; f <= 2; f++) player.setPositionAndUpdate(i, j, k);
+        }
+    }
+
+    public static void killGrass(EntityPlayer player) {
+        if (player.worldObj.rand.nextInt(9) == 0) {
+            int x = (int) player.posX;
+            int y = (int) player.posY - 1;
+            int z = (int) player.posZ;
+            if (player.worldObj.getBlock(x, y, z) == Blocks.grass) player.worldObj.setBlock(x, y, z, Blocks.dirt);
+        }
+    }
+
+    public static void hurtAndHealAnimals(EntityPlayer player) {
+        if (player.worldObj.rand.nextInt(9) == 0) {
+            int range = 4;
+            int rangeY = 4;
+            List<EntityAnimal> entities = player.worldObj.getEntitiesWithinAABB(EntityAnimal.class, AxisAlignedBB.getBoundingBox(player.posX - range, player.posY - rangeY, player.posZ - range, player.posX + range, player.posY + rangeY, player.posZ + range));
+            for (EntityAnimal animal : entities) {
+                if (animal.getClass() != EntityChickenMinion.class) {
+                    animal.attackEntityFrom(DamageSource.causePlayerDamage(player), 1.0F);
+                    animal.heal(1.0F);
+                }
+            }
         }
     }
 }

@@ -28,6 +28,7 @@ import tombenpotter.sanguimancy.Sanguimancy;
 import tombenpotter.sanguimancy.client.particle.EntityColoredFlameFX;
 import tombenpotter.sanguimancy.registry.ItemsRegistry;
 import tombenpotter.sanguimancy.tile.TileSacrificeTransfer;
+import tombenpotter.sanguimancy.util.SoulCorruptionHelper;
 
 import java.util.Random;
 
@@ -86,15 +87,16 @@ public class BlockSacrificeTransfer extends BlockContainer {
                         data = new LifeEssenceNetwork(owner);
                         worldSave.setItemData(owner, data);
                     }
-
                     int currentEssence = data.currentEssence;
-
                     data.currentEssence = currentEssence + stack.stackTagCompound.getInteger("bloodStolen");
                     data.markDirty();
                     player.setFire(1000);
                     player.addPotionEffect(new PotionEffect(Potion.wither.id, 3000, 500));
                     player.addPotionEffect(new PotionEffect(Potion.confusion.id, 1, 500));
                     tile.setInventorySlotContents(0, null);
+                    world.markBlockForUpdate(x, y, z);
+                    NBTTagCompound tag = SoulCorruptionHelper.getModTag(player, Sanguimancy.modid);
+                    SoulCorruptionHelper.addCorruption(tag, 2);
                 } else if (stack.stackTagCompound.getString("ownerName").equals(player.getCommandSenderName())) {
                     String sacrificed = player.getCommandSenderName();
                     World worldSave = MinecraftServer.getServer().worldServers[0];
@@ -103,12 +105,11 @@ public class BlockSacrificeTransfer extends BlockContainer {
                         sacrificedData = new LifeEssenceNetwork(sacrificed);
                         worldSave.setItemData(sacrificed, sacrificedData);
                     }
-
                     int sacrificedEssence = sacrificedData.currentEssence;
-
                     sacrificedData.currentEssence = sacrificedEssence + stack.stackTagCompound.getInteger("bloodStolen");
                     sacrificedData.markDirty();
                     tile.setInventorySlotContents(0, null);
+                    world.markBlockForUpdate(x, y, z);
                 } else {
                     player.addChatComponentMessage(new ChatComponentTranslation(StatCollector.translateToLocal("info.Sanguimancy.tooltip.sacrifice.transfer")));
                     world.spawnEntityInWorld(new EntityLightningBolt(world, x, y, z));
