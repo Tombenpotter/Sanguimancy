@@ -22,18 +22,17 @@ public class RitualEffectTrash extends RitualEffect {
         String owner = ritualStone.getOwner();
         World worldSave = MinecraftServer.getServer().worldServers[0];
         LifeEssenceNetwork data = (LifeEssenceNetwork) worldSave.loadItemData(LifeEssenceNetwork.class, owner);
-        int currentEssence = data.currentEssence;
         World world = ritualStone.getWorld();
         int x = ritualStone.getXCoord();
         int y = ritualStone.getYCoord();
         int z = ritualStone.getZCoord();
         Block block = world.getBlock(x, y - 1, z);
-
-
         if (data == null) {
             data = new LifeEssenceNetwork(owner);
             worldSave.setItemData(owner, data);
         }
+
+        int currentEssence = data.currentEssence;
 
         if (currentEssence < this.getCostPerRefresh()) {
             EntityPlayer entityOwner = SpellHelper.getPlayerForUsername(owner);

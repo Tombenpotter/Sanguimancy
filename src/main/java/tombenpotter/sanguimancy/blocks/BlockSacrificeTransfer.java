@@ -75,19 +75,19 @@ public class BlockSacrificeTransfer extends BlockContainer {
     public void onEntityWalking(World world, int x, int y, int z, Entity entity) {
         if (!world.isRemote) {
             TileSacrificeTransfer tile = (TileSacrificeTransfer) world.getTileEntity(x, y, z);
-            if (entity instanceof EntityPlayer && tile.slots[0] != null && tile.slots[0].getItem().equals(new ItemStack(ItemsRegistry.playerSacrificer, 1, 2))) {
+            if (entity instanceof EntityPlayer && tile.slots[0] != null && tile.slots[0].isItemEqual(new ItemStack(ItemsRegistry.playerSacrificer, 1, 2))) {
                 ItemStack stack = tile.slots[0];
                 EntityPlayer player = (EntityPlayer) entity;
                 if (stack.stackTagCompound.getString("thiefName").equals(player.getCommandSenderName())) {
                     String owner = player.getCommandSenderName();
                     World worldSave = MinecraftServer.getServer().worldServers[0];
                     LifeEssenceNetwork data = (LifeEssenceNetwork) worldSave.loadItemData(LifeEssenceNetwork.class, owner);
-                    int currentEssence = data.currentEssence;
-
                     if (data == null) {
                         data = new LifeEssenceNetwork(owner);
                         worldSave.setItemData(owner, data);
                     }
+
+                    int currentEssence = data.currentEssence;
 
                     data.currentEssence = currentEssence + stack.stackTagCompound.getInteger("bloodStolen");
                     data.markDirty();
@@ -99,12 +99,12 @@ public class BlockSacrificeTransfer extends BlockContainer {
                     String sacrificed = player.getCommandSenderName();
                     World worldSave = MinecraftServer.getServer().worldServers[0];
                     LifeEssenceNetwork sacrificedData = (LifeEssenceNetwork) worldSave.loadItemData(LifeEssenceNetwork.class, sacrificed);
-                    int sacrificedEssence = sacrificedData.currentEssence;
-
                     if (sacrificedData == null) {
                         sacrificedData = new LifeEssenceNetwork(sacrificed);
                         worldSave.setItemData(sacrificed, sacrificedData);
                     }
+
+                    int sacrificedEssence = sacrificedData.currentEssence;
 
                     sacrificedData.currentEssence = sacrificedEssence + stack.stackTagCompound.getInteger("bloodStolen");
                     sacrificedData.markDirty();

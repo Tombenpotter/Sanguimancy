@@ -9,15 +9,19 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.StatCollector;
+import net.minecraft.world.World;
 import tombenpotter.sanguimancy.Sanguimancy;
+import tombenpotter.sanguimancy.util.SoulCorruptionHelper;
 
 import java.util.List;
 
 public class ItemPlayerSacrificer extends Item implements IBindable {
 
-    public IIcon[] icon = new IIcon[3];
+    public IIcon[] icon = new IIcon[5];
 
     public ItemPlayerSacrificer() {
         setCreativeTab(AlchemicalWizardry.tabBloodMagic);
@@ -43,6 +47,14 @@ public class ItemPlayerSacrificer extends Item implements IBindable {
             }
             case 2: {
                 name = "focused";
+                break;
+            }
+            case 3: {
+                name = "soulCorruptionTest";
+                break;
+            }
+            case 4: {
+                name = "soulCorruptionRead";
                 break;
             }
         }
@@ -85,5 +97,22 @@ public class ItemPlayerSacrificer extends Item implements IBindable {
         } else {
             return false;
         }
+    }
+
+    @Override
+    public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player) {
+        if (!world.isRemote) {
+            if (stack.getItemDamage() == 3) {
+                NBTTagCompound tag = SoulCorruptionHelper.getModTag(player, Sanguimancy.modid);
+                if (!player.isSneaking()) {
+                    SoulCorruptionHelper.incrementCorruption(tag);
+                } else SoulCorruptionHelper.negateCorruption(tag);
+            }
+            if (stack.getItemDamage() == 4) {
+                NBTTagCompound tag = SoulCorruptionHelper.getModTag(player, Sanguimancy.modid);
+                player.addChatComponentMessage(new ChatComponentText("Soul Corruption: " + String.valueOf(SoulCorruptionHelper.getCorruptionLevel(tag))));
+            }
+        }
+        return stack;
     }
 }

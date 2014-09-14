@@ -16,10 +16,7 @@ import tombenpotter.sanguimancy.registry.ItemsRegistry;
 
 public class EventHandler {
 
-    public int spawningDelay;
-
     public EventHandler() {
-        spawningDelay = 50;
     }
 
     @SubscribeEvent
@@ -31,13 +28,12 @@ public class EventHandler {
                 String owner = player.getCommandSenderName();
                 World worldSave = MinecraftServer.getServer().worldServers[0];
                 LifeEssenceNetwork data = (LifeEssenceNetwork) worldSave.loadItemData(LifeEssenceNetwork.class, owner);
-                int currentEssence = data.currentEssence;
-
                 if (data == null) {
                     data = new LifeEssenceNetwork(owner);
                     worldSave.setItemData(owner, data);
                 }
 
+                int currentEssence = data.currentEssence;
                 if (event.source.getEntity() != null && event.source.getEntity() instanceof EntityPlayer) {
                     EntityPlayer perpetrator = (EntityPlayer) event.source.getEntity();
                     ItemStack attunedStack = new ItemStack(ItemsRegistry.playerSacrificer, 1, 1);
@@ -71,13 +67,7 @@ public class EventHandler {
     @SubscribeEvent
     public void onPlayerTick(TickEvent.PlayerTickEvent event) {
         NBTTagCompound tag = SoulCorruptionHelper.getModTag(event.player, Sanguimancy.modid);
-        if (SoulCorruptionHelper.getCorruptionLevel(tag) >= 25) {
-            if (spawningDelay <= 0) {
-                SoulCorruptionHelper.spawnChickenFollower(event.player);
-                spawningDelay = 50000;
-            } else {
-                spawningDelay--;
-            }
-        }
+        if (SoulCorruptionHelper.getCorruptionLevel(tag) >= 15) SoulCorruptionHelper.spawnChickenFollower(event.player);
+        if (SoulCorruptionHelper.getCorruptionLevel(tag) >= 40) SoulCorruptionHelper.randomTeleport(event.player);
     }
 }

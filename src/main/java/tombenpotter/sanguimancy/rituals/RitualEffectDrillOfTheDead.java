@@ -1,14 +1,13 @@
 package tombenpotter.sanguimancy.rituals;
 
-import WayofTime.alchemicalWizardry.AlchemicalWizardry;
 import WayofTime.alchemicalWizardry.api.rituals.IMasterRitualStone;
 import WayofTime.alchemicalWizardry.api.rituals.RitualComponent;
 import WayofTime.alchemicalWizardry.api.rituals.RitualEffect;
 import WayofTime.alchemicalWizardry.api.soulNetwork.LifeEssenceNetwork;
 import WayofTime.alchemicalWizardry.api.soulNetwork.SoulNetworkHandler;
-import WayofTime.alchemicalWizardry.common.spell.complex.effect.SpellHelper;
 import WayofTime.alchemicalWizardry.common.tileEntity.TEAltar;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.boss.IBossDisplayData;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.AxisAlignedBB;
@@ -28,19 +27,19 @@ public class RitualEffectDrillOfTheDead extends RitualEffect {
         String owner = ritualStone.getOwner();
         World worldSave = MinecraftServer.getServer().worldServers[0];
         LifeEssenceNetwork data = (LifeEssenceNetwork) worldSave.loadItemData(LifeEssenceNetwork.class, owner);
-        int currentEssence = data.currentEssence;
         World world = ritualStone.getWorld();
         int x = ritualStone.getXCoord();
         int y = ritualStone.getYCoord();
         int z = ritualStone.getZCoord();
         TEAltar tileAltar = null;
         boolean testFlag = false;
-        EntityPlayer entityOwner = SpellHelper.getPlayerForUsername(owner);
 
         if (data == null) {
             data = new LifeEssenceNetwork(owner);
             worldSave.setItemData(owner, data);
         }
+
+        int currentEssence = data.currentEssence;
 
         if (world.getWorldTime() % this.timeDelay != 0) {
             return;
@@ -70,7 +69,7 @@ public class RitualEffectDrillOfTheDead extends RitualEffect {
             SoulNetworkHandler.causeNauseaToPlayer(owner);
         } else {
             for (EntityLivingBase livingEntity : list) {
-                if (livingEntity instanceof EntityPlayer || AlchemicalWizardry.wellBlacklist.contains(livingEntity.getClass())) {
+                if (livingEntity instanceof EntityPlayer || livingEntity instanceof IBossDisplayData) {
                     continue;
                 }
                 if (livingEntity.attackEntityFrom(DamageSource.outOfWorld, livingEntity.getMaxHealth() * 2)) {

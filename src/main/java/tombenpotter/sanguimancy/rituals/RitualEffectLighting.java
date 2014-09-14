@@ -23,17 +23,16 @@ public class RitualEffectLighting extends RitualEffect {
         String owner = ritualStone.getOwner();
         World worldSave = MinecraftServer.getServer().worldServers[0];
         LifeEssenceNetwork data = (LifeEssenceNetwork) worldSave.loadItemData(LifeEssenceNetwork.class, owner);
-        int currentEssence = data.currentEssence;
         World world = ritualStone.getWorld();
         int x = ritualStone.getXCoord();
         int y = ritualStone.getYCoord();
         int z = ritualStone.getZCoord();
-
         if (data == null) {
             data = new LifeEssenceNetwork(owner);
             worldSave.setItemData(owner, data);
         }
 
+        int currentEssence = data.currentEssence;
         Block block = world.getBlock(x, y + 1, z);
 
         if (world.isAirBlock(x, y + 1, z) && !(block instanceof BlockSpectralContainer)) {
