@@ -1,3 +1,6 @@
+Version 1.1.0-Pre2:
+Added a new Soul Corruption mechanic. It doesn't do much at the moment, but it's implemented, and fully working. COME TO ME IDEAS!
+
 Version 1.1.0-Pre1:
 Added a	 new mechanic, the Player sacrifice. This allows a player to take all the LP from another player's Soul Network, and transfer it to his own. More details will come later.
 

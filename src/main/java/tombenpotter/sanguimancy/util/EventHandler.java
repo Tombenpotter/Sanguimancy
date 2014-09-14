@@ -3,16 +3,23 @@ package tombenpotter.sanguimancy.util;
 import WayofTime.alchemicalWizardry.api.soulNetwork.LifeEssenceNetwork;
 import WayofTime.alchemicalWizardry.common.items.EnergyItems;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import cpw.mods.fml.common.gameevent.TickEvent;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.World;
+import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
+import tombenpotter.sanguimancy.Sanguimancy;
 import tombenpotter.sanguimancy.registry.ItemsRegistry;
 
 public class EventHandler {
 
+    public int spawningDelay;
+
     public EventHandler() {
+        spawningDelay = 50;
     }
 
     @SubscribeEvent
@@ -47,6 +54,29 @@ public class EventHandler {
                         data.markDirty();
                     }
                 }
+            }
+        }
+    }
+
+    @SubscribeEvent
+    public void onJoinWorld(EntityJoinWorldEvent event) {
+        if (!event.entity.worldObj.isRemote && event.entity != null && event.entity instanceof EntityPlayer) {
+            EntityPlayer player = (EntityPlayer) event.entity;
+            NBTTagCompound tag = SoulCorruptionHelper.getModTag(player, Sanguimancy.modid);
+            if (SoulCorruptionHelper.getCorruptionLevel(tag) > 0) return;
+            else SoulCorruptionHelper.negateCorruption(tag);
+        }
+    }
+
+    @SubscribeEvent
+    public void onPlayerTick(TickEvent.PlayerTickEvent event) {
+        NBTTagCompound tag = SoulCorruptionHelper.getModTag(event.player, Sanguimancy.modid);
+        if (SoulCorruptionHelper.getCorruptionLevel(tag) >= 25) {
+            if (spawningDelay <= 0) {
+                SoulCorruptionHelper.spawnChickenFollower(event.player);
+                spawningDelay = 50000;
+            } else {
+                spawningDelay--;
             }
         }
     }

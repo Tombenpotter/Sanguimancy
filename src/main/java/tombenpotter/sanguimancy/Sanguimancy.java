@@ -30,6 +30,7 @@ public class Sanguimancy {
         ItemsRegistry.registerItems();
         RecipesRegistry.registerShapedRecipes();
         RecipesRegistry.registerOrbRecipes();
+        EntitiesRegistry.registerEntities();
     }
 
     @Mod.EventHandler
