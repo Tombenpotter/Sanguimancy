@@ -1,9 +1,28 @@
 #Blocks
-tile.altarDiviner.name=Altar Diviner
-tile.altarEmitter.name=Altar Emitter
-tile.sacrificeTransfer.name=Sacrifice Transferrer
+tile.Sanguimancy.altarDiviner.name=Altar Diviner
+tile.Sanguimancy.altarEmitter.name=Altar Emitter
+tile.Sanguimancy.sacrificeTransfer.name=Sacrifice Transferrer
 
 #Items
-item.PlayerSacrificer.unattuned.name=Unattuned Player Sacrifice Stone
-item.PlayerSacrificer.attuned.name=Attuned Player Sacrifice Stone
-item.PlayerSacrificer.focused.name=Focused Player Sacrifice Stone
+item.Sanguimancy.playerSacrificer.unattuned.name=Unattuned Player Sacrifice Stone
+item.Sanguimancy.playerSacrificer.attuned.name=Attuned Player Sacrifice Stone
+item.Sanguimancy.playerSacrificer.focused.name=Focused Player Sacrifice Stone
+
+#Rituals
+ritual.Sanguimancy.enlightenment=The Enlightenment
+ritual.Sanguimancy.great.deletion=The Great Deletion
+ritual.Sanguimancy.vulcanos.frigius=The Vulcanos Frigius
+ritual.Sanguimancy.drill.dead=Drill of the Dead
+
+#Chat Messages
+chat.Sanguimancy.blood.required=Blood Required
+
+#Tooltips
+info.Sanguimancy.tooltip.shift.info=Press Shift for info
+info.Sanguimancy.tooltip.place.corner.1=Place in the corner of a
+info.Sanguimancy.tooltip.place.corner.2=9x9 platform around the altar
+info.Sanguimancy.tooltip.place.altar=Place adjacent to altar
+info.Sanguimancy.tooltip.sacrifice.transfer=Do not have your dirty work done by others!
+info.Sanguimancy.tooltip.sacrifice.player.owner=Blood owner
+info.Sanguimancy.tooltip.sacrifice.player.stolen=LP stolen
+info.Sanguimancy.tooltip.sacrifice.player.thief=Thief name

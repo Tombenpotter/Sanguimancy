@@ -10,6 +10,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
+import net.minecraft.util.StatCollector;
 import tombenpotter.sanguimancy.Sanguimancy;
 
 import java.util.List;
@@ -20,7 +21,7 @@ public class ItemPlayerSacrificer extends Item implements IBindable {
 
     public ItemPlayerSacrificer() {
         setCreativeTab(AlchemicalWizardry.tabBloodMagic);
-        setUnlocalizedName("PlayerSacrificer");
+        setUnlocalizedName(Sanguimancy.modid + ".playerSacrificer");
         setHasSubtypes(true);
     }
 
@@ -71,9 +72,9 @@ public class ItemPlayerSacrificer extends Item implements IBindable {
     @Override
     public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean par4) {
         if (!(stack.stackTagCompound == null) && stack.getItemDamage() == 2) {
-            list.add("Blood owner: " + stack.stackTagCompound.getString("ownerName"));
-            list.add("LP stolen: " + stack.stackTagCompound.getInteger("bloodStolen"));
-            list.add("Thief name: " + stack.stackTagCompound.getString("thiefName"));
+            list.add(StatCollector.translateToLocal("info.Sanguimancy.tooltip.sacrifice.player.owner") + ": " + stack.stackTagCompound.getString("ownerName"));
+            list.add(StatCollector.translateToLocal("info.Sanguimancy.tooltip.sacrifice.player.stolen") + ": " + stack.stackTagCompound.getInteger("bloodStolen"));
+            list.add(StatCollector.translateToLocal("info.Sanguimancy.tooltip.sacrifice.player.thief") + ": " + stack.stackTagCompound.getString("thiefName"));
         }
     }
 

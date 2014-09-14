@@ -21,7 +21,8 @@ import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.ChatComponentText;
+import net.minecraft.util.ChatComponentTranslation;
+import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import tombenpotter.sanguimancy.Sanguimancy;
 import tombenpotter.sanguimancy.client.particle.EntityColoredFlameFX;
@@ -109,7 +110,7 @@ public class BlockSacrificeTransfer extends BlockContainer {
                     sacrificedData.markDirty();
                     tile.setInventorySlotContents(0, null);
                 } else {
-                    player.addChatComponentMessage(new ChatComponentText("Do not have your dirty work done by others!"));
+                    player.addChatComponentMessage(new ChatComponentTranslation(StatCollector.translateToLocal("info.Sanguimancy.tooltip.sacrifice.transfer")));
                     world.spawnEntityInWorld(new EntityLightningBolt(world, x, y, z));
                     player.setFire(100);
                 }
