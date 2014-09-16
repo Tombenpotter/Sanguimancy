@@ -1,32 +1,26 @@
 package tombenpotter.sanguimancy.util;
 
+import cpw.mods.fml.client.registry.ClientRegistry;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
-import net.minecraft.client.Minecraft;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraftforge.client.event.RenderLivingEvent;
-import org.lwjgl.opengl.GL11;
+import cpw.mods.fml.common.gameevent.InputEvent;
+import net.minecraft.client.settings.KeyBinding;
+import org.lwjgl.input.Keyboard;
 import tombenpotter.sanguimancy.Sanguimancy;
+import tombenpotter.sanguimancy.network.PacketHandler;
+import tombenpotter.sanguimancy.network.PacketPlayerSearch;
 
 public class ClientEventHandler {
 
-    @SubscribeEvent
-    public void prePlayerRender(RenderLivingEvent.Pre event) {
-        NBTTagCompound tag = SoulCorruptionHelper.getModTag(Minecraft.getMinecraft().thePlayer, Sanguimancy.modid);
-        if (SoulCorruptionHelper.isCorruptionOver(tag, 15)) {
-            GL11.glPushMatrix();
-            GL11.glDisable(2929);
-            GL11.glColor3f(125, 0, 0);
-            GL11.glPopMatrix();
-        }
+    public static KeyBinding keySearchPlayer = new KeyBinding("key.sanguimancy.search", Keyboard.KEY_F, Sanguimancy.modid);
+
+    public ClientEventHandler() {
+        ClientRegistry.registerKeyBinding(keySearchPlayer);
     }
 
     @SubscribeEvent
-    public void postPlayerRender(RenderLivingEvent.Post event) {
-        NBTTagCompound tag = SoulCorruptionHelper.getModTag(Minecraft.getMinecraft().thePlayer, Sanguimancy.modid);
-        if (SoulCorruptionHelper.isCorruptionOver(tag, 15)) {
-            GL11.glPushMatrix();
-            GL11.glEnable(2929);
-            GL11.glPopMatrix();
+    public void onKeyInput(InputEvent.KeyInputEvent event) {
+        if (keySearchPlayer.isPressed()) {
+            PacketHandler.INSTANCE.sendToServer(new PacketPlayerSearch());
         }
     }
 }

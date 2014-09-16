@@ -14,7 +14,6 @@ import tombenpotter.sanguimancy.entity.EntityChickenMinion;
 @SideOnly(Side.CLIENT)
 public class RenderChickenMinion extends RenderLiving {
     private static final ResourceLocation chickenTextures = new ResourceLocation("textures/entity/chicken.png");
-    private static final String __OBFID = "CL_00000983";
 
     public RenderChickenMinion(ModelBase p_i1252_1_, float p_i1252_2_) {
         super(p_i1252_1_, p_i1252_2_);

@@ -1,3 +1,6 @@
+Version 1.1.0-Pre3:
+Added more effects to the Soul Corruption mechanic, both positive and negative ones.
+
 Version 1.1.0-Pre2:
 Added a new Soul Corruption mechanic. It doesn't do much at the moment, but it's implemented, and fully working. COME TO ME IDEAS!
 

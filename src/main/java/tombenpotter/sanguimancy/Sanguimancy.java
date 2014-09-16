@@ -7,6 +7,7 @@ import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.common.MinecraftForge;
+import tombenpotter.sanguimancy.network.PacketHandler;
 import tombenpotter.sanguimancy.proxies.CommonProxy;
 import tombenpotter.sanguimancy.registry.*;
 import tombenpotter.sanguimancy.util.EventHandler;
@@ -17,8 +18,9 @@ public class Sanguimancy {
     public static final String modid = "Sanguimancy";
     public static final String name = "Sanguimancy";
     public static final String texturePath = "sanguimancy";
-	public static final String clientProxy = "tombenpotter.sanguimancy.proxies.ClientProxy";
-	public static final String commonProxy = "tombenpotter.sanguimancy.proxies.CommonProxy";
+    public static final String clientProxy = "tombenpotter.sanguimancy.proxies.ClientProxy";
+    public static final String commonProxy = "tombenpotter.sanguimancy.proxies.CommonProxy";
+    public static final String channel = "Sanguimancy";
 
     @SidedProxy(clientSide = clientProxy, serverSide = commonProxy)
     public static CommonProxy proxy;
@@ -42,6 +44,7 @@ public class Sanguimancy {
         RecipesRegistry.registerAltarRecipes();
         FMLCommonHandler.instance().bus().register(new EventHandler());
         MinecraftForge.EVENT_BUS.register(new EventHandler());
+        PacketHandler.registerPackets();
     }
 
     @Mod.EventHandler

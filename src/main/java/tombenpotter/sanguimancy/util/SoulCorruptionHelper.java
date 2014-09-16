@@ -1,5 +1,6 @@
 package tombenpotter.sanguimancy.util;
 
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.effect.EntityLightningBolt;
 import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.entity.player.EntityPlayer;
@@ -10,6 +11,7 @@ import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.DamageSource;
 import tombenpotter.sanguimancy.entity.EntityChickenMinion;
+import tombenpotter.sanguimancy.entity.EntityPlayerPointer;
 
 import java.util.List;
 
@@ -142,4 +144,22 @@ public class SoulCorruptionHelper {
             }
         }
     }
+
+    public static void locatePlayersAround(EntityPlayer player) {
+        int range = 32;
+        int rangeY = 32;
+        List<EntityPlayer> entities = player.worldObj.getEntitiesWithinAABB(EntityPlayer.class, AxisAlignedBB.getBoundingBox(player.posX - range, player.posY - rangeY, player.posZ - range, player.posX + range, player.posY + rangeY, player.posZ + range));
+        for (EntityPlayer entity : entities) {
+            int x = (int) entity.posX;
+            int y = (int) entity.posY;
+            int z = (int) entity.posZ;
+            EntityPlayerPointer pointer = new EntityPlayerPointer(player.worldObj);
+            pointer.setPosition(x, y + 1, z);
+            player.worldObj.spawnEntityInWorld(pointer);
+        }
+    }
+
+   public static void addWither(EntityLivingBase livingBase){
+       livingBase.addPotionEffect(new PotionEffect(Potion.wither.id, 100));
+   }
 }

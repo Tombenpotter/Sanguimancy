@@ -4,6 +4,7 @@ import WayofTime.alchemicalWizardry.api.soulNetwork.LifeEssenceNetwork;
 import WayofTime.alchemicalWizardry.common.items.EnergyItems;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.TickEvent;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -11,6 +12,7 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.World;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
+import net.minecraftforge.event.entity.player.AttackEntityEvent;
 import tombenpotter.sanguimancy.Sanguimancy;
 import tombenpotter.sanguimancy.registry.ItemsRegistry;
 
@@ -69,9 +71,18 @@ public class EventHandler {
     @SubscribeEvent
     public void onPlayerTick(TickEvent.PlayerTickEvent event) {
         NBTTagCompound tag = SoulCorruptionHelper.getModTag(event.player, Sanguimancy.modid);
-        if (SoulCorruptionHelper.isCorruptionOver(tag, 5)) SoulCorruptionHelper.spawnChickenFollower(event.player);
-        if (SoulCorruptionHelper.isCorruptionOver(tag, 20)) SoulCorruptionHelper.killGrass(event.player);
-        if (SoulCorruptionHelper.isCorruptionOver(tag, 35)) SoulCorruptionHelper.hurtAndHealAnimals(event.player);
-        if (SoulCorruptionHelper.isCorruptionOver(tag, 55)) SoulCorruptionHelper.randomTeleport(event.player);
+        if (SoulCorruptionHelper.isCorruptionOver(tag, 10)) SoulCorruptionHelper.spawnChickenFollower(event.player);
+        if (SoulCorruptionHelper.isCorruptionOver(tag, 25)) SoulCorruptionHelper.killGrass(event.player);
+        if (SoulCorruptionHelper.isCorruptionOver(tag, 40)) SoulCorruptionHelper.hurtAndHealAnimals(event.player);
+        if (SoulCorruptionHelper.isCorruptionOver(tag, 60)) SoulCorruptionHelper.randomTeleport(event.player);
+    }
+
+    @SubscribeEvent
+    public void onPlayerAttack(AttackEntityEvent event) {
+        if (event.entityPlayer != null && event.target != null && event.target instanceof EntityLivingBase) {
+            NBTTagCompound tag = SoulCorruptionHelper.getModTag(event.entityPlayer, Sanguimancy.modid);
+            EntityLivingBase target = (EntityLivingBase) event.target;
+            if (SoulCorruptionHelper.isCorruptionOver(tag, 30)) SoulCorruptionHelper.addWither(target);
+        }
     }
 }

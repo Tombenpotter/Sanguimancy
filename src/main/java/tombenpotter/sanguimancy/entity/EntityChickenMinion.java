@@ -49,6 +49,7 @@ public class EntityChickenMinion extends EntityTameable {
         this.getEntityAttribute(SharedMonsterAttributes.movementSpeed).setBaseValue(0.35D);
     }
 
+    @Override
     public void onLivingUpdate() {
         super.onLivingUpdate();
         this.field_70888_h = this.field_70886_e;

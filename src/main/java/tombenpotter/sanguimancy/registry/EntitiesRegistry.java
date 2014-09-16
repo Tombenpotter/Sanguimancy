@@ -6,6 +6,7 @@ import net.minecraft.entity.EntityList;
 import net.minecraft.entity.EntityLiving;
 import tombenpotter.sanguimancy.Sanguimancy;
 import tombenpotter.sanguimancy.entity.EntityChickenMinion;
+import tombenpotter.sanguimancy.entity.EntityPlayerPointer;
 
 public class EntitiesRegistry {
 
@@ -14,6 +15,7 @@ public class EntitiesRegistry {
     public static void registerEntities() {
         EntityRegistry.registerModEntity(EntityChickenMinion.class, "EntityChickenMinion", 1, Sanguimancy.instance, 80, 3, true);
         registerEntityEgg(minionChicken, 0x59815, 0xE545);
+        EntityRegistry.registerModEntity(EntityPlayerPointer.class, "EntityPlayerPointer", 2, Sanguimancy.instance, 80, 3, true);
     }
 
     public static void registerEntityEgg(Class<? extends Entity> entity, int colPrim, int colSec) {
