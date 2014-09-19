@@ -1,6 +1,5 @@
 package tombenpotter.sanguimancy.blocks;
 
-import WayofTime.alchemicalWizardry.AlchemicalWizardry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.BlockContainer;
@@ -20,7 +19,7 @@ public class BlockAltarEmitter extends BlockContainer {
     public BlockAltarEmitter(Material material) {
         super(material);
         setHardness(5.0F);
-        setCreativeTab(AlchemicalWizardry.tabBloodMagic);
+        setCreativeTab(Sanguimancy.tabSanguimancy);
     }
 
     @SideOnly(Side.CLIENT)

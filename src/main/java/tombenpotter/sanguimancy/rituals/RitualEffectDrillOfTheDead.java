@@ -1,5 +1,6 @@
 package tombenpotter.sanguimancy.rituals;
 
+import WayofTime.alchemicalWizardry.AlchemicalWizardry;
 import WayofTime.alchemicalWizardry.api.rituals.IMasterRitualStone;
 import WayofTime.alchemicalWizardry.api.rituals.RitualComponent;
 import WayofTime.alchemicalWizardry.api.rituals.RitualEffect;
@@ -21,6 +22,8 @@ public class RitualEffectDrillOfTheDead extends RitualEffect {
 
     public static final int timeDelay = 20;
     public static final int amount = 200;
+
+    //TODO Add some corruption when the ritual is activated. Waiting for API changes ^_^
 
     @Override
     public void performEffect(IMasterRitualStone ritualStone) {
@@ -69,7 +72,7 @@ public class RitualEffectDrillOfTheDead extends RitualEffect {
             SoulNetworkHandler.causeNauseaToPlayer(owner);
         } else {
             for (EntityLivingBase livingEntity : list) {
-                if (livingEntity instanceof EntityPlayer || livingEntity instanceof IBossDisplayData) {
+                if (livingEntity instanceof EntityPlayer || livingEntity instanceof IBossDisplayData || AlchemicalWizardry.wellBlacklist.contains(livingEntity.getClass())) {
                     continue;
                 }
                 if (livingEntity.attackEntityFrom(DamageSource.outOfWorld, livingEntity.getMaxHealth() * 2)) {

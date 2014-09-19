@@ -1,3 +1,7 @@
+Version 1.1.0-Pre4:
+The worst Soul Corruption effect removes a bit of corruption every time it happens. That is to say, a 1/5000 chance.
+Added a new effect, illusion.
+
 Version 1.1.0-Pre3:
 Added more effects to the Soul Corruption mechanic, both positive and negative ones.
 

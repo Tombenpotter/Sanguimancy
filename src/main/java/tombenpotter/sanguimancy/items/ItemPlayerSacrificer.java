@@ -1,6 +1,5 @@
 package tombenpotter.sanguimancy.items;
 
-import WayofTime.alchemicalWizardry.AlchemicalWizardry;
 import WayofTime.alchemicalWizardry.api.items.interfaces.IBindable;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -21,10 +20,10 @@ import java.util.List;
 
 public class ItemPlayerSacrificer extends Item implements IBindable {
 
-    public IIcon[] icon = new IIcon[5];
+    public IIcon[] icon = new IIcon[3];
 
     public ItemPlayerSacrificer() {
-        setCreativeTab(AlchemicalWizardry.tabBloodMagic);
+        setCreativeTab(Sanguimancy.tabSanguimancy);
         setUnlocalizedName(Sanguimancy.modid + ".playerSacrificer");
         setHasSubtypes(true);
     }
@@ -47,14 +46,6 @@ public class ItemPlayerSacrificer extends Item implements IBindable {
             }
             case 2: {
                 name = "focused";
-                break;
-            }
-            case 3: {
-                name = "soulCorruptionTest";
-                break;
-            }
-            case 4: {
-                name = "soulCorruptionRead";
                 break;
             }
         }

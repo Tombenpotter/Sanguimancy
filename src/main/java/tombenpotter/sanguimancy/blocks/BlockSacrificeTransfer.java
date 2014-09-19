@@ -1,6 +1,5 @@
 package tombenpotter.sanguimancy.blocks;
 
-import WayofTime.alchemicalWizardry.AlchemicalWizardry;
 import WayofTime.alchemicalWizardry.api.soulNetwork.LifeEssenceNetwork;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -12,13 +11,9 @@ import net.minecraft.client.particle.EntityFX;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.effect.EntityLightningBolt;
-import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.potion.Potion;
-import net.minecraft.potion.PotionEffect;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ChatComponentTranslation;
@@ -28,6 +23,7 @@ import tombenpotter.sanguimancy.Sanguimancy;
 import tombenpotter.sanguimancy.client.particle.EntityColoredFlameFX;
 import tombenpotter.sanguimancy.registry.ItemsRegistry;
 import tombenpotter.sanguimancy.tile.TileSacrificeTransfer;
+import tombenpotter.sanguimancy.util.RandomUtils;
 import tombenpotter.sanguimancy.util.SoulCorruptionHelper;
 
 import java.util.Random;
@@ -37,7 +33,7 @@ public class BlockSacrificeTransfer extends BlockContainer {
     public BlockSacrificeTransfer(Material material) {
         super(material);
         setHardness(5.0F);
-        setCreativeTab(AlchemicalWizardry.tabBloodMagic);
+        setCreativeTab(Sanguimancy.tabSanguimancy);
     }
 
     @SideOnly(Side.CLIENT)
@@ -49,6 +45,14 @@ public class BlockSacrificeTransfer extends BlockContainer {
     @Override
     public TileEntity createNewTileEntity(World p_149915_1_, int p_149915_2_) {
         return new TileSacrificeTransfer();
+    }
+
+
+    @Override
+    public void breakBlock(World world, int x, int y, int z, Block par5, int par6) {
+        RandomUtils.dropItems(world, x, y, z);
+        world.removeTileEntity(x, y, z);
+        super.breakBlock(world, x, y, z, par5, par6);
     }
 
     @Override
@@ -91,8 +95,6 @@ public class BlockSacrificeTransfer extends BlockContainer {
                     data.currentEssence = currentEssence + stack.stackTagCompound.getInteger("bloodStolen");
                     data.markDirty();
                     player.setFire(1000);
-                    player.addPotionEffect(new PotionEffect(Potion.wither.id, 3000, 500));
-                    player.addPotionEffect(new PotionEffect(Potion.confusion.id, 1, 500));
                     tile.setInventorySlotContents(0, null);
                     world.markBlockForUpdate(x, y, z);
                     NBTTagCompound tag = SoulCorruptionHelper.getModTag(player, Sanguimancy.modid);
@@ -135,46 +137,6 @@ public class BlockSacrificeTransfer extends BlockContainer {
                 Minecraft.getMinecraft().effectRenderer.addEffect(earth);
                 EntityFX darkness = new EntityColoredFlameFX(world, x + 0.5, y + i, z + 0.5, 0, -0.2, 0, 0, 0, 0);
                 Minecraft.getMinecraft().effectRenderer.addEffect(darkness);
-            }
-        }
-    }
-
-    @Override
-    public void breakBlock(World world, int x, int y, int z, Block par5, int par6) {
-        dropItems(world, x, y, z);
-        world.removeTileEntity(x, y, z);
-        super.breakBlock(world, x, y, z, par5, par6);
-    }
-
-    private void dropItems(World world, int x, int y, int z) {
-        Random rand = new Random();
-
-        TileEntity tileEntity = world.getTileEntity(x, y, z);
-        if (!(tileEntity instanceof IInventory)) {
-            return;
-        }
-        IInventory inventory = (IInventory) tileEntity;
-
-        for (int i = 0; i < inventory.getSizeInventory(); i++) {
-            ItemStack item = inventory.getStackInSlot(i);
-
-            if (item != null && item.stackSize > 0) {
-                float rx = rand.nextFloat() * 0.8F + 0.1F;
-                float ry = rand.nextFloat() * 0.8F + 0.1F;
-                float rz = rand.nextFloat() * 0.8F + 0.1F;
-
-                EntityItem entityItem = new EntityItem(world, x + rx, y + ry, z + rz, new ItemStack(item.getItem(), item.stackSize, item.getItemDamage()));
-
-                if (item.hasTagCompound()) {
-                    entityItem.getEntityItem().setTagCompound((NBTTagCompound) item.getTagCompound().copy());
-                }
-
-                float factor = 0.05F;
-                entityItem.motionX = rand.nextGaussian() * factor;
-                entityItem.motionY = rand.nextGaussian() * factor + 0.2F;
-                entityItem.motionZ = rand.nextGaussian() * factor;
-                world.spawnEntityInWorld(entityItem);
-                item.stackSize = 0;
             }
         }
     }

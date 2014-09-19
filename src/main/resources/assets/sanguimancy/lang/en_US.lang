@@ -2,11 +2,34 @@
 tile.Sanguimancy.altarDiviner.name=Altar Diviner
 tile.Sanguimancy.altarEmitter.name=Altar Emitter
 tile.Sanguimancy.sacrificeTransfer.name=Sacrifice Transferrer
+tile.Sanguimancy.illusion.diamond.ore.name=Diamond Ore
+tile.Sanguimancy.illusion.diamond.block.name=Diamond Block
+tile.Sanguimancy.illusion.glowstone.name=Glowstone
+tile.Sanguimancy.illusion.netherrack.name=Netherrack
+tile.Sanguimancy.illusion.quartz.ore.name=Nether Quartz Ore
+tile.Sanguimancy.illusion.end.stone.name=End Stone
+tile.Sanguimancy.illusion.wool.pink.name=Pink Wool
+tile.Sanguimancy.illusion.lava.flow.name=Lava
+tile.Sanguimancy.illusion.pumpkin.on.name=Jack O'Lantern
+tile.Sanguimancy.illusion.bedrock.name=Bedrock
+tile.Sanguimancy.illusion.obsidian.name=Obsidian
+tile.Sanguimancy.illusion.glass.name=Glass
+tile.Sanguimancy.illusion.snow.name=Snow
+tile.Sanguimancy.illusion.melon.name=Melon
+tile.Sanguimancy.illusion.gold.block.name=Gold Block
+tile.Sanguimancy.illusion.clay.name=Clay
 
 #Items
 item.Sanguimancy.playerSacrificer.unattuned.name=Unattuned Player Sacrifice Stone
 item.Sanguimancy.playerSacrificer.attuned.name=Attuned Player Sacrifice Stone
 item.Sanguimancy.playerSacrificer.focused.name=Focused Player Sacrifice Stone
+item.Sanguimancy.soulCorruption.add.name=Add Soul Corruption
+item.Sanguimancy.soulCorruption.remove.name=Remove Soul Corruption
+item.Sanguimancy.soulCorruption.negate.name=Negate Soul Corruption
+item.Sanguimancy.soulCorruption.reader.name=Read Corruption Level
+
+#Creative Tab
+itemGroup.tabSanguimancy=Sanguimancy
 
 #Rituals
 ritual.Sanguimancy.enlightenment=The Enlightenment
@@ -16,6 +39,7 @@ ritual.Sanguimancy.drill.dead=Drill of the Dead
 
 #Chat Messages
 chat.Sanguimancy.blood.required=Blood Required
+chat.Sanguimancy.soul.corruption=Soul Corruption
 
 #Tooltips
 info.Sanguimancy.tooltip.shift.info=Press Shift for info
@@ -26,3 +50,4 @@ info.Sanguimancy.tooltip.sacrifice.transfer=Do not have your dirty work done by 
 info.Sanguimancy.tooltip.sacrifice.player.owner=Blood owner
 info.Sanguimancy.tooltip.sacrifice.player.stolen=LP stolen
 info.Sanguimancy.tooltip.sacrifice.player.thief=Thief name
+info.Sanguimancy.tooltip.creative.only=Creative Only

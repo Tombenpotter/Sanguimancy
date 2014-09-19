@@ -11,6 +11,7 @@ public class BlocksRegistry {
     public static Block altarDiviner;
     public static Block altarEmitter;
     public static Block sacrificeTransfer;
+    public static Block illusion;
 
     public static void registerBlocks() {
         altarDiviner = new BlockAltarDiviner(Material.iron);
@@ -21,5 +22,8 @@ public class BlocksRegistry {
 
         sacrificeTransfer = new BlockSacrificeTransfer(Material.iron);
         GameRegistry.registerBlock(sacrificeTransfer, "BlockSacrificeTransfer").setBlockName(Sanguimancy.modid + ".sacrificeTransfer");
+
+        illusion = new BlockIllusion(Material.iron);
+        GameRegistry.registerBlock(illusion, ItemBlockIllusion.class, "BlockIllusion").setBlockName(Sanguimancy.modid + ".illusion").setLightLevel(1.5F);
     }
 }
