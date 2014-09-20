@@ -1,3 +1,6 @@
+Version 1.10:
+Added the textures for the Soul Corruption stuff. Also added a utils class, so that I can easily access itemstacks.
+
 Version 1.1.0-Pre4:
 The worst Soul Corruption effect removes a bit of corruption every time it happens. That is to say, a 1/5000 chance.
 Added a new effect, illusion.

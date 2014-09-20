@@ -1,7 +1,7 @@
 #Blocks
 tile.Sanguimancy.altarDiviner.name=Altar Diviner
 tile.Sanguimancy.altarEmitter.name=Altar Emitter
-tile.Sanguimancy.sacrificeTransfer.name=Sacrifice Transferrer
+tile.Sanguimancy.sacrificeTransfer.name=Soul Transferrer
 tile.Sanguimancy.illusion.diamond.ore.name=Diamond Ore
 tile.Sanguimancy.illusion.diamond.block.name=Diamond Block
 tile.Sanguimancy.illusion.glowstone.name=Glowstone
@@ -20,13 +20,13 @@ tile.Sanguimancy.illusion.gold.block.name=Gold Block
 tile.Sanguimancy.illusion.clay.name=Clay
 
 #Items
-item.Sanguimancy.playerSacrificer.unattuned.name=Unattuned Player Sacrifice Stone
-item.Sanguimancy.playerSacrificer.attuned.name=Attuned Player Sacrifice Stone
-item.Sanguimancy.playerSacrificer.focused.name=Focused Player Sacrifice Stone
+item.Sanguimancy.playerSacrificer.unattuned.name=Unattuned Player Sacrificing Stone
+item.Sanguimancy.playerSacrificer.attuned.name=Attuned Player Sacrificing Stone
+item.Sanguimancy.playerSacrificer.focused.name=Focused Player Sacrificing Stone
 item.Sanguimancy.soulCorruption.add.name=Add Soul Corruption
 item.Sanguimancy.soulCorruption.remove.name=Remove Soul Corruption
 item.Sanguimancy.soulCorruption.negate.name=Negate Soul Corruption
-item.Sanguimancy.soulCorruption.reader.name=Read Corruption Level
+item.Sanguimancy.soulCorruption.reader.name=Soul Corruption Reader
 
 #Creative Tab
 itemGroup.tabSanguimancy=Sanguimancy
@@ -51,3 +51,4 @@ info.Sanguimancy.tooltip.sacrifice.player.owner=Blood owner
 info.Sanguimancy.tooltip.sacrifice.player.stolen=LP stolen
 info.Sanguimancy.tooltip.sacrifice.player.thief=Thief name
 info.Sanguimancy.tooltip.creative.only=Creative Only
+info.Sanguimancy.tooltip.illusion=The block is a lie.

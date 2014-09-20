@@ -61,7 +61,7 @@ public class Sanguimancy {
         FMLCommonHandler.instance().bus().register(new EventHandler());
         MinecraftForge.EVENT_BUS.register(new EventHandler());
         PacketHandler.registerPackets();
-        RitualRegistry.addToWoSBlacklist();
+        // RitualRegistry.addToWoSBlacklist();
     }
 
     @Mod.EventHandler

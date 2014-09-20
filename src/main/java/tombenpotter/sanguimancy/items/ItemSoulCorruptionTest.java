@@ -57,6 +57,10 @@ public class ItemSoulCorruptionTest extends Item {
 
     @SideOnly(Side.CLIENT)
     public void registerIcons(IIconRegister ri) {
+        this.icon[0] = ri.registerIcon(Sanguimancy.texturePath + ":AddSoulCorruption");
+        this.icon[1] = ri.registerIcon(Sanguimancy.texturePath + ":RemoveSoulCorruption");
+        this.icon[2] = ri.registerIcon(Sanguimancy.texturePath + ":NegateSoulCorruption");
+        this.icon[3] = ri.registerIcon(Sanguimancy.texturePath + ":SoulCorruptionReader");
     }
 
     @SideOnly(Side.CLIENT)
