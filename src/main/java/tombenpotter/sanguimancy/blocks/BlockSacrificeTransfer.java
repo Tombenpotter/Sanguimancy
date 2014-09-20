@@ -65,7 +65,7 @@ public class BlockSacrificeTransfer extends BlockContainer {
             world.markBlockForUpdate(x, y, z);
         } else if (player.getHeldItem() != null && tile.getStackInSlot(0) == null) {
             ItemStack stack = player.getHeldItem().copy();
-            stack.stackSize = player.getHeldItem().stackSize;
+            stack.stackSize = 1;
             tile.setInventorySlotContents(0, stack);
             if (!player.capabilities.isCreativeMode) {
                 for (int i = 0; i < stack.stackSize; i++)

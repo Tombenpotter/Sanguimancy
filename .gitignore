@@ -15,3 +15,4 @@ asm/*
 /bin
 *.db
 MCFPost.txt
+*/*.curse.gradle

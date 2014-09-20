@@ -1,0 +1,43 @@
+apply plugin: 'forge'
+
+minecraft {
+    version = '1.7.10-10.13.0.1208'
+    runDir = '../run/'
+}
+
+/*
+ * Set the version number depending on the environment
+ * if BUILD_NUMBER is in the environment
+ *      {minecraft}-version.BUILD_NUMBER
+ * Else use
+ *      {minecraft}-version 
+ */
+ 
+if (System.getenv("BUILD_NUMBER") != null) {
+    version = "${minecraft.version}-$version." + System.getenv("BUILD_NUMBER");
+    project.actualVersion += "." + System.getenv("BUILD_NUMBER");
+} else {
+    version = "${minecraft.version}-$version"
+}
+
+dependencies {
+compile fileTree(dir: 'libs', include: '*.jar')
+}
+
+//Default stuff for the Forge plugin from the src pakage
+processResources {
+    // replace stuff in text files, not binary ones.
+    from(sourceSets.main.resources.srcDirs) {
+        include '**/*.lang'
+        include '**/*.info'
+
+        expand 'version': project.version, 'mcversion': project.minecraft.version
+        // replace version and MCVersion
+    }
+
+    // copy everything else, that's not text
+    from(sourceSets.main.resources.srcDirs) {
+        exclude '**/*.lang'
+        exclude '**/*.info'
+    }
+}

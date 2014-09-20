@@ -56,7 +56,7 @@ public class ItemBlockIllusion extends ItemBlock {
                 break;
             }
             case 8: {
-                name = "pumpkin.on";
+                name = "nether.brick";
                 break;
             }
             case 9: {

@@ -36,7 +36,7 @@ public class BlockIllusion extends BlockContainer {
         this.icon[5] = ir.registerIcon("end_stone");
         this.icon[6] = ir.registerIcon("wool_colored_pink");
         this.icon[7] = ir.registerIcon("lava_flow");
-        this.icon[8] = ir.registerIcon("pumpkin_face_on");
+        this.icon[8] = ir.registerIcon("nether_brick");
         this.icon[9] = ir.registerIcon("bedrock");
         this.icon[10] = ir.registerIcon("obsidian");
         this.icon[11] = ir.registerIcon("glass");
@@ -64,5 +64,15 @@ public class BlockIllusion extends BlockContainer {
     @Override
     public int damageDropped(int meta) {
         return meta;
+    }
+
+    @Override
+    public boolean renderAsNormalBlock() {
+        return false;
+    }
+
+    @Override
+    public boolean isOpaqueCube() {
+        return false;
     }
 }

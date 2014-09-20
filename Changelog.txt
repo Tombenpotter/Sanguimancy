@@ -1,4 +1,10 @@
-Version 1.10:
+Version 1.1.1:
+Fixed issues with the rendering of the Illusion Blocks.
+Fixed putting in a stack of Sacrificing Stones when right clicking the Sacrifice Transferrer. Only 1 gets placed now.
+Added a new check to the SoulCorruptionHelper.
+Added a dev jar, already deobfuscated
+
+Version 1.1.0:
 Added the textures for the Soul Corruption stuff. Also added a utils class, so that I can easily access itemstacks.
 
 Version 1.1.0-Pre4:

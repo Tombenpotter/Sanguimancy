@@ -69,19 +69,19 @@ public class SoulCorruptionHelper {
         tag.setInteger(soulCorruptionTag, initialAmount + amount);
     }
 
-    public static void incrementCorruption(NBTTagCompound tag) {
-        int initialAmount = getCorruptionLevel(tag);
-        tag.setInteger(soulCorruptionTag, initialAmount + 1);
-    }
-
-    public static void decrementCorruption(NBTTagCompound tag) {
-        int initialAmount = getCorruptionLevel(tag);
-        tag.setInteger(soulCorruptionTag, initialAmount - 1);
-    }
-
     public static void removeCorruption(NBTTagCompound tag, int amount) {
         int initialAmount = getCorruptionLevel(tag);
         tag.setInteger(soulCorruptionTag, initialAmount - amount);
+    }
+
+    public static void incrementCorruption(NBTTagCompound tag) {
+        int amount = getCorruptionLevel(tag);
+        tag.setInteger(soulCorruptionTag, amount + 1);
+    }
+
+    public static void decrementCorruption(NBTTagCompound tag) {
+        int amount = getCorruptionLevel(tag);
+        if (!(amount >= 0)) tag.setInteger(soulCorruptionTag, amount - 1);
     }
 
     public static void spawnChickenFollower(EntityPlayer player) {
@@ -121,7 +121,7 @@ public class SoulCorruptionHelper {
             int j = (int) (player.posY + player.worldObj.rand.nextInt(16) - player.worldObj.rand.nextInt(16));
             int k = (int) (player.posZ + player.worldObj.rand.nextInt(16) - player.worldObj.rand.nextInt(16));
             if (j <= 5) j = j + 10;
-            for (int f = 0; f <= 2; f++) player.setPositionAndUpdate(i, j, k);
+            player.setPositionAndUpdate(i, j, k);
             decrementCorruption(tag);
         }
     }
@@ -172,7 +172,7 @@ public class SoulCorruptionHelper {
         int j = (int) (player.posY + player.worldObj.rand.nextInt(16) - player.worldObj.rand.nextInt(16));
         int k = (int) (player.posZ + player.worldObj.rand.nextInt(16) - player.worldObj.rand.nextInt(16));
         if (j <= 0) j = j + 5;
-        if (player.worldObj.rand.nextInt(500) == 0) {
+        if (player.worldObj.rand.nextInt(500) == 0 && player.worldObj.isAirBlock(i, j, k)) {
             player.worldObj.setBlock(i, j, k, BlocksRegistry.illusion, player.worldObj.rand.nextInt(16), 3);
         }
     }
