@@ -5,6 +5,9 @@ import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import tombenpotter.sanguimancy.Sanguimancy;
 import tombenpotter.sanguimancy.blocks.*;
+import tombenpotter.sanguimancy.blocks.items.ItemBlockAltarDiviner;
+import tombenpotter.sanguimancy.blocks.items.ItemBlockAltarEmitter;
+import tombenpotter.sanguimancy.blocks.items.ItemBlockIllusion;
 
 public class BlocksRegistry {
 

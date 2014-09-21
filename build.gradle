@@ -8,7 +8,7 @@ buildscript {
         maven {
             name = "sonatype"
             url = "https://oss.sonatype.org/content/repositories/snapshots/"
-        }        
+        }
         /**
          * Any extra BUILDSCRIPT maven repositories go here.
          */
@@ -24,9 +24,18 @@ buildscript {
 }
 
 group = "" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
-version = "1.1.1"
+version = "1.1.2"
 archivesBaseName = "Sanguimancy"
 
 fileTree('gradle').include('*.gradle').collect().sort().each { apply from: it }
 
-build.dependsOn curse
+def console = System.console()
+if (console) {
+    sendToCurse = console.readLine("> Do you want to send the file to curseforge? ")
+    if (sendToCurse.equals("yes")) {
+        build.dependsOn curse
+        console.printf("Sending the file to curseforge.")
+    } else {
+        console.printf("Not sending the file to curseforge")
+    }
+}

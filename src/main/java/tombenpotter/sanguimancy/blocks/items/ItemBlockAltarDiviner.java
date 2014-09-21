@@ -1,4 +1,4 @@
-package tombenpotter.sanguimancy.blocks;
+package tombenpotter.sanguimancy.blocks.items;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
