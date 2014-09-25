@@ -15,7 +15,7 @@ import tombenpotter.sanguimancy.proxies.CommonProxy;
 import tombenpotter.sanguimancy.registry.*;
 import tombenpotter.sanguimancy.util.EventHandler;
 
-@Mod(modid = Sanguimancy.modid, name = Sanguimancy.name, version = "1.1.2", dependencies = "required-after:AWWayofTime")
+@Mod(modid = Sanguimancy.modid, name = Sanguimancy.name, version = "1.1.3", dependencies = "required-after:AWWayofTime")
 public class Sanguimancy {
 
     public static final String modid = "Sanguimancy";

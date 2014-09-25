@@ -4,7 +4,7 @@ import net.minecraft.item.ItemStack;
 import tombenpotter.sanguimancy.registry.BlocksRegistry;
 import tombenpotter.sanguimancy.registry.ItemsRegistry;
 
-public class SanguimancyItemStacks {
+public class SanguimancyItemstacks {
 
     // Items
     public static ItemStack unattunedPlayerSacrificer = new ItemStack(ItemsRegistry.playerSacrificer, 1, 0);

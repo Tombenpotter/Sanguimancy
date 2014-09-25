@@ -4,10 +4,7 @@ import WayofTime.alchemicalWizardry.AlchemicalWizardry;
 import WayofTime.alchemicalWizardry.api.rituals.Rituals;
 import tombenpotter.sanguimancy.entity.EntityChickenMinion;
 import tombenpotter.sanguimancy.entity.EntityPlayerPointer;
-import tombenpotter.sanguimancy.rituals.RitualEffectDrillOfTheDead;
-import tombenpotter.sanguimancy.rituals.RitualEffectLighting;
-import tombenpotter.sanguimancy.rituals.RitualEffectObsidian;
-import tombenpotter.sanguimancy.rituals.RitualEffectTrash;
+import tombenpotter.sanguimancy.rituals.*;
 
 public class RitualRegistry {
 
@@ -16,6 +13,7 @@ public class RitualRegistry {
         Rituals.registerRitual("vulcanosFrigiusRitual", 1, 250, new RitualEffectObsidian(), "The Vulcanos Frigius");
         Rituals.registerRitual("trashRitual", 1, 50, new RitualEffectTrash(), "The Great Deletion");
         Rituals.registerRitual("illuminationRitual", 1, 300, new RitualEffectLighting(), "The Enlightement");
+        Rituals.registerRitual("fellingRitual", 1, 500, new RitualEffectFelling(), "The Timberman");
     }
 
     public static void addToWoSBlacklist() {

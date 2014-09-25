@@ -1,6 +1,7 @@
 package tombenpotter.sanguimancy.util;
 
 import net.minecraft.entity.item.EntityItem;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -43,4 +44,25 @@ public class RandomUtils {
             }
         }
     }
+
+    public static boolean doesInventoryContain(EntityPlayer player, ItemStack stack) {
+        return player.inventory.hasItemStack(stack);
+    }
+
+    public static ItemStack getItemInPlayerInv(EntityPlayer player, ItemStack stack) {
+        int i;
+        for (i = 0; i < player.inventory.armorInventory.length; ++i) {
+            if (player.inventory.armorInventory[i] != null && player.inventory.armorInventory[i].isItemEqual(stack)) {
+                return player.inventory.armorInventory[i];
+            }
+        }
+        for (i = 0; i < player.inventory.mainInventory.length; ++i) {
+            if (player.inventory.mainInventory[i] != null && player.inventory.mainInventory[i].isItemEqual(stack)) {
+                return player.inventory.mainInventory[i];
+            }
+        }
+        return null;
+    }
+
+
 }
