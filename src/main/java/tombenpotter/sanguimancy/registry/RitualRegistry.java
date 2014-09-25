@@ -13,7 +13,7 @@ public class RitualRegistry {
         Rituals.registerRitual("vulcanosFrigiusRitual", 1, 250, new RitualEffectObsidian(), "The Vulcanos Frigius");
         Rituals.registerRitual("trashRitual", 1, 50, new RitualEffectTrash(), "The Great Deletion");
         Rituals.registerRitual("illuminationRitual", 1, 300, new RitualEffectLighting(), "The Enlightement");
-        Rituals.registerRitual("fellingRitual", 1, 500, new RitualEffectFelling(), "The Timberman");
+        Rituals.registerRitual("fellingRitual", 1, 500, new RitualEffectTreeFelling(), "The Timberman");
     }
 
     public static void addToWoSBlacklist() {

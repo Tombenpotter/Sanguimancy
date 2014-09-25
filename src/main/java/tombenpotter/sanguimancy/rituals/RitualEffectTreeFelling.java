@@ -7,16 +7,17 @@ import WayofTime.alchemicalWizardry.api.rituals.RitualEffect;
 import WayofTime.alchemicalWizardry.api.soulNetwork.LifeEssenceNetwork;
 import WayofTime.alchemicalWizardry.api.soulNetwork.SoulNetworkHandler;
 import WayofTime.alchemicalWizardry.common.spell.complex.effect.SpellHelper;
+import WayofTime.alchemicalWizardry.common.tileEntity.TEMasterStone;
 import net.minecraft.block.Block;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
-import tombenpotter.sanguimancy.util.TreeFinder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,9 +25,23 @@ import java.util.List;
 public class RitualEffectTreeFelling extends RitualEffect {
 
     public static final int crystallosDrain = 10;
-    public int X;
-    public int Y;
-    public int Z;
+
+    public void findNearbyLogs(World world, int x, int y, int z) {
+        TEMasterStone masterStone = (TEMasterStone) world.getTileEntity(x, y, z);
+        for (int i = x - 4; i <= x + 4; i++) {
+            for (int j = y - 9; j <= y; j++) {
+                for (int k = z - 4; k <= z + 4; k++) {
+                    if (world.getBlock(i, j, k).isWood(world, i, j, k) || world.getBlock(i, j, k).isLeaves(world, i, j, k)) {
+                        NBTTagCompound tag = masterStone.getCustomRitualTag();
+                        tag.setInteger("logX", i);
+                        tag.setInteger("logY", j);
+                        tag.setInteger("logZ", k);
+                        break;
+                    }
+                }
+            }
+        }
+    }
 
     @Override
     public boolean startRitual(IMasterRitualStone ritualStone, EntityPlayer player) {
@@ -34,19 +49,7 @@ public class RitualEffectTreeFelling extends RitualEffect {
         int x = ritualStone.getXCoord();
         int y = ritualStone.getYCoord();
         int z = ritualStone.getZCoord();
-
-        for (int i = x - 1; i <= x + 1; i++) {
-            for (int j = y - 3; j <= y; j++) {
-                for (int k = z - 1; k <= z + 1; k++) {
-                    if (world.getBlock(i, j, k).isWood(world, i, j, k)) {
-                        X = i;
-                        Y = j;
-                        Z = k;
-                        System.out.println("I found a log");
-                    }
-                }
-            }
-        }
+        findNearbyLogs(world, x, y, z);
         return true;
     }
 
@@ -99,13 +102,16 @@ public class RitualEffectTreeFelling extends RitualEffect {
             for (int i = 0; i < 6; i++) {
                 SpellHelper.sendIndexedParticleToAllAround(world, x, y, z, 20, world.provider.dimensionId, 3, x, y, z);
             }
-            TreeFinder treeFinder = new TreeFinder();
-            int i = 0;
+            TEMasterStone masterStone = (TEMasterStone) world.getTileEntity(x, y, z);
+            NBTTagCompound tag = masterStone.getCustomRitualTag();
+            int X = tag.getInteger("logX");
+            int Y = tag.getInteger("logY");
+            int Z = tag.getInteger("logZ");
+
             for (ForgeDirection dir : ForgeDirection.VALID_DIRECTIONS) {
-                if (treeFinder.isAdjacentBlockLog(world, X, Y, Y)[i] || treeFinder.isAdjacentBlockLeaves(world, X, Y, Z)[i]) {
+                if (world.getBlock(X + dir.offsetX, Y + dir.offsetY, Z + dir.offsetZ).isWood(world, X + dir.offsetX, Y + dir.offsetY, Z + dir.offsetZ) || world.getBlock(X + dir.offsetX, Y + dir.offsetY, Z + dir.offsetZ).isLeaves(world, X + dir.offsetX, Y + dir.offsetY, Z + dir.offsetZ)) {
                     Block block = world.getBlock(X + dir.offsetX, Y + dir.offsetY, Z + dir.offsetZ);
                     int meta = world.getBlockMetadata(X + dir.offsetX, Y + dir.offsetY, Z + dir.offsetZ);
-
                     if (isSilkTouch && block.canSilkHarvest(world, null, X + dir.offsetX, Y + dir.offsetY, Z + dir.offsetZ, meta)) {
                         ItemStack item = new ItemStack(block, 1, meta);
                         ItemStack copyStack = item.copyItemStack(item);
@@ -116,18 +122,30 @@ public class RitualEffectTreeFelling extends RitualEffect {
                         if (hasCrystallos) {
                             this.canDrainReagent(ritualStone, ReagentRegistry.crystallosReagent, crystallosDrain, true);
                         }
+                    } else {
+                        ArrayList<ItemStack> itemDropList = block.getDrops(world, X + dir.offsetX, Y + dir.offsetY, Z + dir.offsetZ, meta, 0);
+                        if (itemDropList != null) {
+                            for (ItemStack item : itemDropList) {
+                                ItemStack copyStack = item.copyItemStack(item);
+                                SpellHelper.insertStackIntoInventory(copyStack, tileEntity);
+                                if (copyStack.stackSize > 0) {
+                                    world.spawnEntityInWorld(new EntityItem(world, x + 0.4, y + 2, z + 0.5, copyStack));
+                                }
+                            }
+                        }
                     }
                     world.setBlockToAir(X + dir.offsetX, Y + dir.offsetY, Z + dir.offsetZ);
                     data.currentEssence = currentEssence - this.getCostPerRefresh();
                     data.markDirty();
+                    tag.setInteger("logX", X + dir.offsetX);
+                    tag.setInteger("logY", Y + dir.offsetY);
+                    tag.setInteger("logZ", Z + dir.offsetZ);
                     return;
+
                 }
-                X = X + dir.offsetX;
-                Y = Y + dir.offsetY;
-                Z = Z + dir.offsetZ;
-                i = i + 1;
             }
         }
+        findNearbyLogs(world, x, y, z);
     }
 
     @Override

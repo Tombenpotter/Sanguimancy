@@ -88,6 +88,17 @@ public class RitualEffectFelling extends RitualEffect {
                                 if (hasCrystallos) {
                                     this.canDrainReagent(ritualStone, ReagentRegistry.crystallosReagent, crystallosDrain, true);
                                 }
+                            } else {
+                                ArrayList<ItemStack> itemDropList = block.getDrops(world, x + i, y + j, z + k, meta, 0);
+                                if (itemDropList != null) {
+                                    for (ItemStack item : itemDropList) {
+                                        ItemStack copyStack = item.copyItemStack(item);
+                                        SpellHelper.insertStackIntoInventory(copyStack, tileEntity);
+                                        if (copyStack.stackSize > 0) {
+                                            world.spawnEntityInWorld(new EntityItem(world, x + 0.4, y + 2, z + 0.5, copyStack));
+                                        }
+                                    }
+                                }
                             }
                             world.setBlockToAir(x + i, y + j, z + k);
                             data.currentEssence = currentEssence - this.getCostPerRefresh();
