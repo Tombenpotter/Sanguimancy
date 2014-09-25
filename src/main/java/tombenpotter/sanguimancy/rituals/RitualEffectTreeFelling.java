@@ -28,11 +28,11 @@ public class RitualEffectTreeFelling extends RitualEffect {
 
     public void findNearbyLogs(World world, int x, int y, int z) {
         TEMasterStone masterStone = (TEMasterStone) world.getTileEntity(x, y, z);
-        for (int i = x - 4; i <= x + 4; i++) {
-            for (int j = y - 9; j <= y; j++) {
-                for (int k = z - 4; k <= z + 4; k++) {
+        NBTTagCompound tag = masterStone.getCustomRitualTag();
+        for (int i = tag.getInteger("logX") - 4; i <= tag.getInteger("logX") + 4; i++) {
+            for (int j = tag.getInteger("logY") - 9; j <= tag.getInteger("logY"); j++) {
+                for (int k = tag.getInteger("logZ") - 4; k <= tag.getInteger("logZ") + 4; k++) {
                     if (world.getBlock(i, j, k).isWood(world, i, j, k) || world.getBlock(i, j, k).isLeaves(world, i, j, k)) {
-                        NBTTagCompound tag = masterStone.getCustomRitualTag();
                         tag.setInteger("logX", i);
                         tag.setInteger("logY", j);
                         tag.setInteger("logZ", k);
@@ -49,6 +49,11 @@ public class RitualEffectTreeFelling extends RitualEffect {
         int x = ritualStone.getXCoord();
         int y = ritualStone.getYCoord();
         int z = ritualStone.getZCoord();
+        TEMasterStone masterStone = (TEMasterStone) world.getTileEntity(x, y, z);
+        NBTTagCompound tag = masterStone.getCustomRitualTag();
+        tag.setInteger("logX", x);
+        tag.setInteger("logY", y);
+        tag.setInteger("logZ", z);
         findNearbyLogs(world, x, y, z);
         return true;
     }
@@ -141,7 +146,10 @@ public class RitualEffectTreeFelling extends RitualEffect {
                     tag.setInteger("logY", Y + dir.offsetY);
                     tag.setInteger("logZ", Z + dir.offsetZ);
                     return;
-
+                } else {
+                    tag.setInteger("logX", x);
+                    tag.setInteger("logY", y);
+                    tag.setInteger("logZ", z);
                 }
             }
         }
