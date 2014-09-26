@@ -10,10 +10,13 @@ import WayofTime.alchemicalWizardry.common.tileEntity.TEAltar;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.boss.IBossDisplayData;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
+import tombenpotter.sanguimancy.Sanguimancy;
+import tombenpotter.sanguimancy.util.SoulCorruptionHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +26,12 @@ public class RitualEffectDrillOfTheDead extends RitualEffect {
     public static final int timeDelay = 20;
     public static final int amount = 200;
 
-    //TODO Add some corruption when the ritual is activated. Waiting for API changes ^_^
+    @Override
+    public boolean startRitual(IMasterRitualStone ritualStone, EntityPlayer player) {
+        NBTTagCompound tag = SoulCorruptionHelper.getModTag(player, Sanguimancy.modid);
+        SoulCorruptionHelper.incrementCorruption(tag);
+        return true;
+    }
 
     @Override
     public void performEffect(IMasterRitualStone ritualStone) {

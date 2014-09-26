@@ -25,7 +25,6 @@ public class EventHandler {
     public void onLivingDeath(LivingDeathEvent event) {
         if (event.entity != null && !event.entity.worldObj.isRemote) {
             if (event.entity instanceof EntityPlayer) {
-
                 EntityPlayer player = (EntityPlayer) event.entity;
                 String owner = player.getCommandSenderName();
                 World worldSave = MinecraftServer.getServer().worldServers[0];
