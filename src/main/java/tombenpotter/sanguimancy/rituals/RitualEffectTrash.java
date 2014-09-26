@@ -6,7 +6,6 @@ import WayofTime.alchemicalWizardry.api.rituals.RitualEffect;
 import WayofTime.alchemicalWizardry.api.soulNetwork.LifeEssenceNetwork;
 import WayofTime.alchemicalWizardry.api.soulNetwork.SoulNetworkHandler;
 import WayofTime.alchemicalWizardry.common.spell.complex.effect.SpellHelper;
-import net.minecraft.block.Block;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.server.MinecraftServer;
@@ -26,7 +25,6 @@ public class RitualEffectTrash extends RitualEffect {
         int x = ritualStone.getXCoord();
         int y = ritualStone.getYCoord();
         int z = ritualStone.getZCoord();
-        Block block = world.getBlock(x, y - 1, z);
         if (data == null) {
             data = new LifeEssenceNetwork(owner);
             worldSave.setItemData(owner, data);

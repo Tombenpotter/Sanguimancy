@@ -1,3 +1,8 @@
+Version 1.1.3:
+Added a new ritual, the Timberman. It obviously cuts trees >.>.
+Updated to the new Blood Magic Beta, and made it so that activating the Drill of the Dead added some Soul Corruption.
+Added a new ritual, the Filler. It places blocks in a 5x1x5 area around the master ritual stone.
+
 Version 1.1.2:
 Some refractoring for the itemblocks.
 Removal of test code in the Player Sacrificer, that IS important. Update as soon as possible.

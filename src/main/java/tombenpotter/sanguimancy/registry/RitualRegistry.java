@@ -14,6 +14,7 @@ public class RitualRegistry {
         Rituals.registerRitual("trashRitual", 1, 50, new RitualEffectTrash(), "The Great Deletion");
         Rituals.registerRitual("illuminationRitual", 1, 300, new RitualEffectLighting(), "The Enlightement");
         Rituals.registerRitual("fellingRitual", 1, 500, new RitualEffectFelling(), "The Timberman");
+        Rituals.registerRitual("placerRitual", 1, 500, new RitualEffectPlacer(), "The Filler");
     }
 
     public static void addToWoSBlacklist() {
