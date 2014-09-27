@@ -1,3 +1,7 @@
+Version 1.1.4:
+Shipping the BloodUtils api.
+Added entries to BloodUtils' ingame manual, the Blood Tome.
+
 Version 1.1.3:
 Added a new ritual, the Timberman. It obviously cuts trees >.>.
 Updated to the new Blood Magic Beta, and made it so that activating the Drill of the Dead added some Soul Corruption.
