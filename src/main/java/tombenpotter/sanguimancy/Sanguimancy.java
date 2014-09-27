@@ -1,6 +1,7 @@
 package tombenpotter.sanguimancy;
 
 import cpw.mods.fml.common.FMLCommonHandler;
+import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
@@ -13,9 +14,10 @@ import net.minecraftforge.common.MinecraftForge;
 import tombenpotter.sanguimancy.network.PacketHandler;
 import tombenpotter.sanguimancy.proxies.CommonProxy;
 import tombenpotter.sanguimancy.registry.*;
+import tombenpotter.sanguimancy.util.BUCompat;
 import tombenpotter.sanguimancy.util.EventHandler;
 
-@Mod(modid = Sanguimancy.modid, name = Sanguimancy.name, version = "1.1.3", dependencies = "required-after:AWWayofTime")
+@Mod(modid = Sanguimancy.modid, name = Sanguimancy.name, version = "1.1.3", dependencies = "required-after:AWWayofTime ; after:BloodUtils")
 public class Sanguimancy {
 
     public static final String modid = "Sanguimancy";
@@ -66,5 +68,9 @@ public class Sanguimancy {
 
     @Mod.EventHandler
     public void postInit(FMLPostInitializationEvent event) {
+        if (Loader.isModLoaded("BloodUtils")) {
+            BUCompat.createCategories();
+            BUCompat.createEntries();
+        }
     }
 }

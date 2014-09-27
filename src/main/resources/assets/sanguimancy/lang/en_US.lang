@@ -54,3 +54,30 @@ info.Sanguimancy.tooltip.sacrifice.player.stolen=LP stolen
 info.Sanguimancy.tooltip.sacrifice.player.thief=Thief name
 info.Sanguimancy.tooltip.creative.only=Creative Only
 info.Sanguimancy.tooltip.illusion=The block is a lie.
+
+#BU Tome Entries
+bu.entry.corruptionReader.1=The Reader allows you to keep an eye on your §4Soul Corruption §r.
+bu.entry.sacrificingStones.1=This item is the base of a mechanic in Sanguimancy, LP transfer.
+bu.entry.sacrificingStones.3=Mages do not like unattuned items. This is what you’ll really need for the mechanic mentioned before.
+bu.entry.sacrificingStones.5=Once you’ve ruthlessly sacrificed a player, you get this.
+bu.entry.soulTransferrer.1=The Soul Transferrer is the block the allows you to actually transfer the stolen LP to yourself.
+bu.entry.altarEmitter.1=The Altar Emitter is the answer to the first stage of automating the Blood Altar. This block can be set to check the Blood Altar for a given amount of life essence.
+bu.entry.altarEmitter.2=It emits a redstone signal when said amount is reached or passed. Said amount can be modified by right-clicking (+100), or shift right-clicking (-100).
+bu.entry.altarDiviner.1=The Altar Diviner is the second stage of Blood Altar automation. It is a GUI-less machine with a single internal slot. Items are placed in it via right-clicking.
+bu.entry.altarDiviner.2=An empty hand must be used to empty it. What makes this block so special is the fact that its integral content will be transferred to the Blood Altar only if it contains enough life essence. It can move up to a stack of items at a time. To work correctly, this block needs to be placed directly adjacent to the Blood Altar.
+bu.entry.drillOfTheDead.1=The Drill of the Dead is, to put it simply, a Well of Suffering on steroids. Where the Well deals half a heart of damage to any mob in the area, the Drill of the Dead kills said mobs instantly. Each kill costs 75LP and gives 200LP per default. However, the Drill of the Dead has limitations. As it is such a powerful tool, it cannot kill Boss Mobs, Elementals and Demons.
+bu.entry.drillOfTheDead.2=Activating this ritual will cause your §4 Soul Corruption §r to augment.
+bu.entry.vulcanosFrigius.1=The Vulcanos Frigius is a cooled down Serenade of the Nether. With no actual lava involved, this ritual creates 4 pieces of Obsidian, at the cost of 250LP per piece. Obisidan will keep resupplying as long as the ritual is active.
+bu.entry.greatDeletion.1=The Great Deletion allows you to trash unwanted items, simply by throwing them in the vicinity of the Ritual Stone. Be careful with it though! There is no way to get said items back!
+bu.entry.enlightenment.1=The Enlightenment is a ritual that lights up an entire area around the Ritual Stone. It has a very low cost of 1LP per tick, but will keep checking around itself to make sure no area is left unlit.
+bu.entry.timberman.1=The timberman is a ritual that, as its name suggests cuts trees in a wide area. It can handle almost any tree, given that it’s not going to the world limit.
+bu.entry.filler.1=The Filler is a ritual that will place any block from an inventory above the master ritual stone. It can come in handy for tree farms or such contraptions.
+
+bu.entryName.corruption=The Magic of Sacrifices
+bu.entry.sacrificeMagic.1=§l The Magic of Sacrifices: A how-to guide by Tombenpotter. Chapter 1: Nasty Little Thieves, they stole our Precious! — Smeagol §r Greetings Blood Magickers! If you have come here to find some fluffy orb talk or some bland sacrificial knife pictures, you’re at the wrong place! We will delve into something much darker and extremely forbidden: Human Sacrifice. Tremble, Mortal! … You’re still here? Alright,
+bu.entry.sacrificeMagic.2=let’s continue. Below is a guide on how to steal the entire contents of a Player’s Soul Network. First of all, you will need to get an Unattuned Player Sacrificing Stone, and then imbue it with blood in a Tier 5 Blood Altar to create an Attuned Player Sacrificing Stone. With this item in your inventory, any player you kill will see his entire Soul Network drained to nothing, stored within the Focused
+bu.entry.sacrificeMagic.3=Sacrificing Stone you now carry. This is a one-time use item that can’t be recovered if lost or destroyed, so make sure to keep it safe. Once the dirty deed is done, you will have to craft a Soul Transferrer. You simply need to place it into the world and right-click on it with the Focused Sacrificing Stone to insert it. When it happens, simply walk over the block, and poof, there it is. The LP has been
+bu.entry.sacrificeMagic.4=added to your own. I would not recommend having the sacrifice being made by someone else than you, as the consequences would be… most unpleasant.  After all, your hands were dirtied by the death of the player, you should see the process through to completion.
+bu.entry.sacrificeMagic.5=§l Chapter 2: “I have pushed the boundaries of magic further, perhaps, than they have ever been pushed" — Tom Marvolo Riddle §r However, doing this is not harmless. Obviously, one player died. But eh, you killed it, so you don’t care. No, I actually mean what has happened to YOU. Doing such a dark ritual and a dark magic has corrupted you. Not your scrawny little human body, but your very being,
+bu.entry.sacrificeMagic.6=your Soul. You didn’t think Dark Magic was free of cost did you? Oh, you did? Too bad. Back to the topic. Soul Corruption, what is it? Soul Corruption is the consequence of going neck deep into Dark Magic. It isn’t harmful in the least at low concentration, but it becomes more and more dangerous as it rises. Now, I am not going to explain in detail every single effect Soul Corruption has... after all, I’d rather not spoil all of your fun...
+bu.entry.sacrificeMagic.7=Soul Corruption is accumulated through very dark rituals, such as the one seen above. Not to worry, a way to monitor the Corruption of your Soul exists. It is the Soul Corruption Reader, a darker version of the Divination Sigil. For people feeling very… §oCreative§r, some tools are available to raise, lower or negate the Corruption.
