@@ -30,11 +30,11 @@ public class GuiCategories extends GuiScreen{
 		y = (this.height/2) - (gheight/2);
 		this.buttonList.clear();
 		
-		int pX = x + 3;
-		int pY = y + 15;
+		int pX = x - 1;
+		int pY = y + 12;
 		
-		int iWidth = 16;
-		int iHeight = 16;
+		int iWidth = 20;
+		int iHeight = 20;
 		for(int i = 0; i < EntryRegistry.categories.size(); i++){
 			Category category = EntryRegistry.categories.get(i);
 			this.categories[i] = new ElementCategory(category, pX, pY + (i*iHeight) - 2, iWidth, iHeight, this.player);

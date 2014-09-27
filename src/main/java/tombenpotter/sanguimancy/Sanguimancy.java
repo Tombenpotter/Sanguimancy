@@ -17,7 +17,7 @@ import tombenpotter.sanguimancy.registry.*;
 import tombenpotter.sanguimancy.util.BUCompat;
 import tombenpotter.sanguimancy.util.EventHandler;
 
-@Mod(modid = Sanguimancy.modid, name = Sanguimancy.name, version = "1.1.4", dependencies = "required-after:AWWayofTime ; after:BloodUtils")
+@Mod(modid = Sanguimancy.modid, name = Sanguimancy.name, version = "1.1.5", dependencies = "required-after:AWWayofTime ; after:BloodUtils")
 public class Sanguimancy {
 
     public static final String modid = "Sanguimancy";
@@ -28,7 +28,6 @@ public class Sanguimancy {
     public static final String channel = "Sanguimancy";
 
     public static CreativeTabs tabSanguimancy = new CreativeTabs("tab" + Sanguimancy.modid) {
-
         @Override
         public ItemStack getIconItemStack() {
             return new ItemStack(ItemsRegistry.playerSacrificer, 1, 0);

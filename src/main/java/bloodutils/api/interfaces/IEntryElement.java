@@ -1,7 +1,7 @@
 package bloodutils.api.interfaces;
 
 /** 
- * Copied from WaslieCore, to make it undependend on it. (https://github.com/wasliebob/WaslieCore/blob/master/src/main/java/wasliecore/interfaces/IElement.java)
+ * Copied from WaslieCore, to make it no longer require it in the API. (https://github.com/wasliebob/WaslieCore/blob/master/src/main/java/wasliecore/interfaces/IElement.java)
  */
 public interface IEntryElement{
 	/**

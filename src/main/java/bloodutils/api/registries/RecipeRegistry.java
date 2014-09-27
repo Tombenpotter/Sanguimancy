@@ -2,6 +2,7 @@ package bloodutils.api.registries;
 
 import java.util.ArrayList;
 
+import joshie.alchemicalWizardy.ShapedBloodOrbRecipe;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.item.crafting.IRecipe;
@@ -34,6 +35,10 @@ public static ArrayList<AltarRecipe> altarRecipes = new ArrayList<AltarRecipe>()
 	
 	public static void addShapedRecipe(ItemStack output, Object[] obj){
 		GameRegistry.addShapedRecipe(output, obj);
+	}
+	
+	public static void addShapedOrbRecipe(ItemStack output, Object[] obj){
+		GameRegistry.addRecipe(new ShapedBloodOrbRecipe(output, obj));
 	}
 	
 	public static void addShapedOreRecipe(ItemStack output, Object[] obj){

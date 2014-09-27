@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 
+import joshie.alchemicalWizardy.ShapedBloodOrbRecipe;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.renderer.RenderHelper;
@@ -13,14 +14,14 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.ShapedRecipes;
-import net.minecraft.item.crafting.ShapelessRecipes;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 
-import WayofTime.alchemicalWizardry.api.items.ShapedBloodOrbRecipe;
+import WayofTime.alchemicalWizardry.ModItems;
+import WayofTime.alchemicalWizardry.api.items.interfaces.IBloodOrb;
 import bloodutils.api.classes.guide.GuiEntry;
 
 public class EntryCraftingRecipe implements IEntry{
@@ -63,7 +64,9 @@ public class EntryCraftingRecipe implements IEntry{
 				ItemStack s = null;
 				if(rec.getInput()[i] instanceof ItemStack){
 					s = (ItemStack)rec.getInput()[i];
-				}else{		
+				}else if(rec.getInput()[i] instanceof Object){
+					s = new ItemStack(ModItems.masterBloodOrb);
+				}else{
 					s = ((ArrayList<ItemStack>)rec.getInput()[i]).get(0);
 				}
 				this.recipe[i] = s;
@@ -90,7 +93,7 @@ public class EntryCraftingRecipe implements IEntry{
 		y = (height/2 - 18) + (18*0);
 		drawIcon(0, x, y);
 		
-		x = left + width / 2 - (65-48);
+		x = left + width / 2 - (65-48) + 1;
 		y = (height/2 - 18) + (18*(3-3));
 		drawIcon(1, x, y);
 		
@@ -103,7 +106,7 @@ public class EntryCraftingRecipe implements IEntry{
 		y = (height/2 - 18) + (18*1);
 		drawIcon(3, x, y);
 		
-		x = left + width / 2 - (65-48);
+		x = left + width / 2 - (65-48) + 1;
 		y = (height/2 - 18) + (18*(4-3));
 		drawIcon(4, x, y);
 		
@@ -116,7 +119,7 @@ public class EntryCraftingRecipe implements IEntry{
 		y = (height/2 - 18) + (18*2);
 		drawIcon(6, x, y);
 
-		x = left + width / 2 - (65-48);
+		x = left + width / 2 - (65-48) + 1;
 		y = (height/2 - 18) + (18*(5-3));
 		drawIcon(7, x, y);
 		

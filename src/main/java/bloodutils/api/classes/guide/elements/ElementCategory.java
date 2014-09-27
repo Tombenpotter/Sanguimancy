@@ -35,7 +35,7 @@ public class ElementCategory extends GuiScreen implements IEntryElement{
 		Minecraft.getMinecraft().getTextureManager().bindTexture(new ResourceLocation("bloodutils:textures/misc/tab.png"));
 		GuiHelper.drawIconWithoutColor(x - 1, y - 1, width + 2 , height + 2, 0);
 		
-		GuiHelper.renderIcon(x, y, width, height, icon, this.category.type);		
+		GuiHelper.renderIcon(x + 3, y + 2, 16, 16, icon, this.category.type);		
 	}
 	
 	@Override
