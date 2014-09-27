@@ -32,10 +32,12 @@ item.Sanguimancy.soulCorruption.reader.name=Soul Corruption Reader
 itemGroup.tabSanguimancy=Sanguimancy
 
 #Rituals
-ritual.Sanguimancy.enlightenment=The Enlightenment
-ritual.Sanguimancy.great.deletion=The Great Deletion
-ritual.Sanguimancy.vulcanos.frigius=The Vulcanos Frigius
 ritual.Sanguimancy.drill.dead=Drill of the Dead
+ritual.Sanguimancy.vulcanos.frigius=The Vulcanos Frigius
+ritual.Sanguimancy.trash=The Great Deletion
+ritual.Sanguimancy.illumination=The Enlightenment
+ritual.Sanguimancy.feller=The Timberman
+ritual.Sanguimancy.placer=The Filler
 
 #Chat Messages
 chat.Sanguimancy.blood.required=Blood Required
