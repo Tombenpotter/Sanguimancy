@@ -49,6 +49,32 @@ public class GuiHelper {
  
 		GL11.glPopMatrix();
     }
+    
+    public static void drawScaledIconWithoutColor(int x, int y, int width, int height, float zLevel){
+		GL11.glPushMatrix();
+		GL11.glEnable(GL11.GL_BLEND);
+		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+		GL11.glColor4f(1F, 1F, 1F, 1F);
+		GL11.glScaled(0.13D, 0.13D, 0.13D);
+		GL11.glTranslated(x + 900, y + 250, 0);
+		RenderHelper.enableGUIStandardItemLighting();
+		GL11.glEnable(GL12.GL_RESCALE_NORMAL);
+		GL11.glEnable(GL11.GL_DEPTH_TEST);
+		
+    	Tessellator t = Tessellator.instance;
+	    t.startDrawingQuads();
+	    t.addVertexWithUV(x + 0, y + height, zLevel, 0D, 1D);
+	    t.addVertexWithUV(x + width, y + height, zLevel, 1D, 1D);
+	    t.addVertexWithUV(x + width, y + 0, zLevel, 1D, 0D);
+	    t.addVertexWithUV(x + 0, y + 0, zLevel, 0D, 0D);
+	    t.draw();
+	    
+        RenderHelper.disableStandardItemLighting();
+
+		GL11.glDisable(GL11.GL_LIGHTING);
+ 
+		GL11.glPopMatrix();
+	}
 	
     public static void drawIconWithoutColor(int x, int y, int width, int height, float zLevel){
 		GL11.glPushMatrix();

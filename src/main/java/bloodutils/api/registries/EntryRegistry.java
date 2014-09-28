@@ -10,10 +10,12 @@ import bloodutils.api.entries.IEntry;
 public class EntryRegistry {
 	public static void registerCategories(Category category){
 		categories.add(category);
+		categoryMap.put(category.name, category);
 		categoryCount++;
 	}
 	public static ArrayList<Category> categories = new ArrayList<Category>();
-
+	public static HashMap<String, Category> categoryMap = new HashMap<String, Category>();
+	
 	public static int categoryCount = 0;
 
 	public static void registerEntry(Category category, HashMap<String, Entry> entryMap, Entry entry){

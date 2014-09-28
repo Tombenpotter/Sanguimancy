@@ -32,7 +32,7 @@ public class BUCompat {
 
     public static void createCategories() {
         categorySanguimancy = new Category(Sanguimancy.name, SanguimancyItemstacks.attunnedPlayerSacrificer, EnumType.ITEM);
-        EntryRegistry.categories.add(categorySanguimancy);
+        EntryRegistry.registerCategories(categorySanguimancy);
     }
 
     public static void createEntries() {
