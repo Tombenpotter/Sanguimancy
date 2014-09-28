@@ -67,6 +67,14 @@ jar {
     )
 }
 
+// because the normal output has been made to be obfuscated
+task deobfJar(type: Jar) {
+    from sourceSets.main.output
+    classifier = 'deobf'
+}
+
+tasks.build.dependsOn deobfJar
+
 tasks.withType(JavaCompile) { task ->
     task.options.encoding = 'UTF-8'
 }
@@ -84,4 +92,4 @@ task("incrementBuildNumber") {
 	}
 }
 
-fileTree('gradle').include('*.gradle').collect().sort().each { apply from: it }
+// fileTree('gradle').include('curse.gradle').collect().sort().each { apply from: it }
