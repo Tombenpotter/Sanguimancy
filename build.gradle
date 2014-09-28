@@ -92,4 +92,4 @@ task("incrementBuildNumber") {
 	}
 }
 
-// fileTree('gradle').include('curse.gradle').collect().sort().each { apply from: it }
+fileTree('gradle').include('curse.gradle').collect().sort().each { apply from: it }
