@@ -72,7 +72,7 @@ public class RitualEffectFelling extends RitualEffect {
             for (int i = 0; i < 6; i++) {
                 SpellHelper.sendIndexedParticleToAllAround(world, x, y, z, 20, world.provider.dimensionId, 3, x, y, z);
             }
-            for (int j = -64; j <= 0; j++) {
+            for (int j = -32; j <= 32; j++) {
                 for (int i = -8; i <= 8; i++) {
                     for (int k = -8; k <= 8; k++) {
                         Block block = world.getBlock(x + i, y + j, z + k);

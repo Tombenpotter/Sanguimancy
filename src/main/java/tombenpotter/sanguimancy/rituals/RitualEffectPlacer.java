@@ -56,9 +56,9 @@ public class RitualEffectPlacer extends RitualEffect {
             for (int i = x - 2; i <= x + 2; i++) {
                 for (int k = z - 2; k <= z + 2; k++) {
                     for (int inv = 0; inv < tileEntity.getSizeInventory(); inv++) {
-                        if (world.getBlock(i, y + 1, k).isReplaceable(world, i, y + 1, k) && tileEntity.getStackInSlot(inv) != null) {
-                            if (tileEntity.getStackInSlot(inv).getItem() instanceof ItemBlock) {
-                                world.setBlock(i, y + 1, k, Block.getBlockFromItem(tileEntity.getStackInSlot(inv).getItem()), tileEntity.getStackInSlot(inv).getItemDamage(), 3);
+                        if (world.getBlock(i, y, k).isReplaceable(world, i, y + 1, k) && tileEntity.getStackInSlot(inv) != null) {
+                            if (tileEntity.getStackInSlot(inv).getItem() instanceof ItemBlock && world.getBlock(i, y - 1, k) != null) {
+                                world.setBlock(i, y, k, Block.getBlockFromItem(tileEntity.getStackInSlot(inv).getItem()), tileEntity.getStackInSlot(inv).getItemDamage(), 3);
                                 if (tileEntity.getStackInSlot(inv).stackSize > 1) {
                                     tileEntity.getStackInSlot(inv).stackSize = tileEntity.getStackInSlot(inv).stackSize - 1;
                                 } else tileEntity.setInventorySlotContents(inv, null);
@@ -80,15 +80,19 @@ public class RitualEffectPlacer extends RitualEffect {
     @Override
     public List<RitualComponent> getRitualComponentList() {
         ArrayList<RitualComponent> placingRitual = new ArrayList();
-        placingRitual.add(new RitualComponent(0, -1, 0, RitualComponent.DUSK));
-        placingRitual.add(new RitualComponent(1, -1, 0, RitualComponent.DUSK));
-        placingRitual.add(new RitualComponent(0, -1, 1, RitualComponent.DUSK));
-        placingRitual.add(new RitualComponent(-1, -1, 0, RitualComponent.DUSK));
-        placingRitual.add(new RitualComponent(0, -1, -1, RitualComponent.DUSK));
-        placingRitual.add(new RitualComponent(1, -1, 1, RitualComponent.DUSK));
-        placingRitual.add(new RitualComponent(-1, -1, -1, RitualComponent.DUSK));
-        placingRitual.add(new RitualComponent(-1, -1, 1, RitualComponent.DUSK));
-        placingRitual.add(new RitualComponent(1, -1, -1, RitualComponent.DUSK));
+        placingRitual.add(new RitualComponent(3, 0, 3, RitualComponent.EARTH));
+        placingRitual.add(new RitualComponent(3, 0, -3, RitualComponent.EARTH));
+        placingRitual.add(new RitualComponent(-3, 0, 3, RitualComponent.EARTH));
+        placingRitual.add(new RitualComponent(-3, 0, -3, RitualComponent.EARTH));
+
+        placingRitual.add(new RitualComponent(3, 0, 2, RitualComponent.WATER));
+        placingRitual.add(new RitualComponent(3, 0, -2, RitualComponent.WATER));
+        placingRitual.add(new RitualComponent(2, 0, 3, RitualComponent.WATER));
+        placingRitual.add(new RitualComponent(2, 0, -3, RitualComponent.WATER));
+        placingRitual.add(new RitualComponent(-2, 0, 3, RitualComponent.WATER));
+        placingRitual.add(new RitualComponent(-2, 0, -3, RitualComponent.WATER));
+        placingRitual.add(new RitualComponent(-3, 0, -2, RitualComponent.WATER));
+        placingRitual.add(new RitualComponent(-3, 0, 2, RitualComponent.WATER));
         return placingRitual;
     }
 }
