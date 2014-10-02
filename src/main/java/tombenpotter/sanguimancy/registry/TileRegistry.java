@@ -1,10 +1,7 @@
 package tombenpotter.sanguimancy.registry;
 
 import cpw.mods.fml.common.registry.GameRegistry;
-import tombenpotter.sanguimancy.tile.TileAltarDiviner;
-import tombenpotter.sanguimancy.tile.TileAltarEmitter;
-import tombenpotter.sanguimancy.tile.TileIllusion;
-import tombenpotter.sanguimancy.tile.TileSacrificeTransfer;
+import tombenpotter.sanguimancy.tile.*;
 
 public class TileRegistry {
 
@@ -13,5 +10,6 @@ public class TileRegistry {
         GameRegistry.registerTileEntity(TileAltarEmitter.class, "TileAltarEmitter");
         GameRegistry.registerTileEntity(TileSacrificeTransfer.class, "TileSacrificeTransfer");
         GameRegistry.registerTileEntity(TileIllusion.class, "TileIllusion");
+        GameRegistry.registerTileEntity(TileCorruptionCrystallizer.class, "TileCorruptionCrystallizer");
     }
 }

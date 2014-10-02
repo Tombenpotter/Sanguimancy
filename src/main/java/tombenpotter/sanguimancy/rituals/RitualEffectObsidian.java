@@ -3,14 +3,12 @@ package tombenpotter.sanguimancy.rituals;
 import WayofTime.alchemicalWizardry.api.rituals.IMasterRitualStone;
 import WayofTime.alchemicalWizardry.api.rituals.RitualComponent;
 import WayofTime.alchemicalWizardry.api.rituals.RitualEffect;
-import WayofTime.alchemicalWizardry.api.soulNetwork.LifeEssenceNetwork;
 import WayofTime.alchemicalWizardry.api.soulNetwork.SoulNetworkHandler;
 import WayofTime.alchemicalWizardry.common.block.BlockSpectralContainer;
 import WayofTime.alchemicalWizardry.common.spell.complex.effect.SpellHelper;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
-import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.World;
 
 import java.util.ArrayList;
@@ -21,18 +19,11 @@ public class RitualEffectObsidian extends RitualEffect {
     @Override
     public void performEffect(IMasterRitualStone ritualStone) {
         String owner = ritualStone.getOwner();
-        World worldSave = MinecraftServer.getServer().worldServers[0];
-        LifeEssenceNetwork data = (LifeEssenceNetwork) worldSave.loadItemData(LifeEssenceNetwork.class, owner);
         World world = ritualStone.getWorld();
         int x = ritualStone.getXCoord();
         int y = ritualStone.getYCoord();
         int z = ritualStone.getZCoord();
-        if (data == null) {
-            data = new LifeEssenceNetwork(owner);
-            worldSave.setItemData(owner, data);
-        }
-
-        int currentEssence = data.currentEssence;
+        int currentEssence = SoulNetworkHandler.getCurrentEssence(owner);
         Block block = world.getBlock(x, y + 1, z);
 
         if (world.isAirBlock(x, y + 1, z) && !(block instanceof BlockSpectralContainer)) {
@@ -48,21 +39,20 @@ public class RitualEffectObsidian extends RitualEffect {
                 }
                 if (world.isAirBlock(x + 1, y + 1, z)) {
                     world.setBlock(x + 1, y + 1, z, Blocks.obsidian, 0, 3);
-                    data.currentEssence = currentEssence - this.getCostPerRefresh();
+                    SoulNetworkHandler.syphonFromNetwork(owner, getCostPerRefresh());
                 }
                 if (world.isAirBlock(x - 1, y + 1, z)) {
                     world.setBlock(x - 1, y + 1, z, Blocks.obsidian, 0, 3);
-                    data.currentEssence = currentEssence - this.getCostPerRefresh();
+                    SoulNetworkHandler.syphonFromNetwork(owner, getCostPerRefresh());
                 }
                 if (world.isAirBlock(x, y + 1, z + 1)) {
                     world.setBlock(x, y + 1, z + 1, Blocks.obsidian, 0, 3);
-                    data.currentEssence = currentEssence - this.getCostPerRefresh();
+                    SoulNetworkHandler.syphonFromNetwork(owner, getCostPerRefresh());
                 }
                 if (world.isAirBlock(x, y + 1, z - 1)) {
                     world.setBlock(x, y + 1, z - 1, Blocks.obsidian, 0, 3);
-                    data.currentEssence = currentEssence - this.getCostPerRefresh();
+                    SoulNetworkHandler.syphonFromNetwork(owner, getCostPerRefresh());
                 }
-                data.markDirty();
             }
         }
     }

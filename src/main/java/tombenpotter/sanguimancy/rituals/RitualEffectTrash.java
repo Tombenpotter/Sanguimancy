@@ -3,12 +3,10 @@ package tombenpotter.sanguimancy.rituals;
 import WayofTime.alchemicalWizardry.api.rituals.IMasterRitualStone;
 import WayofTime.alchemicalWizardry.api.rituals.RitualComponent;
 import WayofTime.alchemicalWizardry.api.rituals.RitualEffect;
-import WayofTime.alchemicalWizardry.api.soulNetwork.LifeEssenceNetwork;
 import WayofTime.alchemicalWizardry.api.soulNetwork.SoulNetworkHandler;
 import WayofTime.alchemicalWizardry.common.spell.complex.effect.SpellHelper;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.World;
 
 import java.util.ArrayList;
@@ -19,19 +17,11 @@ public class RitualEffectTrash extends RitualEffect {
     @Override
     public void performEffect(IMasterRitualStone ritualStone) {
         String owner = ritualStone.getOwner();
-        World worldSave = MinecraftServer.getServer().worldServers[0];
-        LifeEssenceNetwork data = (LifeEssenceNetwork) worldSave.loadItemData(LifeEssenceNetwork.class, owner);
         World world = ritualStone.getWorld();
         int x = ritualStone.getXCoord();
         int y = ritualStone.getYCoord();
         int z = ritualStone.getZCoord();
-        if (data == null) {
-            data = new LifeEssenceNetwork(owner);
-            worldSave.setItemData(owner, data);
-        }
-
-        int currentEssence = data.currentEssence;
-
+        int currentEssence = SoulNetworkHandler.getCurrentEssence(owner);
         if (currentEssence < this.getCostPerRefresh()) {
             EntityPlayer entityOwner = SpellHelper.getPlayerForUsername(owner);
             if (entityOwner == null) {
@@ -43,19 +33,17 @@ public class RitualEffectTrash extends RitualEffect {
             if (itemDropList != null) {
                 for (EntityItem itemEntity : itemDropList) {
                     int stacksize = 1;
-                    if (itemEntity.getEntityItem().stackSize > 0)
-                        stacksize = itemEntity.getEntityItem().stackSize;
+                    if (itemEntity.getEntityItem().stackSize > 0) stacksize = itemEntity.getEntityItem().stackSize;
                     itemEntity.setDead();
-                    data.currentEssence = currentEssence - this.getCostPerRefresh() * stacksize;
+                    SoulNetworkHandler.syphonFromNetwork(owner, getCostPerRefresh() * stacksize);
                 }
             }
-            data.markDirty();
         }
     }
 
     @Override
     public int getCostPerRefresh() {
-        return 1;
+        return 2;
     }
 
     @Override

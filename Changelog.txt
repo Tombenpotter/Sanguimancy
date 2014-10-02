@@ -1,5 +1,11 @@
+Version 1.1.7-Pre1:
+Started working on a way to manage Soul Corruption. It's mostly working, but still needs a few tweaks here and there.
+
+Version 1.1.6:
+A couple of ritual changes.
+
 Version 1.1.5:
-New BU api, and changed the category registry to go with the api changes
+New BU api, and changed the category registry to go with the api changes.
 
 Version 1.1.4:
 Shipping the BloodUtils api.

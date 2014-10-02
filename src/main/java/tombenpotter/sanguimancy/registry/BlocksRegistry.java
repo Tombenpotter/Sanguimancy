@@ -15,6 +15,7 @@ public class BlocksRegistry {
     public static Block altarEmitter;
     public static Block sacrificeTransfer;
     public static Block illusion;
+    public static Block crystallizedCorruption;
 
     public static void registerBlocks() {
         altarDiviner = new BlockAltarDiviner(Material.iron);
@@ -28,5 +29,8 @@ public class BlocksRegistry {
 
         illusion = new BlockIllusion(Material.iron);
         GameRegistry.registerBlock(illusion, ItemBlockIllusion.class, "BlockIllusion").setBlockName(Sanguimancy.modid + ".illusion").setLightLevel(1F);
+
+        crystallizedCorruption = new BlockCorruptionCrystallizer(Material.iron);
+        GameRegistry.registerBlock(crystallizedCorruption, "BlockCorruptionCrystallizer").setBlockName(Sanguimancy.modid + ".corruptionCrystallizer");
     }
 }

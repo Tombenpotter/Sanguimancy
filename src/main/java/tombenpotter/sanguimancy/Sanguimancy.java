@@ -17,7 +17,7 @@ import tombenpotter.sanguimancy.registry.*;
 import tombenpotter.sanguimancy.util.BUCompat;
 import tombenpotter.sanguimancy.util.EventHandler;
 
-@Mod(modid = Sanguimancy.modid, name = Sanguimancy.name, version = "1.1.5", dependencies = "required-after:AWWayofTime ; after:BloodUtils")
+@Mod(modid = Sanguimancy.modid, name = Sanguimancy.name, version = "1.1.7", dependencies = "required-after:AWWayofTime ; after:BloodUtils")
 public class Sanguimancy {
 
     public static final String modid = "Sanguimancy";

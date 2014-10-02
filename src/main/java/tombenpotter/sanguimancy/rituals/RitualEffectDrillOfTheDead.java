@@ -4,14 +4,12 @@ import WayofTime.alchemicalWizardry.AlchemicalWizardry;
 import WayofTime.alchemicalWizardry.api.rituals.IMasterRitualStone;
 import WayofTime.alchemicalWizardry.api.rituals.RitualComponent;
 import WayofTime.alchemicalWizardry.api.rituals.RitualEffect;
-import WayofTime.alchemicalWizardry.api.soulNetwork.LifeEssenceNetwork;
 import WayofTime.alchemicalWizardry.api.soulNetwork.SoulNetworkHandler;
 import WayofTime.alchemicalWizardry.common.tileEntity.TEAltar;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.boss.IBossDisplayData;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
@@ -36,26 +34,16 @@ public class RitualEffectDrillOfTheDead extends RitualEffect {
     @Override
     public void performEffect(IMasterRitualStone ritualStone) {
         String owner = ritualStone.getOwner();
-        World worldSave = MinecraftServer.getServer().worldServers[0];
-        LifeEssenceNetwork data = (LifeEssenceNetwork) worldSave.loadItemData(LifeEssenceNetwork.class, owner);
         World world = ritualStone.getWorld();
         int x = ritualStone.getXCoord();
         int y = ritualStone.getYCoord();
         int z = ritualStone.getZCoord();
         TEAltar tileAltar = null;
         boolean testFlag = false;
-
-        if (data == null) {
-            data = new LifeEssenceNetwork(owner);
-            worldSave.setItemData(owner, data);
-        }
-
-        int currentEssence = data.currentEssence;
-
+        int currentEssence = SoulNetworkHandler.getCurrentEssence(owner);
         if (world.getWorldTime() % this.timeDelay != 0) {
             return;
         }
-
         for (int i = -5; i <= 5; i++) {
             for (int j = -5; j <= 5; j++) {
                 for (int k = -10; k <= 10; k++) {
@@ -66,11 +54,9 @@ public class RitualEffectDrillOfTheDead extends RitualEffect {
                 }
             }
         }
-
         if (!testFlag) {
             return;
         }
-
         int d0 = 10;
         int vertRange = 10;
         AxisAlignedBB axisalignedbb = AxisAlignedBB.getBoundingBox((double) x, (double) y, (double) z, (double) (x + 1), (double) (y + 1), (double) (z + 1)).expand(d0, vertRange, d0);
@@ -88,10 +74,8 @@ public class RitualEffectDrillOfTheDead extends RitualEffect {
                     tileAltar.sacrificialDaggerCall(this.amount, true);
                 }
             }
-            data.currentEssence = currentEssence - this.getCostPerRefresh() * entityCount;
-            data.markDirty();
+            SoulNetworkHandler.syphonFromNetwork(owner, getCostPerRefresh());
         }
-
     }
 
     @Override

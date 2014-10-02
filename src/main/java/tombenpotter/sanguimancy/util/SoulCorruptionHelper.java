@@ -81,7 +81,7 @@ public class SoulCorruptionHelper {
 
     public static void decrementCorruption(NBTTagCompound tag) {
         int amount = getCorruptionLevel(tag);
-        if (!(amount >= 0)) tag.setInteger(soulCorruptionTag, amount - 1);
+        if (amount > 0) tag.setInteger(soulCorruptionTag, amount - 1);
     }
 
     public static void spawnChickenFollower(EntityPlayer player) {
