@@ -8,11 +8,13 @@ import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.world.World;
 import tombenpotter.sanguimancy.Sanguimancy;
 import tombenpotter.sanguimancy.tile.TileCorruptionCrystallizer;
+import tombenpotter.sanguimancy.util.SoulCorruptionHelper;
 
 public class BlockCorruptionCrystallizer extends BlockContainer {
 
@@ -38,7 +40,7 @@ public class BlockCorruptionCrystallizer extends BlockContainer {
         if (!world.isRemote) {
             TileCorruptionCrystallizer tile = (TileCorruptionCrystallizer) world.getTileEntity(x, y, z);
             tile.checkMultiblockTier(world, x, y, z);
-            player.addChatComponentMessage(new ChatComponentText("Tier " + String.valueOf(tile.tier)));
+            player.addChatComponentMessage(new ChatComponentText("Multiblock Formed " + String.valueOf(tile.multiblockFormed)));
             player.addChatComponentMessage(new ChatComponentText("Corruption Stored " + String.valueOf(tile.corruptionStored)));
         }
         return false;
@@ -51,5 +53,31 @@ public class BlockCorruptionCrystallizer extends BlockContainer {
             TileCorruptionCrystallizer tile = (TileCorruptionCrystallizer) world.getTileEntity(x, y, z);
             tile.owner = player.getCommandSenderName();
         }
+    }
+
+    @Override
+    public boolean removedByPlayer(World world, EntityPlayer player, int x, int y, int z, boolean willHarvest) {
+        world.removeTileEntity(x, y, y);
+        if (player != null) {
+            NBTTagCompound tag = SoulCorruptionHelper.getModTag(player, Sanguimancy.modid);
+            TileCorruptionCrystallizer tile = (TileCorruptionCrystallizer) world.getTileEntity(x, y, z);
+            SoulCorruptionHelper.addCorruption(tag, tile.corruptionStored);
+        }
+        return super.removedByPlayer(world, player, x, y, z);
+    }
+
+    @Override
+    public boolean renderAsNormalBlock() {
+        return false;
+    }
+
+    @Override
+    public int getRenderType() {
+        return -1;
+    }
+
+    @Override
+    public boolean isOpaqueCube() {
+        return false;
     }
 }

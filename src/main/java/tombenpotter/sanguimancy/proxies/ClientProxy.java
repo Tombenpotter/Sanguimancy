@@ -6,13 +6,12 @@ import cpw.mods.fml.common.FMLCommonHandler;
 import net.minecraft.client.model.ModelChicken;
 import net.minecraft.item.Item;
 import net.minecraftforge.client.MinecraftForgeClient;
-import tombenpotter.sanguimancy.client.render.RenderAltarDiviner;
-import tombenpotter.sanguimancy.client.render.RenderChickenMinion;
-import tombenpotter.sanguimancy.client.render.RenderItemAltarDiviner;
-import tombenpotter.sanguimancy.client.render.RenderPlayerPointer;
+import tombenpotter.sanguimancy.client.render.*;
 import tombenpotter.sanguimancy.entity.EntityChickenMinion;
 import tombenpotter.sanguimancy.entity.EntityPlayerPointer;
 import tombenpotter.sanguimancy.registry.BlocksRegistry;
+import tombenpotter.sanguimancy.tile.TileAltarDiviner;
+import tombenpotter.sanguimancy.tile.TileCorruptionCrystallizer;
 import tombenpotter.sanguimancy.util.ClientEventHandler;
 
 public class ClientProxy extends CommonProxy {
@@ -25,9 +24,11 @@ public class ClientProxy extends CommonProxy {
 
     @Override
     public void registerRenders() {
-        ClientRegistry.bindTileEntitySpecialRenderer(tombenpotter.sanguimancy.tile.TileAltarDiviner.class, new RenderAltarDiviner());
+        ClientRegistry.bindTileEntitySpecialRenderer(TileAltarDiviner.class, new RenderAltarDiviner());
         MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(BlocksRegistry.altarDiviner), new RenderItemAltarDiviner());
         RenderingRegistry.registerEntityRenderingHandler(EntityChickenMinion.class, new RenderChickenMinion(new ModelChicken(), 1.0F));
         RenderingRegistry.registerEntityRenderingHandler(EntityPlayerPointer.class, new RenderPlayerPointer());
+        ClientRegistry.bindTileEntitySpecialRenderer(TileCorruptionCrystallizer.class, new RenderCorruptionCrystallizer());
+        MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(BlocksRegistry.corruptionCrystallizer), new RenderItemCorruptionCrystallizer());
     }
 }

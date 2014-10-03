@@ -1,3 +1,6 @@
+Version 1.1.7-Pre2:
+Tweaks here and there are done. It should be totally working, if you ignore the fact that it has no recipe.
+
 Version 1.1.7-Pre1:
 Started working on a way to manage Soul Corruption. It's mostly working, but still needs a few tweaks here and there.
 

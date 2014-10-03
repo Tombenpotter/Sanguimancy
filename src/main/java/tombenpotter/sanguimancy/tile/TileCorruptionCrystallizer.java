@@ -1,7 +1,10 @@
 package tombenpotter.sanguimancy.tile;
 
 import WayofTime.alchemicalWizardry.ModBlocks;
-import WayofTime.alchemicalWizardry.api.alchemy.energy.*;
+import WayofTime.alchemicalWizardry.api.alchemy.energy.Reagent;
+import WayofTime.alchemicalWizardry.api.alchemy.energy.ReagentRegistry;
+import WayofTime.alchemicalWizardry.api.alchemy.energy.ReagentStack;
+import WayofTime.alchemicalWizardry.api.alchemy.energy.TileSegmentedReagentHandler;
 import WayofTime.alchemicalWizardry.api.soulNetwork.SoulNetworkHandler;
 import WayofTime.alchemicalWizardry.common.tileEntity.TEMasterStone;
 import net.minecraft.entity.player.EntityPlayer;
@@ -9,29 +12,27 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 import tombenpotter.sanguimancy.Sanguimancy;
 import tombenpotter.sanguimancy.util.SoulCorruptionHelper;
 
-public class TileCorruptionCrystallizer extends TileEntity implements IReagentHandler {
+public class TileCorruptionCrystallizer extends TileSegmentedReagentHandler {
 
-    public int tier = 1;
     public int corruptionStored = 0;
     public String owner;
-    public ReagentContainer reagentContainer = new ReagentContainer(4000);
+    public boolean multiblockFormed;
 
     @Override
     public void updateEntity() {
         if (!worldObj.isRemote) {
             if (worldObj.getWorldTime() % 100 == 0) {
-                tier = checkMultiblockTier(worldObj, this.xCoord, this.yCoord, this.zCoord);
+                multiblockFormed = checkMultiblockTier(worldObj, this.xCoord, this.yCoord, this.zCoord);
             }
 
             if (!owner.equals("")) {
                 EntityPlayer player = SoulNetworkHandler.getPlayerForUsername(owner);
-                removeAndStoreCorruption(worldObj, player);
+                removeAndStoreCorruption(worldObj, player, this.xCoord, this.yCoord, this.zCoord);
             }
         }
     }
@@ -39,22 +40,20 @@ public class TileCorruptionCrystallizer extends TileEntity implements IReagentHa
     @Override
     public void readFromNBT(NBTTagCompound tag) {
         super.readFromNBT(tag);
-        reagentContainer.readFromNBT(tag);
         owner = tag.getString("owner");
-        tier = tag.getInteger("tier");
         corruptionStored = tag.getInteger("corruptionStored");
+        multiblockFormed = tag.getBoolean("multiblockFormed");
     }
 
     @Override
     public void writeToNBT(NBTTagCompound tag) {
         super.writeToNBT(tag);
-        reagentContainer.writeToNBT(tag);
         tag.setString("owner", owner);
-        tag.setInteger("tier", tier);
         tag.setInteger("corruptionStored", corruptionStored);
+        tag.setBoolean("multiblockFormed", multiblockFormed);
     }
 
-    public int checkMultiblockTier(World world, int x, int y, int z) {
+    public boolean checkMultiblockTier(World world, int x, int y, int z) {
         if (world.getBlock(x + 1, y - 1, z + 1) == ModBlocks.blockMasterStone && world.getBlock(x + 1, y - 1, z - 1) == ModBlocks.blockMasterStone && world.getBlock(x - 1, y - 1, z + 1) == ModBlocks.blockMasterStone && world.getBlock(x - 1, y - 1, z - 1) == ModBlocks.blockMasterStone) {
             TEMasterStone waterStone1 = (TEMasterStone) world.getTileEntity(x + 1, y - 1, z + 1);
             TEMasterStone waterStone2 = (TEMasterStone) world.getTileEntity(x + 1, y - 1, z - 1);
@@ -85,40 +84,31 @@ public class TileCorruptionCrystallizer extends TileEntity implements IReagentHa
                             && !fireStone6.getCurrentRitual().equals("") && fireStone6.getCurrentRitual().equals("AW002Lava")
                             && !fireStone7.getCurrentRitual().equals("") && fireStone7.getCurrentRitual().equals("AW002Lava")
                             && !fireStone8.getCurrentRitual().equals("") && fireStone8.getCurrentRitual().equals("AW002Lava")) {
-                        return 3;
+                        return true;
                     }
                 }
-            }
-        } else if (world.getBlock(x + 1, y - 1, z + 1) == ModBlocks.blockMasterStone && world.getBlock(x + 1, y - 1, z - 1) == ModBlocks.blockMasterStone && world.getBlock(x - 1, y - 1, z + 1) == ModBlocks.blockMasterStone && world.getBlock(x - 1, y - 1, z - 1) == ModBlocks.blockMasterStone) {
-            TEMasterStone waterStone1 = (TEMasterStone) world.getTileEntity(x + 1, y - 1, z + 1);
-            TEMasterStone waterStone2 = (TEMasterStone) world.getTileEntity(x + 1, y - 1, z - 1);
-            TEMasterStone waterStone3 = (TEMasterStone) world.getTileEntity(x - 1, y - 1, z + 1);
-            TEMasterStone waterStone4 = (TEMasterStone) world.getTileEntity(x - 1, y - 1, z - 1);
-            if (!waterStone1.getCurrentRitual().equals("") && waterStone1.getCurrentRitual().equals("AW001Water")
-                    && !waterStone2.getCurrentRitual().equals("") && waterStone2.getCurrentRitual().equals("AW001Water")
-                    && !waterStone3.getCurrentRitual().equals("") && waterStone3.getCurrentRitual().equals("AW001Water")
-                    && !waterStone4.getCurrentRitual().equals("") && waterStone4.getCurrentRitual().equals("AW001Water")) {
-                return 2;
             }
         }
-        return 1;
+        return false;
     }
 
-    public void removeAndStoreCorruption(World world, EntityPlayer player) {
+    public void removeAndStoreCorruption(World world, EntityPlayer player, int x, int y, int z) {
         if (player != null) {
             NBTTagCompound tag = SoulCorruptionHelper.getModTag(player, Sanguimancy.modid);
-            if (canDrain(ForgeDirection.UNKNOWN, ReagentRegistry.sanctusReagent)) {
-                if (SoulCorruptionHelper.isCorruptionOver(tag, 1)) {
-                    if ((world.getWorldTime() % 200 == 0)) {
-                        drain(ForgeDirection.UNKNOWN, 20, true);
-                        SoulCorruptionHelper.decrementCorruption(tag);
-                        corruptionStored = corruptionStored + 1;
-                    }
-                } else if ((world.getWorldTime() % 200 == 0) && corruptionStored > 0) {
+            if (canDrainReagent(ReagentRegistry.sanctusReagent, 20)) {
+                if (SoulCorruptionHelper.isCorruptionOver(tag, 1) && (world.getWorldTime() % 200 == 0)) {
+                    drain(ForgeDirection.UNKNOWN, 20, true);
+                    SoulCorruptionHelper.decrementCorruption(tag);
+                    corruptionStored = corruptionStored + 1;
+                    SoulNetworkHandler.syphonFromNetwork(player.getCommandSenderName(), 500);
+                }
+            } else if (corruptionStored > 0 && canDrainReagent(ReagentRegistry.sanctusReagent, 5)) {
+                if ((world.getWorldTime() % 200 == 0)) {
                     drain(ForgeDirection.UNKNOWN, 5, true);
+                    SoulNetworkHandler.syphonFromNetwork(player.getCommandSenderName(), 50);
                 }
             } else {
-                while (corruptionStored > 0) {
+                if (corruptionStored > 0) {
                     if ((world.getWorldTime() % 100 == 0)) {
                         SoulCorruptionHelper.incrementCorruption(tag);
                         corruptionStored = corruptionStored - 1;
@@ -126,6 +116,7 @@ public class TileCorruptionCrystallizer extends TileEntity implements IReagentHa
                 }
             }
         }
+
     }
 
     @Override
@@ -151,37 +142,15 @@ public class TileCorruptionCrystallizer extends TileEntity implements IReagentHa
         this.worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
     }
 
-    /* IReagentHandler */
-    @Override
-    public int fill(ForgeDirection from, ReagentStack resource, boolean doFill) {
-        return reagentContainer.fill(resource, doFill);
-    }
-
-    @Override
-    public ReagentStack drain(ForgeDirection from, ReagentStack resource, boolean doDrain) {
-        if (resource == null || !resource.isReagentEqual(reagentContainer.getReagent())) {
-            return null;
+    public boolean canDrainReagent(Reagent reagent, int amount) {
+        if (reagent == null || amount == 0) {
+            return false;
         }
-        return reagentContainer.drain(resource.amount, doDrain);
-    }
-
-    @Override
-    public ReagentStack drain(ForgeDirection from, int maxDrain, boolean doDrain) {
-        return reagentContainer.drain(maxDrain, doDrain);
-    }
-
-    @Override
-    public boolean canFill(ForgeDirection from, Reagent reagent) {
-        return true;
-    }
-
-    @Override
-    public boolean canDrain(ForgeDirection from, Reagent reagent) {
-        return true;
-    }
-
-    @Override
-    public ReagentContainerInfo[] getContainerInfo(ForgeDirection from) {
-        return new ReagentContainerInfo[]{reagentContainer.getInfo()};
+        ReagentStack reagentStack = new ReagentStack(reagent, amount);
+        ReagentStack stack = drain(ForgeDirection.UNKNOWN, reagentStack, false);
+        if (stack != null && stack.amount >= amount) {
+            return true;
+        }
+        return false;
     }
 }
