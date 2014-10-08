@@ -56,6 +56,22 @@ processResources {
     }
 }
 
+repositories {
+    maven { // WAILA
+        name "Mobius Repo"
+        url "http://mobiusstrip.eu/maven"
+    }
+    maven { // CCC/NEI (for WAILA)
+        name 'CB Repo'
+        url "http://chickenbones.net/maven/"
+    }
+}
+
+dependencies {
+    compile "mcp.mobius.waila:Waila:1.5.5_1.7.10"
+    compile fileTree(dir: 'libs', include: '*.jar')
+}
+
 jar {
     dependsOn "incrementBuildNumber"
     manifest.mainAttributes(
