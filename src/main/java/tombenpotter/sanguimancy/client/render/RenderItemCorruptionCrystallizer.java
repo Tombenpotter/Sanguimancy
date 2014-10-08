@@ -34,7 +34,7 @@ public class RenderItemCorruptionCrystallizer implements IItemRenderer {
         switch (type) {
             case ENTITY: { //item entity
                 if (item.getItem() == new ItemStack(BlocksRegistry.corruptionCrystallizer).getItem())
-                    render(0.5F, 15F, -0.5F, 0.09F);
+                    render(0.5F, 13F, -0.5F, 0.09F);
                 return;
             }
             case EQUIPPED: { //third person in hand
@@ -49,7 +49,7 @@ public class RenderItemCorruptionCrystallizer implements IItemRenderer {
             }
             case INVENTORY: { //the item in inventories
                 if (item.getItem() == new ItemStack(BlocksRegistry.corruptionCrystallizer).getItem())
-                    render(-0.01F, 10F, 0.0F, 0.1F);
+                    render(-0.01F, 9F, 0.0F, 0.1F);
                 return;
             }
             default:

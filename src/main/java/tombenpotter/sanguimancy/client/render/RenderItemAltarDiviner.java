@@ -35,22 +35,22 @@ public class RenderItemAltarDiviner implements IItemRenderer {
         switch (type) {
             case ENTITY: { //item entity
                 if (item.getItem() == new ItemStack(BlocksRegistry.altarDiviner).getItem())
-                    render(0.5F, 15F, -0.5F, 0.09F);
+                    render(0.5F, 15F, -0.5F, 0.2F);
                 return;
             }
             case EQUIPPED: { //third person in hand
                 if (item.getItem() == new ItemStack(BlocksRegistry.altarDiviner).getItem())
-                    render(2F, 15F, 5F, 0.10F);
+                    render(2F, 15F, 5F, 0.2F);
                 return;
             }
             case EQUIPPED_FIRST_PERSON: { //first person in hand
                 if (item.getItem() == new ItemStack(BlocksRegistry.altarDiviner).getItem())
-                    render(1F, 19F, 7F, 0.08F);
+                    render(1F, 19F, 7F, 0.2F);
                 return;
             }
             case INVENTORY: { //the item in inventories
                 if (item.getItem() == new ItemStack(BlocksRegistry.altarDiviner).getItem())
-                    render(-0.01F, 10F, 0.0F, 0.1F);
+                    render(-0.01F, 10F, 0.0F, 0.2F);
                 return;
             }
             default:

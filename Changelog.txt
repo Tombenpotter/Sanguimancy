@@ -1,3 +1,6 @@
+Version 1.1.7-Pre3:
+More tweaks, a model and a texture.
+
 Version 1.1.7-Pre2:
 Tweaks here and there are done. It should be totally working, if you ignore the fact that it has no recipe.
 

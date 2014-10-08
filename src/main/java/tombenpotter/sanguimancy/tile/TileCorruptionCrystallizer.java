@@ -101,11 +101,11 @@ public class TileCorruptionCrystallizer extends TileSegmentedReagentHandler {
                     SoulCorruptionHelper.decrementCorruption(tag);
                     corruptionStored = corruptionStored + 1;
                     SoulNetworkHandler.syphonFromNetwork(player.getCommandSenderName(), 500);
-                }
-            } else if (corruptionStored > 0 && canDrainReagent(ReagentRegistry.sanctusReagent, 5)) {
-                if ((world.getWorldTime() % 200 == 0)) {
-                    drain(ForgeDirection.UNKNOWN, 5, true);
-                    SoulNetworkHandler.syphonFromNetwork(player.getCommandSenderName(), 50);
+                } else if (corruptionStored > 0 && canDrainReagent(ReagentRegistry.sanctusReagent, 5)) {
+                    if ((world.getWorldTime() % 200 == 0)) {
+                        drain(ForgeDirection.UNKNOWN, 5, true);
+                        SoulNetworkHandler.syphonFromNetwork(player.getCommandSenderName(), 50);
+                    }
                 }
             } else {
                 if (corruptionStored > 0) {

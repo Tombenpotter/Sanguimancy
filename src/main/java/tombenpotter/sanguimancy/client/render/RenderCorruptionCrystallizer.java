@@ -16,10 +16,11 @@ public class RenderCorruptionCrystallizer extends TileEntitySpecialRenderer {
     @Override
     public void renderTileEntityAt(TileEntity tileEntity, double x, double y, double z, float scale) {
         GL11.glPushMatrix();
-        GL11.glTranslatef((float) x + 0.5F, (float) y + 1.5F, (float) z + 0.5F);
+        GL11.glTranslatef((float) x + 0.5F, (float) y + 2F, (float) z + 0.5F);
         Minecraft.getMinecraft().renderEngine.bindTexture(texture);
         GL11.glPushMatrix();
         GL11.glRotatef(180F, 90.0F, 0.0F, 90.0F);
+        GL11.glScalef(1F, 1.5F, 1F);
         this.model.render(null, 0.0F, 0.0F, -0.1F, 0.0F, 0.0F, 0.0625F);
         GL11.glPopMatrix();
         GL11.glPushMatrix();

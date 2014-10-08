@@ -57,12 +57,12 @@ public class BlockCorruptionCrystallizer extends BlockContainer {
 
     @Override
     public boolean removedByPlayer(World world, EntityPlayer player, int x, int y, int z, boolean willHarvest) {
-        world.removeTileEntity(x, y, y);
         if (player != null) {
             NBTTagCompound tag = SoulCorruptionHelper.getModTag(player, Sanguimancy.modid);
             TileCorruptionCrystallizer tile = (TileCorruptionCrystallizer) world.getTileEntity(x, y, z);
             SoulCorruptionHelper.addCorruption(tag, tile.corruptionStored);
         }
+        world.removeTileEntity(x, y, y);
         return super.removedByPlayer(world, player, x, y, z);
     }
 
