@@ -31,21 +31,21 @@ public class BUCompat {
     public static Entry sacrificeMagic;
 
     public static void createCategories() {
-        categorySanguimancy = new Category(Sanguimancy.name, SanguimancyItemstacks.attunnedPlayerSacrificer, EnumType.ITEM);
+        categorySanguimancy = new Category(Sanguimancy.name, SanguimancyItemStacks.attunnedPlayerSacrificer, EnumType.ITEM);
         EntryRegistry.registerCategories(categorySanguimancy);
     }
 
     public static void createEntries() {
-        playerSacrificers = new Entry(new IEntry[]{new EntryItemText(SanguimancyItemstacks.unattunedPlayerSacrificer, "sacrificingStones"), new EntryCraftingRecipe(RecipesRegistry.unattunedPlayerSacrificer), new EntryItemText(SanguimancyItemstacks.attunnedPlayerSacrificer, "sacrificingStones"), new EntryAltarRecipe(RecipesRegistry.attunedPlayerSacrificer), new EntryItemText(SanguimancyItemstacks.focusedPlayerSacrificer, "sacrificingStones")}, "§9" + StatCollector.translateToLocal("Player Sacrificing Stones"), 1);
+        playerSacrificers = new Entry(new IEntry[]{new EntryItemText(SanguimancyItemStacks.unattunedPlayerSacrificer, "sacrificingStones"), new EntryCraftingRecipe(RecipesRegistry.unattunedPlayerSacrificer), new EntryItemText(SanguimancyItemStacks.attunnedPlayerSacrificer, "sacrificingStones"), new EntryAltarRecipe(RecipesRegistry.attunedPlayerSacrificer), new EntryItemText(SanguimancyItemStacks.focusedPlayerSacrificer, "sacrificingStones")}, "§9" + StatCollector.translateToLocal("Player Sacrificing Stones"), 1);
         EntryRegistry.registerEntry(categorySanguimancy, sanguimancyMap, playerSacrificers);
-        soulCorruptionReader = new Entry(new IEntry[]{new EntryItemText(SanguimancyItemstacks.corruptionReader, "corruptionReader"), new EntryCraftingRecipe(RecipesRegistry.corruptionReader)}, "§9" + StatCollector.translateToLocal("item.Sanguimancy.soulCorruption.reader.name"), 1);
+        soulCorruptionReader = new Entry(new IEntry[]{new EntryItemText(SanguimancyItemStacks.corruptionReader, "corruptionReader"), new EntryCraftingRecipe(RecipesRegistry.corruptionReader)}, "§9" + StatCollector.translateToLocal("item.Sanguimancy.soulCorruption.reader.name"), 1);
         EntryRegistry.registerEntry(categorySanguimancy, sanguimancyMap, soulCorruptionReader);
 
-        soulTransferrer = new Entry(new IEntry[]{new EntryItemText(SanguimancyItemstacks.sacrificeTransferrer, "soulTransferrer"), new EntryCraftingRecipe(RecipesRegistry.sacrificeTransferrer)}, "§3" + StatCollector.translateToLocal("tile.Sanguimancy.sacrificeTransfer.name"), 1);
+        soulTransferrer = new Entry(new IEntry[]{new EntryItemText(SanguimancyItemStacks.sacrificeTransferrer, "soulTransferrer"), new EntryCraftingRecipe(RecipesRegistry.sacrificeTransferrer)}, "§3" + StatCollector.translateToLocal("tile.Sanguimancy.sacrificeTransfer.name"), 1);
         EntryRegistry.registerEntry(categorySanguimancy, sanguimancyMap, soulTransferrer);
-        altarEmitter = new Entry(new IEntry[]{new EntryItemText(SanguimancyItemstacks.altarEmitter, "altarEmitter"), new EntryText("altarEmitter"), new EntryCraftingRecipe(RecipesRegistry.altarEmitter)}, "§3" + StatCollector.translateToLocal("tile.Sanguimancy.altarEmitter.name"), 1);
+        altarEmitter = new Entry(new IEntry[]{new EntryItemText(SanguimancyItemStacks.altarEmitter, "altarEmitter"), new EntryText("altarEmitter"), new EntryCraftingRecipe(RecipesRegistry.altarEmitter)}, "§3" + StatCollector.translateToLocal("tile.Sanguimancy.altarEmitter.name"), 1);
         EntryRegistry.registerEntry(categorySanguimancy, sanguimancyMap, altarEmitter);
-        altarDiviner = new Entry(new IEntry[]{new EntryItemText(SanguimancyItemstacks.altarDiviner, "altarDiviner"), new EntryText("altarDiviner"), new EntryAltarRecipe(RecipesRegistry.altarDiviner)}, "§3" + StatCollector.translateToLocal("tile.Sanguimancy.altarDiviner.name"), 1);
+        altarDiviner = new Entry(new IEntry[]{new EntryItemText(SanguimancyItemStacks.altarDiviner, "altarDiviner"), new EntryText("altarDiviner"), new EntryAltarRecipe(RecipesRegistry.altarDiviner)}, "§3" + StatCollector.translateToLocal("tile.Sanguimancy.altarDiviner.name"), 1);
         EntryRegistry.registerEntry(categorySanguimancy, sanguimancyMap, altarDiviner);
 
         drillOfTheDead = new Entry(new IEntry[]{new EntryText("drillOfTheDead"), new EntryText("drillOfTheDead")}, "§1Ritual: " + StatCollector.translateToLocal("ritual.Sanguimancy.drill.dead"), 1);
