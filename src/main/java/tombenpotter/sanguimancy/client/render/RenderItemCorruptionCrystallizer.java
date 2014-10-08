@@ -49,7 +49,7 @@ public class RenderItemCorruptionCrystallizer implements IItemRenderer {
             }
             case INVENTORY: { //the item in inventories
                 if (item.getItem() == new ItemStack(BlocksRegistry.corruptionCrystallizer).getItem())
-                    render(-0.01F, 9F, 0.0F, 0.1F);
+                    render(-0.01F, 9F, 0.0F, 0.11F);
                 return;
             }
             default:
