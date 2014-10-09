@@ -27,6 +27,7 @@ public class Sanguimancy {
     public static final String clientProxy = "tombenpotter.sanguimancy.proxies.ClientProxy";
     public static final String commonProxy = "tombenpotter.sanguimancy.proxies.CommonProxy";
     public static final String channel = "Sanguimancy";
+    public static boolean isTTLoaded = false;
 
     public static CreativeTabs tabSanguimancy = new CreativeTabs("tab" + Sanguimancy.modid) {
         @Override
@@ -77,6 +78,9 @@ public class Sanguimancy {
         if (Loader.isModLoaded("BloodUtils")) {
             BUCompat.createCategories();
             BUCompat.createEntries();
+        }
+        if (Loader.isModLoaded("ThaumicTinkerer")) {
+            isTTLoaded = true;
         }
     }
 }

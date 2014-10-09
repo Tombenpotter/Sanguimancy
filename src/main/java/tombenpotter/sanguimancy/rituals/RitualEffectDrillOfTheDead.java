@@ -69,9 +69,17 @@ public class RitualEffectDrillOfTheDead extends RitualEffect {
                 if (livingEntity instanceof EntityPlayer || livingEntity instanceof IBossDisplayData || AlchemicalWizardry.wellBlacklist.contains(livingEntity.getClass())) {
                     continue;
                 }
-                if (livingEntity.attackEntityFrom(DamageSource.outOfWorld, livingEntity.getMaxHealth() * 2)) {
-                    entityCount++;
-                    tileAltar.sacrificialDaggerCall(this.amount, true);
+                if (SoulNetworkHandler.getPlayerForUsername(owner) != null && !Sanguimancy.isTTLoaded) { //I had a bad experience with TT crashing with player damage.
+                    // That just makes sure it doesn't happen :)
+                    if (livingEntity.attackEntityFrom(DamageSource.causePlayerDamage(SoulNetworkHandler.getPlayerForUsername(owner)), livingEntity.getMaxHealth() * 2)) {
+                        entityCount++;
+                        tileAltar.sacrificialDaggerCall(this.amount, true);
+                    }
+                } else {
+                    if (livingEntity.attackEntityFrom(DamageSource.outOfWorld, livingEntity.getMaxHealth() * 2)) {
+                        entityCount++;
+                        tileAltar.sacrificialDaggerCall(this.amount, true);
+                    }
                 }
             }
             SoulNetworkHandler.syphonFromNetwork(owner, getCostPerRefresh());
