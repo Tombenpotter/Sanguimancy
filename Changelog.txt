@@ -3,7 +3,8 @@ Waila compatibility added. Woo :D.
 A couple of fixes to existing blocks to make them work properly with Waila ^_^.
 Added a Corrupted Demon Shard (no texture yet), along with a new mechanic: Corruption Infusion.
 More information on Corruption Infusion will come later, but it's basically a crafting mechanic.
-Some maven stuff in the build.gradle
+Some maven stuff in the build.gradle.
+Changed the type of damage done by the Drill of the Dead to PlayerDamage if ThaumicTinkerer isn't installed. Sorry for its users!
 
 Version 1.1.7-Pre3:
 More tweaks, a model and a texture.
