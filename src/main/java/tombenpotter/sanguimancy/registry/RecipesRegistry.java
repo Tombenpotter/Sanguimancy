@@ -19,6 +19,7 @@ public class RecipesRegistry {
     public static IRecipe sacrificeTransferrer;
     public static IRecipe corruptionReader;
     public static IRecipe unattunedPlayerSacrificer;
+    public static IRecipe corruptionCrystallizer;
 
     public static AltarRecipe altarDiviner;
     public static AltarRecipe attunedPlayerSacrificer;
@@ -39,9 +40,11 @@ public class RecipesRegistry {
     public static void registerOrbRecipes() {
         GameRegistry.addRecipe(new ShapedBloodOrbRecipe(SanguimancyItemStacks.unattunedPlayerSacrificer, "XYX", "YOY", "XYX", 'X', new ItemStack(ModItems.demonicSlate), 'Y', new ItemStack(ModBlocks.emptySocket), 'O', new ItemStack(ModItems.archmageBloodOrb)));
         unattunedPlayerSacrificer = RecipeRegistry.getLatestCraftingRecipe();
+        GameRegistry.addRecipe(new ShapedBloodOrbRecipe(SanguimancyItemStacks.corruptionCrystallizer, "XYX", "ZAZ", "XBX", 'X', new ItemStack(Blocks.obsidian), 'Y', new ItemStack(ModBlocks.bloodSocket), 'Z', new ItemStack(Blocks.diamond_block), 'A', SanguimancyItemStacks.corruptedDemonShard, 'B', new ItemStack(ModItems.archmageBloodOrb)));
+        corruptionCrystallizer = RecipeRegistry.getLatestCraftingRecipe();
     }
 
     public static void registercorruptionRecipes() {
-        RecipeCorruption.addRecipe(new ItemStack(ModItems.demonBloodShard), new ItemStack(ItemsRegistry.corruptedDemonShard), 500, 50);
+        RecipeCorruption.addRecipe(new ItemStack(ModItems.demonBloodShard), SanguimancyItemStacks.corruptedDemonShard, 500, 50);
     }
 }

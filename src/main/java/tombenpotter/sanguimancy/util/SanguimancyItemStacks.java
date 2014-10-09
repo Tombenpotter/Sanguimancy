@@ -14,6 +14,7 @@ public class SanguimancyItemStacks {
     public static ItemStack removeCorruption = new ItemStack(ItemsRegistry.soulCorruptionTest, 1, 1);
     public static ItemStack negateCorruption = new ItemStack(ItemsRegistry.soulCorruptionTest, 1, 2);
     public static ItemStack corruptionReader = new ItemStack(ItemsRegistry.soulCorruptionTest, 1, 3);
+    public static ItemStack corruptedDemonShard = new ItemStack(ItemsRegistry.corruptedDemonShard, 1, 0);
 
     // Blocks
     public static ItemStack altarEmitter = new ItemStack(BlocksRegistry.altarEmitter);
@@ -35,4 +36,5 @@ public class SanguimancyItemStacks {
     public static ItemStack melonIllusion = new ItemStack(BlocksRegistry.illusion, 1, 13);
     public static ItemStack goldBlockIllusion = new ItemStack(BlocksRegistry.illusion, 1, 14);
     public static ItemStack clayIllusion = new ItemStack(BlocksRegistry.illusion, 1, 15);
+    public static ItemStack corruptionCrystallizer = new ItemStack(BlocksRegistry.corruptionCrystallizer);
 }
