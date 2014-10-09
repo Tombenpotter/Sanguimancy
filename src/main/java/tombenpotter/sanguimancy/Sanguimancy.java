@@ -5,19 +5,20 @@ import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
+import cpw.mods.fml.common.event.FMLInterModComms;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
+import tombenpotter.sanguimancy.compat.BUCompat;
 import tombenpotter.sanguimancy.network.PacketHandler;
 import tombenpotter.sanguimancy.proxies.CommonProxy;
 import tombenpotter.sanguimancy.registry.*;
-import tombenpotter.sanguimancy.util.BUCompat;
 import tombenpotter.sanguimancy.util.EventHandler;
 
-@Mod(modid = Sanguimancy.modid, name = Sanguimancy.name, version = "1.1.7", dependencies = "required-after:AWWayofTime ; after:BloodUtils")
+@Mod(modid = Sanguimancy.modid, name = Sanguimancy.name, version = "1.1.7", dependencies = "required-after:AWWayofTime ; after:BloodUtils ; after:Waila")
 public class Sanguimancy {
 
     public static final String modid = "Sanguimancy";
@@ -51,6 +52,7 @@ public class Sanguimancy {
         ItemsRegistry.registerItems();
         RecipesRegistry.registerShapedRecipes();
         RecipesRegistry.registerOrbRecipes();
+        RecipesRegistry.registercorruptionRecipes();
         EntitiesRegistry.registerEntities();
     }
 
@@ -62,6 +64,11 @@ public class Sanguimancy {
         FMLCommonHandler.instance().bus().register(new EventHandler());
         MinecraftForge.EVENT_BUS.register(new EventHandler());
         PacketHandler.registerPackets();
+        if (Loader.isModLoaded("Waila")) {
+            FMLInterModComms.sendMessage("Waila", "register", "tombenpotter.sanguimancy.compat.WailaCorruptionCrystallizer.register");
+            FMLInterModComms.sendMessage("Waila", "register", "tombenpotter.sanguimancy.compat.WailaAltarDiviner.register");
+            FMLInterModComms.sendMessage("Waila", "register", "tombenpotter.sanguimancy.compat.WailaAltarEmitter.register");
+        }
         // RitualRegistry.addToWoSBlacklist();
     }
 

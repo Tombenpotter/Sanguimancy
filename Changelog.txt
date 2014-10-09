@@ -1,3 +1,10 @@
+Version 1.1.7-Pre4:
+Waila compatibility added. Woo :D.
+A couple of fixes to existing blocks to make them work properly with Waila ^_^.
+Added a Corrupted Demon Shard (no texture yet), along with a new mechanic: Corruption Infusion.
+More information on Corruption Infusion will come later, but it's basically a crafting mechanic.
+Some maven stuff in the build.gradle
+
 Version 1.1.7-Pre3:
 More tweaks, a model and a texture.
 

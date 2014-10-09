@@ -1,4 +1,4 @@
-package tombenpotter.sanguimancy.util;
+package tombenpotter.sanguimancy.compat;
 
 import bloodutils.api.compact.Category;
 import bloodutils.api.compact.Entry;
@@ -8,6 +8,7 @@ import bloodutils.api.registries.EntryRegistry;
 import net.minecraft.util.StatCollector;
 import tombenpotter.sanguimancy.Sanguimancy;
 import tombenpotter.sanguimancy.registry.RecipesRegistry;
+import tombenpotter.sanguimancy.util.SanguimancyItemStacks;
 
 import java.util.HashMap;
 

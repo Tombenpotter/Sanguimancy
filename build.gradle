@@ -69,8 +69,21 @@ repositories {
 
 dependencies {
     compile "mcp.mobius.waila:Waila:1.5.5_1.7.10"
+	compile "codechicken:NotEnoughItems:1.7.10-1.0.3.57:dev"
     compile fileTree(dir: 'libs', include: '*.jar')
 }
+
+task copyChicken(type: Copy, dependsOn: "extractUserDev") {
+    from { configurations.compile }
+    include "**/*Chicken*.jar", "**/*NotEnoughItems*.jar"
+    exclude "**/CodeChickenLib*" // because CCC downloads it anyways.. -_-
+    into file(minecraft.runDir + "/mods")
+
+    mustRunAfter "deobfBinJar"
+    mustRunAfter "repackMinecraft"
+}
+tasks.setupDevWorkspace.dependsOn copyChicken
+tasks.setupDecompWorkspace.dependsOn copyChicken
 
 jar {
     dependsOn "incrementBuildNumber"

@@ -52,15 +52,16 @@ public class BlockAltarEmitter extends BlockContainer {
     public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int p_149727_6_, float p_149727_7_, float p_149727_8_, float p_149727_9_) {
         if (world.getTileEntity(x, y, z) != null && world.getTileEntity(x, y, z) instanceof TileAltarEmitter && !world.isRemote) {
             TileAltarEmitter tile = (TileAltarEmitter) world.getTileEntity(x, y, z);
-	        if (!player.isSneaking()) {
-		        tile.bloodAsked += 100;
-		        player.addChatMessage(new ChatComponentText(StatCollector.translateToLocal("chat.Sanguimancy.blood.required") + ": " + String.valueOf(tile.bloodAsked)));
-		        world.notifyBlocksOfNeighborChange(x, y, z, this);
-	        } else if (tile.bloodAsked >= 100) {
-		        tile.bloodAsked -= 100;
-		        player.addChatMessage(new ChatComponentText(StatCollector.translateToLocal("chat.Sanguimancy.blood.required") + ": " + String.valueOf(tile.bloodAsked)));
-		        world.notifyBlocksOfNeighborChange(x, y, z, this);
-	        }
+            if (!player.isSneaking()) {
+                tile.bloodAsked += 100;
+                player.addChatMessage(new ChatComponentText(StatCollector.translateToLocal("chat.Sanguimancy.blood.required") + ": " + String.valueOf(tile.bloodAsked)));
+                world.notifyBlocksOfNeighborChange(x, y, z, this);
+            } else if (tile.bloodAsked >= 100) {
+                tile.bloodAsked -= 100;
+                player.addChatMessage(new ChatComponentText(StatCollector.translateToLocal("chat.Sanguimancy.blood.required") + ": " + String.valueOf(tile.bloodAsked)));
+                world.notifyBlocksOfNeighborChange(x, y, z, this);
+            }
+            world.markBlockForUpdate(x, y, z);
         }
         return true;
     }

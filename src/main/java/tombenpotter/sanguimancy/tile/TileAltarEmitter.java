@@ -14,10 +14,6 @@ public class TileAltarEmitter extends TileEntity {
     public int bloodAsked;
     public boolean isOverBloodAsked;
 
-    public TileAltarEmitter() {
-        bloodAsked = 0;
-    }
-
     @Override
     public void updateEntity() {
         if (!worldObj.isRemote) {

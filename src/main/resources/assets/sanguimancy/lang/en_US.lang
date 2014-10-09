@@ -18,6 +18,7 @@ tile.Sanguimancy.illusion.snow.name=Snow
 tile.Sanguimancy.illusion.melon.name=Melon
 tile.Sanguimancy.illusion.gold.block.name=Gold Block
 tile.Sanguimancy.illusion.clay.name=Clay
+tile.Sanguimancy.corruptionCrystallizer.name=Soul Corruption Crystallizer
 
 #Items
 item.Sanguimancy.playerSacrificer.unattuned.name=Unattuned Player Sacrificing Stone
@@ -27,6 +28,7 @@ item.Sanguimancy.soulCorruption.add.name=Add Soul Corruption
 item.Sanguimancy.soulCorruption.remove.name=Remove Soul Corruption
 item.Sanguimancy.soulCorruption.negate.name=Negate Soul Corruption
 item.Sanguimancy.soulCorruption.reader.name=Soul Corruption Reader
+item.Sanguimancy.corruptedDemonShard.name=Corrupted Demon Shard
 
 #Creative Tab
 itemGroup.tabSanguimancy=Sanguimancy
@@ -81,3 +83,10 @@ bu.entry.sacrificeMagic.4=added to your own. I would not recommend having the sa
 bu.entry.sacrificeMagic.5=§l Chapter 2: “I have pushed the boundaries of magic further, perhaps, than they have ever been pushed" — Tom Marvolo Riddle §r However, doing this is not harmless. Obviously, one player died. But eh, you killed it, so you don’t care. No, I actually mean what has happened to YOU. Doing such a dark ritual and a dark magic has corrupted you. Not your scrawny little human body, but your very being,
 bu.entry.sacrificeMagic.6=your Soul. You didn’t think Dark Magic was free of cost did you? Oh, you did? Too bad. Back to the topic. Soul Corruption, what is it? Soul Corruption is the consequence of going neck deep into Dark Magic. It isn’t harmful in the least at low concentration, but it becomes more and more dangerous as it rises. Now, I am not going to explain in detail every single effect Soul Corruption has... after all, I’d rather not spoil all of your fun...
 bu.entry.sacrificeMagic.7=Soul Corruption is accumulated through very dark rituals, such as the one seen above. Not to worry, a way to monitor the Corruption of your Soul exists. It is the Soul Corruption Reader, a darker version of the Divination Sigil. For people feeling very… §oCreative§r, some tools are available to raise, lower or negate the Corruption.
+
+#Waila Compat
+compat.waila.multiblock.formed=Multiblock Formed
+compat.waila.corruption.stored=Soul Corruption Stored
+compat.waila.content=Contains
+compat.waila.stacksize=Number of items
+compat.waila.blood.required=Blood Required

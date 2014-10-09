@@ -28,6 +28,7 @@ public class TileCorruptionCrystallizer extends TileSegmentedReagentHandler {
         if (!worldObj.isRemote) {
             if (worldObj.getWorldTime() % 100 == 0) {
                 multiblockFormed = checkMultiblockTier(worldObj, this.xCoord, this.yCoord, this.zCoord);
+                worldObj.markBlockForUpdate(this.xCoord, this.yCoord, this.zCoord);
             }
 
             if (!owner.equals("")) {

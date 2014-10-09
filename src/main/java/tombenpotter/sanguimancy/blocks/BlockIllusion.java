@@ -11,6 +11,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
+import tombenpotter.sanguimancy.Sanguimancy;
 import tombenpotter.sanguimancy.tile.TileIllusion;
 
 import java.util.List;
@@ -23,6 +24,7 @@ public class BlockIllusion extends BlockContainer {
         super(material);
         this.setBlockUnbreakable();
         this.setResistance(10000F);
+        this.setCreativeTab(Sanguimancy.tabSanguimancy);
     }
 
     @Override

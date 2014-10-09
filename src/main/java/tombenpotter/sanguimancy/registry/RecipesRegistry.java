@@ -40,4 +40,8 @@ public class RecipesRegistry {
         GameRegistry.addRecipe(new ShapedBloodOrbRecipe(SanguimancyItemStacks.unattunedPlayerSacrificer, "XYX", "YOY", "XYX", 'X', new ItemStack(ModItems.demonicSlate), 'Y', new ItemStack(ModBlocks.emptySocket), 'O', new ItemStack(ModItems.archmageBloodOrb)));
         unattunedPlayerSacrificer = RecipeRegistry.getLatestCraftingRecipe();
     }
+
+    public static void registercorruptionRecipes() {
+        RecipeCorruption.addRecipe(new ItemStack(ModItems.demonBloodShard), new ItemStack(ItemsRegistry.corruptedDemonShard), 500, 50);
+    }
 }
