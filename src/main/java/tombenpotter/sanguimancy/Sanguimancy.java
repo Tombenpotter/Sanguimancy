@@ -18,7 +18,7 @@ import tombenpotter.sanguimancy.proxies.CommonProxy;
 import tombenpotter.sanguimancy.registry.*;
 import tombenpotter.sanguimancy.util.EventHandler;
 
-@Mod(modid = Sanguimancy.modid, name = Sanguimancy.name, version = "1.1.7", dependencies = "required-after:AWWayofTime ; after:BloodUtils ; after:Waila")
+@Mod(modid = Sanguimancy.modid, name = Sanguimancy.name, version = Sanguimancy.version, dependencies = "required-after:AWWayofTime ; after:BloodUtils ; after:Waila")
 public class Sanguimancy {
 
     public static final String modid = "Sanguimancy";
@@ -27,6 +27,7 @@ public class Sanguimancy {
     public static final String clientProxy = "tombenpotter.sanguimancy.proxies.ClientProxy";
     public static final String commonProxy = "tombenpotter.sanguimancy.proxies.CommonProxy";
     public static final String channel = "Sanguimancy";
+    public static final String version = "1.1.7";
     public static boolean isTTLoaded = false;
 
     public static CreativeTabs tabSanguimancy = new CreativeTabs("tab" + Sanguimancy.modid) {

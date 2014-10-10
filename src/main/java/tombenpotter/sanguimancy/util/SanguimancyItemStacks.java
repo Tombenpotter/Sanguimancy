@@ -15,6 +15,7 @@ public class SanguimancyItemStacks {
     public static ItemStack negateCorruption = new ItemStack(ItemsRegistry.soulCorruptionTest, 1, 2);
     public static ItemStack corruptionReader = new ItemStack(ItemsRegistry.soulCorruptionTest, 1, 3);
     public static ItemStack corruptedDemonShard = new ItemStack(ItemsRegistry.corruptedDemonShard, 1, 0);
+    public static ItemStack corruptionCatalist = new ItemStack(ItemsRegistry.corruptionCatalyst, 1, 0);
 
     // Blocks
     public static ItemStack altarEmitter = new ItemStack(BlocksRegistry.altarEmitter);

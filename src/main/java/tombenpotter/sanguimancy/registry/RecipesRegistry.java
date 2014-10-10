@@ -23,6 +23,7 @@ public class RecipesRegistry {
 
     public static AltarRecipe altarDiviner;
     public static AltarRecipe attunedPlayerSacrificer;
+    public static AltarRecipe corruptionCatalyst;
 
     public static void registerShapedRecipes() {
         altarEmitter = GameRegistry.addShapedRecipe(SanguimancyItemStacks.altarEmitter, "XYX", "XZX", "XXX", 'X', Blocks.redstone_block, 'Y', Blocks.lever, 'Z', ModBlocks.blockAltar);
@@ -35,6 +36,8 @@ public class RecipesRegistry {
         altarDiviner = RecipeRegistry.getLatestAltarRecipe();
         AltarRecipeRegistry.registerAltarRecipe(SanguimancyItemStacks.attunnedPlayerSacrificer, SanguimancyItemStacks.unattunedPlayerSacrificer, 5, 30000, 10, 10, false);
         attunedPlayerSacrificer = RecipeRegistry.getLatestAltarRecipe();
+        AltarRecipeRegistry.registerAltarRecipe(SanguimancyItemStacks.corruptionCatalist, new ItemStack(Items.skull, 1, 1), 3, 3000, 10, 10, false);
+        corruptionCatalyst = RecipeRegistry.getLatestAltarRecipe();
     }
 
     public static void registerOrbRecipes() {
@@ -45,6 +48,13 @@ public class RecipesRegistry {
     }
 
     public static void registercorruptionRecipes() {
+        RecipeCorruption.addRecipe(new ItemStack(Items.potato), new ItemStack(Items.poisonous_potato), 50, 5);
+        RecipeCorruption.addRecipe(new ItemStack(Items.beef, 1), new ItemStack(Items.rotten_flesh, 1), 50, 5);
+        RecipeCorruption.addRecipe(new ItemStack(Blocks.stonebrick, 1, 0), new ItemStack(Blocks.stonebrick, 1, 2), 50, 5);
+
+        RecipeCorruption.addRecipe(new ItemStack(Items.bone), new ItemStack(Items.dye, 6, 15), 70, 10);
+        RecipeCorruption.addRecipe(new ItemStack(Blocks.sand), new ItemStack(Blocks.soul_sand), 100, 10);
+
         RecipeCorruption.addRecipe(new ItemStack(ModItems.demonBloodShard), SanguimancyItemStacks.corruptedDemonShard, 500, 50);
     }
 }

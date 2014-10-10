@@ -12,6 +12,7 @@ public class ItemCorruptedDemonShard extends Item {
         setCreativeTab(Sanguimancy.tabSanguimancy);
         setUnlocalizedName(Sanguimancy.modid + ".corruptedDemonShard");
     }
+
     @SideOnly(Side.CLIENT)
     public void registerIcons(IIconRegister ri) {
         this.itemIcon = ri.registerIcon(Sanguimancy.texturePath + ":CorruptedDemonShard");

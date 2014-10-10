@@ -29,6 +29,7 @@ item.Sanguimancy.soulCorruption.remove.name=Remove Soul Corruption
 item.Sanguimancy.soulCorruption.negate.name=Negate Soul Corruption
 item.Sanguimancy.soulCorruption.reader.name=Soul Corruption Reader
 item.Sanguimancy.corruptedDemonShard.name=Corrupted Demon Shard
+item.Sanguimancy.corruptionCatalist.name=Corruption Catalist
 
 #Creative Tab
 itemGroup.tabSanguimancy=Sanguimancy
@@ -57,6 +58,7 @@ info.Sanguimancy.tooltip.sacrifice.player.thief=Thief name
 info.Sanguimancy.tooltip.creative.only=Creative Only
 info.Sanguimancy.tooltip.illusion=The block is a lie.
 
+#Mods Compatibility
 #BU Tome Entries
 bu.entry.corruptionReader.1=The Reader allows you to keep an eye on your §4Soul Corruption §r.
 bu.entry.sacrificingStones.1=This item is the base of a mechanic in Sanguimancy, LP transfer.
@@ -84,9 +86,14 @@ bu.entry.sacrificeMagic.5=§l Chapter 2: “I have pushed the boundaries of magi
 bu.entry.sacrificeMagic.6=your Soul. You didn’t think Dark Magic was free of cost did you? Oh, you did? Too bad. Back to the topic. Soul Corruption, what is it? Soul Corruption is the consequence of going neck deep into Dark Magic. It isn’t harmful in the least at low concentration, but it becomes more and more dangerous as it rises. Now, I am not going to explain in detail every single effect Soul Corruption has... after all, I’d rather not spoil all of your fun...
 bu.entry.sacrificeMagic.7=Soul Corruption is accumulated through very dark rituals, such as the one seen above. Not to worry, a way to monitor the Corruption of your Soul exists. It is the Soul Corruption Reader, a darker version of the Divination Sigil. For people feeling very… §oCreative§r, some tools are available to raise, lower or negate the Corruption.
 
-#Waila Compat
+#Waila Compatibility
 compat.waila.multiblock.formed=Multiblock Formed
 compat.waila.corruption.stored=Soul Corruption Stored
 compat.waila.content=Contains
 compat.waila.stacksize=Number of items
 compat.waila.blood.required=Blood Required
+
+#NEI Compatibility
+compat.nei.corrupted.infusion=Corrupted Infusion
+compat.nei.corrupted.infusion.chance=Crafting Chance
+compat.nei.corrupted.infusion.minimum.corruption=Minimum Corruption

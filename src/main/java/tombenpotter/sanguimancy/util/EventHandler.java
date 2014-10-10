@@ -15,7 +15,6 @@ import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.player.AttackEntityEvent;
 import tombenpotter.sanguimancy.Sanguimancy;
 import tombenpotter.sanguimancy.registry.ItemsRegistry;
-import tombenpotter.sanguimancy.registry.RecipeCorruption;
 
 public class EventHandler {
 
@@ -76,17 +75,6 @@ public class EventHandler {
         if (SoulCorruptionHelper.isCorruptionOver(tag, 40)) SoulCorruptionHelper.hurtAndHealAnimals(event.player);
         if (SoulCorruptionHelper.isCorruptionOver(tag, 50)) SoulCorruptionHelper.spawnIllusion(event.player);
         if (SoulCorruptionHelper.isCorruptionOver(tag, 70)) SoulCorruptionHelper.randomTeleport(event.player);
-
-        if (event.player.getHeldItem() != null && RecipeCorruption.getOutput(event.player.getHeldItem()) != null) {
-            ItemStack input = event.player.getHeldItem();
-            ItemStack output = RecipeCorruption.getOutput(event.player.getHeldItem()).copy();
-            if (event.player.worldObj.rand.nextInt(RecipeCorruption.getRecipeFromStack(input).getChance()) == 0) {
-                if (SoulCorruptionHelper.isCorruptionOver(tag, RecipeCorruption.getRecipeFromStack(input).getMiniumCorruption())) {
-                    event.player.inventory.consumeInventoryItem(event.player.getHeldItem().getItem());
-                    event.player.inventory.addItemStackToInventory(output);
-                }
-            }
-        }
     }
 
     @SubscribeEvent

@@ -17,11 +17,11 @@ public class Input_Output {
     }
 
     public ItemStack getInput() {
-        return input;
+        return input.copy();
     }
 
     public ItemStack getOutput() {
-        return output;
+        return output.copy();
     }
 
     public int getChance() {
