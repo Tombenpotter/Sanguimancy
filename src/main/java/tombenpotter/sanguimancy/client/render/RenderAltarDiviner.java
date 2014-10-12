@@ -37,7 +37,7 @@ public class RenderAltarDiviner extends TileEntitySpecialRenderer {
         Minecraft.getMinecraft().renderEngine.bindTexture(texture);
         GL11.glPushMatrix();
         GL11.glRotatef(180F, 90.0F, 0.0F, 90.0F);
-        this.model.render((Entity) null, 0.0F, 0.0F, -0.1F, 0.0F, 0.0F, 0.0625F);
+        this.model.render((Entity) null, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.0625F);
         GL11.glPopMatrix();
 
         GL11.glPushMatrix();
@@ -61,7 +61,7 @@ public class RenderAltarDiviner extends TileEntitySpecialRenderer {
                 } else {
                     GL11.glTranslatef((float) x + 0.5F, (float) y + displacement + 0.6F, (float) z + 0.5F);
                 }
-                GL11.glScalef(scaleFactor * 1.2F, scaleFactor * 1.2F, scaleFactor * 1.2F);
+                GL11.glScalef(scaleFactor * 1.3F, scaleFactor * 1.3F, scaleFactor * 1.3F);
                 GL11.glRotatef(rotationAngle, 0.0F, 1.0F, 0.0F);
                 customRenderItem.doRender(ghostEntityItem, 0, 0, 0, 0, 0);
             }

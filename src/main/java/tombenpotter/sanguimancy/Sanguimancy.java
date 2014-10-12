@@ -80,8 +80,6 @@ public class Sanguimancy {
             BUCompat.createCategories();
             BUCompat.createEntries();
         }
-        if (Loader.isModLoaded("ThaumicTinkerer")) {
-            isTTLoaded = true;
-        }
+        isTTLoaded = Loader.isModLoaded("ThaumicTinkerer");
     }
 }

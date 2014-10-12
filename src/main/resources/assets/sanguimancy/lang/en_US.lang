@@ -34,6 +34,9 @@ item.Sanguimancy.corruptionCatalist.name=Corruption Catalist
 #Creative Tab
 itemGroup.tabSanguimancy=Sanguimancy
 
+#Keybinds
+key.Sanguimancy.search=Locate Players
+
 #Rituals
 ritual.Sanguimancy.drill.dead=Drill of the Dead
 ritual.Sanguimancy.vulcanos.frigius=The Vulcanos Frigius
@@ -57,6 +60,8 @@ info.Sanguimancy.tooltip.sacrifice.player.stolen=LP stolen
 info.Sanguimancy.tooltip.sacrifice.player.thief=Thief name
 info.Sanguimancy.tooltip.creative.only=Creative Only
 info.Sanguimancy.tooltip.illusion=The block is a lie.
+info.Sanguimancy.tooltip.corrupted.infusion.1=With this item in your inventory,
+info.Sanguimancy.tooltip.corrupted.infusion.2=Corrupted Infusion can start.
 
 #Mods Compatibility
 #BU Tome Entries
@@ -76,24 +81,35 @@ bu.entry.greatDeletion.1=The Great Deletion allows you to trash unwanted items, 
 bu.entry.enlightenment.1=The Enlightenment is a ritual that lights up an entire area around the Ritual Stone. It has a very low cost of 1LP per tick, but will keep checking around itself to make sure no area is left unlit.
 bu.entry.timberman.1=The timberman is a ritual that, as its name suggests cuts trees in a wide area. It can handle almost any tree, given that it’s not going to the world limit.
 bu.entry.filler.1=The Filler is a ritual that will place any block from an inventory above the master ritual stone. It can come in handy for tree farms or such contraptions.
+bu.entry.corruptionCrystallizer.1=The Crystallizer allows you to bind your Corruption to this plane of existence. See Chapter 3 of "Of Dark Magic" for more details.
 
-bu.entryName.corruption=The Magic of Sacrifices
-bu.entry.sacrificeMagic.1=§l The Magic of Sacrifices: A how-to guide by Tombenpotter. Chapter 1: Nasty Little Thieves, they stole our Precious! — Smeagol §r Greetings Blood Magickers! If you have come here to find some fluffy orb talk or some bland sacrificial knife pictures, you’re at the wrong place! We will delve into something much darker and extremely forbidden: Human Sacrifice. Tremble, Mortal! … You’re still here? Alright,
+bu.entryName.corruption=Of Dark Magic
+bu.entry.sacrificeMagic.1=§l Corruption and Sacrifices: A how-to guide by Tombenpotter. Chapter 1: Nasty Little Thieves, they stole our Precious! — Smeagol §r Greetings Blood Magickers! If you have come here to find some fluffy orb talk or some bland sacrificial knife pictures, you’re at the wrong place! We will delve into something much darker and extremely forbidden: Human Sacrifice. Tremble, Mortal! … You’re still here? Alright,
 bu.entry.sacrificeMagic.2=let’s continue. Below is a guide on how to steal the entire contents of a Player’s Soul Network. First of all, you will need to get an Unattuned Player Sacrificing Stone, and then imbue it with blood in a Tier 5 Blood Altar to create an Attuned Player Sacrificing Stone. With this item in your inventory, any player you kill will see his entire Soul Network drained to nothing, stored within the Focused
 bu.entry.sacrificeMagic.3=Sacrificing Stone you now carry. This is a one-time use item that can’t be recovered if lost or destroyed, so make sure to keep it safe. Once the dirty deed is done, you will have to craft a Soul Transferrer. You simply need to place it into the world and right-click on it with the Focused Sacrificing Stone to insert it. When it happens, simply walk over the block, and poof, there it is. The LP has been
 bu.entry.sacrificeMagic.4=added to your own. I would not recommend having the sacrifice being made by someone else than you, as the consequences would be… most unpleasant.  After all, your hands were dirtied by the death of the player, you should see the process through to completion.
 bu.entry.sacrificeMagic.5=§l Chapter 2: “I have pushed the boundaries of magic further, perhaps, than they have ever been pushed" — Tom Marvolo Riddle §r However, doing this is not harmless. Obviously, one player died. But eh, you killed it, so you don’t care. No, I actually mean what has happened to YOU. Doing such a dark ritual and a dark magic has corrupted you. Not your scrawny little human body, but your very being,
 bu.entry.sacrificeMagic.6=your Soul. You didn’t think Dark Magic was free of cost did you? Oh, you did? Too bad. Back to the topic. Soul Corruption, what is it? Soul Corruption is the consequence of going neck deep into Dark Magic. It isn’t harmful in the least at low concentration, but it becomes more and more dangerous as it rises. Now, I am not going to explain in detail every single effect Soul Corruption has... after all, I’d rather not spoil all of your fun...
 bu.entry.sacrificeMagic.7=Soul Corruption is accumulated through very dark rituals, such as the one seen above. Not to worry, a way to monitor the Corruption of your Soul exists. It is the Soul Corruption Reader, a darker version of the Divination Sigil. For people feeling very… §oCreative§r, some tools are available to raise, lower or negate the Corruption.
+bu.entry.sacrificeMagic.8=§l Chapter 3: “There is no good or evil: only power and those too weak to seek it." — Quirinus Quirrell §r   I honestly hope the last chapter scared you. Soul Corruption is not to be messed with for it puts your very Soul at stake. However, if you decide to do so, this chapter is here to do some damage control and avoid the slaughter. Be warned. You will never be able to rid yourself of your Corruption. It is forever bound to you.
+bu.entry.sacrificeMagic.9=However, there is a way to reduce the effects it has on your person. Be warned, it is very costly, both to setup and to maintain. The Soul Corruption Crystallizer permits, at the cost of LP and Sanctus Reagent, to effectively bind your Corruption to this mortal plane. Doing so slowly transfers your Corruption to the block. Once all of it has been transferred, the block will continue needing a steady supply of LP and Reagent.
+bu.entry.sacrificeMagic.10=For the Crystallizer to work, you will need to create a structure under it. Here is how it should look when it is done. Rather dashing, isn't it?
+bu.entry.sacrificeMagic.11=First, you need to place the Crystallizer in the world.
+bu.entry.sacrificeMagic.12=Then, you need to place 4 master ritual stones one level under it, in each corner. The Ritual of the Full Spring MUST be activated.
+bu.entry.sacrificeMagic.13=Then, place 8 Senerenades of the Nether, and activate them just like so. You'll know whether it has worked or not if the Crystallizer's look changes. It can take a few seconds to update.
+bu.entry.sacrificeMagic.14=That's it. As long as the Crystallizer is kept supplied with Sanctus, your Soul Network doesn't run out, or you do not break the block, your Corruption will be kept at bay. However, I did say that Corruption had quite a few useful effects, didn't I? I didn't? Well now it is said. For example, when you have reached a certain level of Corruption, any living entity you hit will be withered. Isn't it neat? I love it!
+bu.entry.sacrificeMagic.15=§l Chapter 4: “The greatest enemy is one that has nothing to lose.” — Eragon §r I quite agree with what is said before. And, well, once your Soul is corrupted, you really have nothing to lose. So better use everything possible in this kind of situation hmm? Well, here I present to you, Corrupted Infusion! The process for Corrupted Infusion is highly specific. You first need to get yourself a Corruption Catalyst.
+bu.entry.sacrificeMagic.16=Then with it in your inventory, and if your Soul is corrupted enough, there is a chance for the process to start, and turn the item you hold into something else. The list of recipes is situated somewhere else in this book.
 
 #Waila Compatibility
 compat.waila.multiblock.formed=Multiblock Formed
 compat.waila.corruption.stored=Soul Corruption Stored
+compat.waila.owner=Owner
 compat.waila.content=Contains
 compat.waila.stacksize=Number of items
 compat.waila.blood.required=Blood Required
 
 #NEI Compatibility
 compat.nei.corrupted.infusion=Corrupted Infusion
-compat.nei.corrupted.infusion.chance=Crafting Chance
+compat.nei.corrupted.infusion.chance=Start Crafting Chance
 compat.nei.corrupted.infusion.minimum.corruption=Minimum Corruption

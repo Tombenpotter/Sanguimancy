@@ -18,11 +18,11 @@ public class ItemBlockAltarEmitter extends ItemBlock {
 
     @SideOnly(Side.CLIENT)
     public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean p_77624_4_) {
-	    if (!GuiScreen.isShiftKeyDown())
-		    list.add(StatCollector.translateToLocal("info.Sanguimancy.tooltip.shift.info"));
-	    else {
-		    list.add(StatCollector.translateToLocal("info.Sanguimancy.tooltip.place.corner.1"));
-		    list.add(StatCollector.translateToLocal("info.Sanguimancy.tooltip.place.corner.2"));
-	    }
+        if (!GuiScreen.isShiftKeyDown())
+            list.add(StatCollector.translateToLocal("info.Sanguimancy.tooltip.shift.info"));
+        else {
+            list.add(StatCollector.translateToLocal("info.Sanguimancy.tooltip.place.corner.1"));
+            list.add(StatCollector.translateToLocal("info.Sanguimancy.tooltip.place.corner.2"));
+        }
     }
 }

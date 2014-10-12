@@ -11,6 +11,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ChatComponentText;
+import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import tombenpotter.sanguimancy.Sanguimancy;
 import tombenpotter.sanguimancy.tile.TileCorruptionCrystallizer;
@@ -40,8 +41,9 @@ public class BlockCorruptionCrystallizer extends BlockContainer {
         if (!world.isRemote) {
             TileCorruptionCrystallizer tile = (TileCorruptionCrystallizer) world.getTileEntity(x, y, z);
             tile.checkMultiblockTier(world, x, y, z);
-            player.addChatComponentMessage(new ChatComponentText("Multiblock Formed " + String.valueOf(tile.multiblockFormed)));
-            player.addChatComponentMessage(new ChatComponentText("Corruption Stored " + String.valueOf(tile.corruptionStored)));
+            player.addChatComponentMessage(new ChatComponentText(StatCollector.translateToLocal("compat.waila.multiblock.formed") + ": " + String.valueOf(tile.multiblockFormed)));
+            player.addChatComponentMessage(new ChatComponentText(StatCollector.translateToLocal("compat.waila.corruption.stored") + ": " + String.valueOf(tile.corruptionStored)));
+            player.addChatComponentMessage(new ChatComponentText(StatCollector.translateToLocal("compat.waila.owner") + ": " + tile.owner));
         }
         return false;
     }

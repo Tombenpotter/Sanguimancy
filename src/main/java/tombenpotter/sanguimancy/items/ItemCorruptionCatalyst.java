@@ -4,15 +4,18 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import tombenpotter.sanguimancy.Sanguimancy;
-import tombenpotter.sanguimancy.registry.RecipeCorruption;
+import tombenpotter.sanguimancy.util.RandomUtils;
+import tombenpotter.sanguimancy.util.RecipeCorruption;
 import tombenpotter.sanguimancy.util.SoulCorruptionHelper;
+
+import java.util.List;
 
 public class ItemCorruptionCatalyst extends Item {
 
@@ -40,24 +43,16 @@ public class ItemCorruptionCatalyst extends Item {
                         player.inventory.consumeInventoryItem(input.getItem());
                     }
                     if (!player.inventory.addItemStackToInventory(output)) {
-                        dropItemStackInWorld(world, player.posX, player.posY, player.posZ, output);
+                        RandomUtils.dropItemStackInWorld(world, player.posX, player.posY, player.posZ, output);
                     }
                 }
             }
         }
     }
 
-    public static EntityItem dropItemStackInWorld(World worldObj, double x, double y, double z, ItemStack stack) {
-        float f = 0.7F;
-        float d0 = worldObj.rand.nextFloat() * f + (1.0F - f) * 0.5F;
-        float d1 = worldObj.rand.nextFloat() * f + (1.0F - f) * 0.5F;
-        float d2 = worldObj.rand.nextFloat() * f + (1.0F - f) * 0.5F;
-        EntityItem entityitem = new EntityItem(worldObj, x + d0, y + d1, z + d2, stack);
-        entityitem.delayBeforeCanPickup = 1;
-        if (stack.hasTagCompound()) {
-            entityitem.getEntityItem().setTagCompound((NBTTagCompound) stack.getTagCompound().copy());
-        }
-        worldObj.spawnEntityInWorld(entityitem);
-        return entityitem;
+    @Override
+    public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean par4) {
+        list.add(StatCollector.translateToLocal("info.Sanguimancy.tooltip.corrupted.infusion.1"));
+        list.add(StatCollector.translateToLocal("info.Sanguimancy.tooltip.corrupted.infusion.2"));
     }
 }

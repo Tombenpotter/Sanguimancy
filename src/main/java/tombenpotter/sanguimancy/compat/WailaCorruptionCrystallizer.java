@@ -34,6 +34,7 @@ public class WailaCorruptionCrystallizer implements IWailaDataProvider {
             TileCorruptionCrystallizer tile = (TileCorruptionCrystallizer) accessor.getTileEntity();
             currenttip.add(StatCollector.translateToLocal("compat.waila.multiblock.formed") + ": " + String.valueOf(tile.multiblockFormed));
             currenttip.add(StatCollector.translateToLocal("compat.waila.corruption.stored") + ": " + String.valueOf(tile.corruptionStored));
+            currenttip.add(StatCollector.translateToLocal("compat.waila.owner") + ": " + tile.owner);
         }
         return currenttip;
     }

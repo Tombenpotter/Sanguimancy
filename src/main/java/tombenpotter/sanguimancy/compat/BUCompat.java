@@ -13,7 +13,6 @@ import tombenpotter.sanguimancy.util.SanguimancyItemStacks;
 import java.util.HashMap;
 
 public class BUCompat {
-
     public static HashMap<String, Entry> sanguimancyMap = new HashMap<String, Entry>();
 
     public static Category categorySanguimancy;
@@ -23,6 +22,7 @@ public class BUCompat {
     public static Entry altarEmitter;
     public static Entry altarDiviner;
     public static Entry soulTransferrer;
+    public static Entry corruptionCrystallizer;
     public static Entry drillOfTheDead;
     public static Entry vulcanosFrigius;
     public static Entry greatDeletion;
@@ -48,6 +48,8 @@ public class BUCompat {
         EntryRegistry.registerEntry(categorySanguimancy, sanguimancyMap, altarEmitter);
         altarDiviner = new Entry(new IEntry[]{new EntryItemText(SanguimancyItemStacks.altarDiviner, "altarDiviner"), new EntryText("altarDiviner"), new EntryAltarRecipe(RecipesRegistry.altarDiviner)}, "§3" + StatCollector.translateToLocal("tile.Sanguimancy.altarDiviner.name"), 1);
         EntryRegistry.registerEntry(categorySanguimancy, sanguimancyMap, altarDiviner);
+        corruptionCrystallizer = new Entry(new IEntry[]{new EntryItemText(SanguimancyItemStacks.corruptionCrystallizer, "corruptionCrystallizer"), new EntryCraftingRecipe(RecipesRegistry.corruptionCrystallizer), new BUEntryCorruptionRecipe(RecipesRegistry.corruptedDemonShard)}, "§3" + StatCollector.translateToLocal("tile.Sanguimancy.corruptionCrystallizer.name"), 1);
+        EntryRegistry.registerEntry(categorySanguimancy, sanguimancyMap, corruptionCrystallizer);
 
         drillOfTheDead = new Entry(new IEntry[]{new EntryText("drillOfTheDead"), new EntryText("drillOfTheDead")}, "§1Ritual: " + StatCollector.translateToLocal("ritual.Sanguimancy.drill.dead"), 1);
         EntryRegistry.registerEntry(categorySanguimancy, sanguimancyMap, drillOfTheDead);
@@ -62,7 +64,9 @@ public class BUCompat {
         filler = new Entry(new IEntry[]{new EntryText("filler")}, "§1Ritual: " + StatCollector.translateToLocal("ritual.Sanguimancy.placer"), 1);
         EntryRegistry.registerEntry(categorySanguimancy, sanguimancyMap, filler);
 
-        sacrificeMagic = new Entry(new IEntry[]{new EntryText("sacrificeMagic"), new EntryText("sacrificeMagic"), new EntryText("sacrificeMagic"), new EntryText("sacrificeMagic"), new EntryText("sacrificeMagic"), new EntryText("sacrificeMagic"), new EntryText("sacrificeMagic")}, "§4" + StatCollector.translateToLocal("bu.entryName.corruption"), 1);
+        sacrificeMagic = new Entry(new IEntry[]{new EntryText("sacrificeMagic"), new EntryText("sacrificeMagic"), new EntryText("sacrificeMagic"), new EntryText("sacrificeMagic"), new EntryText("sacrificeMagic"), new EntryText("sacrificeMagic"), new EntryText("sacrificeMagic"), new EntryText("sacrificeMagic"), new EntryText("sacrificeMagic"),
+                new EntryImage(Sanguimancy.texturePath + ":textures/screenshots/CompleteCrystallizerMultiblock.png", 854, 480, "sacrificeMagic"), new EntryImage(Sanguimancy.texturePath + ":textures/screenshots/CrystallizerMultiblock.png", 854, 480, "sacrificeMagic"), new EntryImage(Sanguimancy.texturePath + ":textures/screenshots/WaterCrystallizerMultiblock.png", 854, 480, "sacrificeMagic"),
+                new EntryImage(Sanguimancy.texturePath + ":textures/screenshots/LavaCrystallizerMultiblock.png", 854, 480, "sacrificeMagic"), new EntryText("sacrificeMagic"), new EntryText("sacrificeMagic"), new EntryText("sacrificeMagic")}, "§4" + StatCollector.translateToLocal("bu.entryName.corruption"), 1);
         EntryRegistry.registerEntry(categorySanguimancy, sanguimancyMap, sacrificeMagic);
     }
 }

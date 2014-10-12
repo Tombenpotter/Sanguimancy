@@ -2,8 +2,11 @@ package tombenpotter.sanguimancy.util;
 
 import WayofTime.alchemicalWizardry.api.soulNetwork.LifeEssenceNetwork;
 import WayofTime.alchemicalWizardry.common.items.EnergyItems;
+import cpw.mods.fml.client.registry.ClientRegistry;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import cpw.mods.fml.common.gameevent.InputEvent;
 import cpw.mods.fml.common.gameevent.TickEvent;
+import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -13,7 +16,10 @@ import net.minecraft.world.World;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.player.AttackEntityEvent;
+import org.lwjgl.input.Keyboard;
 import tombenpotter.sanguimancy.Sanguimancy;
+import tombenpotter.sanguimancy.network.PacketHandler;
+import tombenpotter.sanguimancy.network.PacketPlayerSearch;
 import tombenpotter.sanguimancy.registry.ItemsRegistry;
 
 public class EventHandler {
@@ -83,6 +89,21 @@ public class EventHandler {
             NBTTagCompound tag = SoulCorruptionHelper.getModTag(event.entityPlayer, Sanguimancy.modid);
             EntityLivingBase target = (EntityLivingBase) event.target;
             if (SoulCorruptionHelper.isCorruptionOver(tag, 30)) SoulCorruptionHelper.addWither(target);
+        }
+    }
+
+    public static class ClientEventHandler {
+        public static KeyBinding keySearchPlayer = new KeyBinding("key.sanguimancy.search", Keyboard.KEY_F, Sanguimancy.modid);
+
+        public ClientEventHandler() {
+            ClientRegistry.registerKeyBinding(keySearchPlayer);
+        }
+
+        @SubscribeEvent
+        public void onKeyInput(InputEvent.KeyInputEvent event) {
+            if (keySearchPlayer.isPressed()) {
+                PacketHandler.INSTANCE.sendToServer(new PacketPlayerSearch());
+            }
         }
     }
 }

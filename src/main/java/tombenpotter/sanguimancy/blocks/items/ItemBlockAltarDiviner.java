@@ -19,10 +19,10 @@ public class ItemBlockAltarDiviner extends ItemBlock {
 
     @SideOnly(Side.CLIENT)
     public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean p_77624_4_) {
-	    if(!GuiScreen.isShiftKeyDown())
-		    list.add(StatCollector.translateToLocal("info.Sanguimancy.tooltip.shift.info"));
-	    else {
-		    list.add(StatCollector.translateToLocal("info.Sanguimancy.tooltip.place.altar"));
-	    }
+        if (!GuiScreen.isShiftKeyDown())
+            list.add(StatCollector.translateToLocal("info.Sanguimancy.tooltip.shift.info"));
+        else {
+            list.add(StatCollector.translateToLocal("info.Sanguimancy.tooltip.place.altar"));
+        }
     }
 }

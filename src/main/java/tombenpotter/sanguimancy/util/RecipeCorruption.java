@@ -1,8 +1,7 @@
-package tombenpotter.sanguimancy.registry;
+package tombenpotter.sanguimancy.util;
 
 import com.google.common.collect.ImmutableList;
 import net.minecraft.item.ItemStack;
-import tombenpotter.sanguimancy.util.Input_Output;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,9 +10,10 @@ public class RecipeCorruption {
 
     public static ArrayList<Input_Output> list = new ArrayList<Input_Output>();
 
-    public static void addRecipe(ItemStack input, ItemStack output, int chance, int minimumCorruption) {
+    public static Input_Output addRecipe(ItemStack input, ItemStack output, int chance, int minimumCorruption) {
         Input_Output recipe = new Input_Output(input, output, chance, minimumCorruption);
         list.add(recipe);
+        return recipe;
     }
 
     public static ItemStack getOutput(ItemStack stack) {
@@ -42,14 +42,6 @@ public class RecipeCorruption {
                 out.add(r);
         }
         return out.toArray(new Input_Output[0]);
-    }
-
-    public static List<ItemStack> getInputs() {
-        ArrayList<ItemStack> stackList = new ArrayList<ItemStack>();
-        for (Input_Output r : list) {
-            stackList.add(r.getInput());
-        }
-        return stackList;
     }
 
     public static List<Input_Output> getAllRecipes() {

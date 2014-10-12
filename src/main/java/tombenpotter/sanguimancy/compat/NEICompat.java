@@ -10,8 +10,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.StatCollector;
 import org.lwjgl.input.Mouse;
 import tombenpotter.sanguimancy.Sanguimancy;
-import tombenpotter.sanguimancy.registry.RecipeCorruption;
 import tombenpotter.sanguimancy.util.Input_Output;
+import tombenpotter.sanguimancy.util.RecipeCorruption;
 
 import java.awt.*;
 import java.lang.reflect.Field;
@@ -98,7 +98,7 @@ public class NEICompat extends TemplateRecipeHandler {
     @Override
     public void drawExtras(int id) {
         CachedCorruptionRecipe recipe = (CachedCorruptionRecipe) arecipes.get(id);
-        Minecraft.getMinecraft().fontRenderer.drawString(StatCollector.translateToLocal("compat.nei.corrupted.infusion.chance") + ": 1/" + recipe.chance, 25, 35, 0x4F4C49);
+        Minecraft.getMinecraft().fontRenderer.drawString(StatCollector.translateToLocal("compat.nei.corrupted.infusion.chance") + ": 1/" + recipe.chance, 18, 35, 0x4F4C49);
         Minecraft.getMinecraft().fontRenderer.drawString(StatCollector.translateToLocal("compat.nei.corrupted.infusion.minimum.corruption") + ": " + recipe.miniumCorruption, 30, 45, 0x4F4C49);
     }
 

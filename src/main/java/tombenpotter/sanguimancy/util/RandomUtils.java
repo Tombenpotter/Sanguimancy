@@ -43,4 +43,18 @@ public class RandomUtils {
             }
         }
     }
+
+    public static EntityItem dropItemStackInWorld(World world, double x, double y, double z, ItemStack stack) {
+        float f = 0.7F;
+        float d0 = world.rand.nextFloat() * f + (1.0F - f) * 0.5F;
+        float d1 = world.rand.nextFloat() * f + (1.0F - f) * 0.5F;
+        float d2 = world.rand.nextFloat() * f + (1.0F - f) * 0.5F;
+        EntityItem entityitem = new EntityItem(world, x + d0, y + d1, z + d2, stack);
+        entityitem.delayBeforeCanPickup = 1;
+        if (stack.hasTagCompound()) {
+            entityitem.getEntityItem().setTagCompound((NBTTagCompound) stack.getTagCompound().copy());
+        }
+        world.spawnEntityInWorld(entityitem);
+        return entityitem;
+    }
 }

@@ -9,6 +9,6 @@ public class PacketHandler {
     public static final SimpleNetworkWrapper INSTANCE = NetworkRegistry.INSTANCE.newSimpleChannel(Sanguimancy.channel);
 
     public static void registerPackets() {
-            INSTANCE.registerMessage(PacketPlayerSearch.class, PacketPlayerSearch.class, 0, Side.SERVER);
+        INSTANCE.registerMessage(PacketPlayerSearch.class, PacketPlayerSearch.class, 0, Side.SERVER);
     }
 }

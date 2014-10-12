@@ -12,14 +12,14 @@ import tombenpotter.sanguimancy.entity.EntityPlayerPointer;
 import tombenpotter.sanguimancy.registry.BlocksRegistry;
 import tombenpotter.sanguimancy.tile.TileAltarDiviner;
 import tombenpotter.sanguimancy.tile.TileCorruptionCrystallizer;
-import tombenpotter.sanguimancy.util.ClientEventHandler;
+import tombenpotter.sanguimancy.util.EventHandler;
 
 public class ClientProxy extends CommonProxy {
 
     @Override
     public void load() {
         registerRenders();
-        FMLCommonHandler.instance().bus().register(new ClientEventHandler());
+        FMLCommonHandler.instance().bus().register(new EventHandler.ClientEventHandler());
     }
 
     @Override

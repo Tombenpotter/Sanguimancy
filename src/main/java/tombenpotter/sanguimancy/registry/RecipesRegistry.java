@@ -11,19 +11,15 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
+import tombenpotter.sanguimancy.util.Input_Output;
+import tombenpotter.sanguimancy.util.RecipeCorruption;
 import tombenpotter.sanguimancy.util.SanguimancyItemStacks;
 
 public class RecipesRegistry {
 
-    public static IRecipe altarEmitter;
-    public static IRecipe sacrificeTransferrer;
-    public static IRecipe corruptionReader;
-    public static IRecipe unattunedPlayerSacrificer;
-    public static IRecipe corruptionCrystallizer;
-
-    public static AltarRecipe altarDiviner;
-    public static AltarRecipe attunedPlayerSacrificer;
-    public static AltarRecipe corruptionCatalyst;
+    public static IRecipe altarEmitter, sacrificeTransferrer, corruptionReader, unattunedPlayerSacrificer, corruptionCrystallizer;
+    public static AltarRecipe altarDiviner, attunedPlayerSacrificer, corruptionCatalyst;
+    public static Input_Output poisonousPotato, rottenFlesh, crackedStoneBricks, bonemeal, soulSand, corruptedDemonShard;
 
     public static void registerShapedRecipes() {
         altarEmitter = GameRegistry.addShapedRecipe(SanguimancyItemStacks.altarEmitter, "XYX", "XZX", "XXX", 'X', Blocks.redstone_block, 'Y', Blocks.lever, 'Z', ModBlocks.blockAltar);
@@ -48,13 +44,13 @@ public class RecipesRegistry {
     }
 
     public static void registercorruptionRecipes() {
-        RecipeCorruption.addRecipe(new ItemStack(Items.potato), new ItemStack(Items.poisonous_potato), 50, 5);
-        RecipeCorruption.addRecipe(new ItemStack(Items.beef, 1), new ItemStack(Items.rotten_flesh, 1), 50, 5);
-        RecipeCorruption.addRecipe(new ItemStack(Blocks.stonebrick, 1, 0), new ItemStack(Blocks.stonebrick, 1, 2), 50, 5);
+        poisonousPotato = RecipeCorruption.addRecipe(new ItemStack(Items.potato), new ItemStack(Items.poisonous_potato), 50, 5);
+        rottenFlesh = RecipeCorruption.addRecipe(new ItemStack(Items.beef, 1), new ItemStack(Items.rotten_flesh, 1), 50, 5);
+        crackedStoneBricks = RecipeCorruption.addRecipe(new ItemStack(Blocks.stonebrick, 1, 0), new ItemStack(Blocks.stonebrick, 1, 2), 50, 5);
 
-        RecipeCorruption.addRecipe(new ItemStack(Items.bone), new ItemStack(Items.dye, 6, 15), 70, 10);
-        RecipeCorruption.addRecipe(new ItemStack(Blocks.sand), new ItemStack(Blocks.soul_sand), 100, 10);
+        bonemeal = RecipeCorruption.addRecipe(new ItemStack(Items.bone), new ItemStack(Items.dye, 6, 15), 70, 10);
+        soulSand = RecipeCorruption.addRecipe(new ItemStack(Blocks.sand), new ItemStack(Blocks.soul_sand), 100, 10);
 
-        RecipeCorruption.addRecipe(new ItemStack(ModItems.demonBloodShard), SanguimancyItemStacks.corruptedDemonShard, 500, 50);
+        corruptedDemonShard = RecipeCorruption.addRecipe(new ItemStack(ModItems.demonBloodShard), SanguimancyItemStacks.corruptedDemonShard, 500, 50);
     }
 }

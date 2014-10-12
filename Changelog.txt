@@ -1,3 +1,6 @@
+Version 1.1.7-Pre6:
+Added new Blood Utils API and some entries. Woop!
+
 Version 1.1.7-Pre5:
 NEI Compatibility for Corrupted Infusion.
 Changed the way Corrupted Infusion works a bit. You need a Corruption Catalyst for the magic to happen now.

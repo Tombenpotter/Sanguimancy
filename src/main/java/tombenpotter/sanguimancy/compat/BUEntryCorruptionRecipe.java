@@ -1,7 +1,7 @@
-package bloodutils.api.entries;
+package tombenpotter.sanguimancy.compat;
 
-import WayofTime.alchemicalWizardry.api.altarRecipeRegistry.AltarRecipe;
 import bloodutils.api.classes.guide.GuiEntry;
+import bloodutils.api.entries.IEntry;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.renderer.RenderHelper;
@@ -10,36 +10,40 @@ import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.StatCollector;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
+import tombenpotter.sanguimancy.Sanguimancy;
+import tombenpotter.sanguimancy.util.Input_Output;
 
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class EntryAltarRecipe implements IEntry {
-    public EntryAltarRecipe(AltarRecipe recipes) {
-        this.recipes = recipes;
-        populate(recipes);
-    }
+public class BUEntryCorruptionRecipe implements IEntry {
 
-    public AltarRecipe recipes;
-
-    public ItemStack input;
-    public ItemStack output;
-    public int essence;
-
+    public Input_Output recipe;
+    public ItemStack input, output;
+    public int chance, minimumCorruption;
     public ArrayList<ItemIcon> icons = new ArrayList<ItemIcon>();
 
-    @SuppressWarnings("unchecked")
-    public void populate(AltarRecipe recipe) {
-        this.input = recipe.requiredItem;
-        this.output = recipe.result;
-        this.essence = recipe.liquidRequired;
+    public BUEntryCorruptionRecipe(Input_Output recipe) {
+        this.recipe = recipe;
+        populate(recipe);
+    }
+
+    public void populate(Input_Output recipe) {
+        this.input = recipe.getInput();
+        this.output = recipe.getOutput();
+        this.chance = recipe.getChance();
+        this.minimumCorruption = recipe.getMiniumCorruption();
     }
 
     @Override
     public void draw(GuiEntry entry, int width, int height, int left, int top, EntityPlayer player, String key, int page, int mX, int mY) {
+        Minecraft.getMinecraft().fontRenderer.drawSplitString(StatCollector.translateToLocal("compat.nei.corrupted.infusion.chance") + ": 1/" + String.valueOf(chance), left + width / 2 - 58, top + 15, 110, 0);
+        Minecraft.getMinecraft().fontRenderer.drawSplitString(StatCollector.translateToLocal("compat.nei.corrupted.infusion.minimum.corruption") + ": " + String.valueOf(minimumCorruption), left + width / 2 - 58, top + 35, 110, 0);
+
         int x, y;
 
         GL11.glPushMatrix();
@@ -82,23 +86,20 @@ public class EntryAltarRecipe implements IEntry {
 
     public void renderOverlay(GuiEntry entry, int width, int height, int left, int top) {
         TextureManager tm = Minecraft.getMinecraft().getTextureManager();
-        tm.bindTexture(new ResourceLocation("bloodutils:textures/gui/altar.png"));
+        tm.bindTexture(new ResourceLocation(Sanguimancy.texturePath + ":textures/gui/corruptedInfusion.png"));
         entry.drawTexturedModalRect(left, (height / 2 - 36) + (18 * 0) - 17, 0, 0, width, height);
     }
 
     @SuppressWarnings("rawtypes")
     @Override
-    public void initGui(int width, int height, int left, int top,
-                        EntityPlayer player, List buttonList) {
-
+    public void initGui(int width, int height, int left, int top, EntityPlayer player, List buttonList) {
     }
 
     @Override
     public void actionPerformed(GuiButton button) {
-
     }
 
-    static class ItemIcon {
+    public static class ItemIcon {
         public ItemIcon(ItemStack stack, int x, int y) {
             this.stack = stack;
             this.x = x;
