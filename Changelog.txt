@@ -1,3 +1,6 @@
+Version 1.1.7:
+See changelog down below :P
+
 Version 1.1.7-Pre6:
 Added new Blood Utils API and some entries. Woop!
 
