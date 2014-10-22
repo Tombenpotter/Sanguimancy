@@ -10,6 +10,7 @@ public class SanguimancyItemStacks {
     public static ItemStack unattunedPlayerSacrificer = new ItemStack(ItemsRegistry.playerSacrificer, 1, 0);
     public static ItemStack attunnedPlayerSacrificer = new ItemStack(ItemsRegistry.playerSacrificer, 1, 1);
     public static ItemStack focusedPlayerSacrificer = new ItemStack(ItemsRegistry.playerSacrificer, 1, 2);
+    public static ItemStack wayToDie = new ItemStack(ItemsRegistry.playerSacrificer, 1, 3);
     public static ItemStack addCorruption = new ItemStack(ItemsRegistry.soulCorruptionTest, 1, 0);
     public static ItemStack removeCorruption = new ItemStack(ItemsRegistry.soulCorruptionTest, 1, 1);
     public static ItemStack negateCorruption = new ItemStack(ItemsRegistry.soulCorruptionTest, 1, 2);

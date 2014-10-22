@@ -4,14 +4,16 @@ import WayofTime.alchemicalWizardry.ModBlocks;
 import WayofTime.alchemicalWizardry.ModItems;
 import WayofTime.alchemicalWizardry.api.altarRecipeRegistry.AltarRecipe;
 import WayofTime.alchemicalWizardry.api.altarRecipeRegistry.AltarRecipeRegistry;
+import WayofTime.alchemicalWizardry.api.items.ShapedBloodOrbRecipe;
 import bloodutils.api.registries.RecipeRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
-import joshie.alchemicalWizardy.ShapedBloodOrbRecipe;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
+import net.minecraftforge.oredict.OreDictionary;
 import tombenpotter.sanguimancy.util.Input_Output;
+import tombenpotter.sanguimancy.util.RandomUtils;
 import tombenpotter.sanguimancy.util.RecipeCorruption;
 import tombenpotter.sanguimancy.util.SanguimancyItemStacks;
 
@@ -19,7 +21,7 @@ public class RecipesRegistry {
 
     public static IRecipe altarEmitter, sacrificeTransferrer, corruptionReader, unattunedPlayerSacrificer, corruptionCrystallizer;
     public static AltarRecipe altarDiviner, attunedPlayerSacrificer, corruptionCatalyst;
-    public static Input_Output poisonousPotato, rottenFlesh, crackedStoneBricks, bonemeal, soulSand, corruptedDemonShard;
+    public static Input_Output poisonousPotato, rottenFlesh, crackedStoneBricks, bonemeal, soulSand, corruptedDemonShard, cobblestone, gravel, sand, dirt;
 
     public static void registerShapedRecipes() {
         altarEmitter = GameRegistry.addShapedRecipe(SanguimancyItemStacks.altarEmitter, "XYX", "XZX", "XXX", 'X', Blocks.redstone_block, 'Y', Blocks.lever, 'Z', ModBlocks.blockAltar);
@@ -47,10 +49,26 @@ public class RecipesRegistry {
         poisonousPotato = RecipeCorruption.addRecipe(new ItemStack(Items.potato), new ItemStack(Items.poisonous_potato), 50, 5);
         rottenFlesh = RecipeCorruption.addRecipe(new ItemStack(Items.beef, 1), new ItemStack(Items.rotten_flesh, 1), 50, 5);
         crackedStoneBricks = RecipeCorruption.addRecipe(new ItemStack(Blocks.stonebrick, 1, 0), new ItemStack(Blocks.stonebrick, 1, 2), 50, 5);
-
         bonemeal = RecipeCorruption.addRecipe(new ItemStack(Items.bone), new ItemStack(Items.dye, 6, 15), 70, 10);
         soulSand = RecipeCorruption.addRecipe(new ItemStack(Blocks.sand), new ItemStack(Blocks.soul_sand), 100, 10);
-
         corruptedDemonShard = RecipeCorruption.addRecipe(new ItemStack(ModItems.demonBloodShard), SanguimancyItemStacks.corruptedDemonShard, 500, 50);
+        cobblestone = RecipeCorruption.addRecipe(new ItemStack(Blocks.stone), new ItemStack(Blocks.cobblestone), 50, 5);
+        gravel = RecipeCorruption.addRecipe(new ItemStack(Blocks.cobblestone), new ItemStack(Blocks.gravel), 50, 5);
+        sand = RecipeCorruption.addRecipe(new ItemStack(Blocks.gravel), new ItemStack(Blocks.sand), 50, 5);
+        dirt = RecipeCorruption.addRecipe(new ItemStack(Blocks.grass), new ItemStack(Blocks.dirt), 50, 5);
+
+        for (String ore : OreDictionary.getOreNames()) {
+            if (ore.startsWith("ore")) {
+                String output = ore.substring(3);
+                if (!OreDictionary.getOres(ore).isEmpty() && !OreDictionary.getOres("ingot" + output).isEmpty()) {
+                    for (int i = 0; i < OreDictionary.getOres(ore).size(); i++) {
+                        ItemStack oreLump = new ItemStack(ItemsRegistry.oreLump, 2, 0);
+                        RandomUtils.checkAndSetCompound(oreLump);
+                        oreLump.stackTagCompound.setString("ore", output);
+                        RecipeCorruption.addRecipe(OreDictionary.getOres(ore).get(i), oreLump, 200, 20);
+                    }
+                }
+            }
+        }
     }
 }

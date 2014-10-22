@@ -2,10 +2,7 @@ package tombenpotter.sanguimancy.registry;
 
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.item.Item;
-import tombenpotter.sanguimancy.items.ItemCorruptedDemonShard;
-import tombenpotter.sanguimancy.items.ItemCorruptionCatalyst;
-import tombenpotter.sanguimancy.items.ItemPlayerSacrificer;
-import tombenpotter.sanguimancy.items.ItemSoulCorruptionTest;
+import tombenpotter.sanguimancy.items.*;
 
 public class ItemsRegistry {
 
@@ -13,6 +10,7 @@ public class ItemsRegistry {
     public static Item soulCorruptionTest;
     public static Item corruptedDemonShard;
     public static Item corruptionCatalyst;
+    public static ItemOreLump oreLump;
 
     public static void registerItems() {
         playerSacrificer = new ItemPlayerSacrificer();
@@ -26,5 +24,8 @@ public class ItemsRegistry {
 
         corruptionCatalyst = new ItemCorruptionCatalyst();
         GameRegistry.registerItem(corruptionCatalyst, "corruptionCatalist");
+
+        oreLump = new ItemOreLump();
+        GameRegistry.registerItem(oreLump, "oreLump");
     }
 }

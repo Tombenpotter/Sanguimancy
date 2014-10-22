@@ -21,9 +21,9 @@ import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import tombenpotter.sanguimancy.Sanguimancy;
 import tombenpotter.sanguimancy.client.particle.EntityColoredFlameFX;
-import tombenpotter.sanguimancy.registry.ItemsRegistry;
 import tombenpotter.sanguimancy.tile.TileSacrificeTransfer;
 import tombenpotter.sanguimancy.util.RandomUtils;
+import tombenpotter.sanguimancy.util.SanguimancyItemStacks;
 import tombenpotter.sanguimancy.util.SoulCorruptionHelper;
 
 import java.util.Random;
@@ -80,9 +80,10 @@ public class BlockSacrificeTransfer extends BlockContainer {
     public void onEntityWalking(World world, int x, int y, int z, Entity entity) {
         if (!world.isRemote) {
             TileSacrificeTransfer tile = (TileSacrificeTransfer) world.getTileEntity(x, y, z);
-            if (entity instanceof EntityPlayer && tile.slots[0] != null && tile.slots[0].isItemEqual(new ItemStack(ItemsRegistry.playerSacrificer, 1, 2))) {
+            if (entity instanceof EntityPlayer && tile.slots[0] != null && (tile.slots[0].isItemEqual(SanguimancyItemStacks.focusedPlayerSacrificer) || tile.slots[0].isItemEqual(SanguimancyItemStacks.wayToDie))) {
                 ItemStack stack = tile.slots[0];
                 EntityPlayer player = (EntityPlayer) entity;
+                RandomUtils.checkAndSetCompound(stack);
                 if (stack.stackTagCompound.getString("thiefName").equals(player.getCommandSenderName())) {
                     String owner = player.getCommandSenderName();
                     World worldSave = MinecraftServer.getServer().worldServers[0];

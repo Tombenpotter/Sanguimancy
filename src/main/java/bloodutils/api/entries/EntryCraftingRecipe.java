@@ -1,8 +1,8 @@
 package bloodutils.api.entries;
 
 import WayofTime.alchemicalWizardry.ModItems;
+import WayofTime.alchemicalWizardry.api.items.ShapedBloodOrbRecipe;
 import bloodutils.api.classes.guide.GuiEntry;
-import joshie.alchemicalWizardy.ShapedBloodOrbRecipe;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.renderer.RenderHelper;

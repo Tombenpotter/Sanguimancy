@@ -7,9 +7,13 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 
+import java.awt.*;
+import java.util.HashMap;
 import java.util.Random;
 
 public class RandomUtils {
+
+    public static HashMap<String, Integer> oreDictColor = new HashMap<String, Integer>();
 
     public static void dropItems(World world, int x, int y, int z) {
         Random rand = new Random();
@@ -56,5 +60,29 @@ public class RandomUtils {
         }
         world.spawnEntityInWorld(entityitem);
         return entityitem;
+    }
+
+    public static NBTTagCompound checkAndSetCompound(ItemStack stack) {
+        if (!stack.hasTagCompound()) {
+            NBTTagCompound tag = new NBTTagCompound();
+            stack.setTagCompound(tag);
+            return tag;
+        }
+        return null;
+    }
+
+    public static String capitalizeFirstLetter(String string) {
+        return Character.toUpperCase(string.charAt(0)) + string.substring(1);
+    }
+
+    public static void addOreDictColors() {
+        oreDictColor.put("Gold", new Color(255, 255, 0).getRGB());
+        oreDictColor.put("Iron", new Color(255, 204, 204).getRGB());
+        oreDictColor.put("Copper", new Color(204, 102, 51).getRGB());
+        oreDictColor.put("Tin", new Color(204, 204, 204).getRGB());
+        oreDictColor.put("Lead", new Color(102, 102, 153).getRGB());
+        oreDictColor.put("Ardite", new Color(255, 102, 0).getRGB());
+        oreDictColor.put("Cobalt", new Color(0, 60, 255).getRGB());
+        oreDictColor.put("Nickel", new Color(184, 192, 206).getRGB());
     }
 }

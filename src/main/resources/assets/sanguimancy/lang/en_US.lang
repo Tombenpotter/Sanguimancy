@@ -24,12 +24,14 @@ tile.Sanguimancy.corruptionCrystallizer.name=Soul Corruption Crystallizer
 item.Sanguimancy.playerSacrificer.unattuned.name=Unattuned Player Sacrificing Stone
 item.Sanguimancy.playerSacrificer.attuned.name=Attuned Player Sacrificing Stone
 item.Sanguimancy.playerSacrificer.focused.name=Focused Player Sacrificing Stone
+item.Sanguimancy.playerSacrificer.wayToDie.name=Way to Die!
 item.Sanguimancy.soulCorruption.add.name=Add Soul Corruption
 item.Sanguimancy.soulCorruption.remove.name=Remove Soul Corruption
 item.Sanguimancy.soulCorruption.negate.name=Negate Soul Corruption
 item.Sanguimancy.soulCorruption.reader.name=Soul Corruption Reader
 item.Sanguimancy.corruptedDemonShard.name=Corrupted Demon Shard
 item.Sanguimancy.corruptionCatalist.name=Corruption Catalist
+item.Sanguimancy.oreLump.name=Ore Lump
 
 #Creative Tab
 itemGroup.tabSanguimancy=Sanguimancy
@@ -62,6 +64,7 @@ info.Sanguimancy.tooltip.creative.only=Creative Only
 info.Sanguimancy.tooltip.illusion=The block is a lie.
 info.Sanguimancy.tooltip.corrupted.infusion.1=With this item in your inventory,
 info.Sanguimancy.tooltip.corrupted.infusion.2=Corrupted Infusion can start.
+info.Sanguimancy.tooltip.ore=Ore
 
 #Mods Compatibility
 #BU Tome Entries

@@ -17,6 +17,7 @@ import tombenpotter.sanguimancy.network.PacketHandler;
 import tombenpotter.sanguimancy.proxies.CommonProxy;
 import tombenpotter.sanguimancy.registry.*;
 import tombenpotter.sanguimancy.util.EventHandler;
+import tombenpotter.sanguimancy.util.RandomUtils;
 
 @Mod(modid = Sanguimancy.modid, name = Sanguimancy.name, version = Sanguimancy.version, dependencies = "required-after:AWWayofTime ; after:BloodUtils ; after:Waila")
 public class Sanguimancy {
@@ -29,7 +30,6 @@ public class Sanguimancy {
     public static final String channel = "Sanguimancy";
     public static final String version = "1.1.7";
     public static boolean isTTLoaded = false;
-
     public static CreativeTabs tabSanguimancy = new CreativeTabs("tab" + Sanguimancy.modid) {
         @Override
         public ItemStack getIconItemStack() {
@@ -49,12 +49,12 @@ public class Sanguimancy {
 
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent event) {
+        RandomUtils.addOreDictColors();
         TileRegistry.registerTEs();
         BlocksRegistry.registerBlocks();
         ItemsRegistry.registerItems();
         RecipesRegistry.registerShapedRecipes();
         RecipesRegistry.registerOrbRecipes();
-        RecipesRegistry.registercorruptionRecipes();
         EntitiesRegistry.registerEntities();
     }
 
@@ -71,7 +71,6 @@ public class Sanguimancy {
             FMLInterModComms.sendMessage("Waila", "register", "tombenpotter.sanguimancy.compat.WailaAltarDiviner.register");
             FMLInterModComms.sendMessage("Waila", "register", "tombenpotter.sanguimancy.compat.WailaAltarEmitter.register");
         }
-        // RitualRegistry.addToWoSBlacklist();
     }
 
     @Mod.EventHandler
@@ -80,6 +79,7 @@ public class Sanguimancy {
             BUCompat.createCategories();
             BUCompat.createEntries();
         }
+        RecipesRegistry.registercorruptionRecipes();
         isTTLoaded = Loader.isModLoaded("ThaumicTinkerer");
     }
 }

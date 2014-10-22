@@ -2,8 +2,8 @@ package bloodutils.api.registries;
 
 import WayofTime.alchemicalWizardry.api.altarRecipeRegistry.AltarRecipe;
 import WayofTime.alchemicalWizardry.api.altarRecipeRegistry.AltarRecipeRegistry;
+import WayofTime.alchemicalWizardry.api.items.ShapedBloodOrbRecipe;
 import cpw.mods.fml.common.registry.GameRegistry;
-import joshie.alchemicalWizardy.ShapedBloodOrbRecipe;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.item.crafting.IRecipe;

@@ -1,4 +1,8 @@
-Version 1.1.7:
+Version 1.1.7-2:
+Updated to Blood Magic 1.2.0a and after.
+Added Ore Lumps. They do nothing at the moment.
+
+Version 1.1.7-1:
 See changelog down below :P
 
 Version 1.1.7-Pre6:
