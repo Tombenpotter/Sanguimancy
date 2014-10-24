@@ -44,9 +44,10 @@ public class GuiLumpCleaner extends GuiContainer {
         int i1 = this.te.ticksLeft * 24 / this.te.maxTicks;
         this.drawTexturedModalRect(xStart + 81, yStart + 34, 176, 14, i1 + 1, 16);
 
-        int bloodLevelHeight = this.te.fluidInput.amount * 50 / this.te.getCapacity();
+        int bloodLevelHeight = this.te.tank.getFluid().amount * 50 / this.te.tank.getCapacity();
         int bloodLevel = yStart + 10 + 51 - bloodLevelHeight;
-        if (bloodLevelHeight > 0) this.drawTexturedModalRect(xStart + 12, bloodLevel, 177, 32, 12, bloodLevelHeight + 1);
+        if (bloodLevelHeight > 0)
+            this.drawTexturedModalRect(xStart + 12, bloodLevel, 177, 32, 12, bloodLevelHeight + 1);
     }
 
     @Override
@@ -56,7 +57,7 @@ public class GuiLumpCleaner extends GuiContainer {
         int yStart = (height - ySize) / 2;
         if ((xStart + 12 <= mouseX) && (xStart + 24 > mouseX) && (yStart + 10 <= mouseY) && (yStart + 60 > mouseY)) {
             String bloodStatus = StatCollector.translateToLocal("info.Sanguimancy.tooltip.amount") + ": ";
-            bloodStatus += this.te.fluidInput.amount + " / " + this.te.getCapacity();
+            bloodStatus += this.te.tank.getFluid().amount + " / " + this.te.tank.getCapacity();
             bloodStatus += " mB";
             ArrayList<String> toolTipList = new ArrayList<String>();
             toolTipList.add(bloodStatus);
