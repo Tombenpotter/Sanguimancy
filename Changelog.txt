@@ -1,3 +1,9 @@
+Version 1.1.8-Pre1:
+Added Ore Lump Cleaner. Cleans Ore Lumps into their respective ingots by bathing them in blood.
+Gui texture was made by Kris1432 the Awesome. (I credit him for being a Kroos).
+Ore Lumps do something now, they turn into ingots.
+Added a Blood Tank that can store any fluids. Sadly it doesn't have a model yet.
+
 Version 1.1.7-2:
 Updated to Blood Magic 1.2.0a and after.
 Added Ore Lumps. They do nothing at the moment.

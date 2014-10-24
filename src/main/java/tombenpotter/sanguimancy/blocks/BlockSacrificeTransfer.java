@@ -72,6 +72,7 @@ public class BlockSacrificeTransfer extends BlockContainer {
                     player.inventory.consumeInventoryItem(stack.getItem());
             }
             world.markBlockForUpdate(x, y, z);
+
         }
         return true;
     }
@@ -97,7 +98,6 @@ public class BlockSacrificeTransfer extends BlockContainer {
                     data.markDirty();
                     player.setFire(1000);
                     tile.setInventorySlotContents(0, null);
-                    world.markBlockForUpdate(x, y, z);
                     NBTTagCompound tag = SoulCorruptionHelper.getModTag(player, Sanguimancy.modid);
                     SoulCorruptionHelper.addCorruption(tag, 2);
                 } else if (stack.stackTagCompound.getString("ownerName").equals(player.getCommandSenderName())) {
@@ -112,7 +112,6 @@ public class BlockSacrificeTransfer extends BlockContainer {
                     sacrificedData.currentEssence = sacrificedEssence + stack.stackTagCompound.getInteger("bloodStolen");
                     sacrificedData.markDirty();
                     tile.setInventorySlotContents(0, null);
-                    world.markBlockForUpdate(x, y, z);
                 } else {
                     player.addChatComponentMessage(new ChatComponentTranslation(StatCollector.translateToLocal("info.Sanguimancy.tooltip.sacrifice.transfer")));
                     world.spawnEntityInWorld(new EntityLightningBolt(world, x, y, z));
@@ -120,6 +119,7 @@ public class BlockSacrificeTransfer extends BlockContainer {
                 }
             }
         }
+        world.markBlockForUpdate(x, y, z);
     }
 
     @Override

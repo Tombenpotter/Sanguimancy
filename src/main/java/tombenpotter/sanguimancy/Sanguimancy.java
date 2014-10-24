@@ -8,6 +8,7 @@ import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLInterModComms;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
+import cpw.mods.fml.common.network.NetworkRegistry;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -28,7 +29,7 @@ public class Sanguimancy {
     public static final String clientProxy = "tombenpotter.sanguimancy.proxies.ClientProxy";
     public static final String commonProxy = "tombenpotter.sanguimancy.proxies.CommonProxy";
     public static final String channel = "Sanguimancy";
-    public static final String version = "1.1.7";
+    public static final String version = "1.1.8";
     public static boolean isTTLoaded = false;
     public static CreativeTabs tabSanguimancy = new CreativeTabs("tab" + Sanguimancy.modid) {
         @Override
@@ -71,15 +72,16 @@ public class Sanguimancy {
             FMLInterModComms.sendMessage("Waila", "register", "tombenpotter.sanguimancy.compat.WailaAltarDiviner.register");
             FMLInterModComms.sendMessage("Waila", "register", "tombenpotter.sanguimancy.compat.WailaAltarEmitter.register");
         }
+        NetworkRegistry.INSTANCE.registerGuiHandler(this, proxy);
     }
 
     @Mod.EventHandler
     public void postInit(FMLPostInitializationEvent event) {
+        RecipesRegistry.registercorruptionRecipes();
         if (Loader.isModLoaded("BloodUtils")) {
             BUCompat.createCategories();
             BUCompat.createEntries();
         }
-        RecipesRegistry.registercorruptionRecipes();
         isTTLoaded = Loader.isModLoaded("ThaumicTinkerer");
     }
 }

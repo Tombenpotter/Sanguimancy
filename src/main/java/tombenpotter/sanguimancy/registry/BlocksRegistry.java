@@ -7,6 +7,7 @@ import tombenpotter.sanguimancy.Sanguimancy;
 import tombenpotter.sanguimancy.blocks.*;
 import tombenpotter.sanguimancy.blocks.items.ItemBlockAltarDiviner;
 import tombenpotter.sanguimancy.blocks.items.ItemBlockAltarEmitter;
+import tombenpotter.sanguimancy.blocks.items.ItemBlockBloodTank;
 import tombenpotter.sanguimancy.blocks.items.ItemBlockIllusion;
 
 public class BlocksRegistry {
@@ -16,6 +17,8 @@ public class BlocksRegistry {
     public static Block sacrificeTransfer;
     public static Block illusion;
     public static Block corruptionCrystallizer;
+    public static Block lumpCleaner;
+    public static Block bloodTank;
 
     public static void registerBlocks() {
         altarDiviner = new BlockAltarDiviner(Material.iron);
@@ -32,5 +35,11 @@ public class BlocksRegistry {
 
         corruptionCrystallizer = new BlockCorruptionCrystallizer(Material.iron);
         GameRegistry.registerBlock(corruptionCrystallizer, "BlockCorruptionCrystallizer").setBlockName(Sanguimancy.modid + ".corruptionCrystallizer");
+
+        lumpCleaner = new BlockLumpCleaner(Material.iron);
+        GameRegistry.registerBlock(lumpCleaner, "BlockLumpCleaner").setBlockName(Sanguimancy.modid + ".lumpCleaner");
+
+        bloodTank = new BlockBloodTank(Material.iron);
+        GameRegistry.registerBlock(bloodTank, ItemBlockBloodTank.class, "BlockBloodTank").setBlockName(Sanguimancy.modid + ".bloodTank");
     }
 }

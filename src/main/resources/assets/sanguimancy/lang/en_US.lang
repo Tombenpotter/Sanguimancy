@@ -19,6 +19,8 @@ tile.Sanguimancy.illusion.melon.name=Melon
 tile.Sanguimancy.illusion.gold.block.name=Gold Block
 tile.Sanguimancy.illusion.clay.name=Clay
 tile.Sanguimancy.corruptionCrystallizer.name=Soul Corruption Crystallizer
+tile.Sanguimancy.lumpCleaner.name=Ore Lump Cleanser
+tile.Sanguimancy.bloodTank.name=Blood Tank
 
 #Items
 item.Sanguimancy.playerSacrificer.unattuned.name=Unattuned Player Sacrificing Stone
@@ -38,6 +40,9 @@ itemGroup.tabSanguimancy=Sanguimancy
 
 #Keybinds
 key.Sanguimancy.search=Locate Players
+
+#NEEDS TO BE CHANGED DEPENDING ON THE LANGUAGE
+horror.Sanguimancy.bucket=bucket
 
 #Rituals
 ritual.Sanguimancy.drill.dead=Drill of the Dead
@@ -65,6 +70,10 @@ info.Sanguimancy.tooltip.illusion=The block is a lie.
 info.Sanguimancy.tooltip.corrupted.infusion.1=With this item in your inventory,
 info.Sanguimancy.tooltip.corrupted.infusion.2=Corrupted Infusion can start.
 info.Sanguimancy.tooltip.ore=Ore
+info.Sanguimancy.tooltip.amount=Amount
+info.Sanguimancy.tooltip.fluid=Fluid
+info.Sanguimancy.tooltip.none=None
+info.Sanguimancy.tooltip.any=Any Ore Lump
 
 #Mods Compatibility
 #BU Tome Entries

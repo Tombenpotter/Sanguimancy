@@ -11,5 +11,7 @@ public class TileRegistry {
         GameRegistry.registerTileEntity(TileSacrificeTransfer.class, "TileSacrificeTransfer");
         GameRegistry.registerTileEntity(TileIllusion.class, "TileIllusion");
         GameRegistry.registerTileEntity(TileCorruptionCrystallizer.class, "TileCorruptionCrystallizer");
+        GameRegistry.registerTileEntity(TileLumpCleaner.class, "TileLumpCleaner");
+        GameRegistry.registerTileEntity(TileBloodTank.class, "TileBloodTank");
     }
 }

@@ -34,7 +34,11 @@ public class ItemOreLump extends Item {
             list.add(StatCollector.translateToLocal("info.Sanguimancy.tooltip.shift.info"));
         }
         if (GuiScreen.isShiftKeyDown()) {
-            list.add(StatCollector.translateToLocal("info.Sanguimancy.tooltip.ore") + ": " + stack.stackTagCompound.getString("ore"));
+            if (stack.hasTagCompound()) {
+                list.add(StatCollector.translateToLocal("info.Sanguimancy.tooltip.ore") + ": " + stack.stackTagCompound.getString("ore"));
+            } else {
+                list.add(StatCollector.translateToLocal("info.Sanguimancy.tooltip.any"));
+            }
         }
     }
 
@@ -56,16 +60,22 @@ public class ItemOreLump extends Item {
 
     @Override
     public String getItemStackDisplayName(ItemStack stack) {
-        return RandomUtils.capitalizeFirstLetter(stack.stackTagCompound.getString("ore")) + " " + super.getItemStackDisplayName(stack);
+        if (stack.hasTagCompound()) {
+            return RandomUtils.capitalizeFirstLetter(stack.stackTagCompound.getString("ore")) + " " + super.getItemStackDisplayName(stack);
+        } else return super.getItemStackDisplayName(stack);
     }
 
     @SideOnly(Side.CLIENT)
     @Override
     public int getColorFromItemStack(ItemStack stack, int id) {
-        if (RandomUtils.oreDictColor.containsKey(stack.stackTagCompound.getString("ore"))) {
-            return RandomUtils.oreDictColor.get(stack.stackTagCompound.getString("ore"));
+        if (stack.hasTagCompound()) {
+            if (RandomUtils.oreDictColor.containsKey(stack.stackTagCompound.getString("ore"))) {
+                return RandomUtils.oreDictColor.get(stack.stackTagCompound.getString("ore"));
+            } else {
+                return stack.stackTagCompound.getString("ore").hashCode();
+            }
         } else {
-            return stack.stackTagCompound.getString("ore").hashCode();
+            return 0;
         }
     }
 }

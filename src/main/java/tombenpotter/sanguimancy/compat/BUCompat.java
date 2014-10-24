@@ -48,7 +48,7 @@ public class BUCompat {
         EntryRegistry.registerEntry(categorySanguimancy, sanguimancyMap, altarEmitter);
         altarDiviner = new Entry(new IEntry[]{new EntryItemText(SanguimancyItemStacks.altarDiviner, "altarDiviner"), new EntryText("altarDiviner"), new EntryAltarRecipe(RecipesRegistry.altarDiviner)}, "§3" + StatCollector.translateToLocal("tile.Sanguimancy.altarDiviner.name"), 1);
         EntryRegistry.registerEntry(categorySanguimancy, sanguimancyMap, altarDiviner);
-        corruptionCrystallizer = new Entry(new IEntry[]{new EntryItemText(SanguimancyItemStacks.corruptionCrystallizer, "corruptionCrystallizer"), new EntryCraftingRecipe(RecipesRegistry.corruptionCrystallizer)}, "§3" + StatCollector.translateToLocal("tile.Sanguimancy.corruptionCrystallizer.name"), 1);
+        corruptionCrystallizer = new Entry(new IEntry[]{new EntryItemText(SanguimancyItemStacks.corruptionCrystallizer, "corruptionCrystallizer"), new EntryCraftingRecipe(RecipesRegistry.corruptionCrystallizer), new BUEntryCorruptionRecipe(RecipesRegistry.corruptedDemonShard)}, "§3" + StatCollector.translateToLocal("tile.Sanguimancy.corruptionCrystallizer.name"), 1);
         EntryRegistry.registerEntry(categorySanguimancy, sanguimancyMap, corruptionCrystallizer);
 
         drillOfTheDead = new Entry(new IEntry[]{new EntryText("drillOfTheDead"), new EntryText("drillOfTheDead")}, "§1Ritual: " + StatCollector.translateToLocal("ritual.Sanguimancy.drill.dead"), 1);

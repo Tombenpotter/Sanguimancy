@@ -1,11 +1,17 @@
 package tombenpotter.sanguimancy.util;
 
 import net.minecraft.entity.item.EntityItem;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
+import net.minecraftforge.common.util.ForgeDirection;
+import net.minecraftforge.fluids.FluidContainerRegistry;
+import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.IFluidHandler;
 
 import java.awt.*;
 import java.util.HashMap;
@@ -79,10 +85,83 @@ public class RandomUtils {
         oreDictColor.put("Gold", new Color(255, 255, 0).getRGB());
         oreDictColor.put("Iron", new Color(255, 204, 204).getRGB());
         oreDictColor.put("Copper", new Color(204, 102, 51).getRGB());
-        oreDictColor.put("Tin", new Color(204, 204, 204).getRGB());
+        oreDictColor.put("Tin", new Color(135, 154, 168).getRGB());
         oreDictColor.put("Lead", new Color(102, 102, 153).getRGB());
         oreDictColor.put("Ardite", new Color(255, 102, 0).getRGB());
         oreDictColor.put("Cobalt", new Color(0, 60, 255).getRGB());
-        oreDictColor.put("Nickel", new Color(184, 192, 206).getRGB());
+        oreDictColor.put("Nickel", new Color(204, 204, 204).getRGB());
+        oreDictColor.put("Silver", new Color(187, 189, 184).getRGB());
+        oreDictColor.put("Platinum", new Color(30, 208, 243).getRGB());
+        oreDictColor.put("Aluminium", new Color(198, 206, 130).getRGB());
+        oreDictColor.put("Aluminum", new Color(198, 206, 130).getRGB());
     }
+
+    //Shamelessly ripped off of CoFH Lib
+    public static boolean fillContainerFromHandler(World world, IFluidHandler handler, EntityPlayer player, FluidStack tankFluid) {
+        ItemStack container = player.getCurrentEquippedItem();
+        if (FluidContainerRegistry.isEmptyContainer(container)) {
+            ItemStack returnStack = FluidContainerRegistry.fillFluidContainer(tankFluid, container);
+            FluidStack fluid = FluidContainerRegistry.getFluidForFilledItem(returnStack);
+            if (fluid == null || returnStack == null) {
+                return false;
+            }
+            if (!player.capabilities.isCreativeMode) {
+                if (container.stackSize == 1) {
+                    container = container.copy();
+                    player.inventory.setInventorySlotContents(player.inventory.currentItem, returnStack);
+                } else if (!player.inventory.addItemStackToInventory(returnStack)) {
+                    return false;
+                }
+                handler.drain(ForgeDirection.UNKNOWN, fluid.amount, true);
+                container.stackSize--;
+                if (container.stackSize <= 0) {
+                    container = null;
+                }
+            } else {
+                handler.drain(ForgeDirection.UNKNOWN, fluid.amount, true);
+            }
+            return true;
+        }
+        return false;
+    }
+
+    //Shamelessly ripped off of CoFH Lib
+    public static boolean fillHandlerWithContainer(World world, IFluidHandler handler, EntityPlayer player) {
+        ItemStack container = player.getCurrentEquippedItem();
+        FluidStack fluid = FluidContainerRegistry.getFluidForFilledItem(container);
+        if (fluid != null) {
+            if (handler.fill(ForgeDirection.UNKNOWN, fluid, false) == fluid.amount || player.capabilities.isCreativeMode) {
+                if (world.isRemote) {
+                    return true;
+                }
+                handler.fill(ForgeDirection.UNKNOWN, fluid, true);
+                if (!player.capabilities.isCreativeMode) {
+                    player.inventory.setInventorySlotContents(player.inventory.currentItem, RandomUtils.consumeItem(container));
+                }
+                return true;
+            }
+        }
+        return false;
+    }
+
+    //Shamelessly ripped off of CoFH Lib
+    public static ItemStack consumeItem(ItemStack stack) {
+        Item item = stack.getItem();
+        boolean largerStack = stack.stackSize > 1;
+        if (largerStack) {
+            stack.stackSize -= 1;
+        }
+        if (item.hasContainerItem(stack)) {
+            ItemStack ret = item.getContainerItem(stack);
+            if (ret == null) {
+                return null;
+            }
+            if (ret.isItemStackDamageable() && ret.getItemDamage() > ret.getMaxDamage()) {
+                ret = null;
+            }
+            return ret;
+        }
+        return largerStack ? stack : null;
+    }
+
 }

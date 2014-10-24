@@ -8,8 +8,8 @@ public class NEIConfig implements IConfigureNEI {
 
     @Override
     public void loadConfig() {
-        API.registerRecipeHandler(new NEICompat());
-        API.registerUsageHandler(new NEICompat());
+        API.registerRecipeHandler(new NEICorruptedInfusion());
+        API.registerUsageHandler(new NEICorruptedInfusion());
     }
 
     @Override
