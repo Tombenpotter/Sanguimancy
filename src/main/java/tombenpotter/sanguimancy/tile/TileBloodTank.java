@@ -1,6 +1,9 @@
 package tombenpotter.sanguimancy.tile;
 
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.network.NetworkManager;
+import net.minecraft.network.Packet;
+import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.fluids.*;
@@ -17,7 +20,7 @@ public class TileBloodTank extends TileEntity implements IFluidHandler {
 
     @Override
     public void updateEntity() {
-        if (worldObj.getWorldTime() % 200 == 0) worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+        if (worldObj.getWorldTime() % 100 == 0) worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
     }
 
     @Override
@@ -53,12 +56,36 @@ public class TileBloodTank extends TileEntity implements IFluidHandler {
     @Override
     public void readFromNBT(NBTTagCompound tagCompound) {
         super.readFromNBT(tagCompound);
-        tank.readFromNBT(tagCompound);
+        tank.readFromNBT(tagCompound.getCompoundTag("tank"));
+        capacity = tagCompound.getInteger("capacity");
     }
 
     @Override
     public void writeToNBT(NBTTagCompound tagCompound) {
         super.writeToNBT(tagCompound);
-        tank.writeToNBT(tagCompound);
+        if (tank.getFluidAmount() != 0) tagCompound.setTag("tank", tank.writeToNBT(new NBTTagCompound()));
+        tagCompound.setInteger("capacity", capacity);
+    }
+
+    @Override
+    public Packet getDescriptionPacket() {
+        NBTTagCompound data = new NBTTagCompound();
+        FluidStack fluid = tank.getFluid();
+        data.setTag("fluid", fluid == null ? null : fluid.writeToNBT(new NBTTagCompound()));
+        S35PacketUpdateTileEntity packet = new S35PacketUpdateTileEntity(xCoord, yCoord, zCoord, 0, data);
+        return packet;
+    }
+
+    @Override
+    public void onDataPacket(NetworkManager net, S35PacketUpdateTileEntity pkt) {
+        super.onDataPacket(net, pkt);
+        NBTTagCompound data = pkt.func_148857_g();
+        switch (pkt.func_148853_f()) {
+            case 0:
+                FluidStack fluid = FluidStack.loadFluidStackFromNBT(data.getCompoundTag("fluid"));
+                tank.setFluid(fluid);
+                break;
+        }
+        worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
     }
 }

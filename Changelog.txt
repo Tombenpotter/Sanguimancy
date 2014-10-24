@@ -1,3 +1,6 @@
+Version 1.1.8-Pre2:
+Render and texture for the Blood Tank! Thanks a lot to skyboy for this, I did close to nothing C:
+
 Version 1.1.8-Pre1:
 Added Ore Lump Cleaner. Cleans Ore Lumps into their respective ingots by bathing them in blood.
 Gui texture was made by Kris1432 the Awesome. (I credit him for being a Kroos).

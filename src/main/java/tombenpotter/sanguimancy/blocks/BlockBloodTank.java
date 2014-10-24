@@ -10,8 +10,11 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.IIcon;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.FluidContainerRegistry;
+import net.minecraftforge.fluids.FluidStack;
 import tombenpotter.sanguimancy.Sanguimancy;
 import tombenpotter.sanguimancy.tile.TileBloodTank;
 import tombenpotter.sanguimancy.util.RandomUtils;
@@ -19,6 +22,8 @@ import tombenpotter.sanguimancy.util.RandomUtils;
 import java.util.ArrayList;
 
 public class BlockBloodTank extends BlockContainer {
+
+    public static int renderId = 10000;
 
     public BlockBloodTank(Material material) {
         super(material);
@@ -41,12 +46,15 @@ public class BlockBloodTank extends BlockContainer {
     public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int p_149727_6_, float p_149727_7_, float p_149727_8_, float p_149727_9_) {
         TileBloodTank fluidHandler = (TileBloodTank) world.getTileEntity(x, y, z);
         if (RandomUtils.fillHandlerWithContainer(world, fluidHandler, player)) {
+            world.markBlockForUpdate(x, y, z);
             return true;
         }
         if (RandomUtils.fillContainerFromHandler(world, fluidHandler, player, fluidHandler.tank.getFluid())) {
+            world.markBlockForUpdate(x, y, z);
             return true;
         }
         if (FluidContainerRegistry.isContainer(player.getCurrentEquippedItem())) {
+            world.markBlockForUpdate(x, y, z);
             return true;
         }
         return super.onBlockActivated(world, x, y, z, player, p_149727_6_, p_149727_7_, p_149727_8_, p_149727_9_);
@@ -65,8 +73,7 @@ public class BlockBloodTank extends BlockContainer {
             TileBloodTank tile = (TileBloodTank) world.getTileEntity(x, y, z);
             ItemStack drop = new ItemStack(this);
             NBTTagCompound tag = new NBTTagCompound();
-            tile.tank.writeToNBT(tag);
-            tag.setInteger("capacity", tile.capacity);
+            tile.writeToNBT(tag);
             drop.stackTagCompound = tag;
             list.add(drop);
         }
@@ -79,14 +86,67 @@ public class BlockBloodTank extends BlockContainer {
             TileBloodTank tile = (TileBloodTank) world.getTileEntity(x, y, z);
             NBTTagCompound tag = stack.getTagCompound();
             if (tag != null) {
-                tile.tank.readFromNBT(tag);
-                tile.capacity = tag.getInteger("capacity");
+                tile.readFromNBT(tag);
             }
         }
     }
 
     @Override
+    public int getRenderBlockPass() {
+        return 1;
+    }
+
+    @Override
+    public boolean renderAsNormalBlock() {
+        return false;
+    }
+
+    @Override
     public boolean isOpaqueCube() {
         return false;
+    }
+
+    @Override
+    public int getRenderType() {
+        return renderId;
+    }
+
+    @Override
+    public int getLightValue(IBlockAccess world, int x, int y, int z) {
+        TileEntity tile = world.getTileEntity(x, y, z);
+        if (tile instanceof TileBloodTank) {
+            TileBloodTank tank = (TileBloodTank) tile;
+            FluidStack fluid = tank.tank.getFluid();
+            if (fluid != null)
+                return fluid.getFluid().getLuminosity(fluid);
+        }
+        return 0;
+    }
+
+    @Override
+    public int colorMultiplier(IBlockAccess world, int x, int y, int z) {
+        TileEntity tile = world.getTileEntity(x, y, z);
+        if (tile instanceof TileBloodTank) {
+            TileBloodTank tank = (TileBloodTank) tile;
+            FluidStack fluid = tank.tank.getFluid();
+            if (fluid != null)
+                return fluid.getFluid().getColor(fluid);
+        }
+        return 0xFFFFFF;
+    }
+
+    @Override
+    public IIcon getIcon(IBlockAccess world, int x, int y, int z, int side) {
+        int meta = 0;
+        if (side == 6 || side == 7) {
+            meta = 1;
+            TileEntity tile = world.getTileEntity(x, y, z);
+            if (tile instanceof TileBloodTank) {
+                TileBloodTank tank = (TileBloodTank) tile;
+                FluidStack fluid = tank.tank.getFluid();
+                if (fluid != null) return fluid.getFluid().getIcon(fluid);
+            }
+        }
+        return getIcon(side, meta);
     }
 }
