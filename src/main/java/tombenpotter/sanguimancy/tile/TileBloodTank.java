@@ -20,7 +20,7 @@ public class TileBloodTank extends TileEntity implements IFluidHandler {
 
     @Override
     public void updateEntity() {
-        if (worldObj.getWorldTime() % 100 == 0) worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+        if (worldObj.getWorldTime() % 50 == 0) worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
     }
 
     @Override
@@ -70,7 +70,7 @@ public class TileBloodTank extends TileEntity implements IFluidHandler {
     @Override
     public Packet getDescriptionPacket() {
         NBTTagCompound data = new NBTTagCompound();
-        FluidStack fluid = tank.getFluid();
+        FluidStack fluid = tank.drain(1, false);
         data.setTag("fluid", fluid == null ? null : fluid.writeToNBT(new NBTTagCompound()));
         S35PacketUpdateTileEntity packet = new S35PacketUpdateTileEntity(xCoord, yCoord, zCoord, 0, data);
         return packet;

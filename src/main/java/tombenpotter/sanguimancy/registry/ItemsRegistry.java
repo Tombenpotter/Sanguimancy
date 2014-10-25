@@ -10,7 +10,8 @@ public class ItemsRegistry {
     public static Item soulCorruptionTest;
     public static Item corruptedDemonShard;
     public static Item corruptionCatalyst;
-    public static ItemOreLump oreLump;
+    public static Item oreLump;
+    public static Item bloodAmulet;
 
     public static void registerItems() {
         playerSacrificer = new ItemPlayerSacrificer();
@@ -27,5 +28,8 @@ public class ItemsRegistry {
 
         oreLump = new ItemOreLump();
         GameRegistry.registerItem(oreLump, "oreLump");
+
+        bloodAmulet = new ItemBloodAmulet();
+        GameRegistry.registerItem(bloodAmulet, "bloodAmulet");
     }
 }

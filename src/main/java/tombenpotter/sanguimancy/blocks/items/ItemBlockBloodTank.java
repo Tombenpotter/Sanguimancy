@@ -39,15 +39,20 @@ public class ItemBlockBloodTank extends ItemBlock implements IFluidContainerItem
 
     @Override
     public String getItemStackDisplayName(ItemStack stack) {
-        if (stack.hasTagCompound() && stack.stackTagCompound.getString("FluidName") != "") {
-            return super.getItemStackDisplayName(stack) + " (" + RandomUtils.capitalizeFirstLetter(RandomUtils.capitalizeFirstLetter(stack.stackTagCompound.getString("FluidName")) + ")");
+        if (stack.hasTagCompound() && stack.stackTagCompound.hasKey("tank") && stack.stackTagCompound.getCompoundTag("tank").getString("FluidName") != "") {
+            NBTTagCompound tag = stack.stackTagCompound.getCompoundTag("tank");
+            return super.getItemStackDisplayName(stack) + " (" + RandomUtils.capitalizeFirstLetter(RandomUtils.capitalizeFirstLetter(tag.getString("FluidName")) + ")");
         } else
             return super.getItemStackDisplayName(stack);
     }
 
     @Override
-    public FluidStack getFluid(ItemStack container) {
-        return FluidStack.loadFluidStackFromNBT(container.getTagCompound());
+    public FluidStack getFluid(ItemStack stack) {
+        if (stack.hasTagCompound() && stack.stackTagCompound.hasKey("tank") && stack.stackTagCompound.getCompoundTag("tank").getString("FluidName") != "") {
+            NBTTagCompound tag = stack.stackTagCompound.getCompoundTag("tank");
+            return FluidStack.loadFluidStackFromNBT(tag);
+        }
+        return null;
     }
 
     @Override
@@ -89,9 +94,7 @@ public class ItemBlockBloodTank extends ItemBlock implements IFluidContainerItem
     public FluidStack drain(ItemStack stack, int maxDrain, boolean doDrain) {
         NBTTagCompound tag = stack.stackTagCompound, fluidTag = null;
         FluidStack fluid = null;
-        if (tag == null || !tag.hasKey("tank") ||
-                (fluidTag = tag.getCompoundTag("tank")) == null ||
-                (fluid = FluidStack.loadFluidStackFromNBT(fluidTag)) == null) {
+        if (tag == null || !tag.hasKey("tank") || (fluidTag = tag.getCompoundTag("tank")) == null || (fluid = FluidStack.loadFluidStackFromNBT(fluidTag)) == null) {
             if (fluidTag != null)
                 tag.removeTag("tank");
             return null;

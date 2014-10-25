@@ -71,6 +71,7 @@ public class Sanguimancy {
             FMLInterModComms.sendMessage("Waila", "register", "tombenpotter.sanguimancy.compat.WailaCorruptionCrystallizer.register");
             FMLInterModComms.sendMessage("Waila", "register", "tombenpotter.sanguimancy.compat.WailaAltarDiviner.register");
             FMLInterModComms.sendMessage("Waila", "register", "tombenpotter.sanguimancy.compat.WailaAltarEmitter.register");
+            FMLInterModComms.sendMessage("Waila", "register", "tombenpotter.sanguimancy.compat.WailaBloodTank.register");
         }
         NetworkRegistry.INSTANCE.registerGuiHandler(this, proxy);
     }

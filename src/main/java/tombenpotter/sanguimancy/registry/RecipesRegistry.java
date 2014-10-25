@@ -43,7 +43,7 @@ public class RecipesRegistry {
         unattunedPlayerSacrificer = RecipeRegistry.getLatestCraftingRecipe();
         GameRegistry.addRecipe(new ShapedBloodOrbRecipe(SanguimancyItemStacks.corruptionCrystallizer, "XYX", "ZAZ", "XBX", 'X', new ItemStack(Blocks.obsidian), 'Y', new ItemStack(ModBlocks.bloodSocket), 'Z', new ItemStack(Blocks.diamond_block), 'A', SanguimancyItemStacks.corruptedDemonShard, 'B', new ItemStack(ModItems.archmageBloodOrb)));
         corruptionCrystallizer = RecipeRegistry.getLatestCraftingRecipe();
-        GameRegistry.addRecipe(new ShapedBloodOrbRecipe(SanguimancyItemStacks.bloodTank, "XXX", "XYX", "XXX", 'X', new ItemStack(Blocks.stained_glass, 1, 14), 'Y', new ItemStack(ModItems.apprenticeBloodOrb)));
+        GameRegistry.addRecipe(new ShapedBloodOrbRecipe(SanguimancyItemStacks.bloodTank, "XZX", "AYA", "XZX", 'X', new ItemStack(Blocks.stained_glass, 1, 14), 'Y', new ItemStack(ModItems.apprenticeBloodOrb), 'Z', new ItemStack(Blocks.obsidian), 'A', new ItemStack(ModItems.blankSlate)));
         bloodTank = RecipeRegistry.getLatestCraftingRecipe();
         GameRegistry.addRecipe(new ShapedBloodOrbRecipe(SanguimancyItemStacks.lumpCleaner, "XXX", "YZY", "ABA", 'X', SanguimancyItemStacks.oreLump, 'Y', SanguimancyItemStacks.bloodTank, 'Z', new ItemStack(ModItems.masterBloodOrb), 'A', new ItemStack(Blocks.iron_block), 'B', new ItemStack(Blocks.diamond_block)));
         lumpCleaner = RecipeRegistry.getLatestCraftingRecipe();

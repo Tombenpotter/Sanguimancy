@@ -1,3 +1,8 @@
+Version 1.1.8-Pre3:
+Added a Blood Amulet that heals the player when he has less than 5 hearts, at the cost of Blood.
+It can be filled by right clicking a Blood Tank filled with Life Essence, and uses 1200mb/half-heart.
+Waila Compatibility for the Blood Tank.
+
 Version 1.1.8-Pre2:
 Render and texture for the Blood Tank! Thanks a lot to skyboy for this, I did close to nothing C:
 Reworked the code of the Lump Cleanser to make it that much better

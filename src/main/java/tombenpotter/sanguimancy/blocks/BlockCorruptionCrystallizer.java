@@ -45,7 +45,7 @@ public class BlockCorruptionCrystallizer extends BlockContainer {
             player.addChatComponentMessage(new ChatComponentText(StatCollector.translateToLocal("compat.waila.corruption.stored") + ": " + String.valueOf(tile.corruptionStored)));
             player.addChatComponentMessage(new ChatComponentText(StatCollector.translateToLocal("compat.waila.owner") + ": " + tile.owner));
         }
-        return false;
+        return super.onBlockActivated(world, x, y, z, player, p_149727_6_, p_149727_7_, p_149727_8_, p_149727_9_);
     }
 
     @Override
