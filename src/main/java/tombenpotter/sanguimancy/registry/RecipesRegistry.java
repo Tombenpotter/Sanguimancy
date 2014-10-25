@@ -12,16 +12,15 @@ import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraftforge.oredict.OreDictionary;
-import tombenpotter.sanguimancy.util.Input_Output;
+import tombenpotter.sanguimancy.recipes.CorruptedInfusionRecipe;
 import tombenpotter.sanguimancy.util.RandomUtils;
-import tombenpotter.sanguimancy.util.RecipeCorruption;
 import tombenpotter.sanguimancy.util.SanguimancyItemStacks;
 
 public class RecipesRegistry {
 
     public static IRecipe altarEmitter, sacrificeTransferrer, corruptionReader, unattunedPlayerSacrificer, corruptionCrystallizer, bloodTank, lumpCleaner;
     public static AltarRecipe altarDiviner, attunedPlayerSacrificer, corruptionCatalyst;
-    public static Input_Output poisonousPotato, rottenFlesh, crackedStoneBricks, bonemeal, soulSand, corruptedDemonShard, cobblestone, gravel, sand, dirt;
+    public static CorruptedInfusionRecipe poisonousPotato, rottenFlesh, crackedStoneBricks, bonemeal, soulSand, corruptedDemonShard, cobblestone, gravel, sand, dirt;
 
     public static void registerShapedRecipes() {
         altarEmitter = GameRegistry.addShapedRecipe(SanguimancyItemStacks.altarEmitter, "XYX", "XZX", "XXX", 'X', Blocks.redstone_block, 'Y', Blocks.lever, 'Z', ModBlocks.blockAltar);
@@ -50,16 +49,16 @@ public class RecipesRegistry {
     }
 
     public static void registercorruptionRecipes() {
-        poisonousPotato = RecipeCorruption.addRecipe(new ItemStack(Items.potato), new ItemStack(Items.poisonous_potato), 50, 5);
-        rottenFlesh = RecipeCorruption.addRecipe(new ItemStack(Items.beef, 1), new ItemStack(Items.rotten_flesh, 1), 50, 5);
-        crackedStoneBricks = RecipeCorruption.addRecipe(new ItemStack(Blocks.stonebrick, 1, 0), new ItemStack(Blocks.stonebrick, 1, 2), 50, 5);
-        bonemeal = RecipeCorruption.addRecipe(new ItemStack(Items.bone), new ItemStack(Items.dye, 6, 15), 70, 10);
-        soulSand = RecipeCorruption.addRecipe(new ItemStack(Blocks.sand), new ItemStack(Blocks.soul_sand), 100, 10);
-        corruptedDemonShard = RecipeCorruption.addRecipe(new ItemStack(ModItems.demonBloodShard), SanguimancyItemStacks.corruptedDemonShard, 500, 50);
-        cobblestone = RecipeCorruption.addRecipe(new ItemStack(Blocks.stone), new ItemStack(Blocks.cobblestone), 50, 5);
-        gravel = RecipeCorruption.addRecipe(new ItemStack(Blocks.cobblestone), new ItemStack(Blocks.gravel), 50, 5);
-        sand = RecipeCorruption.addRecipe(new ItemStack(Blocks.gravel), new ItemStack(Blocks.sand), 50, 5);
-        dirt = RecipeCorruption.addRecipe(new ItemStack(Blocks.grass), new ItemStack(Blocks.dirt), 50, 5);
+        poisonousPotato = CorruptedInfusionRecipe.addRecipe(new ItemStack(Items.poisonous_potato), new ItemStack(Items.potato), 5, 50, false);
+        rottenFlesh = CorruptedInfusionRecipe.addRecipe(new ItemStack(Items.rotten_flesh), new ItemStack(Items.rotten_flesh), 5, 50, false);
+        crackedStoneBricks = CorruptedInfusionRecipe.addRecipe(new ItemStack(Blocks.stonebrick, 1, 2), new ItemStack(Blocks.stonebrick, 1, 0), 5, 50, false);
+        bonemeal = CorruptedInfusionRecipe.addRecipe(new ItemStack(Items.dye, 6, 15), new ItemStack(Items.bone), 10, 70, false);
+        soulSand = CorruptedInfusionRecipe.addRecipe(new ItemStack(Blocks.soul_sand), new ItemStack(Blocks.sand), 10, 100, false);
+        corruptedDemonShard = CorruptedInfusionRecipe.addRecipe(SanguimancyItemStacks.corruptedDemonShard, new ItemStack(ModItems.demonBloodShard), 50, 500, false);
+        cobblestone = CorruptedInfusionRecipe.addRecipe(new ItemStack(Blocks.cobblestone), new ItemStack(Blocks.stone), 5, 50, false);
+        gravel = CorruptedInfusionRecipe.addRecipe(new ItemStack(Blocks.gravel), new ItemStack(Blocks.cobblestone), 5, 50, false);
+        sand = CorruptedInfusionRecipe.addRecipe(new ItemStack(Blocks.sand), new ItemStack(Blocks.gravel), 5, 50, false);
+        dirt = CorruptedInfusionRecipe.addRecipe(new ItemStack(Blocks.dirt), new ItemStack(Blocks.grass), 5, 50, false);
 
         for (String ore : OreDictionary.getOreNames()) {
             if (ore.startsWith("ore")) {
@@ -69,7 +68,7 @@ public class RecipesRegistry {
                         ItemStack oreLump = new ItemStack(ItemsRegistry.oreLump, 2, 0);
                         RandomUtils.checkAndSetCompound(oreLump);
                         oreLump.stackTagCompound.setString("ore", output);
-                        RecipeCorruption.addRecipe(OreDictionary.getOres(ore).get(i), oreLump, 200, 20);
+                        CorruptedInfusionRecipe.addRecipe(oreLump, OreDictionary.getOres(ore).get(i), 20, 200, false);
                     }
                 }
             }

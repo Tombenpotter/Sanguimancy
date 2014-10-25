@@ -15,6 +15,7 @@ import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.util.ForgeDirection;
+import net.minecraftforge.fluids.FluidContainerRegistry;
 import tombenpotter.sanguimancy.Sanguimancy;
 import tombenpotter.sanguimancy.tile.TileBloodTank;
 import tombenpotter.sanguimancy.util.RandomUtils;
@@ -63,12 +64,13 @@ public class ItemBloodAmulet extends Item {
     }
 
     public boolean addBloodAndDrainTank(ItemStack stack, World world, int x, int y, int z) {
+        RandomUtils.checkAndSetCompound(stack);
         if (world.getTileEntity(x, y, z) != null && world.getTileEntity(x, y, z) instanceof TileBloodTank) {
             TileBloodTank tile = (TileBloodTank) world.getTileEntity(x, y, z);
-            if (tile.tank.getFluidAmount() >= bloodLoss) {
-                tile.drain(ForgeDirection.UNKNOWN, bloodLoss, true);
+            if (tile.tank.getFluidAmount() >= FluidContainerRegistry.BUCKET_VOLUME) {
+                tile.drain(ForgeDirection.UNKNOWN, FluidContainerRegistry.BUCKET_VOLUME, true);
                 RandomUtils.checkAndSetCompound(stack);
-                stack.stackTagCompound.setInteger("blood", stack.stackTagCompound.getInteger("blood") + bloodLoss);
+                stack.stackTagCompound.setInteger("blood", stack.stackTagCompound.getInteger("blood") + FluidContainerRegistry.BUCKET_VOLUME);
                 world.markBlockForUpdate(x, y, z);
                 return true;
             }
@@ -84,7 +86,7 @@ public class ItemBloodAmulet extends Item {
         }
         if (GuiScreen.isShiftKeyDown()) {
             if (stack.hasTagCompound() && stack.stackTagCompound.hasKey("blood")) {
-                list.add(StatCollector.translateToLocal("info.Sanguimancy.tooltip.amount") + ": " + stack.stackTagCompound.getInteger("blood"));
+                list.add(StatCollector.translateToLocal("info.Sanguimancy.tooltip.amount") + ": " + stack.stackTagCompound.getInteger("blood") + " mB");
                 list.add(bloodLoss + " mB " + StatCollector.translateToLocal("info.Sanguimancy.toolitp.per.point"));
             }
         }

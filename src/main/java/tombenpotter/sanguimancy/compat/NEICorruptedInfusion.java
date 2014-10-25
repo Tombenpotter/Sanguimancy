@@ -10,8 +10,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.StatCollector;
 import org.lwjgl.input.Mouse;
 import tombenpotter.sanguimancy.Sanguimancy;
-import tombenpotter.sanguimancy.util.Input_Output;
-import tombenpotter.sanguimancy.util.RecipeCorruption;
+import tombenpotter.sanguimancy.recipes.CorruptedInfusionRecipe;
 
 import java.awt.*;
 import java.lang.reflect.Field;
@@ -21,16 +20,18 @@ import java.util.List;
 public class NEICorruptedInfusion extends TemplateRecipeHandler {
 
     public class CachedCorruptionRecipe extends CachedRecipe {
-        public ItemStack input;
+        public ItemStack[] input;
         public ItemStack output;
-        public int chance;
+        public int time;
         public int miniumCorruption;
+        public boolean exactAmountandNbt;
 
-        public CachedCorruptionRecipe(Input_Output recipe) {
-            this.input = recipe.getInput();
-            this.output = recipe.getOutput();
-            this.chance = recipe.getChance();
-            this.miniumCorruption = recipe.getMiniumCorruption();
+        public CachedCorruptionRecipe(CorruptedInfusionRecipe recipe) {
+            this.input = recipe.fInput;
+            this.output = recipe.fOutput;
+            this.time = recipe.fTime;
+            this.miniumCorruption = recipe.fMiniumCorruption;
+            this.exactAmountandNbt = recipe.fExactAmountandNbt;
         }
 
         @Override
@@ -71,7 +72,7 @@ public class NEICorruptedInfusion extends TemplateRecipeHandler {
         if (outputId.equals("item"))
             loadCraftingRecipes((ItemStack) results[0]);
         else if (outputId.equals("corruptedinfusionrecipes")) {
-            for (Input_Output r : RecipeCorruption.getAllRecipes()) {
+            for (CorruptedInfusionRecipe r : CorruptedInfusionRecipe.getAllRecipes()) {
                 arecipes.add(new CachedCorruptionRecipe(r));
             }
         }
@@ -79,8 +80,8 @@ public class NEICorruptedInfusion extends TemplateRecipeHandler {
 
     @Override
     public void loadCraftingRecipes(ItemStack result) {
-        for (Input_Output r : RecipeCorruption.getAllRecipes()) {
-            if (r.getOutput().isItemEqual(result))
+        for (CorruptedInfusionRecipe r : CorruptedInfusionRecipe.getAllRecipes()) {
+            if (r.fOutput.isItemEqual(result))
                 arecipes.add(new CachedCorruptionRecipe(r));
         }
     }
@@ -90,7 +91,7 @@ public class NEICorruptedInfusion extends TemplateRecipeHandler {
         if (ingredients.length == 0)
             return;
         if ("item".equals(inputId)) {
-            for (Input_Output r : RecipeCorruption.getRecipesFromStack((ItemStack) ingredients[0]))
+            for (CorruptedInfusionRecipe r : CorruptedInfusionRecipe.getPossibleRecipes((ItemStack[]) ingredients, 500))
                 arecipes.add(new CachedCorruptionRecipe(r));
         }
     }
@@ -98,8 +99,9 @@ public class NEICorruptedInfusion extends TemplateRecipeHandler {
     @Override
     public void drawExtras(int id) {
         CachedCorruptionRecipe recipe = (CachedCorruptionRecipe) arecipes.get(id);
-        Minecraft.getMinecraft().fontRenderer.drawString(StatCollector.translateToLocal("compat.nei.corrupted.infusion.chance") + ": 1/" + recipe.chance, 18, 35, 0x4F4C49);
+        Minecraft.getMinecraft().fontRenderer.drawString(StatCollector.translateToLocal("compat.nei.corrupted.infusion.time") + ": " + recipe.time, 30, 35, 0x4F4C49);
         Minecraft.getMinecraft().fontRenderer.drawString(StatCollector.translateToLocal("compat.nei.corrupted.infusion.minimum.corruption") + ": " + recipe.miniumCorruption, 30, 45, 0x4F4C49);
+        Minecraft.getMinecraft().fontRenderer.drawString(StatCollector.translateToLocal("compat.nei.corrupted.infusion.minimum.exact") + ": " + recipe.exactAmountandNbt, 30, 55, 0x4F4C49);
     }
 
     public void drawTexturedModalRect(int par1, int par2, int par3, int par4, int par5, int par6, int w, int h) {

@@ -164,4 +164,23 @@ public class RandomUtils {
         return largerStack ? stack : null;
     }
 
+    public static boolean areStacksEqual(ItemStack[] stack1, ItemStack[] stack2, boolean exactAmountAndNBT) {
+        if (stack1.length != stack2.length) {
+            return false;
+        }
+        if (exactAmountAndNBT) {
+            for (int i = 0; i < stack1.length; i++) {
+                if (!(stack1[i] == stack2[i])) {
+                    return false;
+                }
+            }
+        } else {
+            for (int i = 0; i < stack1.length; i++) {
+                if (!stack1[i].isItemEqual(stack2[i])) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
 }

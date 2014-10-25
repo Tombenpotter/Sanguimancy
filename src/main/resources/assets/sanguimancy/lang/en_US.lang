@@ -76,6 +76,7 @@ info.Sanguimancy.tooltip.fluid=Fluid
 info.Sanguimancy.tooltip.none=None
 info.Sanguimancy.tooltip.any=Any Ore Lump
 info.Sanguimancy.toolitp.per.point=per half-heart
+info.Sanguimancy.tooltip.activated=Activated
 
 #Mods Compatibility
 #BU Tome Entries
@@ -125,5 +126,6 @@ compat.waila.blood.required=Blood Required
 
 #NEI Compatibility
 compat.nei.corrupted.infusion=Corrupted Infusion
-compat.nei.corrupted.infusion.chance=Start Crafting Chance
+compat.nei.corrupted.infusion.time=Duration
 compat.nei.corrupted.infusion.minimum.corruption=Minimum Corruption
+compat.nei.corrupted.infusion.minimum.exact=Exact Item

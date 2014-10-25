@@ -35,7 +35,7 @@ public class WailaBloodTank implements IWailaDataProvider {
             TileBloodTank tank = (TileBloodTank) accessor.getTileEntity();
             if (tank.tank.getFluid() != null) {
                 currenttip.add(StatCollector.translateToLocal("info.Sanguimancy.tooltip.fluid") + ": " + RandomUtils.capitalizeFirstLetter(tank.tank.getFluid().getLocalizedName()));
-                currenttip.add(StatCollector.translateToLocal("info.Sanguimancy.tooltip.amount") + ": " + tank.tank.getFluid().amount + "/" + tank.tank.getCapacity() + "mB");
+                currenttip.add(StatCollector.translateToLocal("info.Sanguimancy.tooltip.amount") + ": " + tank.tank.getFluidAmount() + "/" + tank.tank.getCapacity() + "mB");
             }
         }
         return currenttip;

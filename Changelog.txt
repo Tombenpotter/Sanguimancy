@@ -1,3 +1,8 @@
+Version 1.1.8-Pre4:
+Totally reworked Corrupted Infusion. Nothing should change on your side, but it is much better now.
+Fixed Blood Amulet, I derped it up when changing its cost.
+
+
 Version 1.1.8-Pre3:
 Added a Blood Amulet that heals the player when he has less than 5 hearts, at the cost of Blood.
 It can be filled by right clicking a Blood Tank filled with Life Essence, and uses 1200mb/half-heart.

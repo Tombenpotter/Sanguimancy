@@ -14,7 +14,7 @@ import net.minecraft.util.StatCollector;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 import tombenpotter.sanguimancy.Sanguimancy;
-import tombenpotter.sanguimancy.util.Input_Output;
+import tombenpotter.sanguimancy.recipes.CorruptedInfusionRecipe;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -22,27 +22,31 @@ import java.util.List;
 
 public class BUEntryCorruptionRecipe implements IEntry {
 
-    public Input_Output recipe;
-    public ItemStack input, output;
-    public int chance, minimumCorruption;
+    public CorruptedInfusionRecipe recipe;
+    public ItemStack input[], output;
+    public int time, minimumCorruption;
+    public boolean exactAmountAndNbt;
     public ArrayList<ItemIcon> icons = new ArrayList<ItemIcon>();
 
-    public BUEntryCorruptionRecipe(Input_Output recipe) {
+    public BUEntryCorruptionRecipe(CorruptedInfusionRecipe recipe) {
         this.recipe = recipe;
         populate(recipe);
     }
 
-    public void populate(Input_Output recipe) {
-        this.input = recipe.getInput();
-        this.output = recipe.getOutput();
-        this.chance = recipe.getChance();
-        this.minimumCorruption = recipe.getMiniumCorruption();
+    public void populate(CorruptedInfusionRecipe recipe) {
+        this.input = recipe.fInput;
+        this.output = recipe.fOutput;
+        this.time = recipe.fTime;
+        this.minimumCorruption = recipe.fMiniumCorruption;
+        this.exactAmountAndNbt = recipe.fExactAmountandNbt;
     }
 
     @Override
     public void draw(GuiEntry entry, int width, int height, int left, int top, EntityPlayer player, String key, int page, int mX, int mY) {
-        Minecraft.getMinecraft().fontRenderer.drawSplitString(StatCollector.translateToLocal("compat.nei.corrupted.infusion.chance") + ": 1/" + String.valueOf(chance), left + width / 2 - 58, top + 15, 110, 0);
+        Minecraft.getMinecraft().fontRenderer.drawSplitString(StatCollector.translateToLocal("compat.nei.corrupted.infusion.time") + ": " + String.valueOf(time), left + width / 2 - 58, top + 15, 110, 0);
         Minecraft.getMinecraft().fontRenderer.drawSplitString(StatCollector.translateToLocal("compat.nei.corrupted.infusion.minimum.corruption") + ": " + String.valueOf(minimumCorruption), left + width / 2 - 58, top + 35, 110, 0);
+        Minecraft.getMinecraft().fontRenderer.drawSplitString(StatCollector.translateToLocal("compat.nei.corrupted.infusion.minimum.exact") + ": " + String.valueOf(exactAmountAndNbt), left + width / 2 - 58, top + 15, 110, 0);
+
 
         int x, y;
 
@@ -56,8 +60,11 @@ public class BUEntryCorruptionRecipe implements IEntry {
         renderOverlay(entry, width, height, left, top);
 
         x = left + width / 2 - (65 - 45);
-        y = (height / 2 - 36) + (18 * (4 - 3));
-        drawIcon(this.input, x, y);
+        y = (height / 2 - 36) + (18 * (4 - 3)) - 10;
+        for (int i = 0; i < input.length; i++) {
+            y += 10;
+            drawIcon(input[i], x, y);
+        }
 
         /** Result */
         x = left + width / 2 - (65 - (48 + 48) - 5);
