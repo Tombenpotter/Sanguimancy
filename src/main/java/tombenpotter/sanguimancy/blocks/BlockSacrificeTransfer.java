@@ -23,7 +23,6 @@ import tombenpotter.sanguimancy.Sanguimancy;
 import tombenpotter.sanguimancy.client.particle.EntityColoredFlameFX;
 import tombenpotter.sanguimancy.tile.TileSacrificeTransfer;
 import tombenpotter.sanguimancy.util.RandomUtils;
-import tombenpotter.sanguimancy.util.SanguimancyItemStacks;
 import tombenpotter.sanguimancy.util.SoulCorruptionHelper;
 
 import java.util.Random;
@@ -81,7 +80,7 @@ public class BlockSacrificeTransfer extends BlockContainer {
     public void onEntityWalking(World world, int x, int y, int z, Entity entity) {
         if (!world.isRemote) {
             TileSacrificeTransfer tile = (TileSacrificeTransfer) world.getTileEntity(x, y, z);
-            if (entity instanceof EntityPlayer && tile.slots[0] != null && (tile.slots[0].isItemEqual(SanguimancyItemStacks.focusedPlayerSacrificer) || tile.slots[0].isItemEqual(SanguimancyItemStacks.wayToDie))) {
+            if (entity instanceof EntityPlayer && tile.slots[0] != null && (tile.slots[0].isItemEqual(RandomUtils.SanguimancyItemStacks.focusedPlayerSacrificer) || tile.slots[0].isItemEqual(RandomUtils.SanguimancyItemStacks.wayToDie))) {
                 ItemStack stack = tile.slots[0];
                 EntityPlayer player = (EntityPlayer) entity;
                 RandomUtils.checkAndSetCompound(stack);
