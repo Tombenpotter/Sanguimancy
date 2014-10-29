@@ -1,6 +1,7 @@
 Version 1.1.8-Pre7:
 Final version of the pump ritual. It will pump whatever fluid is in the tank above it.
 The fluid block is replaced with stone to avoid flowing liquids.
+Added a Quarry ritual, to dig big rooms easily. It voids the blocks by default, but uses reagent to collect them.
 
 Version 1.1.8-Pre6:
 Added a PlayerCorruptedInfusion event.

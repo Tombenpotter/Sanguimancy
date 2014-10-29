@@ -1,5 +1,6 @@
 package tombenpotter.sanguimancy.util;
 
+import WayofTime.alchemicalWizardry.ModBlocks;
 import WayofTime.alchemicalWizardry.common.Int3;
 import WayofTime.alchemicalWizardry.common.spell.complex.effect.SpellHelper;
 import net.minecraft.block.Block;
@@ -39,6 +40,24 @@ public class RitualUtils {
                     for (int k = -16 * multiplier; k <= 16 * multiplier; k++) {
                         if (!world.isAirBlock(x + i, y + j, z + k) && world.getBlock(x + i, y + j, z + k) == FluidRegistry.getFluid(fluid.fluidID).getBlock() && world.getBlockMetadata(x + i, y + j, z + k) == 0) {
                             blocks.add(new Int3(x + i, y + j, z + k));
+                        }
+                    }
+                }
+            }
+            return blocks;
+        }
+    }
+
+    public static class QuarryUtils {
+        public static ArrayList<Int3> getBlocksInArea(World world, int x, int y, int z, int multiplier) {
+            ArrayList<Int3> blocks = new ArrayList<Int3>();
+            for (int j = 0; j <= 32 * multiplier; j++) {
+                for (int i = -16 * multiplier; i <= 16 * multiplier; i++) {
+                    for (int k = -16 * multiplier; k <= 16 * multiplier; k++) {
+                        if (!world.isAirBlock(x + i, y + j, z + k) && world.getBlock(x + i, y + j, z + k).getBlockHardness(world, x + i, y + j, z + k) >= 0) {
+                            if (!(world.getBlock(x + i, y + j, z + k) == ModBlocks.blockMasterStone) && !(world.getBlock(x + i, y + j, z + k) == ModBlocks.ritualStone) && !(world.getTileEntity(x + i, y + j, z + k) instanceof IInventory)) {
+                                blocks.add(new Int3(x + i, y + j, z + k));
+                            }
                         }
                     }
                 }
@@ -95,11 +114,11 @@ public class RitualUtils {
             if (hasOrbisTerrae) {
                 multiplier = 8;
             } else {
-                multiplier = 3;
+                multiplier = 2;
             }
         } else {
             if (hasOrbisTerrae) {
-                multiplier = 5;
+                multiplier = 4;
             }
         }
         return multiplier;
