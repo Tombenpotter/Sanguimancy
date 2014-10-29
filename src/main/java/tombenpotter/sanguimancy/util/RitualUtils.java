@@ -8,8 +8,6 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.world.World;
-import net.minecraftforge.fluids.Fluid;
-import net.minecraftforge.fluids.FluidContainerRegistry;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 
@@ -18,11 +16,11 @@ import java.util.ArrayList;
 public class RitualUtils {
 
     public static class TimbermanUtils {
-        public static ArrayList<Int3> getHarvestablesInArea(World world, int x, int y, int z, int mutliplier) {
+        public static ArrayList<Int3> getHarvestablesInArea(World world, int x, int y, int z, int multiplier) {
             ArrayList<Int3> blocks = new ArrayList<Int3>();
-            for (int j = -4 * mutliplier; j <= 4 * mutliplier; j++) {
-                for (int i = -4 * mutliplier; i <= 4 * mutliplier; i++) {
-                    for (int k = -4 * mutliplier; k <= 4 * mutliplier; k++) {
+            for (int j = -4 * multiplier; j <= 4 * multiplier; j++) {
+                for (int i = -4 * multiplier; i <= 4 * multiplier; i++) {
+                    for (int k = -4 * multiplier; k <= 4 * multiplier; k++) {
                         if (!world.isAirBlock(x + i, y + j, z + k) && (world.getBlock(x + i, y + j, z + k).isWood(world, x + i, y + j, z + k) || world.getBlock(x + i, y + j, z + k).isLeaves(world, x + i, y + j, z + k))) {
                             blocks.add(new Int3(x + i, y + j, z + k));
                         }
@@ -34,13 +32,18 @@ public class RitualUtils {
     }
 
     public static class PumpUtils {
-        public static FluidStack pumpFluid(World world, int x, int y, int z, boolean drain) {
-            Fluid fluid = FluidRegistry.lookupFluidForBlock(world.getBlock(x, y, z));
-            if (fluid != null && FluidRegistry.isFluidRegistered(fluid) && world.getBlockMetadata(x, y, z) == 0) {
-                if (drain) world.setBlockToAir(x, y, z);
-                return new FluidStack(fluid, FluidContainerRegistry.BUCKET_VOLUME);
+        public static ArrayList<Int3> getPumpablesInArea(World world, FluidStack fluid, int x, int y, int z, int multiplier) {
+            ArrayList<Int3> blocks = new ArrayList<Int3>();
+            for (int j = -16 * multiplier; j <= 16 * multiplier; j++) {
+                for (int i = -16 * multiplier; i <= 16 * multiplier; i++) {
+                    for (int k = -16 * multiplier; k <= 16 * multiplier; k++) {
+                        if (!world.isAirBlock(x + i, y + j, z + k) && world.getBlock(x + i, y + j, z + k) == FluidRegistry.getFluid(fluid.fluidID).getBlock() && world.getBlockMetadata(x + i, y + j, z + k) == 0) {
+                            blocks.add(new Int3(x + i, y + j, z + k));
+                        }
+                    }
+                }
             }
-            return null;
+            return blocks;
         }
     }
 
@@ -84,5 +87,21 @@ public class RitualUtils {
                 }
             }
         }
+    }
+
+    public static int getRangeMultiplier(boolean hasTerrae, boolean hasOrbisTerrae) {
+        int multiplier = 1;
+        if (hasTerrae) {
+            if (hasOrbisTerrae) {
+                multiplier = 8;
+            } else {
+                multiplier = 3;
+            }
+        } else {
+            if (hasOrbisTerrae) {
+                multiplier = 5;
+            }
+        }
+        return multiplier;
     }
 }

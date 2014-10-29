@@ -68,20 +68,9 @@ public class RitualEffectFelling extends RitualEffect {
                 SpellHelper.sendIndexedParticleToAllAround(world, x, y, z, 20, world.provider.dimensionId, 3, x, y, z);
             }
             ArrayList<Int3> harvestables = new ArrayList<Int3>();
-            int rangeMultiplier = 1;
+            int rangeMultiplier = RitualUtils.getRangeMultiplier(hasTerrae, hasOrbisTerrae);
             int timeDivider = 1;
             if (harvestables.isEmpty()) {
-                if (hasTerrae) {
-                    if (hasOrbisTerrae) {
-                        rangeMultiplier = 8;
-                    } else {
-                        rangeMultiplier = 3;
-                    }
-                } else {
-                    if (hasOrbisTerrae) {
-                        rangeMultiplier = 5;
-                    }
-                }
                 if (hasPotentia) {
                     timeDivider = 2;
                 }
