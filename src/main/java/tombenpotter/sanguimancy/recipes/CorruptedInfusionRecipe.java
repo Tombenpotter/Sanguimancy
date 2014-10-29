@@ -32,9 +32,7 @@ public class CorruptedInfusionRecipe {
     }
 
     public static CorruptedInfusionRecipe addRecipe(ItemStack output, ItemStack input, int minimumCorruption, int time, boolean exactAmountandNbt) {
-        CorruptedInfusionRecipe recipe = new CorruptedInfusionRecipe(output, new ItemStack[]{input}, minimumCorruption, time, exactAmountandNbt);
-        recipeList.add(recipe);
-        return recipe;
+        return addRecipe(output, new ItemStack[]{input}, minimumCorruption, time, exactAmountandNbt);
     }
 
     public static boolean isRecipeValid(ItemStack[] input, int playerCorruption) {

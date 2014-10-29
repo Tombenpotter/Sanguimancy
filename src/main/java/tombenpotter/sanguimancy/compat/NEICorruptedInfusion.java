@@ -91,7 +91,7 @@ public class NEICorruptedInfusion extends TemplateRecipeHandler {
         if (ingredients.length == 0)
             return;
         if ("item".equals(inputId)) {
-            for (CorruptedInfusionRecipe r : CorruptedInfusionRecipe.getPossibleRecipes((ItemStack[]) ingredients, 500))
+            for (CorruptedInfusionRecipe r : CorruptedInfusionRecipe.getPossibleRecipes(new ItemStack[]{(ItemStack) ingredients[0]}, 500))
                 arecipes.add(new CachedCorruptionRecipe(r));
         }
     }

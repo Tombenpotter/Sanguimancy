@@ -1,3 +1,15 @@
+Version 1.1.8-Pre6:
+Added a PlayerCorruptedInfusion event.
+Fixed a couple of derps in Corrupted Infusion.
+Fixed a crash with NEI compatibility.
+Completely reworked the Timberman ritual. It works much, much better now.
+Added a pump ritual. This is not its final version.
+
+Version 1.1.8-Pre5:
+Moved SanguimancyItemStacks to an inner class of RandomUtils.
+Added an event that is fired when a player does Corrupted Infusion.
+Fixed derp on the NEI compat.
+
 Version 1.1.8-Pre4:
 Totally reworked Corrupted Infusion. Nothing should change on your side, but it is much better now.
 Fixed Blood Amulet, I derped it up when changing its cost.

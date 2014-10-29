@@ -12,6 +12,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import tombenpotter.sanguimancy.Sanguimancy;
+import tombenpotter.sanguimancy.network.EventPlayerCorruptedInfusion;
 import tombenpotter.sanguimancy.recipes.CorruptedInfusionRecipe;
 import tombenpotter.sanguimancy.util.RandomUtils;
 import tombenpotter.sanguimancy.util.SoulCorruptionHelper;
@@ -41,14 +42,19 @@ public class ItemCorruptionCatalyst extends Item {
                 NBTTagCompound tag = SoulCorruptionHelper.getModTag(player, Sanguimancy.modid);
                 if (player.getHeldItem() != null && CorruptedInfusionRecipe.isRecipeValid(new ItemStack[]{player.getHeldItem()}, SoulCorruptionHelper.getCorruptionLevel(tag))) {
                     ItemStack[] input = new ItemStack[]{player.getHeldItem().copy()};
-                    ItemStack output = CorruptedInfusionRecipe.getPossibleRecipes(input, SoulCorruptionHelper.getCorruptionLevel(tag)).get(0).fOutput.copy();
-                    for (ItemStack inputStack : CorruptedInfusionRecipe.getPossibleRecipes(input, SoulCorruptionHelper.getCorruptionLevel(tag)).get(0).fInput) {
-                        if (world.getWorldTime() % CorruptedInfusionRecipe.getPossibleRecipes(input, SoulCorruptionHelper.getCorruptionLevel(tag)).get(0).fTime == 0) {
-                            for (int i = 0; i < inputStack.stackSize; i++) {
-                                player.inventory.consumeInventoryItem(inputStack.getItem());
-                            }
-                            if (!player.inventory.addItemStackToInventory(output)) {
-                                RandomUtils.dropItemStackInWorld(world, player.posX, player.posY, player.posZ, output);
+                    CorruptedInfusionRecipe recipe = CorruptedInfusionRecipe.getPossibleRecipes(input, SoulCorruptionHelper.getCorruptionLevel(tag)).get(0);
+                    ItemStack output = recipe.fOutput.copy();
+                    for (ItemStack inputStack : recipe.fInput) {
+                        if (world.getWorldTime() % recipe.fTime == 0) {
+                            EventPlayerCorruptedInfusion event = new EventPlayerCorruptedInfusion(player, recipe);
+                            EventPlayerCorruptedInfusion.fireEvent(event);
+                            if (!event.isCanceled()) {
+                                for (int i = 0; i < inputStack.stackSize; i++) {
+                                    player.inventory.consumeInventoryItem(inputStack.getItem());
+                                }
+                                if (!player.inventory.addItemStackToInventory(output)) {
+                                    RandomUtils.dropItemStackInWorld(world, player.posX, player.posY, player.posZ, output);
+                                }
                             }
                         }
                     }

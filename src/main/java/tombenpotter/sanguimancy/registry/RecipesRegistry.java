@@ -49,7 +49,7 @@ public class RecipesRegistry {
 
     public static void registercorruptionRecipes() {
         poisonousPotato = CorruptedInfusionRecipe.addRecipe(new ItemStack(Items.poisonous_potato), new ItemStack(Items.potato), 5, 50, false);
-        rottenFlesh = CorruptedInfusionRecipe.addRecipe(new ItemStack(Items.rotten_flesh), new ItemStack(Items.rotten_flesh), 5, 50, false);
+        rottenFlesh = CorruptedInfusionRecipe.addRecipe(new ItemStack(Items.rotten_flesh), new ItemStack(Items.beef), 5, 50, false);
         crackedStoneBricks = CorruptedInfusionRecipe.addRecipe(new ItemStack(Blocks.stonebrick, 1, 2), new ItemStack(Blocks.stonebrick, 1, 0), 5, 50, false);
         bonemeal = CorruptedInfusionRecipe.addRecipe(new ItemStack(Items.dye, 6, 15), new ItemStack(Items.bone), 10, 70, false);
         soulSand = CorruptedInfusionRecipe.addRecipe(new ItemStack(Blocks.soul_sand), new ItemStack(Blocks.sand), 10, 100, false);
