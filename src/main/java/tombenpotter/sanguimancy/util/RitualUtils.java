@@ -70,7 +70,7 @@ public class RitualUtils {
         public static void deleteLiquids(World world, int x, int y, int z) {
             Fluid fluid = FluidRegistry.lookupFluidForBlock(world.getBlock(x, y, z));
             if (fluid != null && FluidRegistry.isFluidRegistered(fluid)) {
-                world.setBlock(x, y, z, Blocks.stone);
+                if (world.getBlockMetadata(x, y, z) == 0) world.setBlock(x, y, z, Blocks.stone);
             }
         }
     }

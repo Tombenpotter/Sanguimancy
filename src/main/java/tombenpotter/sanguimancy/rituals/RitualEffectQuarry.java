@@ -22,6 +22,25 @@ public class RitualEffectQuarry extends RitualEffect {
 
     public static final int reagentDrain = 5;
 
+    public boolean startRitual(IMasterRitualStone ritualStone, EntityPlayer player) {
+        int x = ritualStone.getXCoord();
+        int y = ritualStone.getYCoord();
+        int z = ritualStone.getZCoord();
+        World world = ritualStone.getWorld();
+        boolean hasTerrae = this.canDrainReagent(ritualStone, ReagentRegistry.terraeReagent, reagentDrain, true);
+        boolean hasOrbisTerrae = this.canDrainReagent(ritualStone, ReagentRegistry.orbisTerraeReagent, reagentDrain, true);
+
+        ArrayList<Int3> blocks = new ArrayList<Int3>();
+        int rangeMultiplier = RitualUtils.getRangeMultiplier(hasTerrae, hasOrbisTerrae);
+        if (blocks.isEmpty()) {
+            blocks = RitualUtils.QuarryUtils.getBlocksInArea(world, x, y, z, rangeMultiplier);
+        }
+        for (Int3 int3 : blocks) {
+            RitualUtils.QuarryUtils.deleteLiquids(world, int3.xCoord, int3.yCoord, int3.zCoord);
+        }
+        return true;
+    }
+
     @Override
     public void performEffect(IMasterRitualStone ritualStone) {
         String owner = ritualStone.getOwner();
@@ -78,9 +97,13 @@ public class RitualEffectQuarry extends RitualEffect {
             if (blocks.isEmpty()) {
                 blocks = RitualUtils.QuarryUtils.getBlocksInArea(world, x, y, z, rangeMultiplier);
             }
+            int speed = 500;
+            if (blocks.size() <= 500) {
+                speed = blocks.size();
+            }
             for (Int3 int3 : blocks) {
-                if (world.rand.nextInt(500 / speedMultiplier) == 0) {
-                    RitualUtils.QuarryUtils.deleteLiquids(world, int3.xCoord, int3.yCoord, int3.zCoord);
+                RitualUtils.QuarryUtils.deleteLiquids(world, int3.xCoord, int3.yCoord, int3.zCoord);
+                if (world.rand.nextInt(speed / speedMultiplier) == 0) {
                     Block block = world.getBlock(int3.xCoord, int3.yCoord, int3.zCoord);
                     if (!(block == ModBlocks.blockMasterStone) && !(block == ModBlocks.ritualStone) && !(world.getTileEntity(int3.xCoord, int3.yCoord, int3.zCoord) instanceof IInventory)) {
                         if (hasCrystallos) {
