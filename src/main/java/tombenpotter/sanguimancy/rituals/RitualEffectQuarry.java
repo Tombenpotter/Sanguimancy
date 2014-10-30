@@ -58,6 +58,7 @@ public class RitualEffectQuarry extends RitualEffect {
         boolean hasTenebrae = this.canDrainReagent(ritualStone, ReagentRegistry.tenebraeReagent, reagentDrain, false);
         boolean hasTerrae = this.canDrainReagent(ritualStone, ReagentRegistry.terraeReagent, reagentDrain, true);
         boolean hasOrbisTerrae = this.canDrainReagent(ritualStone, ReagentRegistry.orbisTerraeReagent, reagentDrain, true);
+        boolean hasPotentia = this.canDrainReagent(ritualStone, ReagentRegistry.potentiaReagent, reagentDrain, true);
         if (currentEssence < this.getCostPerRefresh()) {
             EntityPlayer entityOwner = SpellHelper.getPlayerForUsername(owner);
             if (entityOwner == null) {
@@ -70,11 +71,16 @@ public class RitualEffectQuarry extends RitualEffect {
             }
             ArrayList<Int3> blocks = new ArrayList<Int3>();
             int rangeMultiplier = RitualUtils.getRangeMultiplier(hasTerrae, hasOrbisTerrae);
+            int speedMultiplier = 1;
+            if (hasPotentia) {
+                speedMultiplier = 4;
+            }
             if (blocks.isEmpty()) {
                 blocks = RitualUtils.QuarryUtils.getBlocksInArea(world, x, y, z, rangeMultiplier);
             }
             for (Int3 int3 : blocks) {
-                if (world.rand.nextInt(blocks.size() / 4) == 0) {
+                if (world.rand.nextInt(500 / speedMultiplier) == 0) {
+                    RitualUtils.QuarryUtils.deleteLiquids(world, int3.xCoord, int3.yCoord, int3.zCoord);
                     Block block = world.getBlock(int3.xCoord, int3.yCoord, int3.zCoord);
                     if (!(block == ModBlocks.blockMasterStone) && !(block == ModBlocks.ritualStone) && !(world.getTileEntity(int3.xCoord, int3.yCoord, int3.zCoord) instanceof IInventory)) {
                         if (hasCrystallos) {
@@ -92,7 +98,9 @@ public class RitualEffectQuarry extends RitualEffect {
                     }
                 }
             }
-            blocks.clear();
+            if (world.rand.nextInt(100) == 0) {
+                blocks.clear();
+            }
         }
     }
 

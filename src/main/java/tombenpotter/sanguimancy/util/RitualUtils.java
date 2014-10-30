@@ -5,10 +5,12 @@ import WayofTime.alchemicalWizardry.common.Int3;
 import WayofTime.alchemicalWizardry.common.spell.complex.effect.SpellHelper;
 import net.minecraft.block.Block;
 import net.minecraft.entity.item.EntityItem;
+import net.minecraft.init.Blocks;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.world.World;
+import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 
@@ -63,6 +65,13 @@ public class RitualUtils {
                 }
             }
             return blocks;
+        }
+
+        public static void deleteLiquids(World world, int x, int y, int z) {
+            Fluid fluid = FluidRegistry.lookupFluidForBlock(world.getBlock(x, y, z));
+            if (fluid != null && FluidRegistry.isFluidRegistered(fluid)) {
+                world.setBlock(x, y, z, Blocks.stone);
+            }
         }
     }
 
