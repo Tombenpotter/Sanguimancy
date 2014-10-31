@@ -72,5 +72,11 @@ public class RecipesRegistry {
                 }
             }
         }
+
+        if (!OreDictionary.getOres("dustWood").isEmpty()) {
+            for (int i = 0; i < OreDictionary.getOres("logWood").size(); i++) {
+                CorruptedInfusionRecipe.addRecipe(OreDictionary.getOres("dustWood").get(0), OreDictionary.getOres("logWood").get(i), 5, 50, false);
+            }
+        }
     }
 }

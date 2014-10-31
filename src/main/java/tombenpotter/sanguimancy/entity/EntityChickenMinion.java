@@ -26,7 +26,7 @@ public class EntityChickenMinion extends EntityTameable {
     public EntityChickenMinion(World world) {
         super(world);
         this.timeUntilNextEgg = this.rand.nextInt(6000) + 6000;
-        this.setSize(0.15F, 0.35F);
+        this.setSize(0.3F, 0.7F);
         this.tasks.addTask(0, new EntityAISwimming(this));
         this.tasks.addTask(1, new EntityAIPanic(this, 1.4D));
         this.tasks.addTask(2, new EntityAIMate(this, 1.0D));

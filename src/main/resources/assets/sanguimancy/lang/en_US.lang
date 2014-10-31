@@ -21,6 +21,7 @@ tile.Sanguimancy.illusion.clay.name=Clay
 tile.Sanguimancy.corruptionCrystallizer.name=Soul Corruption Crystallizer
 tile.Sanguimancy.lumpCleaner.name=Ore Lump Cleanser
 tile.Sanguimancy.bloodTank.name=Blood Tank
+tile.Sanguimancy.dimensionalPortal.name=Dimensional Gate
 
 #Items
 item.Sanguimancy.playerSacrificer.unattuned.name=Unattuned Player Sacrificing Stone
@@ -36,14 +37,14 @@ item.Sanguimancy.corruptionCatalist.name=Corruption Catalist
 item.Sanguimancy.oreLump.name=Ore Lump
 item.Sanguimancy.bloodAmulet.name=Blood Amulet
 
+#Entities
+entity.Sanguimancy.EntityChickenMinion.name=Chicken Minion
+
 #Creative Tab
 itemGroup.tabSanguimancy=Sanguimancy
 
 #Keybinds
 key.Sanguimancy.search=Locate Players
-
-#NEEDS TO BE CHANGED DEPENDING ON THE LANGUAGE
-horror.Sanguimancy.bucket=bucket
 
 #Rituals
 ritual.Sanguimancy.drill.dead=Drill of the Dead
@@ -54,6 +55,7 @@ ritual.Sanguimancy.feller=The Timberman
 ritual.Sanguimancy.placer=The Filler
 ritual.Sanguimancy.pump=Hymn of Siphoning
 ritual.Sanguimancy.quarry=Aura of Obliteration
+ritual.Sanguimancy.portal=Gate of the Fold
 
 #Chat Messages
 chat.Sanguimancy.blood.required=Blood Required

@@ -97,13 +97,9 @@ public class RitualEffectQuarry extends RitualEffect {
             if (blocks.isEmpty()) {
                 blocks = RitualUtils.QuarryUtils.getBlocksInArea(world, x, y, z, rangeMultiplier);
             }
-            int speed = 500;
-            if (blocks.size() <= 500) {
-                speed = blocks.size();
-            }
             for (Int3 int3 : blocks) {
                 RitualUtils.QuarryUtils.deleteLiquids(world, int3.xCoord, int3.yCoord, int3.zCoord);
-                if (world.rand.nextInt(speed / speedMultiplier) == 0) {
+                if (world.rand.nextInt(500 / speedMultiplier) == 0) {
                     Block block = world.getBlock(int3.xCoord, int3.yCoord, int3.zCoord);
                     if (!(block == ModBlocks.blockMasterStone) && !(block == ModBlocks.ritualStone) && !(world.getTileEntity(int3.xCoord, int3.yCoord, int3.zCoord) instanceof IInventory)) {
                         if (hasCrystallos) {

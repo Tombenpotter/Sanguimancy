@@ -19,6 +19,7 @@ public class BlocksRegistry {
     public static Block corruptionCrystallizer;
     public static Block lumpCleaner;
     public static Block bloodTank;
+    public static Block dimensionalPortal;
 
     public static void registerBlocks() {
         altarDiviner = new BlockAltarDiviner(Material.iron);
@@ -41,5 +42,8 @@ public class BlocksRegistry {
 
         bloodTank = new BlockBloodTank(Material.iron);
         GameRegistry.registerBlock(bloodTank, ItemBlockBloodTank.class, "BlockBloodTank").setBlockName(Sanguimancy.modid + ".bloodTank");
+
+        dimensionalPortal = new BlockDimensionalPortal(Material.iron);
+        GameRegistry.registerBlock(dimensionalPortal, "BlockDimensionalPortal").setBlockName(Sanguimancy.modid + ".dimensionalPortal");
     }
 }

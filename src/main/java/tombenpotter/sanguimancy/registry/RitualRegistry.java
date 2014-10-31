@@ -18,6 +18,7 @@ public class RitualRegistry {
         Rituals.registerRitual("placerRitual", 1, 500, new RitualEffectPlacer(), StatCollector.translateToLocal("ritual.Sanguimancy.placer"));
         Rituals.registerRitual("pumpRitual", 1, 750, new RitualEffectPump(), StatCollector.translateToLocal("ritual.Sanguimancy.pump"));
         Rituals.registerRitual("quarryRitual", 2, 10000, new RitualEffectQuarry(), StatCollector.translateToLocal("ritual.Sanguimancy.quarry"));
+        Rituals.registerRitual("portalRitual", 1, 5000, new RitualEffectPortal(), StatCollector.translateToLocal("ritual.Sanguimancy.portal"));
     }
 
     public static void addToWoSBlacklist() {

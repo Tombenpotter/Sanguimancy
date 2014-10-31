@@ -1,3 +1,9 @@
+Version 1.1.9-Pre8:
+Added the Gate of the Fold ritual. This ritual is a bit complicated. Expect some more info later. Yes, later.
+It creates a portal, but a highly modulable one. Very highly modulable. It also works across dimensions, and for all entities.
+Fixed a bug in the Quarry ritual.
+Fixed a bug in the Felling ritual.
+
 Version 1.1.8-Pre7:
 Final version of the pump ritual. It will pump whatever fluid is in the tank above it.
 The fluid block is replaced with stone to avoid flowing liquids.

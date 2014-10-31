@@ -187,6 +187,10 @@ public class RandomUtils {
         return true;
     }
 
+    public static String addStringToEnd(String input, String toAdd) {
+        return input + toAdd;
+    }
+
     public static class SanguimancyItemStacks {
 
         // Items
