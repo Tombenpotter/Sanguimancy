@@ -1,23 +1,45 @@
 package tombenpotter.sanguimancy.util;
 
+import com.google.common.collect.Lists;
+import cpw.mods.fml.common.FMLCommonHandler;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityList;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.network.play.server.S06PacketUpdateHealth;
+import net.minecraft.network.play.server.S07PacketRespawn;
+import net.minecraft.network.play.server.S1DPacketEntityEffect;
+import net.minecraft.network.play.server.S1FPacketSetExperience;
+import net.minecraft.potion.PotionEffect;
+import net.minecraft.server.management.ServerConfigurationManager;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.world.ChunkCoordIntPair;
 import net.minecraft.world.World;
+import net.minecraft.world.WorldServer;
+import net.minecraftforge.common.DimensionManager;
+import net.minecraftforge.common.ForgeChunkManager;
 import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.fluids.FluidContainerRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.IFluidHandler;
 import tombenpotter.sanguimancy.registry.BlocksRegistry;
 import tombenpotter.sanguimancy.registry.ItemsRegistry;
+import tombenpotter.sanguimancy.tile.TileDimensionalPortal;
 
 import java.awt.*;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Random;
+import java.util.Set;
 
 public class RandomUtils {
 
@@ -25,27 +47,19 @@ public class RandomUtils {
 
     public static void dropItems(World world, int x, int y, int z) {
         Random rand = new Random();
-
         TileEntity tileEntity = world.getTileEntity(x, y, z);
-        if (!(tileEntity instanceof IInventory)) {
-            return;
-        }
+        if (!(tileEntity instanceof IInventory)) return;
         IInventory inventory = (IInventory) tileEntity;
-
         for (int i = 0; i < inventory.getSizeInventory(); i++) {
             ItemStack item = inventory.getStackInSlot(i);
-
             if (item != null && item.stackSize > 0) {
                 float rx = rand.nextFloat() * 0.8F + 0.1F;
                 float ry = rand.nextFloat() * 0.8F + 0.1F;
                 float rz = rand.nextFloat() * 0.8F + 0.1F;
-
                 EntityItem entityItem = new EntityItem(world, x + rx, y + ry, z + rz, new ItemStack(item.getItem(), item.stackSize, item.getItemDamage()));
-
                 if (item.hasTagCompound()) {
                     entityItem.getEntityItem().setTagCompound((NBTTagCompound) item.getTagCompound().copy());
                 }
-
                 float factor = 0.05F;
                 entityItem.motionX = rand.nextGaussian() * factor;
                 entityItem.motionY = rand.nextGaussian() * factor + 0.2F;
@@ -191,6 +205,107 @@ public class RandomUtils {
         return input + toAdd;
     }
 
+    public static Entity teleportEntitySameDim(int x, int y, int z, Entity entity) {
+        if (entity != null) {
+            if (entity.timeUntilPortal <= 0) {
+                if (entity instanceof EntityPlayer) {
+                    EntityPlayerMP player = (EntityPlayerMP) entity;
+                    player.setPositionAndUpdate(x, y, z);
+                    player.worldObj.updateEntityWithOptionalForce(player, false);
+                    player.playerNetServerHandler.sendPacket(new S06PacketUpdateHealth(player.getHealth(), player.getFoodStats().getFoodLevel(), player.getFoodStats().getSaturationLevel()));
+                    player.timeUntilPortal = 150;
+                    return player;
+                } else {
+                    WorldServer world = (WorldServer) entity.worldObj;
+                    if (entity != null) {
+                        entity.setPosition(x, y, z);
+                        entity.timeUntilPortal = 150;
+                    }
+                    world.resetUpdateEntityTick();
+                    return entity;
+                }
+            }
+        }
+        return null;
+    }
+
+    //Adapated from Enhanced Portals 3 code
+    public static Entity teleportEntityToDim(World oldWorld, World newWorld, int x, int y, int z, Entity entity) {
+        if (entity != null && oldWorld != null && newWorld != null) {
+            if (entity.timeUntilPortal <= 0) {
+                WorldServer oldWorldServer = (WorldServer) oldWorld;
+                WorldServer newWorldServer = (WorldServer) newWorld;
+                if (entity instanceof EntityPlayer) {
+                    EntityPlayerMP player = (EntityPlayerMP) entity;
+                    if (!player.worldObj.isRemote) {
+                        player.worldObj.theProfiler.startSection("portal");
+                        player.worldObj.theProfiler.startSection("changeDimension");
+                        ServerConfigurationManager config = player.mcServer.getConfigurationManager();
+                        player.closeScreen();
+                        player.dimension = newWorldServer.provider.dimensionId;
+                        player.playerNetServerHandler.sendPacket(new S07PacketRespawn(player.dimension, player.worldObj.difficultySetting, newWorldServer.getWorldInfo().getTerrainType(), player.theItemInWorldManager.getGameType()));
+                        oldWorldServer.removeEntity(player);
+                        player.isDead = false;
+                        player.setLocationAndAngles(x, y, z, player.rotationYaw, player.rotationPitch);
+                        newWorldServer.spawnEntityInWorld(player);
+                        player.setWorld(newWorldServer);
+                        config.func_72375_a(player, oldWorldServer);
+                        player.playerNetServerHandler.setPlayerLocation(x, y, z, entity.rotationYaw, entity.rotationPitch);
+                        player.theItemInWorldManager.setWorld(newWorldServer);
+                        config.updateTimeAndWeatherForPlayer(player, newWorldServer);
+                        config.syncPlayerInventory(player);
+                        player.worldObj.theProfiler.endSection();
+                        oldWorldServer.resetUpdateEntityTick();
+                        newWorldServer.resetUpdateEntityTick();
+                        player.worldObj.theProfiler.endSection();
+                        for (Iterator<PotionEffect> potion = player.getActivePotionEffects().iterator(); potion.hasNext(); ) {
+                            player.playerNetServerHandler.sendPacket(new S1DPacketEntityEffect(player.getEntityId(), (PotionEffect) potion.next()));
+                        }
+                        player.playerNetServerHandler.sendPacket(new S1FPacketSetExperience(player.experience, player.experienceTotal, player.experienceLevel));
+                        FMLCommonHandler.instance().firePlayerChangedDimensionEvent(player, oldWorldServer.provider.dimensionId, player.dimension);
+                        player.timeUntilPortal = 150;
+                    }
+                    player.worldObj.theProfiler.endSection();
+                    return player;
+                } else {
+                    NBTTagCompound tag = new NBTTagCompound();
+                    entity.writeToNBTOptional(tag);
+                    entity.setDead();
+                    Entity teleportedEntity = EntityList.createEntityFromNBT(tag, newWorldServer);
+                    if (teleportedEntity != null) {
+                        teleportedEntity.setLocationAndAngles(x, y, z, entity.rotationYaw, entity.rotationPitch);
+                        teleportedEntity.forceSpawn = true;
+                        newWorldServer.spawnEntityInWorld(teleportedEntity);
+                        teleportedEntity.setWorld(newWorldServer);
+                        teleportedEntity.timeUntilPortal = 150;
+                    }
+                    oldWorldServer.resetUpdateEntityTick();
+                    newWorldServer.resetUpdateEntityTick();
+                    return teleportedEntity;
+                }
+            }
+        }
+        return null;
+    }
+
+    public static void writeLog(String string, String fileName) {
+        try {
+            File log = new File(String.valueOf(DimensionManager.getCurrentSaveRootDirectory()) + "/" + fileName);
+            if (!log.exists()) {
+                if (log.createNewFile()) {
+                    System.out.println("Creating " + fileName + " in " + String.valueOf(DimensionManager.getCurrentSaveRootDirectory()));
+                }
+            }
+            FileWriter fileWriter = new FileWriter(log.getAbsoluteFile(), true);
+            BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+            bufferedWriter.write(string);
+            bufferedWriter.newLine();
+            bufferedWriter.close();
+        } catch (IOException e) {
+            System.out.println("ERROR: " + fileName + " was not found in " + String.valueOf(DimensionManager.getCurrentSaveRootDirectory()));
+        }
+    }
+
     public static class SanguimancyItemStacks {
 
         // Items
@@ -229,5 +344,48 @@ public class RandomUtils {
         public static ItemStack corruptionCrystallizer = new ItemStack(BlocksRegistry.corruptionCrystallizer);
         public static ItemStack lumpCleaner = new ItemStack(BlocksRegistry.lumpCleaner);
         public static ItemStack bloodTank = new ItemStack(BlocksRegistry.bloodTank);
+    }
+
+    public static class ChunkloadingUtils implements ForgeChunkManager.OrderedLoadingCallback {
+        @Override
+        public void ticketsLoaded(java.util.List<ForgeChunkManager.Ticket> tickets, World world) {
+            for (ForgeChunkManager.Ticket ticket : tickets) {
+                int x = ticket.getModData().getInteger("tileX");
+                int y = ticket.getModData().getInteger("tileY");
+                int z = ticket.getModData().getInteger("tileZ");
+                ((TileDimensionalPortal) world.getTileEntity(x, y, z)).requestTicket();
+            }
+        }
+
+        @Override
+        public java.util.List<ForgeChunkManager.Ticket> ticketsLoaded(java.util.List<ForgeChunkManager.Ticket> tickets, World world, int maxTicketCount) {
+            java.util.List<ForgeChunkManager.Ticket> validTickets = Lists.newArrayList();
+            for (ForgeChunkManager.Ticket ticket : tickets) {
+                int x = ticket.getModData().getInteger("tileX");
+                int y = ticket.getModData().getInteger("tileY");
+                int z = ticket.getModData().getInteger("tileZ");
+                if (world.getTileEntity(x, y, z) instanceof TileDimensionalPortal)
+                    validTickets.add(ticket);
+            }
+            return validTickets;
+        }
+
+        public static void unforceChunks(ForgeChunkManager.Ticket chunkTicket) {
+            if (chunkTicket != null) {
+                Set<ChunkCoordIntPair> chunks = chunkTicket.getChunkList();
+                if (chunks.size() == 0) return;
+                for (ChunkCoordIntPair c : chunks) ForgeChunkManager.unforceChunk(chunkTicket, c);
+            }
+        }
+
+        public static void forceChunks(ForgeChunkManager.Ticket chunkTicket, TileEntity tile) {
+            if (chunkTicket != null) {
+                Set<ChunkCoordIntPair> chunks = chunkTicket.getChunkList();
+                int x = tile.xCoord >> 4;
+                int z = tile.zCoord >> 4;
+                ChunkCoordIntPair chunkPair = new ChunkCoordIntPair(x, z);
+                if (!chunks.contains(chunkPair)) ForgeChunkManager.forceChunk(chunkTicket, chunkPair);
+            }
+        }
     }
 }

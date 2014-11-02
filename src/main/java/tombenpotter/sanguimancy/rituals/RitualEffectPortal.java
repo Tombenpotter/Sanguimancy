@@ -6,6 +6,7 @@ import WayofTime.alchemicalWizardry.api.rituals.RitualEffect;
 import WayofTime.alchemicalWizardry.api.rituals.Rituals;
 import WayofTime.alchemicalWizardry.api.soulNetwork.SoulNetworkHandler;
 import WayofTime.alchemicalWizardry.common.spell.complex.effect.SpellHelper;
+import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
 import tombenpotter.sanguimancy.registry.BlocksRegistry;
@@ -33,35 +34,36 @@ public class RitualEffectPortal extends RitualEffect {
             if (direction == 1 || direction == 4) {
                 for (int i = x - 3; i <= x + 3; i++) {
                     for (int k = z - 2; k <= z + 2; k++) {
-                        name = RandomUtils.addStringToEnd(name, world.getBlock(i, y, k).getUnlocalizedName() + String.valueOf(world.getBlockMetadata(i, y, k)));
+                        name = RandomUtils.addStringToEnd(name, Block.blockRegistry.getNameForObject(world.getBlock(i, y, k)) + String.valueOf(world.getBlockMetadata(i, y, k)));
                     }
                 }
                 for (int j = y + 1; j <= y + 5; j++) {
-                    name = RandomUtils.addStringToEnd(name, world.getBlock(x - 3, j, z).getUnlocalizedName() + String.valueOf(world.getBlockMetadata(x - 3, j, z)));
+                    name = RandomUtils.addStringToEnd(name, Block.blockRegistry.getNameForObject(world.getBlock(x - 3, j, z)) + String.valueOf(world.getBlockMetadata(x - 3, j, z)));
                 }
                 for (int j = y + 1; j <= y + 5; j++) {
-                    name = RandomUtils.addStringToEnd(name, world.getBlock(x + 3, j, z).getUnlocalizedName() + String.valueOf(world.getBlockMetadata(x + 3, j, z)));
+                    name = RandomUtils.addStringToEnd(name, Block.blockRegistry.getNameForObject(world.getBlock(x + 3, j, z)) + String.valueOf(world.getBlockMetadata(x + 3, j, z)));
                 }
             } else if (direction == 2 || direction == 3) {
-                for (int k = x - 2; k <= x + 2; k++) {
-                    for (int i = z - 3; i <= z + 3; i++) {
-                        name = RandomUtils.addStringToEnd(name, world.getBlock(i, y, k).getUnlocalizedName() + String.valueOf(world.getBlockMetadata(i, y, k)));
+                for (int k = z - 3; k <= z + 3; k++) {
+                    for (int i = x - 2; i <= x + 2; i++) {
+                        name = RandomUtils.addStringToEnd(name, Block.blockRegistry.getNameForObject(world.getBlock(i, y, k)) + String.valueOf(world.getBlockMetadata(i, y, k)));
                     }
                 }
                 for (int j = y + 1; j <= y + 5; j++) {
-                    name = RandomUtils.addStringToEnd(name, world.getBlock(x, j, z - 3).getUnlocalizedName() + String.valueOf(world.getBlockMetadata(x, j, z - 3)));
+                    name = RandomUtils.addStringToEnd(name, Block.blockRegistry.getNameForObject(world.getBlock(x, j, z - 3)) + String.valueOf(world.getBlockMetadata(x, j, z - 3)));
                 }
                 for (int j = y + 1; j <= y + 5; j++) {
-                    name = RandomUtils.addStringToEnd(name, world.getBlock(x, j, z + 3).getUnlocalizedName() + String.valueOf(world.getBlockMetadata(x, j, z + 3)));
+                    name = RandomUtils.addStringToEnd(name, Block.blockRegistry.getNameForObject(world.getBlock(x, j, z + 3)) + String.valueOf(world.getBlockMetadata(x, j, z + 3)));
                 }
             }
             if (LocationsHandler.getLocationsHandler() != null) {
-                System.out.println("Location handler not null");
-                LocationsHandler.getLocationsHandler().addLocation(name, new PortalLocation(x, y + 1, z, world.provider.dimensionId));
-                ritualStone.getCustomRitualTag().setString("PortalRitualID", name);
+                if (LocationsHandler.getLocationsHandler().addLocation(name, new PortalLocation(x, y + 1, z, world.provider.dimensionId))) {
+                    ritualStone.getCustomRitualTag().setString("PortalRitualID", name);
+                    return true;
+                }
             }
         }
-        return true;
+        return false;
     }
 
     @Override
@@ -91,6 +93,9 @@ public class RitualEffectPortal extends RitualEffect {
                                 tile.masterStoneY = y;
                                 tile.masterStoneZ = z;
                                 tile.portalID = ritualStone.getCustomRitualTag().getString("PortalRitualID");
+                                if (i == x && j == y + 2) {
+                                    tile.requestTicket();
+                                }
                             }
                         }
                     }
@@ -106,6 +111,9 @@ public class RitualEffectPortal extends RitualEffect {
                                 tile.masterStoneY = y;
                                 tile.masterStoneZ = z;
                                 tile.portalID = ritualStone.getCustomRitualTag().getString("PortalRitualID");
+                                if (k == z && j == y + 2) {
+                                    tile.requestTicket();
+                                }
                             }
                         }
                     }
@@ -122,13 +130,18 @@ public class RitualEffectPortal extends RitualEffect {
         int z = ritualStone.getZCoord();
         int direction = Rituals.getDirectionOfRitual(world, x, y, z, ritualStone.getCustomRitualTag().getString("currentRitualString"));
         if (LocationsHandler.getLocationsHandler() != null) {
-            System.out.println("Location handler not null");
             LocationsHandler.getLocationsHandler().removeLocation(ritualStone.getCustomRitualTag().getString("PortalRitualID"), new PortalLocation(x, y + 1, z, world.provider.dimensionId));
         }
         if (direction == 1 || direction == 4) {
             for (int i = x - 2; i <= x + 2; i++) {
                 for (int j = y + 1; j <= y + 3; j++) {
                     if (world.getBlock(i, j, z) == BlocksRegistry.dimensionalPortal) {
+                        if (i == x && j == y + 2) {
+                            if (world.getTileEntity(i, j, z) != null && world.getTileEntity(i, j, z) instanceof TileDimensionalPortal) {
+                                TileDimensionalPortal tile = (TileDimensionalPortal) world.getTileEntity(i, j, z);
+                                tile.releaseTicket();
+                            }
+                        }
                         world.setBlockToAir(i, j, z);
                     }
                 }
@@ -137,6 +150,12 @@ public class RitualEffectPortal extends RitualEffect {
             for (int k = z - 2; k <= z + 2; k++) {
                 for (int j = y + 1; j <= y + 3; j++) {
                     if (world.getBlock(x, j, k) == BlocksRegistry.dimensionalPortal) {
+                        if (k == z && j == y + 2) {
+                            if (world.getTileEntity(x, j, k) != null && world.getTileEntity(x, j, k) instanceof TileDimensionalPortal) {
+                                TileDimensionalPortal tile = (TileDimensionalPortal) world.getTileEntity(x, j, k);
+                                tile.releaseTicket();
+                            }
+                        }
                         world.setBlockToAir(x, j, k);
                     }
                 }

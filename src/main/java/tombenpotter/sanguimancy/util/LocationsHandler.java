@@ -1,5 +1,6 @@
 package tombenpotter.sanguimancy.util;
 
+import net.minecraftforge.common.DimensionManager;
 import tombenpotter.sanguimancy.Sanguimancy;
 
 import java.io.*;
@@ -10,10 +11,20 @@ public class LocationsHandler implements Serializable {
 
     private static HashMap<String, ArrayList<PortalLocation>> portals;
     private static LocationsHandler locationsHandler;
-    private static final String fileName = "PortalLocations." + Sanguimancy.modid;
+    private static final String fileName = String.valueOf(DimensionManager.getCurrentSaveRootDirectory()) + "/" + Sanguimancy.modid + "PortalLocations.dat";
 
     private LocationsHandler() {
         portals = new HashMap<String, ArrayList<PortalLocation>>();
+    }
+
+    public static LocationsHandler getLocationsHandler() {
+        if (locationsHandler == null || loadFile(fileName) == null) {
+            locationsHandler = new LocationsHandler();
+            return locationsHandler;
+        } else {
+            portals = loadFile(fileName);
+            return locationsHandler;
+        }
     }
 
     private static HashMap<String, ArrayList<PortalLocation>> loadFile(String filename) {
@@ -25,12 +36,11 @@ public class LocationsHandler implements Serializable {
             in.close();
             fileIn.close();
             return map;
-        } catch (IOException i) {
-            i.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
             return null;
-        } catch (ClassNotFoundException c) {
-            System.out.println(Sanguimancy.modid + " ERROR: Portal Locations file not found.");
-            c.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            System.out.println("ERROR: " + filename + " was not found in " + String.valueOf(DimensionManager.getCurrentSaveRootDirectory()));
             return null;
         }
     }
@@ -46,40 +56,38 @@ public class LocationsHandler implements Serializable {
         }
     }
 
-    public static LocationsHandler getLocationsHandler() {
-        if (locationsHandler == null || loadFile(fileName) == null) {
-            locationsHandler = new LocationsHandler();
-            return locationsHandler;
-        } else {
-            portals = loadFile(fileName);
-            return locationsHandler;
-        }
-    }
-
-    public void addLocation(String name, PortalLocation location) {
+    public boolean addLocation(String name, PortalLocation location) {
         ArrayList<PortalLocation> portalLocations = portals.get(name);
         if (portalLocations == null) {
             portals.put(name, new ArrayList<PortalLocation>());
+            updateFile(fileName, portals);
         }
         if (!portals.get(name).isEmpty() && portalLocations.contains(location)) {
             System.out.println("Location " + name + " already exists.");
+            updateFile(fileName, portals);
+            return false;
         } else {
             portals.get(name).add(location);
             System.out.println("Adding " + name);
+            updateFile(fileName, portals);
+            return true;
         }
-        updateFile(fileName, portals);
     }
 
-    public void removeLocation(String name, PortalLocation location) {
+    public boolean removeLocation(String name, PortalLocation location) {
         if (portals.get(name) != null && !portals.get(name).isEmpty()) {
             if (portals.get(name).contains(location)) {
                 portals.get(name).remove(location);
                 System.out.println("Removing " + name);
+                updateFile(fileName, portals);
+                return true;
             } else {
                 System.out.println("No location matching " + name);
+                updateFile(fileName, portals);
+                return false;
             }
-            updateFile(fileName, portals);
         }
+        return false;
     }
 
     public ArrayList<PortalLocation> getLinkedLocations(String name) {

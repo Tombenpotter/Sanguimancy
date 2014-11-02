@@ -1,4 +1,16 @@
-Version 1.1.9-Pre8:
+Version 1.1.8-Pre8-2:
+Fixed a crash with the Portals if the arrival chunk wasn't loaded.
+Fixed a bug with the portal ID not registering correctly if the ritual was oriented differently.
+Portals now cost LP to travel. 1k if you want to go to the same dimension, 10k if it's another one.
+Changed the way the portal ID is registered. It now uses the blocks' registry name instead of the unlocalized name.
+Made the portals load the chunk they are in, so that they always work.
+Along with this, added a ChunkloadingLog.txt. This file logs all the forcing and unforcing of chunks in the game. It is here for admins.
+The ChunkloadingLog.txt can be found in the world save.
+Moved the PortalLocations file to the world's save too. It was global before...
+Renamed it to SanguimancyPortalLocations.dat. Just because.
+Hopefully fixed the Player's Locating spawning a Player Pointer entity near the activating player.
+
+Version 1.1.8-Pre8-1:
 Added the Gate of the Fold ritual. This ritual is a bit complicated. Expect some more info later. Yes, later.
 It creates a portal, but a highly modulable one. Very highly modulable. It also works across dimensions, and for all entities.
 Fixed a bug in the Quarry ritual.

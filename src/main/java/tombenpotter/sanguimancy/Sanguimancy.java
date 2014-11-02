@@ -12,6 +12,7 @@ import cpw.mods.fml.common.network.NetworkRegistry;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.common.ForgeChunkManager;
 import net.minecraftforge.common.MinecraftForge;
 import tombenpotter.sanguimancy.compat.BUCompat;
 import tombenpotter.sanguimancy.network.PacketHandler;
@@ -84,5 +85,6 @@ public class Sanguimancy {
             BUCompat.createEntries();
         }
         isTTLoaded = Loader.isModLoaded("ThaumicTinkerer");
+        ForgeChunkManager.setForcedChunkLoadingCallback(instance, new RandomUtils.ChunkloadingUtils());
     }
 }

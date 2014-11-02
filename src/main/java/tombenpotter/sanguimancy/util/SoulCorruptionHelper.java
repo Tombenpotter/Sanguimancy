@@ -157,9 +157,11 @@ public class SoulCorruptionHelper {
             int x = (int) entity.posX;
             int y = (int) entity.posY;
             int z = (int) entity.posZ;
-            EntityPlayerPointer pointer = new EntityPlayerPointer(player.worldObj);
-            pointer.setPosition(x, y + 1, z);
-            player.worldObj.spawnEntityInWorld(pointer);
+            if (entity != player) {
+                EntityPlayerPointer pointer = new EntityPlayerPointer(player.worldObj);
+                pointer.setPosition(x, y + 1, z);
+                player.worldObj.spawnEntityInWorld(pointer);
+            }
         }
     }
 
