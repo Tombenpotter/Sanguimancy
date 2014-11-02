@@ -2,7 +2,6 @@ package tombenpotter.sanguimancy.blocks;
 
 import WayofTime.alchemicalWizardry.AlchemicalWizardry;
 import WayofTime.alchemicalWizardry.api.rituals.IMasterRitualStone;
-import WayofTime.alchemicalWizardry.api.soulNetwork.SoulNetworkHandler;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
@@ -75,20 +74,16 @@ public class BlockDimensionalPortal extends BlockContainer {
                         if (linkedLocations.get(0).equals(new PortalLocation(tile.masterStoneX, tile.masterStoneY + 1, tile.masterStoneZ, world.provider.dimensionId))) {
                             PortalLocation linkedLocation = linkedLocations.get(1);
                             if (linkedLocation.dimension == world.provider.dimensionId) {
-                                RandomUtils.teleportEntitySameDim(linkedLocation.x, linkedLocation.y, linkedLocation.z, entity);
-                                 SoulNetworkHandler.syphonFromNetwork(masterRitualStone.getOwner(), 1000);
+                                RandomUtils.teleportEntitySameDim(linkedLocation.x, linkedLocation.y, linkedLocation.z, entity, masterRitualStone.getOwner());
                             } else {
-                                RandomUtils.teleportEntityToDim(world, DimensionManager.getWorld(linkedLocation.dimension), linkedLocation.x, linkedLocation.y, linkedLocation.z, entity);
-                                SoulNetworkHandler.syphonFromNetwork(masterRitualStone.getOwner(), 10000);
+                                RandomUtils.teleportEntityToDim(world, DimensionManager.getWorld(linkedLocation.dimension), linkedLocation.x, linkedLocation.y, linkedLocation.z, entity, masterRitualStone.getOwner());
                             }
                         } else if (linkedLocations.get(1).equals(new PortalLocation(tile.masterStoneX, tile.masterStoneY + 1, tile.masterStoneZ, world.provider.dimensionId))) {
                             PortalLocation linkedLocation = linkedLocations.get(0);
                             if (linkedLocation.dimension == world.provider.dimensionId) {
-                                RandomUtils.teleportEntitySameDim(linkedLocation.x, linkedLocation.y, linkedLocation.z, entity);
-                                SoulNetworkHandler.syphonFromNetwork(masterRitualStone.getOwner(), 1000);
+                                RandomUtils.teleportEntitySameDim(linkedLocation.x, linkedLocation.y, linkedLocation.z, entity, masterRitualStone.getOwner());
                             } else {
-                                RandomUtils.teleportEntityToDim(world, DimensionManager.getWorld(linkedLocation.dimension), linkedLocation.x, linkedLocation.y, linkedLocation.z, entity);
-                                SoulNetworkHandler.syphonFromNetwork(masterRitualStone.getOwner(), 10000);
+                                RandomUtils.teleportEntityToDim(world, DimensionManager.getWorld(linkedLocation.dimension), linkedLocation.x, linkedLocation.y, linkedLocation.z, entity, masterRitualStone.getOwner());
                             }
                         }
                     }

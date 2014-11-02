@@ -1,5 +1,6 @@
 package tombenpotter.sanguimancy.util;
 
+import WayofTime.alchemicalWizardry.api.soulNetwork.SoulNetworkHandler;
 import com.google.common.collect.Lists;
 import cpw.mods.fml.common.FMLCommonHandler;
 import net.minecraft.entity.Entity;
@@ -205,7 +206,7 @@ public class RandomUtils {
         return input + toAdd;
     }
 
-    public static Entity teleportEntitySameDim(int x, int y, int z, Entity entity) {
+    public static Entity teleportEntitySameDim(int x, int y, int z, Entity entity, String name) {
         if (entity != null) {
             if (entity.timeUntilPortal <= 0) {
                 if (entity instanceof EntityPlayer) {
@@ -214,6 +215,7 @@ public class RandomUtils {
                     player.worldObj.updateEntityWithOptionalForce(player, false);
                     player.playerNetServerHandler.sendPacket(new S06PacketUpdateHealth(player.getHealth(), player.getFoodStats().getFoodLevel(), player.getFoodStats().getSaturationLevel()));
                     player.timeUntilPortal = 150;
+                    SoulNetworkHandler.syphonFromNetwork(name, 1000);
                     return player;
                 } else {
                     WorldServer world = (WorldServer) entity.worldObj;
@@ -222,6 +224,7 @@ public class RandomUtils {
                         entity.timeUntilPortal = 150;
                     }
                     world.resetUpdateEntityTick();
+                    SoulNetworkHandler.syphonFromNetwork(name, 1000);
                     return entity;
                 }
             }
@@ -230,7 +233,7 @@ public class RandomUtils {
     }
 
     //Adapated from Enhanced Portals 3 code
-    public static Entity teleportEntityToDim(World oldWorld, World newWorld, int x, int y, int z, Entity entity) {
+    public static Entity teleportEntityToDim(World oldWorld, World newWorld, int x, int y, int z, Entity entity, String name) {
         if (entity != null && oldWorld != null && newWorld != null) {
             if (entity.timeUntilPortal <= 0) {
                 WorldServer oldWorldServer = (WorldServer) oldWorld;
@@ -266,6 +269,7 @@ public class RandomUtils {
                         player.timeUntilPortal = 150;
                     }
                     player.worldObj.theProfiler.endSection();
+                    SoulNetworkHandler.syphonFromNetwork(name, 10000);
                     return player;
                 } else {
                     NBTTagCompound tag = new NBTTagCompound();
@@ -281,6 +285,7 @@ public class RandomUtils {
                     }
                     oldWorldServer.resetUpdateEntityTick();
                     newWorldServer.resetUpdateEntityTick();
+                    SoulNetworkHandler.syphonFromNetwork(name, 10000);
                     return teleportedEntity;
                 }
             }
