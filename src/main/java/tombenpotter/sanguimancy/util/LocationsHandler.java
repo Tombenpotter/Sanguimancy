@@ -62,7 +62,7 @@ public class LocationsHandler implements Serializable {
             portals.put(name, new ArrayList<PortalLocation>());
             updateFile(fileName, portals);
         }
-        if (!portals.get(name).isEmpty() && portals.get(name).size() >= 1) {
+        if (!portals.get(name).isEmpty() && portals.get(name).size() > 2) {
             System.out.println("Location " + name + " already exists.");
             updateFile(fileName, portals);
             return false;
