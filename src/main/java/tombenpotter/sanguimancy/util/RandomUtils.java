@@ -22,7 +22,6 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.ChunkCoordIntPair;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
-import net.minecraftforge.common.DimensionManager;
 import net.minecraftforge.common.ForgeChunkManager;
 import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.fluids.FluidContainerRegistry;
@@ -33,10 +32,6 @@ import tombenpotter.sanguimancy.registry.ItemsRegistry;
 import tombenpotter.sanguimancy.tile.TileDimensionalPortal;
 
 import java.awt.*;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Random;
@@ -291,24 +286,6 @@ public class RandomUtils {
             }
         }
         return null;
-    }
-
-    public static void writeLog(String string, String fileName) {
-        try {
-            File log = new File(String.valueOf(DimensionManager.getCurrentSaveRootDirectory()) + "/" + fileName);
-            if (!log.exists()) {
-                if (log.createNewFile()) {
-                    System.out.println("Creating " + fileName + " in " + String.valueOf(DimensionManager.getCurrentSaveRootDirectory()));
-                }
-            }
-            FileWriter fileWriter = new FileWriter(log.getAbsoluteFile(), true);
-            BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
-            bufferedWriter.write(string);
-            bufferedWriter.newLine();
-            bufferedWriter.close();
-        } catch (IOException e) {
-            System.out.println("ERROR: " + fileName + " was not found in " + String.valueOf(DimensionManager.getCurrentSaveRootDirectory()));
-        }
     }
 
     public static class SanguimancyItemStacks {
