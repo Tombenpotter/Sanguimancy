@@ -40,7 +40,7 @@ public class LocationsHandler implements Serializable {
             e.printStackTrace();
             return null;
         } catch (ClassNotFoundException e) {
-            System.out.println("ERROR: " + filename + " was not found in " + String.valueOf(DimensionManager.getCurrentSaveRootDirectory()));
+            Sanguimancy.logger.error(filename + " was not found in " + String.valueOf(DimensionManager.getCurrentSaveRootDirectory()));
             return null;
         }
     }
