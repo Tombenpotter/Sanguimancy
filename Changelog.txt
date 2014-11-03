@@ -1,3 +1,11 @@
+Version 1.1.8-Pre8-3:
+Fixed a derp in the portal registry code. OOPS.
+TehNut adding Logging instead of System.outs.
+Disabling ChunkloadingLog if the LoadingLog is installed. It does exactly the same.. but it's not in Sanguimancy :P.
+Changed the way portals register their IDs. They now ignore any block of the air material.
+The cost to activate a portal is now 15k LP instead of 5k.
+Fixed the LP cost when going through portals. Oops again.
+
 Version 1.1.8-Pre8-2:
 Fixed a crash with the Portals if the arrival chunk wasn't loaded.
 Fixed a bug with the portal ID not registering correctly if the ritual was oriented differently.

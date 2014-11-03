@@ -359,7 +359,9 @@ public class RandomUtils {
                 int x = ticket.getModData().getInteger("tileX");
                 int y = ticket.getModData().getInteger("tileY");
                 int z = ticket.getModData().getInteger("tileZ");
-                ((TileDimensionalPortal) world.getTileEntity(x, y, z)).requestTicket();
+                if (world.getTileEntity(x, y, z) != null && world.getTileEntity(x, y, z) instanceof TileDimensionalPortal) {
+                    ((TileDimensionalPortal) world.getTileEntity(x, y, z)).requestTicket();
+                }
             }
         }
 

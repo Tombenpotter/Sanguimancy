@@ -34,26 +34,38 @@ public class RitualEffectPortal extends RitualEffect {
             if (direction == 1 || direction == 4) {
                 for (int i = x - 3; i <= x + 3; i++) {
                     for (int k = z - 2; k <= z + 2; k++) {
-                        name = RandomUtils.addStringToEnd(name, Block.blockRegistry.getNameForObject(world.getBlock(i, y, k)) + String.valueOf(world.getBlockMetadata(i, y, k)));
+                        if (!world.isAirBlock(i, y, k)) {
+                            name = RandomUtils.addStringToEnd(name, Block.blockRegistry.getNameForObject(world.getBlock(i, y, k)) + String.valueOf(world.getBlockMetadata(i, y, k)));
+                        }
                     }
                 }
                 for (int j = y + 1; j <= y + 5; j++) {
-                    name = RandomUtils.addStringToEnd(name, Block.blockRegistry.getNameForObject(world.getBlock(x - 3, j, z)) + String.valueOf(world.getBlockMetadata(x - 3, j, z)));
+                    if (!world.isAirBlock(x - 3, y, z)) {
+                        name = RandomUtils.addStringToEnd(name, Block.blockRegistry.getNameForObject(world.getBlock(x - 3, j, z)) + String.valueOf(world.getBlockMetadata(x - 3, j, z)));
+                    }
                 }
                 for (int j = y + 1; j <= y + 5; j++) {
-                    name = RandomUtils.addStringToEnd(name, Block.blockRegistry.getNameForObject(world.getBlock(x + 3, j, z)) + String.valueOf(world.getBlockMetadata(x + 3, j, z)));
+                    if (!world.isAirBlock(x + 3, y, z)) {
+                        name = RandomUtils.addStringToEnd(name, Block.blockRegistry.getNameForObject(world.getBlock(x + 3, j, z)) + String.valueOf(world.getBlockMetadata(x + 3, j, z)));
+                    }
                 }
             } else if (direction == 2 || direction == 3) {
                 for (int k = z - 3; k <= z + 3; k++) {
                     for (int i = x - 2; i <= x + 2; i++) {
-                        name = RandomUtils.addStringToEnd(name, Block.blockRegistry.getNameForObject(world.getBlock(i, y, k)) + String.valueOf(world.getBlockMetadata(i, y, k)));
+                        if (!world.isAirBlock(i, y, k)) {
+                            name = RandomUtils.addStringToEnd(name, Block.blockRegistry.getNameForObject(world.getBlock(i, y, k)) + String.valueOf(world.getBlockMetadata(i, y, k)));
+                        }
                     }
                 }
                 for (int j = y + 1; j <= y + 5; j++) {
-                    name = RandomUtils.addStringToEnd(name, Block.blockRegistry.getNameForObject(world.getBlock(x, j, z - 3)) + String.valueOf(world.getBlockMetadata(x, j, z - 3)));
+                    if (!world.isAirBlock(x, y, z - 3)) {
+                        name = RandomUtils.addStringToEnd(name, Block.blockRegistry.getNameForObject(world.getBlock(x, j, z - 3)) + String.valueOf(world.getBlockMetadata(x, j, z - 3)));
+                    }
                 }
                 for (int j = y + 1; j <= y + 5; j++) {
-                    name = RandomUtils.addStringToEnd(name, Block.blockRegistry.getNameForObject(world.getBlock(x, j, z + 3)) + String.valueOf(world.getBlockMetadata(x, j, z + 3)));
+                    if (!world.isAirBlock(x, y, z + 3)) {
+                        name = RandomUtils.addStringToEnd(name, Block.blockRegistry.getNameForObject(world.getBlock(x, j, z + 3)) + String.valueOf(world.getBlockMetadata(x, j, z + 3)));
+                    }
                 }
             }
             if (LocationsHandler.getLocationsHandler() != null) {
