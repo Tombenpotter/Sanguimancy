@@ -63,12 +63,12 @@ public class LocationsHandler implements Serializable {
             updateFile(fileName, portals);
         }
         if (!portals.get(name).isEmpty() && portals.get(name).size() > 2) {
-            System.out.println("Location " + name + " already exists.");
+            Sanguimancy.logger.info("Location " + name + " already exists.");
             updateFile(fileName, portals);
             return false;
         } else {
             portals.get(name).add(location);
-            System.out.println("Adding " + name);
+            Sanguimancy.logger.info("Adding " + name);
             updateFile(fileName, portals);
             return true;
         }
@@ -78,11 +78,11 @@ public class LocationsHandler implements Serializable {
         if (portals.get(name) != null && !portals.get(name).isEmpty()) {
             if (portals.get(name).contains(location)) {
                 portals.get(name).remove(location);
-                System.out.println("Removing " + name);
+                Sanguimancy.logger.info("Removing " + name);
                 updateFile(fileName, portals);
                 return true;
             } else {
-                System.out.println("No location matching " + name);
+                Sanguimancy.logger.info("No location matching " + name);
                 updateFile(fileName, portals);
                 return false;
             }

@@ -14,6 +14,8 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.ForgeChunkManager;
 import net.minecraftforge.common.MinecraftForge;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import tombenpotter.sanguimancy.compat.BUCompat;
 import tombenpotter.sanguimancy.network.PacketHandler;
 import tombenpotter.sanguimancy.proxies.CommonProxy;
@@ -31,8 +33,12 @@ public class Sanguimancy {
     public static final String commonProxy = "tombenpotter.sanguimancy.proxies.CommonProxy";
     public static final String channel = "Sanguimancy";
     public static final String version = "1.1.8";
-    public static boolean isTTLoaded = false;
-    public static CreativeTabs tabSanguimancy = new CreativeTabs("tab" + Sanguimancy.modid) {
+
+	public static boolean isTTLoaded = false;
+
+	public static Logger logger = LogManager.getLogger(name);
+	public static CreativeTabs tabSanguimancy = new CreativeTabs("tab" + Sanguimancy.modid) {
+
         @Override
         public ItemStack getIconItemStack() {
             return new ItemStack(ItemsRegistry.playerSacrificer, 1, 0);

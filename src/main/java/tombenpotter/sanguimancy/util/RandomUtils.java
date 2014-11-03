@@ -28,6 +28,7 @@ import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.fluids.FluidContainerRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.IFluidHandler;
+import tombenpotter.sanguimancy.Sanguimancy;
 import tombenpotter.sanguimancy.registry.BlocksRegistry;
 import tombenpotter.sanguimancy.registry.ItemsRegistry;
 import tombenpotter.sanguimancy.tile.TileDimensionalPortal;
@@ -298,7 +299,7 @@ public class RandomUtils {
             File log = new File(String.valueOf(DimensionManager.getCurrentSaveRootDirectory()) + "/" + fileName);
             if (!log.exists()) {
                 if (log.createNewFile()) {
-                    System.out.println("Creating " + fileName + " in " + String.valueOf(DimensionManager.getCurrentSaveRootDirectory()));
+                    Sanguimancy.logger.info("Creating " + fileName + " in " + String.valueOf(DimensionManager.getCurrentSaveRootDirectory()));
                 }
             }
             FileWriter fileWriter = new FileWriter(log.getAbsoluteFile(), true);
@@ -307,7 +308,7 @@ public class RandomUtils {
             bufferedWriter.newLine();
             bufferedWriter.close();
         } catch (IOException e) {
-            System.out.println("ERROR: " + fileName + " was not found in " + String.valueOf(DimensionManager.getCurrentSaveRootDirectory()));
+            Sanguimancy.logger.error(fileName + " was not found in " + String.valueOf(DimensionManager.getCurrentSaveRootDirectory()));
         }
     }
 
