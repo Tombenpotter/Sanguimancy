@@ -5,6 +5,7 @@ Disabling ChunkloadingLog if the LoadingLog is installed. It does exactly the sa
 Changed the way portals register their IDs. They now ignore any block of the air material.
 The cost to activate a portal is now 15k LP instead of 5k.
 Fixed the LP cost when going through portals. Oops again.
+Fixed the Portal blocks not getting removed correctly.
 
 Version 1.1.8-Pre8-2:
 Fixed a crash with the Portals if the arrival chunk wasn't loaded.

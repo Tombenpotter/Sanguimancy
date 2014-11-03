@@ -81,10 +81,12 @@ public class ItemSoulCorruptionTest extends Item {
         if (!world.isRemote) {
             NBTTagCompound tag = SoulCorruptionHelper.getModTag(player, Sanguimancy.modid);
             if (stack.getItemDamage() == 0) {
-                SoulCorruptionHelper.incrementCorruption(tag);
+                if (!player.isSneaking()) SoulCorruptionHelper.incrementCorruption(tag);
+                else SoulCorruptionHelper.addCorruption(tag, 100);
             }
             if (stack.getItemDamage() == 1) {
-                SoulCorruptionHelper.decrementCorruption(tag);
+                if (!player.isSneaking()) SoulCorruptionHelper.decrementCorruption(tag);
+                else SoulCorruptionHelper.removeCorruption(tag, 100);
             }
             if (stack.getItemDamage() == 2) {
                 SoulCorruptionHelper.negateCorruption(tag);

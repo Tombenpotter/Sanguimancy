@@ -27,8 +27,8 @@ public class RitualEffectPortal extends RitualEffect {
         int x = ritualStone.getXCoord();
         int y = ritualStone.getYCoord();
         int z = ritualStone.getZCoord();
-        ritualStone.getCustomRitualTag().setString("currentRitualString", "portalRitual");
-        int direction = Rituals.getDirectionOfRitual(world, x, y, z, ritualStone.getCustomRitualTag().getString("currentRitualString"));
+        ritualStone.getCustomRitualTag().setInteger("ritualDirection", Rituals.getDirectionOfRitual(world, x, y, z, "portalRitual"));
+        int direction = ritualStone.getCustomRitualTag().getInteger("ritualDirection");
         if (!world.isRemote) {
             String name = owner;
             if (direction == 1 || direction == 4) {
@@ -85,7 +85,7 @@ public class RitualEffectPortal extends RitualEffect {
         int x = ritualStone.getXCoord();
         int y = ritualStone.getYCoord();
         int z = ritualStone.getZCoord();
-        int direction = Rituals.getDirectionOfRitual(world, x, y, z, ritualStone.getCustomRitualTag().getString("currentRitualString"));
+        int direction = ritualStone.getCustomRitualTag().getInteger("ritualDirection");
         int currentEssence = SoulNetworkHandler.getCurrentEssence(owner);
         if (currentEssence < this.getCostPerRefresh()) {
             EntityPlayer entityOwner = SpellHelper.getPlayerForUsername(owner);
@@ -140,7 +140,7 @@ public class RitualEffectPortal extends RitualEffect {
         int x = ritualStone.getXCoord();
         int y = ritualStone.getYCoord();
         int z = ritualStone.getZCoord();
-        int direction = Rituals.getDirectionOfRitual(world, x, y, z, ritualStone.getCustomRitualTag().getString("currentRitualString"));
+        int direction = ritualStone.getCustomRitualTag().getInteger("ritualDirection");
         if (LocationsHandler.getLocationsHandler() != null) {
             LocationsHandler.getLocationsHandler().removeLocation(ritualStone.getCustomRitualTag().getString("PortalRitualID"), new PortalLocation(x, y + 1, z, world.provider.dimensionId));
         }
