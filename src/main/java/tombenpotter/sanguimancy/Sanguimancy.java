@@ -20,10 +20,11 @@ import tombenpotter.sanguimancy.compat.BUCompat;
 import tombenpotter.sanguimancy.network.PacketHandler;
 import tombenpotter.sanguimancy.proxies.CommonProxy;
 import tombenpotter.sanguimancy.registry.*;
+import tombenpotter.sanguimancy.util.ConfigHandler;
 import tombenpotter.sanguimancy.util.EventHandler;
 import tombenpotter.sanguimancy.util.RandomUtils;
 
-@Mod(modid = Sanguimancy.modid, name = Sanguimancy.name, version = Sanguimancy.version, dependencies = "required-after:AWWayofTime ; after:BloodUtils ; after:Waila")
+@Mod(modid = Sanguimancy.modid, name = Sanguimancy.name, version = Sanguimancy.version, dependencies = Sanguimancy.depend, guiFactory = "tombenpotter.sanguimancy.client.gui.ConfigGuiFactory")
 public class Sanguimancy {
 
     public static final String modid = "Sanguimancy";
@@ -31,6 +32,7 @@ public class Sanguimancy {
     public static final String texturePath = "sanguimancy";
     public static final String clientProxy = "tombenpotter.sanguimancy.proxies.ClientProxy";
     public static final String commonProxy = "tombenpotter.sanguimancy.proxies.CommonProxy";
+	public static final String depend = "required-after:AWWayofTime;" + "after:BloodUtils;" + "after:Waila";
     public static final String channel = "Sanguimancy";
     public static final String version = "1.1.8";
 
@@ -52,11 +54,14 @@ public class Sanguimancy {
 
     @SidedProxy(clientSide = clientProxy, serverSide = commonProxy)
     public static CommonProxy proxy;
+
     @Mod.Instance(Sanguimancy.modid)
     public static Sanguimancy instance;
 
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent event) {
+	    ConfigHandler.init(event.getSuggestedConfigurationFile());
+
         RandomUtils.addOreDictColors();
         TileRegistry.registerTEs();
         BlocksRegistry.registerBlocks();

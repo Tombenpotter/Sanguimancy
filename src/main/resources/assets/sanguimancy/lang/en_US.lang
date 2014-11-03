@@ -133,3 +133,9 @@ compat.nei.corrupted.infusion=Corrupted Infusion
 compat.nei.corrupted.infusion.time=Duration
 compat.nei.corrupted.infusion.minimum.corruption=Minimum Corruption
 compat.nei.corrupted.infusion.minimum.exact=Exact Item
+
+#Gui
+gui.Sanguimancy.config.title=Sanguimancy Configuration
+
+#Console
+info.Sanguimancy.console.config.refresh=Refreshing configuration file.
