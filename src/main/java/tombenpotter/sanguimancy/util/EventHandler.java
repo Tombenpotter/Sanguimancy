@@ -33,8 +33,8 @@ public class EventHandler {
     }
 
 	@SubscribeEvent
-	public void onConfigChanged(ConfigChangedEvent.OnConfigChangedEvent eventArgs) {
-		if (eventArgs.modID.equals(Sanguimancy.modid)) {
+	public void onConfigChanged(ConfigChangedEvent.OnConfigChangedEvent event) {
+		if (event.modID.equals(Sanguimancy.modid)) {
 			ConfigHandler.syncConfig();
 			Sanguimancy.logger.info(StatCollector.translateToLocal("info." + Sanguimancy.modid + ".console.config.refresh"));
 		}
