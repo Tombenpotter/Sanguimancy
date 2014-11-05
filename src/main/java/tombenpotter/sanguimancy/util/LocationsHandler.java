@@ -62,7 +62,7 @@ public class LocationsHandler implements Serializable {
             portals.put(name, new ArrayList<PortalLocation>());
             updateFile(fileName, portals);
         }
-        if (!portals.get(name).isEmpty() && portals.get(name).size() > 2) {
+        if (!portals.get(name).isEmpty() && portals.get(name).size() >= 2) {
             Sanguimancy.logger.info("Location " + name + " already exists.");
             updateFile(fileName, portals);
             return false;
