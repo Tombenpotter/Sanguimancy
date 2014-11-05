@@ -9,6 +9,7 @@ Fixed the Portal blocks not getting removed correctly.
 Fixed a couple of derps in the ritual codes... I have no idea how they went here :D.
 Added some particles to the portal blocks.
 Fixed the max number of portals. Again...
+And sounds to the teleportation!
 
 Version 1.1.8-Pre8-2:
 Fixed a crash with the Portals if the arrival chunk wasn't loaded.

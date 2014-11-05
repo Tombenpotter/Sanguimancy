@@ -217,6 +217,7 @@ public class RandomUtils {
                     player.playerNetServerHandler.sendPacket(new S06PacketUpdateHealth(player.getHealth(), player.getFoodStats().getFoodLevel(), player.getFoodStats().getSaturationLevel()));
                     player.timeUntilPortal = 150;
                     SoulNetworkHandler.syphonFromNetwork(name, 1000);
+                    player.worldObj.playSoundEffect(x, y, z, "mob.endermen.portal", 1.0F, 1.0F);
                     return player;
                 } else {
                     WorldServer world = (WorldServer) entity.worldObj;
@@ -226,6 +227,7 @@ public class RandomUtils {
                     }
                     world.resetUpdateEntityTick();
                     SoulNetworkHandler.syphonFromNetwork(name, 1000);
+                    entity.worldObj.playSoundEffect(x, y, z, "mob.endermen.portal", 1.0F, 1.0F);
                     return entity;
                 }
             }
@@ -245,6 +247,7 @@ public class RandomUtils {
                         player.worldObj.theProfiler.startSection("portal");
                         player.worldObj.theProfiler.startSection("changeDimension");
                         ServerConfigurationManager config = player.mcServer.getConfigurationManager();
+                        oldWorld.playSoundEffect(player.posX, player.posY, player.posZ, "mob.endermen.portal", 1.0F, 1.0F);
                         player.closeScreen();
                         player.dimension = newWorldServer.provider.dimensionId;
                         player.playerNetServerHandler.sendPacket(new S07PacketRespawn(player.dimension, player.worldObj.difficultySetting, newWorldServer.getWorldInfo().getTerrainType(), player.theItemInWorldManager.getGameType()));
@@ -271,11 +274,13 @@ public class RandomUtils {
                     }
                     player.worldObj.theProfiler.endSection();
                     SoulNetworkHandler.syphonFromNetwork(name, 10000);
+                    newWorld.playSoundEffect(x, y, z, "mob.endermen.portal", 1.0F, 1.0F);
                     return player;
                 } else {
                     NBTTagCompound tag = new NBTTagCompound();
                     entity.writeToNBTOptional(tag);
                     entity.setDead();
+                    oldWorld.playSoundEffect(entity.posX, entity.posY, entity.posZ, "mob.endermen.portal", 1.0F, 1.0F);
                     Entity teleportedEntity = EntityList.createEntityFromNBT(tag, newWorldServer);
                     if (teleportedEntity != null) {
                         teleportedEntity.setLocationAndAngles(x, y, z, entity.rotationYaw, entity.rotationPitch);
@@ -287,6 +292,7 @@ public class RandomUtils {
                     oldWorldServer.resetUpdateEntityTick();
                     newWorldServer.resetUpdateEntityTick();
                     SoulNetworkHandler.syphonFromNetwork(name, 10000);
+                    newWorld.playSoundEffect(x, y, z, "mob.endermen.portal", 1.0F, 1.0F);
                     return teleportedEntity;
                 }
             }
