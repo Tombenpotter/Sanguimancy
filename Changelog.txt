@@ -6,6 +6,9 @@ Changed the way portals register their IDs. They now ignore any block of the air
 The cost to activate a portal is now 15k LP instead of 5k.
 Fixed the LP cost when going through portals. Oops again.
 Fixed the Portal blocks not getting removed correctly.
+Fixed a couple of derps in the ritual codes... I have no idea how they went here :D.
+Added some particles to the portal blocks.
+Fixed the max number of portals. Again...
 
 Version 1.1.8-Pre8-2:
 Fixed a crash with the Portals if the arrival chunk wasn't loaded.
