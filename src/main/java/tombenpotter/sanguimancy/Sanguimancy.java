@@ -32,14 +32,12 @@ public class Sanguimancy {
     public static final String texturePath = "sanguimancy";
     public static final String clientProxy = "tombenpotter.sanguimancy.proxies.ClientProxy";
     public static final String commonProxy = "tombenpotter.sanguimancy.proxies.CommonProxy";
-	public static final String depend = "required-after:AWWayofTime;" + "after:BloodUtils;" + "after:Waila";
+    public static final String depend = "required-after:AWWayofTime;" + "after:BloodUtils;" + "after:Waila";
     public static final String channel = "Sanguimancy";
     public static final String version = "1.1.8";
-
-	public static boolean isTTLoaded = false;
-
-	public static Logger logger = LogManager.getLogger(name);
-	public static CreativeTabs tabSanguimancy = new CreativeTabs("tab" + Sanguimancy.modid) {
+    public static boolean isTTLoaded = false;
+    public static Logger logger = LogManager.getLogger(Sanguimancy.name);
+    public static CreativeTabs tabSanguimancy = new CreativeTabs("tab" + Sanguimancy.modid) {
 
         @Override
         public ItemStack getIconItemStack() {
@@ -60,8 +58,7 @@ public class Sanguimancy {
 
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent event) {
-	    ConfigHandler.init(event.getSuggestedConfigurationFile());
-
+        ConfigHandler.init(event.getSuggestedConfigurationFile());
         RandomUtils.addOreDictColors();
         TileRegistry.registerTEs();
         BlocksRegistry.registerBlocks();
