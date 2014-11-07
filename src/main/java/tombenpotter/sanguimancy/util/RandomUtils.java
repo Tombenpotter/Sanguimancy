@@ -3,6 +3,7 @@ package tombenpotter.sanguimancy.util;
 import WayofTime.alchemicalWizardry.api.soulNetwork.SoulNetworkHandler;
 import com.google.common.collect.Lists;
 import cpw.mods.fml.common.FMLCommonHandler;
+import cpw.mods.fml.common.eventhandler.Event;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityList;
 import net.minecraft.entity.item.EntityItem;
@@ -24,6 +25,7 @@ import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
 import net.minecraftforge.common.DimensionManager;
 import net.minecraftforge.common.ForgeChunkManager;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.fluids.FluidContainerRegistry;
 import net.minecraftforge.fluids.FluidStack;
@@ -38,10 +40,8 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Random;
-import java.util.Set;
+import java.util.*;
+import java.util.List;
 
 public class RandomUtils {
 
@@ -318,6 +318,10 @@ public class RandomUtils {
         }
     }
 
+    public static void fireEvent(Event event) {
+        MinecraftForge.EVENT_BUS.post(event);
+    }
+
     public static class SanguimancyItemStacks {
 
         // Items
@@ -360,19 +364,19 @@ public class RandomUtils {
 
     public static class ChunkloadingUtils implements ForgeChunkManager.OrderedLoadingCallback {
         @Override
-        public void ticketsLoaded(java.util.List<ForgeChunkManager.Ticket> tickets, World world) {
+        public void ticketsLoaded(List<ForgeChunkManager.Ticket> tickets, World world) {
             for (ForgeChunkManager.Ticket ticket : tickets) {
-                int x = ticket.getModData().getInteger("tileX");
-                int y = ticket.getModData().getInteger("tileY");
-                int z = ticket.getModData().getInteger("tileZ");
-                if (world.getTileEntity(x, y, z) != null && world.getTileEntity(x, y, z) instanceof TileDimensionalPortal) {
+                if (ticket != null) {
+                    int x = ticket.getModData().getInteger("tileX");
+                    int y = ticket.getModData().getInteger("tileY");
+                    int z = ticket.getModData().getInteger("tileZ");
                     ((TileDimensionalPortal) world.getTileEntity(x, y, z)).requestTicket();
                 }
             }
         }
 
         @Override
-        public java.util.List<ForgeChunkManager.Ticket> ticketsLoaded(java.util.List<ForgeChunkManager.Ticket> tickets, World world, int maxTicketCount) {
+        public List<ForgeChunkManager.Ticket> ticketsLoaded(List<ForgeChunkManager.Ticket> tickets, World world, int maxTicketCount) {
             java.util.List<ForgeChunkManager.Ticket> validTickets = Lists.newArrayList();
             for (ForgeChunkManager.Ticket ticket : tickets) {
                 int x = ticket.getModData().getInteger("tileX");

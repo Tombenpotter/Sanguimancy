@@ -22,7 +22,7 @@ import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.player.AttackEntityEvent;
 import org.lwjgl.input.Keyboard;
 import tombenpotter.sanguimancy.Sanguimancy;
-import tombenpotter.sanguimancy.network.EventPlayerCorruptedInfusion;
+import tombenpotter.sanguimancy.network.EventCorruptedInfusion;
 import tombenpotter.sanguimancy.network.PacketHandler;
 import tombenpotter.sanguimancy.network.PacketPlayerSearch;
 import tombenpotter.sanguimancy.registry.ItemsRegistry;
@@ -33,7 +33,7 @@ public class EventHandler {
     }
 
 	@SubscribeEvent
-	public void onConfigChanged(ConfigChangedEvent.OnConfigChangedEvent event) {
+	public void onConfigChanged(ConfigChangedEvent.OnConfigChangedEvent  event) {
 		if (event.modID.equals(Sanguimancy.modid)) {
 			ConfigHandler.syncConfig();
 			Sanguimancy.logger.info(StatCollector.translateToLocal("info." + Sanguimancy.modid + ".console.config.refresh"));
@@ -106,7 +106,7 @@ public class EventHandler {
     }
 
     @SubscribeEvent
-    public void onCorruptedInfusion(EventPlayerCorruptedInfusion event) {
+    public void onCorruptedInfusion(EventCorruptedInfusion.EventPlayerCorruptedInfusion event) {
     }
 
     @SubscribeEvent

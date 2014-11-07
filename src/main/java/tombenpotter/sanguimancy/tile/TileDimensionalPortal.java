@@ -32,19 +32,21 @@ public class TileDimensionalPortal extends TileEntity {
 
     public void requestTicket() {
         chunkTicket = ForgeChunkManager.requestTicket(Sanguimancy.instance, worldObj, ForgeChunkManager.Type.NORMAL);
-        chunkTicket.getModData().setInteger("tileX", xCoord);
-        chunkTicket.getModData().setInteger("tileY", yCoord);
-        chunkTicket.getModData().setInteger("tileZ", zCoord);
-        RandomUtils.ChunkloadingUtils.forceChunks(chunkTicket, this);
+        if (chunkTicket != null) {
+            chunkTicket.getModData().setInteger("tileX", this.xCoord);
+            chunkTicket.getModData().setInteger("tileY", this.yCoord);
+            chunkTicket.getModData().setInteger("tileZ", this.zCoord);
+            RandomUtils.ChunkloadingUtils.forceChunks(chunkTicket, this);
+        }
     }
 
     public void releaseTicket() {
-        RandomUtils.ChunkloadingUtils.unforceChunks(chunkTicket);
+        if (chunkTicket != null) RandomUtils.ChunkloadingUtils.unforceChunks(chunkTicket);
     }
 
     @Override
     public void invalidate() {
-        RandomUtils.ChunkloadingUtils.unforceChunks(chunkTicket);
+        if (chunkTicket != null) RandomUtils.ChunkloadingUtils.unforceChunks(chunkTicket);
         super.invalidate();
     }
 }

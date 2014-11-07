@@ -12,7 +12,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import tombenpotter.sanguimancy.Sanguimancy;
-import tombenpotter.sanguimancy.network.EventPlayerCorruptedInfusion;
+import tombenpotter.sanguimancy.network.EventCorruptedInfusion;
 import tombenpotter.sanguimancy.recipes.CorruptedInfusionRecipe;
 import tombenpotter.sanguimancy.util.RandomUtils;
 import tombenpotter.sanguimancy.util.SoulCorruptionHelper;
@@ -46,9 +46,9 @@ public class ItemCorruptionCatalyst extends Item {
                     ItemStack output = recipe.fOutput.copy();
                     for (ItemStack inputStack : recipe.fInput) {
                         if (world.getWorldTime() % recipe.fTime == 0) {
-                            EventPlayerCorruptedInfusion event = new EventPlayerCorruptedInfusion(player, recipe);
-                            EventPlayerCorruptedInfusion.fireEvent(event);
-                            if (!event.isCanceled()) {
+                            EventCorruptedInfusion.EventPlayerCorruptedInfusion event = new EventCorruptedInfusion.EventPlayerCorruptedInfusion(player, recipe);
+                            RandomUtils.fireEvent(event);
+                            if (event.isCancelable() && !event.isCanceled()) {
                                 for (int i = 0; i < inputStack.stackSize; i++) {
                                     player.inventory.consumeInventoryItem(inputStack.getItem());
                                 }
