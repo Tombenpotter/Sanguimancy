@@ -3,14 +3,14 @@ package tombenpotter.sanguimancy.network;
 import cpw.mods.fml.common.eventhandler.Cancelable;
 import cpw.mods.fml.common.eventhandler.Event;
 import net.minecraft.entity.player.EntityPlayer;
-import tombenpotter.sanguimancy.recipes.CorruptedInfusionRecipe;
+import tombenpotter.sanguimancy.recipes.RecipeCorruptedInfusion;
 
 public class EventCorruptedInfusion extends Event {
 
-    public final CorruptedInfusionRecipe corruptedInfusionRecipe;
+    public final RecipeCorruptedInfusion recipeCorruptedInfusion;
 
-    public EventCorruptedInfusion(CorruptedInfusionRecipe recipe) {
-        this.corruptedInfusionRecipe = recipe;
+    public EventCorruptedInfusion(RecipeCorruptedInfusion recipe) {
+        this.recipeCorruptedInfusion = recipe;
     }
 
     @Cancelable
@@ -18,7 +18,7 @@ public class EventCorruptedInfusion extends Event {
 
         public final EntityPlayer entityPlayer;
 
-        public EventPlayerCorruptedInfusion(EntityPlayer player, CorruptedInfusionRecipe recipe) {
+        public EventPlayerCorruptedInfusion(EntityPlayer player, RecipeCorruptedInfusion recipe) {
             super(recipe);
             this.entityPlayer = player;
         }

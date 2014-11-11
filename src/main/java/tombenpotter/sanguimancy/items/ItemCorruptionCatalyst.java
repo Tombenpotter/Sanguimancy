@@ -13,7 +13,7 @@ import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import tombenpotter.sanguimancy.Sanguimancy;
 import tombenpotter.sanguimancy.network.EventCorruptedInfusion;
-import tombenpotter.sanguimancy.recipes.CorruptedInfusionRecipe;
+import tombenpotter.sanguimancy.recipes.RecipeCorruptedInfusion;
 import tombenpotter.sanguimancy.util.RandomUtils;
 import tombenpotter.sanguimancy.util.SoulCorruptionHelper;
 
@@ -40,9 +40,9 @@ public class ItemCorruptionCatalyst extends Item {
             if (entity != null && entity instanceof EntityPlayer) {
                 EntityPlayer player = (EntityPlayer) entity;
                 NBTTagCompound tag = SoulCorruptionHelper.getModTag(player, Sanguimancy.modid);
-                if (player.getHeldItem() != null && CorruptedInfusionRecipe.isRecipeValid(new ItemStack[]{player.getHeldItem()}, SoulCorruptionHelper.getCorruptionLevel(tag))) {
+                if (player.getHeldItem() != null && RecipeCorruptedInfusion.isRecipeValid(new ItemStack[]{player.getHeldItem()}, SoulCorruptionHelper.getCorruptionLevel(tag))) {
                     ItemStack[] input = new ItemStack[]{player.getHeldItem().copy()};
-                    CorruptedInfusionRecipe recipe = CorruptedInfusionRecipe.getPossibleRecipes(input, SoulCorruptionHelper.getCorruptionLevel(tag)).get(0);
+                    RecipeCorruptedInfusion recipe = RecipeCorruptedInfusion.getPossibleRecipes(input, SoulCorruptionHelper.getCorruptionLevel(tag)).get(0);
                     ItemStack output = recipe.fOutput.copy();
                     for (ItemStack inputStack : recipe.fInput) {
                         if (world.getWorldTime() % recipe.fTime == 0) {

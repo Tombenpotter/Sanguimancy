@@ -11,7 +11,7 @@ public class LocationsHandler implements Serializable {
 
     private static HashMap<String, ArrayList<PortalLocation>> portals;
     private static LocationsHandler locationsHandler;
-    private static final String fileName = String.valueOf(DimensionManager.getCurrentSaveRootDirectory()) + "/" + Sanguimancy.modid + "PortalLocations.dat";
+    private static final String fileName = String.valueOf(DimensionManager.getCurrentSaveRootDirectory()) + "PortalLocations.dat";
 
     private LocationsHandler() {
         portals = new HashMap<String, ArrayList<PortalLocation>>();
@@ -27,10 +27,10 @@ public class LocationsHandler implements Serializable {
         }
     }
 
-    private static HashMap<String, ArrayList<PortalLocation>> loadFile(String filename) {
+    private static HashMap<String, ArrayList<PortalLocation>> loadFile(String file) {
         HashMap<String, ArrayList<PortalLocation>> map = null;
         try {
-            FileInputStream fileIn = new FileInputStream(filename);
+            FileInputStream fileIn = new FileInputStream(file);
             ObjectInputStream in = new ObjectInputStream(fileIn);
             map = (HashMap<String, ArrayList<PortalLocation>>) in.readObject();
             in.close();
@@ -40,14 +40,14 @@ public class LocationsHandler implements Serializable {
             e.printStackTrace();
             return null;
         } catch (ClassNotFoundException e) {
-            Sanguimancy.logger.error(filename + " was not found in " + String.valueOf(DimensionManager.getCurrentSaveRootDirectory()));
+            Sanguimancy.logger.error(file + " was not found in " + String.valueOf(DimensionManager.getCurrentSaveRootDirectory()));
             return null;
         }
     }
 
-    private static void updateFile(String filename, HashMap<String, ArrayList<PortalLocation>> object) {
+    private static void updateFile(String file, HashMap<String, ArrayList<PortalLocation>> object) {
         try {
-            FileOutputStream fos = new FileOutputStream(filename);
+            FileOutputStream fos = new FileOutputStream(file);
             ObjectOutputStream oos = new ObjectOutputStream(fos);
             oos.writeObject(object);
             oos.close();

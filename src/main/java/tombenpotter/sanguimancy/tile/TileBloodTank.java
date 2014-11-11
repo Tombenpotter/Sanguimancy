@@ -68,24 +68,16 @@ public class TileBloodTank extends TileEntity implements IFluidHandler {
     }
 
     @Override
-    public Packet getDescriptionPacket() {
-        NBTTagCompound data = new NBTTagCompound();
-        FluidStack fluid = tank.drain(1, false);
-        data.setTag("fluid", fluid == null ? null : fluid.writeToNBT(new NBTTagCompound()));
-        S35PacketUpdateTileEntity packet = new S35PacketUpdateTileEntity(xCoord, yCoord, zCoord, 0, data);
+    public final Packet getDescriptionPacket() {
+        NBTTagCompound nbt = new NBTTagCompound();
+        writeToNBT(nbt);
+        S35PacketUpdateTileEntity packet = new S35PacketUpdateTileEntity(xCoord, yCoord, zCoord, 0, nbt);
         return packet;
     }
 
     @Override
     public void onDataPacket(NetworkManager net, S35PacketUpdateTileEntity pkt) {
-        super.onDataPacket(net, pkt);
-        NBTTagCompound data = pkt.func_148857_g();
-        switch (pkt.func_148853_f()) {
-            case 0:
-                FluidStack fluid = FluidStack.loadFluidStackFromNBT(data.getCompoundTag("fluid"));
-                tank.setFluid(fluid);
-                break;
-        }
-        worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+        NBTTagCompound nbt = pkt.func_148857_g();
+        readFromNBT(nbt);
     }
 }

@@ -32,13 +32,13 @@ public class EventHandler {
     public EventHandler() {
     }
 
-	@SubscribeEvent
-	public void onConfigChanged(ConfigChangedEvent.OnConfigChangedEvent  event) {
-		if (event.modID.equals(Sanguimancy.modid)) {
-			ConfigHandler.syncConfig();
-			Sanguimancy.logger.info(StatCollector.translateToLocal("info." + Sanguimancy.modid + ".console.config.refresh"));
-		}
-	}
+    @SubscribeEvent
+    public void onConfigChanged(ConfigChangedEvent.OnConfigChangedEvent event) {
+        if (event.modID.equals(Sanguimancy.modid)) {
+            ConfigHandler.syncConfig();
+            Sanguimancy.logger.info(StatCollector.translateToLocal("info." + Sanguimancy.modid + ".console.config.refresh"));
+        }
+    }
 
     @SubscribeEvent
     public void onLivingDeath(LivingDeathEvent event) {

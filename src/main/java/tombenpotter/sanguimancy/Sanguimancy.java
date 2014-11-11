@@ -12,7 +12,6 @@ import cpw.mods.fml.common.network.NetworkRegistry;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.common.ForgeChunkManager;
 import net.minecraftforge.common.MinecraftForge;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -58,6 +57,7 @@ public class Sanguimancy {
 
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent event) {
+        instance = this;
         ConfigHandler.init(event.getSuggestedConfigurationFile());
         RandomUtils.addOreDictColors();
         TileRegistry.registerTEs();
@@ -87,12 +87,11 @@ public class Sanguimancy {
 
     @Mod.EventHandler
     public void postInit(FMLPostInitializationEvent event) {
-        RecipesRegistry.registercorruptionRecipes();
+        RecipesRegistry.registerCustomModRecipes();
         if (Loader.isModLoaded("BloodUtils")) {
             BUCompat.createCategories();
             BUCompat.createEntries();
         }
         isTTLoaded = Loader.isModLoaded("ThaumicTinkerer");
-        ForgeChunkManager.setForcedChunkLoadingCallback(instance, new RandomUtils.ChunkloadingUtils());
     }
 }

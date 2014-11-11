@@ -14,7 +14,7 @@ import net.minecraft.util.StatCollector;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 import tombenpotter.sanguimancy.Sanguimancy;
-import tombenpotter.sanguimancy.recipes.CorruptedInfusionRecipe;
+import tombenpotter.sanguimancy.recipes.RecipeCorruptedInfusion;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -22,18 +22,18 @@ import java.util.List;
 
 public class BUEntryCorruptionRecipe implements IEntry {
 
-    public CorruptedInfusionRecipe recipe;
+    public RecipeCorruptedInfusion recipe;
     public ItemStack input[], output;
     public int time, minimumCorruption;
     public boolean exactAmountAndNbt;
     public ArrayList<ItemIcon> icons = new ArrayList<ItemIcon>();
 
-    public BUEntryCorruptionRecipe(CorruptedInfusionRecipe recipe) {
+    public BUEntryCorruptionRecipe(RecipeCorruptedInfusion recipe) {
         this.recipe = recipe;
         populate(recipe);
     }
 
-    public void populate(CorruptedInfusionRecipe recipe) {
+    public void populate(RecipeCorruptedInfusion recipe) {
         this.input = recipe.fInput;
         this.output = recipe.fOutput;
         this.time = recipe.fTime;

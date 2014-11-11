@@ -1,5 +1,6 @@
 package tombenpotter.sanguimancy.rituals;
 
+import WayofTime.alchemicalWizardry.ModBlocks;
 import WayofTime.alchemicalWizardry.api.rituals.IMasterRitualStone;
 import WayofTime.alchemicalWizardry.api.rituals.RitualComponent;
 import WayofTime.alchemicalWizardry.api.rituals.RitualEffect;
@@ -34,36 +35,36 @@ public class RitualEffectPortal extends RitualEffect {
             if (direction == 1 || direction == 4) {
                 for (int i = x - 3; i <= x + 3; i++) {
                     for (int k = z - 2; k <= z + 2; k++) {
-                        if (!world.isAirBlock(i, y, k)) {
+                        if (!world.isAirBlock(i, y, k) && !(world.getBlock(i, y, k) == ModBlocks.ritualStone)) {
                             name = RandomUtils.addStringToEnd(name, Block.blockRegistry.getNameForObject(world.getBlock(i, y, k)) + String.valueOf(world.getBlockMetadata(i, y, k)));
                         }
                     }
                 }
                 for (int j = y + 1; j <= y + 5; j++) {
-                    if (!world.isAirBlock(x - 3, y, z)) {
+                    if (!world.isAirBlock(x - 3, y, z) && !(world.getBlock(x - 3, y, z) == ModBlocks.ritualStone)) {
                         name = RandomUtils.addStringToEnd(name, Block.blockRegistry.getNameForObject(world.getBlock(x - 3, j, z)) + String.valueOf(world.getBlockMetadata(x - 3, j, z)));
                     }
                 }
                 for (int j = y + 1; j <= y + 5; j++) {
-                    if (!world.isAirBlock(x + 3, y, z)) {
+                    if (!world.isAirBlock(x + 3, y, z) && !(world.getBlock(x + 3, y, z) == ModBlocks.ritualStone)) {
                         name = RandomUtils.addStringToEnd(name, Block.blockRegistry.getNameForObject(world.getBlock(x + 3, j, z)) + String.valueOf(world.getBlockMetadata(x + 3, j, z)));
                     }
                 }
             } else if (direction == 2 || direction == 3) {
                 for (int k = z - 3; k <= z + 3; k++) {
                     for (int i = x - 2; i <= x + 2; i++) {
-                        if (!world.isAirBlock(i, y, k)) {
+                        if (!world.isAirBlock(i, y, k) && !(world.getBlock(i, y, k) == ModBlocks.ritualStone)) {
                             name = RandomUtils.addStringToEnd(name, Block.blockRegistry.getNameForObject(world.getBlock(i, y, k)) + String.valueOf(world.getBlockMetadata(i, y, k)));
                         }
                     }
                 }
                 for (int j = y + 1; j <= y + 5; j++) {
-                    if (!world.isAirBlock(x, y, z - 3)) {
+                    if (!world.isAirBlock(x, y, z - 3) && !(world.getBlock(x, y, y - 3) == ModBlocks.ritualStone)) {
                         name = RandomUtils.addStringToEnd(name, Block.blockRegistry.getNameForObject(world.getBlock(x, j, z - 3)) + String.valueOf(world.getBlockMetadata(x, j, z - 3)));
                     }
                 }
                 for (int j = y + 1; j <= y + 5; j++) {
-                    if (!world.isAirBlock(x, y, z + 3)) {
+                    if (!world.isAirBlock(x, y, z + 3) && !(world.getBlock(x, y, y + 3) == ModBlocks.ritualStone)) {
                         name = RandomUtils.addStringToEnd(name, Block.blockRegistry.getNameForObject(world.getBlock(x, j, z + 3)) + String.valueOf(world.getBlockMetadata(x, j, z + 3)));
                     }
                 }
@@ -105,9 +106,6 @@ public class RitualEffectPortal extends RitualEffect {
                                 tile.masterStoneY = y;
                                 tile.masterStoneZ = z;
                                 tile.portalID = ritualStone.getCustomRitualTag().getString("PortalRitualID");
-                                if (i == x && j == y + 2) {
-                                    tile.requestTicket();
-                                }
                             }
                         }
                     }
@@ -123,9 +121,6 @@ public class RitualEffectPortal extends RitualEffect {
                                 tile.masterStoneY = y;
                                 tile.masterStoneZ = z;
                                 tile.portalID = ritualStone.getCustomRitualTag().getString("PortalRitualID");
-                                if (k == z && j == y + 2) {
-                                    tile.requestTicket();
-                                }
                             }
                         }
                     }
@@ -148,12 +143,6 @@ public class RitualEffectPortal extends RitualEffect {
             for (int i = x - 2; i <= x + 2; i++) {
                 for (int j = y + 1; j <= y + 3; j++) {
                     if (world.getBlock(i, j, z) == BlocksRegistry.dimensionalPortal) {
-                        if (i == x && j == y + 2) {
-                            if (world.getTileEntity(i, j, z) != null && world.getTileEntity(i, j, z) instanceof TileDimensionalPortal) {
-                                TileDimensionalPortal tile = (TileDimensionalPortal) world.getTileEntity(i, j, z);
-                                tile.releaseTicket();
-                            }
-                        }
                         world.setBlockToAir(i, j, z);
                     }
                 }
@@ -162,12 +151,6 @@ public class RitualEffectPortal extends RitualEffect {
             for (int k = z - 2; k <= z + 2; k++) {
                 for (int j = y + 1; j <= y + 3; j++) {
                     if (world.getBlock(x, j, k) == BlocksRegistry.dimensionalPortal) {
-                        if (k == z && j == y + 2) {
-                            if (world.getTileEntity(x, j, k) != null && world.getTileEntity(x, j, k) instanceof TileDimensionalPortal) {
-                                TileDimensionalPortal tile = (TileDimensionalPortal) world.getTileEntity(x, j, k);
-                                tile.releaseTicket();
-                            }
-                        }
                         world.setBlockToAir(x, j, k);
                     }
                 }
@@ -184,20 +167,20 @@ public class RitualEffectPortal extends RitualEffect {
     public List<RitualComponent> getRitualComponentList() {
         ArrayList<RitualComponent> portalRitual = new ArrayList();
         portalRitual.add(new RitualComponent(1, 0, 0, RitualComponent.AIR));
-        portalRitual.add(new RitualComponent(2, 0, 0, RitualComponent.AIR));
-        portalRitual.add(new RitualComponent(-1, 0, 0, RitualComponent.AIR));
-        portalRitual.add(new RitualComponent(-2, 0, 0, RitualComponent.AIR));
-        portalRitual.add(new RitualComponent(2, 1, 0, RitualComponent.AIR));
+        portalRitual.add(new RitualComponent(2, 0, 0, RitualComponent.WATER));
+        portalRitual.add(new RitualComponent(-1, 0, 0, RitualComponent.FIRE));
+        portalRitual.add(new RitualComponent(-2, 0, 0, RitualComponent.EARTH));
+        portalRitual.add(new RitualComponent(2, 1, 0, RitualComponent.DUSK));
         portalRitual.add(new RitualComponent(2, 2, 0, RitualComponent.AIR));
-        portalRitual.add(new RitualComponent(2, 3, 0, RitualComponent.AIR));
-        portalRitual.add(new RitualComponent(2, 4, 0, RitualComponent.AIR));
-        portalRitual.add(new RitualComponent(1, 4, 0, RitualComponent.AIR));
-        portalRitual.add(new RitualComponent(0, 4, 0, RitualComponent.AIR));
+        portalRitual.add(new RitualComponent(2, 3, 0, RitualComponent.WATER));
+        portalRitual.add(new RitualComponent(2, 4, 0, RitualComponent.FIRE));
+        portalRitual.add(new RitualComponent(1, 4, 0, RitualComponent.EARTH));
+        portalRitual.add(new RitualComponent(0, 4, 0, RitualComponent.DUSK));
         portalRitual.add(new RitualComponent(-1, 4, 0, RitualComponent.AIR));
-        portalRitual.add(new RitualComponent(-2, 4, 0, RitualComponent.AIR));
-        portalRitual.add(new RitualComponent(-2, 3, 0, RitualComponent.AIR));
-        portalRitual.add(new RitualComponent(-2, 2, 0, RitualComponent.AIR));
-        portalRitual.add(new RitualComponent(-2, 1, 0, RitualComponent.AIR));
+        portalRitual.add(new RitualComponent(-2, 4, 0, RitualComponent.WATER));
+        portalRitual.add(new RitualComponent(-2, 3, 0, RitualComponent.FIRE));
+        portalRitual.add(new RitualComponent(-2, 2, 0, RitualComponent.EARTH));
+        portalRitual.add(new RitualComponent(-2, 1, 0, RitualComponent.DUSK));
         return portalRitual;
     }
 }

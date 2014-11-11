@@ -12,61 +12,91 @@ import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.fluids.*;
-import net.minecraftforge.oredict.OreDictionary;
-import tombenpotter.sanguimancy.registry.ItemsRegistry;
-import tombenpotter.sanguimancy.util.RandomUtils;
+import tombenpotter.sanguimancy.recipes.RecipeBloodCleanser;
 
 public class TileLumpCleaner extends TileEntity implements ISidedInventory, IFluidHandler {
 
     public ItemStack[] inventory;
     public int capacity;
-
     public int ticksLeft;
     public int maxTicks;
     public FluidTank tank;
+    public boolean isActive;
 
     public TileLumpCleaner() {
         inventory = new ItemStack[2];
         capacity = FluidContainerRegistry.BUCKET_VOLUME * 16;
         maxTicks = 150;
         tank = new FluidTank(new FluidStack(AlchemicalWizardry.lifeEssenceFluid, 0), capacity);
+        isActive = false;
     }
 
     @Override
     public void updateEntity() {
-        if (getStackInSlot(0) != null && getStackInSlot(0).getItem() == ItemsRegistry.oreLump && tank.getFluid() != null && tank.getFluid().amount >= FluidContainerRegistry.BUCKET_VOLUME) {
+        if (getStackInSlot(0) != null && canBloodClean()) {
             if (ticksLeft >= maxTicks) {
-                ItemStack stack = getStackInSlot(0);
-                RandomUtils.checkAndSetCompound(stack);
-                if (!stack.stackTagCompound.getString("ore").equals("")) {
-                    String material = stack.stackTagCompound.getString("ore");
-                    if (getStackInSlot(1) == null) {
-                        setInventorySlotContents(1, OreDictionary.getOres("ingot" + material).get(0).copy());
-                        decrStackSize(0, 1);
-                        drain(ForgeDirection.UNKNOWN, FluidContainerRegistry.BUCKET_VOLUME, true);
-                        ticksLeft = 0;
-                        worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
-                    } else if (getStackInSlot(1).stackSize < 64 && getStackInSlot(1).isItemEqual(OreDictionary.getOres("ingot" + material).get(0))) {
-                        ItemStack output = getStackInSlot(1);
-                        output.stackSize = output.stackSize + 1;
-                        decrStackSize(0, 1);
-                        drain(ForgeDirection.UNKNOWN, FluidContainerRegistry.BUCKET_VOLUME, true);
-                        ticksLeft = 0;
-                        worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
-                    }
-                }
+                bloodClean();
+                ticksLeft = 0;
+                worldObj.markBlockForUpdate(this.xCoord, this.yCoord, this.zCoord);
             } else {
                 ticksLeft++;
             }
-        } else if (worldObj.getWorldTime() % 20 == 0) {
-            worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+            isActive = true;
+        } else {
+            ticksLeft = 0;
+            isActive = false;
+            worldObj.markBlockForUpdate(this.xCoord, this.yCoord, this.zCoord);
+        }
+    }
+
+    public void bloodClean() {
+        if (canBloodClean()) {
+            ItemStack ouput = RecipeBloodCleanser.getRecipe(getStackInSlot(0)).fOutput.copy();
+            if (getStackInSlot(1) == null) {
+                setInventorySlotContents(1, ouput);
+            } else if (getStackInSlot(1).isItemEqual(RecipeBloodCleanser.getRecipe(getStackInSlot(0)).fOutput.copy())) {
+                getStackInSlot(1).stackSize += ouput.stackSize;
+            }
+            decrStackSize(0, RecipeBloodCleanser.getRecipe(getStackInSlot(0)).fInput.stackSize);
+            drain(ForgeDirection.UNKNOWN, FluidContainerRegistry.BUCKET_VOLUME, true);
+        }
+    }
+
+    public boolean canBloodClean() {
+        if (getStackInSlot(0) == null) {
+            return false;
+        } else {
+            ItemStack input = getStackInSlot(0);
+            if (!RecipeBloodCleanser.isRecipeValid(input)) {
+                return false;
+            }
+            if (tank.getFluid() == null) {
+                return false;
+            }
+            if (tank.getFluidAmount() < FluidContainerRegistry.BUCKET_VOLUME) {
+                return false;
+            }
+            RecipeBloodCleanser recipe = RecipeBloodCleanser.getRecipe(input);
+            ItemStack output = recipe.fOutput.copy();
+            if (getStackInSlot(1) == null) {
+                return true;
+            }
+            if (!getStackInSlot(1).isItemEqual(output)) {
+                return false;
+            }
+            if (!(tank.getFluid().amount >= FluidContainerRegistry.BUCKET_VOLUME)) {
+                return false;
+            }
+            int result = getStackInSlot(1).stackSize + output.stackSize;
+            return result <= getInventoryStackLimit() && result <= getStackInSlot(1).getMaxStackSize();
         }
     }
 
     @Override
     public void readFromNBT(NBTTagCompound tagCompound) {
         super.readFromNBT(tagCompound);
-        tagCompound.setInteger("ticksLeft", ticksLeft);
+        ticksLeft = tagCompound.getInteger("ticksLeft");
+        isActive = tagCompound.getBoolean("isActive");
         tank.readFromNBT(tagCompound);
         NBTTagList nbttaglist = tagCompound.getTagList("Items", 10);
         this.inventory = new ItemStack[this.getSizeInventory()];
@@ -82,7 +112,8 @@ public class TileLumpCleaner extends TileEntity implements ISidedInventory, IFlu
     @Override
     public void writeToNBT(NBTTagCompound tagCompound) {
         super.writeToNBT(tagCompound);
-        ticksLeft = tagCompound.getInteger("ticksLeft");
+        tagCompound.setInteger("ticksLeft", ticksLeft);
+        tagCompound.setBoolean("isActive", isActive);
         tank.writeToNBT(tagCompound);
         NBTTagList nbttaglist = new NBTTagList();
         for (int i = 0; i < this.inventory.length; ++i) {
@@ -98,22 +129,28 @@ public class TileLumpCleaner extends TileEntity implements ISidedInventory, IFlu
 
     @Override
     public int fill(ForgeDirection from, FluidStack resource, boolean doFill) {
-        return tank.fill(resource, doFill);
+        if (resource.fluidID == AlchemicalWizardry.lifeEssenceFluid.getID()) {
+            worldObj.markBlockForUpdate(this.xCoord, this.yCoord, this.zCoord);
+            return tank.fill(resource, doFill);
+        }
+        return 0;
     }
 
     @Override
     public FluidStack drain(ForgeDirection from, FluidStack resource, boolean doDrain) {
+        worldObj.markBlockForUpdate(this.xCoord, this.yCoord, this.zCoord);
         return tank.drain(resource.amount, doDrain);
     }
 
     @Override
     public FluidStack drain(ForgeDirection from, int maxEmpty, boolean doDrain) {
+        worldObj.markBlockForUpdate(this.xCoord, this.yCoord, this.zCoord);
         return tank.drain(maxEmpty, doDrain);
     }
 
     @Override
     public boolean canFill(ForgeDirection from, Fluid fluid) {
-        return this.tank.getFluid().equals(new FluidStack(AlchemicalWizardry.lifeEssenceFluid, 0));
+        return this.tank.getFluid().isFluidEqual(new FluidStack(AlchemicalWizardry.lifeEssenceFluid, 0));
     }
 
     @Override

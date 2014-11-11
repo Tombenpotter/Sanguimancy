@@ -3,6 +3,12 @@ Fixed a world crashing bug with portals.
 TehNut added some configs.
 Changed a bit the event for corrupted infusion.
 The Ore Lump texture is finally what it should be. No comment.
+Reworked the Blood Cleanser totally.
+Fixed a lot of syncing issues with the tanks.
+Portals don't load the chunk anymore, it's not needed. They also don't crash anymore.
+Textures for the items that didn't have any.
+Changed the stones needed for the portal rituals, and ignoring ritual stones in the portal ID.
+Added NEI compatibility for the Blood Cleanser.
 
 Version 1.1.8-Pre8-3:
 Fixed a derp in the portal registry code. OOPS.

@@ -44,10 +44,12 @@ public class GuiLumpCleaner extends GuiContainer {
         int i1 = this.te.ticksLeft * 24 / this.te.maxTicks;
         this.drawTexturedModalRect(xStart + 81, yStart + 34, 176, 14, i1 + 1, 16);
 
-        int bloodLevelHeight = this.te.tank.getFluid().amount * 50 / this.te.tank.getCapacity();
-        int bloodLevel = yStart + 10 + 51 - bloodLevelHeight;
-        if (bloodLevelHeight > 0)
-            this.drawTexturedModalRect(xStart + 12, bloodLevel, 177, 32, 12, bloodLevelHeight + 1);
+        if (this.te.tank.getFluid() != null) {
+            int bloodLevelHeight = this.te.tank.getFluid().amount * 50 / this.te.tank.getCapacity();
+            int bloodLevel = yStart + 10 + 51 - bloodLevelHeight;
+            if (bloodLevelHeight > 0)
+                this.drawTexturedModalRect(xStart + 12, bloodLevel, 177, 32, 12, bloodLevelHeight + 1);
+        }
     }
 
     @Override
@@ -55,7 +57,7 @@ public class GuiLumpCleaner extends GuiContainer {
         super.drawScreen(mouseX, mouseY, mouseAngle);
         int xStart = (width - xSize) / 2;
         int yStart = (height - ySize) / 2;
-        if ((xStart + 12 <= mouseX) && (xStart + 24 > mouseX) && (yStart + 10 <= mouseY) && (yStart + 60 > mouseY)) {
+        if ((xStart + 12 <= mouseX) && (xStart + 24 > mouseX) && (yStart + 10 <= mouseY) && (yStart + 60 > mouseY) && this.te.tank.getFluid() != null) {
             String bloodStatus = StatCollector.translateToLocal("info.Sanguimancy.tooltip.amount") + ": ";
             bloodStatus += this.te.tank.getFluid().amount + " / " + this.te.tank.getCapacity();
             bloodStatus += " mB";

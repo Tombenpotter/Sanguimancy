@@ -10,6 +10,7 @@ public class NEIConfig implements IConfigureNEI {
     public void loadConfig() {
         API.registerRecipeHandler(new NEICorruptedInfusion());
         API.registerUsageHandler(new NEICorruptedInfusion());
+        API.registerUsageHandler(new NEIBloodCleanser());
     }
 
     @Override

@@ -19,7 +19,7 @@ tile.Sanguimancy.illusion.melon.name=Melon
 tile.Sanguimancy.illusion.gold.block.name=Gold Block
 tile.Sanguimancy.illusion.clay.name=Clay
 tile.Sanguimancy.corruptionCrystallizer.name=Soul Corruption Crystallizer
-tile.Sanguimancy.lumpCleaner.name=Ore Lump Cleanser
+tile.Sanguimancy.lumpCleaner.name=Blood Cleanser
 tile.Sanguimancy.bloodTank.name=Blood Tank
 tile.Sanguimancy.dimensionalPortal.name=Dimensional Gate
 
@@ -133,6 +133,7 @@ compat.nei.corrupted.infusion=Corrupted Infusion
 compat.nei.corrupted.infusion.time=Duration
 compat.nei.corrupted.infusion.minimum.corruption=Minimum Corruption
 compat.nei.corrupted.infusion.minimum.exact=Exact Item
+compat.nei.blood.cleanser=Blood Cleanser
 
 #Gui
 gui.Sanguimancy.config.title=Sanguimancy Configuration

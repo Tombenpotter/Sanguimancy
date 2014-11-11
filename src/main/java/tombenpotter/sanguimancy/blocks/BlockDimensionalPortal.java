@@ -4,7 +4,6 @@ import WayofTime.alchemicalWizardry.AlchemicalWizardry;
 import WayofTime.alchemicalWizardry.api.rituals.IMasterRitualStone;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -13,11 +12,10 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import net.minecraftforge.common.DimensionManager;
 import tombenpotter.sanguimancy.tile.TileDimensionalPortal;
 import tombenpotter.sanguimancy.util.LocationsHandler;
 import tombenpotter.sanguimancy.util.PortalLocation;
-import tombenpotter.sanguimancy.util.RandomUtils;
+import tombenpotter.sanguimancy.util.TeleportingUtils;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -74,23 +72,22 @@ public class BlockDimensionalPortal extends BlockContainer {
                         if (linkedLocations.get(0).equals(new PortalLocation(tile.masterStoneX, tile.masterStoneY + 1, tile.masterStoneZ, world.provider.dimensionId))) {
                             PortalLocation linkedLocation = linkedLocations.get(1);
                             if (linkedLocation.dimension == world.provider.dimensionId) {
-                                RandomUtils.teleportEntitySameDim(linkedLocation.x, linkedLocation.y, linkedLocation.z, entity, masterRitualStone.getOwner());
+                                TeleportingUtils.teleportEntitySameDim(linkedLocation.x, linkedLocation.y, linkedLocation.z, entity, masterRitualStone.getOwner());
                             } else {
-                                RandomUtils.teleportEntityToDim(world, DimensionManager.getWorld(linkedLocation.dimension), linkedLocation.x, linkedLocation.y, linkedLocation.z, entity, masterRitualStone.getOwner());
+                                TeleportingUtils.teleportEntityToDim(world, linkedLocation.dimension, linkedLocation.x, linkedLocation.y, linkedLocation.z, entity, masterRitualStone.getOwner());
                             }
                         } else if (linkedLocations.get(1).equals(new PortalLocation(tile.masterStoneX, tile.masterStoneY + 1, tile.masterStoneZ, world.provider.dimensionId))) {
                             PortalLocation linkedLocation = linkedLocations.get(0);
                             if (linkedLocation.dimension == world.provider.dimensionId) {
-                                RandomUtils.teleportEntitySameDim(linkedLocation.x, linkedLocation.y, linkedLocation.z, entity, masterRitualStone.getOwner());
+                                TeleportingUtils.teleportEntitySameDim(linkedLocation.x, linkedLocation.y, linkedLocation.z, entity, masterRitualStone.getOwner());
                             } else {
-                                RandomUtils.teleportEntityToDim(world, DimensionManager.getWorld(linkedLocation.dimension), linkedLocation.x, linkedLocation.y, linkedLocation.z, entity, masterRitualStone.getOwner());
+                                TeleportingUtils.teleportEntityToDim(world, linkedLocation.dimension, linkedLocation.x, linkedLocation.y, linkedLocation.z, entity, masterRitualStone.getOwner());
                             }
                         }
                     }
                 }
             }
         }
-
     }
 
     @Override
@@ -122,15 +119,6 @@ public class BlockDimensionalPortal extends BlockContainer {
         setBlockBounds(0f, 0f, 0.375f, 1f, 1f, 0.625f);
     }
 
-    @Override
-    public void breakBlock(World world, int x, int y, int z, Block par5, int par6) {
-        if (world.getTileEntity(x, y, z) != null && world.getTileEntity(x, y, z) instanceof TileDimensionalPortal) {
-            TileDimensionalPortal tile = (TileDimensionalPortal) world.getTileEntity(x, y, z);
-            tile.releaseTicket();
-        }
-        world.removeTileEntity(x, y, z);
-        super.breakBlock(world, x, y, z, par5, par6);
-    }
 
     @SideOnly(Side.CLIENT)
     @Override
