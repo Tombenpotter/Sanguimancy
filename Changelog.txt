@@ -1,3 +1,8 @@
+Version 1.1.8-Pre10:
+Added a dependency on ttCore.
+Fixed portal orientations.
+Added a sanguimancy folder to the world save.
+
 Version 1.1.8-Pre9:
 Fixed a world crashing bug with portals.
 TehNut added some configs.
