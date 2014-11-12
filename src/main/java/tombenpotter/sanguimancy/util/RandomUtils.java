@@ -193,10 +193,14 @@ public class RandomUtils {
 
     public static void writeLog(String string, String fileName) {
         try {
-            File log = new File(String.valueOf(DimensionManager.getCurrentSaveRootDirectory()) + "/" + fileName);
+            File log = new File(String.valueOf(DimensionManager.getCurrentSaveRootDirectory()) + "/" + Sanguimancy.texturePath + "/" + fileName);
             if (!log.exists()) {
-                if (log.createNewFile()) {
-                    Sanguimancy.logger.info("Creating " + fileName + " in " + String.valueOf(DimensionManager.getCurrentSaveRootDirectory()));
+                if (log.getParentFile().mkdir()) {
+                    if (log.createNewFile()) {
+                        Sanguimancy.logger.info("Creating " + fileName + " in " + String.valueOf(DimensionManager.getCurrentSaveRootDirectory()));
+                    }
+                } else {
+                    throw new IOException("Failed to create directory " + log.getParent());
                 }
             }
             FileWriter fileWriter = new FileWriter(log.getAbsoluteFile(), true);

@@ -95,7 +95,7 @@ public class RitualEffectPortal extends RitualEffect {
             }
             SoulNetworkHandler.causeNauseaToPlayer(owner);
         } else {
-            if (direction == 1 || direction == 4) {
+            if (direction == 1 || direction == 3) {
                 for (int i = x - 1; i <= x + 1; i++) {
                     for (int j = y + 1; j <= y + 3; j++) {
                         if (world.isAirBlock(i, j, z)) {
@@ -110,7 +110,7 @@ public class RitualEffectPortal extends RitualEffect {
                         }
                     }
                 }
-            } else if (direction == 2 || direction == 3) {
+            } else if (direction == 2 || direction == 4) {
                 for (int k = z - 1; k <= z + 1; k++) {
                     for (int j = y + 1; j <= y + 3; j++) {
                         if (world.isAirBlock(x, j, k)) {

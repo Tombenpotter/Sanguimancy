@@ -11,7 +11,7 @@ public class LocationsHandler implements Serializable {
 
     private static HashMap<String, ArrayList<PortalLocation>> portals;
     private static LocationsHandler locationsHandler;
-    private static final String fileName = String.valueOf(DimensionManager.getCurrentSaveRootDirectory()) + "PortalLocations.dat";
+    private static final String fileName = String.valueOf(DimensionManager.getCurrentSaveRootDirectory()) + "/" + Sanguimancy.texturePath + "/PortalLocations.dat";
 
     private LocationsHandler() {
         portals = new HashMap<String, ArrayList<PortalLocation>>();
@@ -27,9 +27,19 @@ public class LocationsHandler implements Serializable {
         }
     }
 
-    private static HashMap<String, ArrayList<PortalLocation>> loadFile(String file) {
+    private static HashMap<String, ArrayList<PortalLocation>> loadFile(String name) {
         HashMap<String, ArrayList<PortalLocation>> map = null;
+        File file = new File(name);
         try {
+            if (!file.exists()) {
+                if (file.getParentFile().mkdir()) {
+                    if (file.createNewFile()) {
+                        Sanguimancy.logger.info("Creating " + fileName + " in " + String.valueOf(DimensionManager.getCurrentSaveRootDirectory()));
+                    }
+                } else {
+                    throw new IOException("Failed to create directory " + file.getParent());
+                }
+            }
             FileInputStream fileIn = new FileInputStream(file);
             ObjectInputStream in = new ObjectInputStream(fileIn);
             map = (HashMap<String, ArrayList<PortalLocation>>) in.readObject();
@@ -40,7 +50,7 @@ public class LocationsHandler implements Serializable {
             e.printStackTrace();
             return null;
         } catch (ClassNotFoundException e) {
-            Sanguimancy.logger.error(file + " was not found in " + String.valueOf(DimensionManager.getCurrentSaveRootDirectory()));
+            Sanguimancy.logger.error(String.valueOf(file) + " was not found in " + String.valueOf(DimensionManager.getCurrentSaveRootDirectory()));
             return null;
         }
     }
