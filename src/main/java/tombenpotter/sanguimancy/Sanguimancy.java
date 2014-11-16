@@ -31,7 +31,7 @@ public class Sanguimancy {
     public static final String texturePath = "sanguimancy";
     public static final String clientProxy = "tombenpotter.sanguimancy.proxies.ClientProxy";
     public static final String commonProxy = "tombenpotter.sanguimancy.proxies.CommonProxy";
-    public static final String depend = "required-after:AWWayofTime;" + "required-after:ttCore" + "after:BloodUtils;" + "after:Waila";
+    public static final String depend = "required-after:AWWayofTime;" + "required-after:ttCore;" + "after:BloodUtils;" + "after:Waila";
     public static final String channel = "Sanguimancy";
     public static final String version = "1.1.8";
     public static boolean isTTLoaded = false;

@@ -6,49 +6,32 @@ import WayofTime.alchemicalWizardry.api.rituals.IMasterRitualStone;
 import WayofTime.alchemicalWizardry.api.rituals.RitualComponent;
 import WayofTime.alchemicalWizardry.api.rituals.RitualEffect;
 import WayofTime.alchemicalWizardry.api.soulNetwork.SoulNetworkHandler;
-import WayofTime.alchemicalWizardry.common.Int3;
 import WayofTime.alchemicalWizardry.common.spell.complex.effect.SpellHelper;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.inventory.IInventory;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
+import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.fluids.FluidRegistry;
 import tombenpotter.sanguimancy.util.RitualUtils;
+import tterrag.core.common.util.BlockCoord;
+import tterrag.core.common.util.blockiterators.CubicBlockIterator;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class RitualEffectQuarry extends RitualEffect {
 
-    public static final int reagentDrain = 5;
-
-    public boolean startRitual(IMasterRitualStone ritualStone, EntityPlayer player) {
-        int x = ritualStone.getXCoord();
-        int y = ritualStone.getYCoord();
-        int z = ritualStone.getZCoord();
-        World world = ritualStone.getWorld();
-        boolean hasTerrae = this.canDrainReagent(ritualStone, ReagentRegistry.terraeReagent, reagentDrain, true);
-        boolean hasOrbisTerrae = this.canDrainReagent(ritualStone, ReagentRegistry.orbisTerraeReagent, reagentDrain, true);
-
-        ArrayList<Int3> blocks = new ArrayList<Int3>();
-        int rangeMultiplier = RitualUtils.getRangeMultiplier(hasTerrae, hasOrbisTerrae);
-        if (blocks.isEmpty()) {
-            blocks = RitualUtils.QuarryUtils.getBlocksInArea(world, x, y, z, rangeMultiplier);
-        }
-        for (Int3 int3 : blocks) {
-            RitualUtils.QuarryUtils.deleteLiquids(world, int3.xCoord, int3.yCoord, int3.zCoord);
-        }
-        return true;
-    }
+    public static final int reagentDrain = 1000;
 
     @Override
-    public void performEffect(IMasterRitualStone ritualStone) {
+    public boolean startRitual(IMasterRitualStone ritualStone, EntityPlayer player) {
         String owner = ritualStone.getOwner();
         int currentEssence = SoulNetworkHandler.getCurrentEssence(owner);
         World world = ritualStone.getWorld();
-        if (world.getWorldTime() % 10 != 5) {
-            return;
-        }
         int x = ritualStone.getXCoord();
         int y = ritualStone.getYCoord();
         int z = ritualStone.getZCoord();
@@ -57,10 +40,10 @@ public class RitualEffectQuarry extends RitualEffect {
         if (tile instanceof IInventory) {
             tileEntity = (IInventory) tile;
         } else {
-            return;
+            return false;
         }
         if (tileEntity.getSizeInventory() <= 0) {
-            return;
+            return false;
         }
         boolean hasRoom = false;
         for (int i = 0; i < tileEntity.getSizeInventory(); i++) {
@@ -70,62 +53,66 @@ public class RitualEffectQuarry extends RitualEffect {
             }
         }
         if (!hasRoom) {
-            return;
+            return false;
         }
         boolean hasCrystallos = this.canDrainReagent(ritualStone, ReagentRegistry.crystallosReagent, reagentDrain, false);
         boolean hasIncendium = this.canDrainReagent(ritualStone, ReagentRegistry.incendiumReagent, reagentDrain, false);
         boolean hasTenebrae = this.canDrainReagent(ritualStone, ReagentRegistry.tenebraeReagent, reagentDrain, false);
         boolean hasTerrae = this.canDrainReagent(ritualStone, ReagentRegistry.terraeReagent, reagentDrain, true);
         boolean hasOrbisTerrae = this.canDrainReagent(ritualStone, ReagentRegistry.orbisTerraeReagent, reagentDrain, true);
-        boolean hasPotentia = this.canDrainReagent(ritualStone, ReagentRegistry.potentiaReagent, reagentDrain, true);
         if (currentEssence < this.getCostPerRefresh()) {
             EntityPlayer entityOwner = SpellHelper.getPlayerForUsername(owner);
             if (entityOwner == null) {
-                return;
+                return false;
             }
             SoulNetworkHandler.causeNauseaToPlayer(owner);
         } else {
             for (int i = 0; i < 6; i++) {
                 SpellHelper.sendIndexedParticleToAllAround(world, x, y, z, 20, world.provider.dimensionId, 3, x, y, z);
             }
-            ArrayList<Int3> blocks = new ArrayList<Int3>();
-            int rangeMultiplier = RitualUtils.getRangeMultiplier(hasTerrae, hasOrbisTerrae);
-            int speedMultiplier = 1;
-            if (hasPotentia) {
-                speedMultiplier = 4;
-            }
-            if (blocks.isEmpty()) {
-                blocks = RitualUtils.QuarryUtils.getBlocksInArea(world, x, y, z, rangeMultiplier);
-            }
-            for (Int3 int3 : blocks) {
-                RitualUtils.QuarryUtils.deleteLiquids(world, int3.xCoord, int3.yCoord, int3.zCoord);
-                if (world.rand.nextInt(500 / speedMultiplier) == 0) {
-                    Block block = world.getBlock(int3.xCoord, int3.yCoord, int3.zCoord);
-                    if (!(block == ModBlocks.blockMasterStone) && !(block == ModBlocks.ritualStone) && !(world.getTileEntity(int3.xCoord, int3.yCoord, int3.zCoord) instanceof IInventory)) {
-                        if (hasCrystallos) {
-                            RitualUtils.silkPlaceInInventory(block, world, int3.xCoord, int3.yCoord, int3.zCoord, tileEntity);
-                            this.canDrainReagent(ritualStone, ReagentRegistry.crystallosReagent, reagentDrain * 2, true);
-                        } else if (hasIncendium) {
-                            RitualUtils.smeltPlaceInInventory(block, world, int3.xCoord, int3.yCoord, int3.zCoord, tileEntity);
-                            this.canDrainReagent(ritualStone, ReagentRegistry.incendiumReagent, reagentDrain * 2, true);
-                        } else if (hasTenebrae) {
-                            RitualUtils.placeInInventory(block, world, int3.xCoord, int3.yCoord, int3.zCoord, tileEntity);
-                            this.canDrainReagent(ritualStone, ReagentRegistry.tenebraeReagent, reagentDrain * 2, true);
-                        }
-                        world.setBlockToAir(int3.xCoord, int3.yCoord, int3.zCoord);
-                        SoulNetworkHandler.syphonFromNetwork(owner, getCostPerRefresh());
-                    }
+            CubicBlockIterator iterator1 = new CubicBlockIterator(new BlockCoord(x, y, z), 17 * RitualUtils.getRangeMultiplier(hasTerrae, hasOrbisTerrae));
+            while (iterator1.hasNext()) {
+                BlockCoord currentCoord = iterator1.next();
+                Block block = currentCoord.getBlock(world);
+                Fluid fluid = FluidRegistry.lookupFluidForBlock(block);
+                if (fluid != null && FluidRegistry.isFluidRegistered(fluid)) {
+                    world.setBlock(currentCoord.x, currentCoord.y, currentCoord.z, Blocks.stone, 0, 2);
                 }
             }
-            if (world.rand.nextInt(100) == 0) {
-                blocks.clear();
+            CubicBlockIterator iterator = new CubicBlockIterator(new BlockCoord(x, y, z), 16 * RitualUtils.getRangeMultiplier(hasTerrae, hasOrbisTerrae));
+            while (iterator.hasNext()) {
+                BlockCoord currentCoord = iterator.next();
+                Block block = currentCoord.getBlock(world);
+                MinecraftServer server = MinecraftServer.getServer();
+                if (!server.isBlockProtected(world, currentCoord.x, currentCoord.y, currentCoord.z, SpellHelper.getPlayerForUsername(owner)) && !(block == ModBlocks.blockMasterStone) && !(block == ModBlocks.ritualStone) && !(world.getTileEntity(currentCoord.x, currentCoord.y, currentCoord.z) instanceof IInventory) && !world.isAirBlock(currentCoord.x, currentCoord.y, currentCoord.z) && block.getBlockHardness(world, currentCoord.x, currentCoord.y, currentCoord.z) >= 0) {
+                    if (hasCrystallos && hasTenebrae) {
+                        RitualUtils.silkPlaceInInventory(block, world, currentCoord.x, currentCoord.y, currentCoord.z, tileEntity);
+                        this.canDrainReagent(ritualStone, ReagentRegistry.crystallosReagent, reagentDrain, true);
+                        this.canDrainReagent(ritualStone, ReagentRegistry.tenebraeReagent, reagentDrain, true);
+                    } else if (hasIncendium && hasTenebrae) {
+                        RitualUtils.smeltPlaceInInventory(block, world, currentCoord.x, currentCoord.y, currentCoord.z, tileEntity);
+                        this.canDrainReagent(ritualStone, ReagentRegistry.incendiumReagent, reagentDrain, true);
+                        this.canDrainReagent(ritualStone, ReagentRegistry.tenebraeReagent, reagentDrain, true);
+                    } else if (hasTenebrae) {
+                        RitualUtils.placeInInventory(block, world, currentCoord.x, currentCoord.y, currentCoord.z, tileEntity);
+                        this.canDrainReagent(ritualStone, ReagentRegistry.tenebraeReagent, reagentDrain, true);
+                    }
+                    world.setBlock(currentCoord.x, currentCoord.y, currentCoord.z, Blocks.air, 0, 2);
+                    SoulNetworkHandler.syphonFromNetwork(owner, getCostPerRefresh());
+                }
             }
         }
+        return true;
+    }
+
+    @Override
+    public void performEffect(IMasterRitualStone ritualStone) {
+        onRitualBroken(ritualStone);
     }
 
     @Override
     public int getCostPerRefresh() {
-        return 50;
+        return 300;
     }
 
     @Override
@@ -139,7 +126,6 @@ public class RitualEffectQuarry extends RitualEffect {
         quarryRitual.add(new RitualComponent(-2, 0, 0, RitualComponent.EARTH));
         quarryRitual.add(new RitualComponent(0, 0, -2, RitualComponent.EARTH));
         quarryRitual.add(new RitualComponent(0, 0, 2, RitualComponent.EARTH));
-
         quarryRitual.add(new RitualComponent(1, 2, 1, RitualComponent.DUSK));
         quarryRitual.add(new RitualComponent(-1, 2, 1, RitualComponent.DUSK));
         quarryRitual.add(new RitualComponent(1, 2, -1, RitualComponent.DUSK));
