@@ -33,7 +33,7 @@ public class RecipeBloodCleanser {
         return null;
     }
 
-    public static RecipeBloodCleanser[] getRecipes(ItemStack input) {
+    public static List<RecipeBloodCleanser> getRecipes(ItemStack input) {
         List<RecipeBloodCleanser> out = new ArrayList<RecipeBloodCleanser>();
         if (input == null)
             return null;
@@ -41,7 +41,7 @@ public class RecipeBloodCleanser {
             if (r.fInput.isItemEqual(input))
                 out.add(r);
         }
-        return out.toArray(new RecipeBloodCleanser[0]);
+        return out;
     }
 
     public static boolean isRecipeValid(ItemStack input) {

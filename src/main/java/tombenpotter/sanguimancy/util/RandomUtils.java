@@ -199,6 +199,8 @@ public class RandomUtils {
                     if (log.createNewFile()) {
                         Sanguimancy.logger.info("Creating " + fileName + " in " + String.valueOf(DimensionManager.getCurrentSaveRootDirectory()));
                     }
+                } else if (log.createNewFile()) {
+                    Sanguimancy.logger.info("Creating " + fileName + " in " + String.valueOf(DimensionManager.getCurrentSaveRootDirectory()));
                 } else {
                     throw new IOException("Failed to create directory " + log.getParent());
                 }

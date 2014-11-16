@@ -77,6 +77,7 @@ public class RitualEffectQuarry extends RitualEffect {
                 Fluid fluid = FluidRegistry.lookupFluidForBlock(block);
                 if (fluid != null && FluidRegistry.isFluidRegistered(fluid)) {
                     world.setBlock(currentCoord.x, currentCoord.y, currentCoord.z, Blocks.stone, 0, 2);
+                    SoulNetworkHandler.syphonFromNetwork(owner, getCostPerRefresh());
                 }
             }
             CubicBlockIterator iterator = new CubicBlockIterator(new BlockCoord(x, y, z), 16 * RitualUtils.getRangeMultiplier(hasTerrae, hasOrbisTerrae));

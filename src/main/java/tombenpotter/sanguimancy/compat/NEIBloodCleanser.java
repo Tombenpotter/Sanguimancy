@@ -29,15 +29,15 @@ public class NEIBloodCleanser extends TemplateRecipeHandler {
         }
 
         @Override
-        public PositionedStack getResult() {
-            return new PositionedStack(output, 124, 23);
-        }
-
-        @Override
         public List<PositionedStack> getIngredients() {
             ArrayList<PositionedStack> stacks = new ArrayList<PositionedStack>();
             stacks.add(new PositionedStack(input, 47, 5));
             return stacks;
+        }
+
+        @Override
+        public PositionedStack getResult() {
+            return new PositionedStack(output, 124, 23);
         }
     }
 
