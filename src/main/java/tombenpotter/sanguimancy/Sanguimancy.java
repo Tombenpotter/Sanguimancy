@@ -37,7 +37,6 @@ public class Sanguimancy {
     public static boolean isTTLoaded = false;
     public static Logger logger = LogManager.getLogger(Sanguimancy.name);
     public static CreativeTabs tabSanguimancy = new CreativeTabs("tab" + Sanguimancy.modid) {
-
         @Override
         public ItemStack getIconItemStack() {
             return new ItemStack(ItemsRegistry.playerSacrificer, 1, 0);

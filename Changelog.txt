@@ -1,3 +1,7 @@
+Version 1.1.8:
+See changelog under :D.
+A lot of stuff was added, but it's not in the book. That's because one is soon going into Blood Magic itself, and I'll switch to using that once it's done.
+
 Version 1.1.8-Pre10:
 Added a dependency on ttCore.
 Fixed portal orientations.
