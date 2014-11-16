@@ -14,7 +14,7 @@ import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.fluids.*;
 import tombenpotter.sanguimancy.recipes.RecipeBloodCleanser;
 
-public class TileLumpCleaner extends TileEntity implements ISidedInventory, IFluidHandler {
+public class TileBloodCleaner extends TileEntity implements ISidedInventory, IFluidHandler {
 
     public ItemStack[] inventory;
     public int capacity;
@@ -23,7 +23,7 @@ public class TileLumpCleaner extends TileEntity implements ISidedInventory, IFlu
     public FluidTank tank;
     public boolean isActive;
 
-    public TileLumpCleaner() {
+    public TileBloodCleaner() {
         inventory = new ItemStack[2];
         capacity = FluidContainerRegistry.BUCKET_VOLUME * 16;
         maxTicks = 150;

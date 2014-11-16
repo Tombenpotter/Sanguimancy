@@ -8,7 +8,7 @@ import net.minecraft.util.StatCollector;
 import org.lwjgl.opengl.GL11;
 import tombenpotter.sanguimancy.Sanguimancy;
 import tombenpotter.sanguimancy.container.ContainerLumpCleaner;
-import tombenpotter.sanguimancy.tile.TileLumpCleaner;
+import tombenpotter.sanguimancy.tile.TileBloodCleaner;
 
 import java.util.ArrayList;
 
@@ -17,10 +17,10 @@ public class GuiLumpCleaner extends GuiContainer {
     public static final ResourceLocation gui = new ResourceLocation(Sanguimancy.texturePath, "textures/gui/LumpCleaner.png");
     @SuppressWarnings("unused")
     public ContainerLumpCleaner container;
-    public TileLumpCleaner te;
+    public TileBloodCleaner te;
     String containerName = "Ore Lump Cleaner";
 
-    public GuiLumpCleaner(EntityPlayer player, TileLumpCleaner tile) {
+    public GuiLumpCleaner(EntityPlayer player, TileBloodCleaner tile) {
         super(new ContainerLumpCleaner(player, tile));
         this.container = (ContainerLumpCleaner) this.inventorySlots;
         this.te = tile;

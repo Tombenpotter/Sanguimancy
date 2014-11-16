@@ -6,7 +6,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import tombenpotter.sanguimancy.container.ContainerLumpCleaner;
 import tombenpotter.sanguimancy.gui.GuiLumpCleaner;
-import tombenpotter.sanguimancy.tile.TileLumpCleaner;
+import tombenpotter.sanguimancy.tile.TileBloodCleaner;
 
 public class CommonProxy implements IGuiHandler {
 
@@ -22,8 +22,8 @@ public class CommonProxy implements IGuiHandler {
         TileEntity tile = world.getTileEntity(x, y, z);
         switch (ID) {
             case 0:
-                if (tile != null && tile instanceof TileLumpCleaner) {
-                    return new ContainerLumpCleaner(player, (TileLumpCleaner) tile);
+                if (tile != null && tile instanceof TileBloodCleaner) {
+                    return new ContainerLumpCleaner(player, (TileBloodCleaner) tile);
                 }
             default:
                 return null;
@@ -35,8 +35,8 @@ public class CommonProxy implements IGuiHandler {
         TileEntity tile = world.getTileEntity(x, y, z);
         switch (ID) {
             case 0:
-                if (tile != null && tile instanceof TileLumpCleaner) {
-                    return new GuiLumpCleaner(player, (TileLumpCleaner) tile);
+                if (tile != null && tile instanceof TileBloodCleaner) {
+                    return new GuiLumpCleaner(player, (TileBloodCleaner) tile);
                 }
             default:
                 return null;

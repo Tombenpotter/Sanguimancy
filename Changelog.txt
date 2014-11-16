@@ -4,6 +4,7 @@ Fixed portal orientations.
 Added a sanguimancy folder to the world save.
 Improved the Quarry ritual a lot. It is instant, but it works a lot better and costs a lot more. By default you don't get the items mined.
 Fixed the Chunkloading log not getting generated if the sanguimancy folder already existed.
+Modifications to the Blood Amulet. Can now be filled in machines.
 
 Version 1.1.8-Pre9:
 Fixed a world crashing bug with portals.

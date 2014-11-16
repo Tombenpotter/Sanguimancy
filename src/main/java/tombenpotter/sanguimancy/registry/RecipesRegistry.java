@@ -18,7 +18,7 @@ import tombenpotter.sanguimancy.util.RandomUtils;
 
 public class RecipesRegistry {
 
-    public static IRecipe altarEmitter, sacrificeTransferrer, corruptionReader, unattunedPlayerSacrificer, corruptionCrystallizer, bloodTank, lumpCleaner;
+    public static IRecipe altarEmitter, sacrificeTransferrer, corruptionReader, unattunedPlayerSacrificer, corruptionCrystallizer, bloodTank, lumpCleaner, bloodAmulet;
     public static AltarRecipe altarDiviner, attunedPlayerSacrificer, corruptionCatalyst;
     public static RecipeCorruptedInfusion poisonousPotato, rottenFlesh, crackedStoneBricks, bonemeal, soulSand, corruptedDemonShard, cobblestone, gravel, sand, dirt;
 
@@ -46,6 +46,8 @@ public class RecipesRegistry {
         bloodTank = RecipeRegistry.getLatestCraftingRecipe();
         GameRegistry.addRecipe(new ShapedBloodOrbRecipe(RandomUtils.SanguimancyItemStacks.lumpCleaner, "XXX", "YZY", "ABA", 'X', RandomUtils.SanguimancyItemStacks.oreLump, 'Y', RandomUtils.SanguimancyItemStacks.bloodTank, 'Z', new ItemStack(ModItems.masterBloodOrb), 'A', new ItemStack(Blocks.iron_block), 'B', new ItemStack(Blocks.diamond_block)));
         lumpCleaner = RecipeRegistry.getLatestCraftingRecipe();
+        GameRegistry.addRecipe(new ShapedBloodOrbRecipe(RandomUtils.SanguimancyItemStacks.bloodAmulet, "XYX", "ZAZ", "BCB", 'X', new ItemStack(Items.string), 'Y', new ItemStack(Items.bucket), 'Z', new ItemStack(ModItems.demonicSlate), 'A', new ItemStack(Items.clock), 'B', RandomUtils.SanguimancyItemStacks.bloodTank, 'C', new ItemStack(ModItems.magicianBloodOrb)));
+        bloodAmulet = RecipeRegistry.getLatestCraftingRecipe();
     }
 
     public static void registerCustomModRecipes() {

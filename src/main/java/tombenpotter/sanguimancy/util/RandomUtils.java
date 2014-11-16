@@ -233,6 +233,7 @@ public class RandomUtils {
         public static ItemStack corruptedDemonShard = new ItemStack(ItemsRegistry.corruptedDemonShard);
         public static ItemStack corruptionCatalist = new ItemStack(ItemsRegistry.corruptionCatalyst);
         public static ItemStack oreLump = new ItemStack(ItemsRegistry.oreLump);
+        public static ItemStack bloodAmulet = new ItemStack(ItemsRegistry.bloodAmulet);
 
         // Blocks
         public static ItemStack altarEmitter = new ItemStack(BlocksRegistry.altarEmitter);

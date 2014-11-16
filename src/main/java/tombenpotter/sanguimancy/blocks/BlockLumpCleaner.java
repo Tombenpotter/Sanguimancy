@@ -16,7 +16,7 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.FluidContainerRegistry;
 import tombenpotter.sanguimancy.Sanguimancy;
-import tombenpotter.sanguimancy.tile.TileLumpCleaner;
+import tombenpotter.sanguimancy.tile.TileBloodCleaner;
 import tombenpotter.sanguimancy.util.RandomUtils;
 
 public class BlockLumpCleaner extends BlockContainer {
@@ -41,7 +41,7 @@ public class BlockLumpCleaner extends BlockContainer {
 
     @Override
     public TileEntity createNewTileEntity(World p_149915_1_, int p_149915_2_) {
-        return new TileLumpCleaner();
+        return new TileBloodCleaner();
     }
 
     @Override
@@ -53,7 +53,7 @@ public class BlockLumpCleaner extends BlockContainer {
 
     @Override
     public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float hitX, float hitY, float hitZ) {
-        TileLumpCleaner fluidHandler = (TileLumpCleaner) world.getTileEntity(x, y, z);
+        TileBloodCleaner fluidHandler = (TileBloodCleaner) world.getTileEntity(x, y, z);
         if (RandomUtils.fillHandlerWithContainer(world, fluidHandler, player)) {
             world.markBlockForUpdate(x, y, z);
             return true;
@@ -89,8 +89,8 @@ public class BlockLumpCleaner extends BlockContainer {
     @SideOnly(Side.CLIENT)
     public IIcon getIcon(IBlockAccess access, int x, int y, int z, int side) {
         int meta = access.getBlockMetadata(x, y, z);
-        if (access.getTileEntity(x, y, z) != null && access.getTileEntity(x, y, z) instanceof TileLumpCleaner) {
-            TileLumpCleaner tile = (TileLumpCleaner) access.getTileEntity(x, y, z);
+        if (access.getTileEntity(x, y, z) != null && access.getTileEntity(x, y, z) instanceof TileBloodCleaner) {
+            TileBloodCleaner tile = (TileBloodCleaner) access.getTileEntity(x, y, z);
             if (tile.isActive) {
                 return side == 1 ? this.topIcon : (side == 0 ? this.bottomIcon : (side != meta ? this.blockIcon : this.frontOnIcon));
             } else {

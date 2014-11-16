@@ -7,13 +7,13 @@ import net.minecraft.inventory.Slot;
 import net.minecraft.inventory.SlotFurnace;
 import net.minecraft.item.ItemStack;
 import tombenpotter.sanguimancy.registry.ItemsRegistry;
-import tombenpotter.sanguimancy.tile.TileLumpCleaner;
+import tombenpotter.sanguimancy.tile.TileBloodCleaner;
 
 public class ContainerLumpCleaner extends Container {
 
-    TileLumpCleaner tile;
+    TileBloodCleaner tile;
 
-    public ContainerLumpCleaner(EntityPlayer player, TileLumpCleaner entity) {
+    public ContainerLumpCleaner(EntityPlayer player, TileBloodCleaner entity) {
         this.tile = entity;
         createSlots(entity, player);
         bindPlayerInventory(player.inventory);
@@ -30,7 +30,7 @@ public class ContainerLumpCleaner extends Container {
         }
     }
 
-    public void createSlots(TileLumpCleaner tile, EntityPlayer player) {
+    public void createSlots(TileBloodCleaner tile, EntityPlayer player) {
         addSlotToContainer(new Slot(tile, 0, 52, 16));
         addSlotToContainer(new SlotFurnace(player, tile, 1, 129, 34));
     }
