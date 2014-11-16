@@ -9,5 +9,4 @@ To be able to setup your development environment and get it working you need:
 * To add in your program arguments "--noCoreSearch"
 
 # License
-Creative Commons Licence
 Sanguimancy by Tombenpotter is licensed under a Creative Commons Attribution 4.0 International License.
