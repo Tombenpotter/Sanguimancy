@@ -1,4 +1,7 @@
-Version 1.1.8:
+Version 1.1.8-2:
+Bugfix. The PortalLocations file could sometimes not be created. I yelled at it, and now it works.
+
+Version 1.1.8-1:
 See changelog under :D.
 A lot of stuff was added, but it's not in the book. That's because one is soon going into Blood Magic itself, and I'll switch to using that once it's done.
 

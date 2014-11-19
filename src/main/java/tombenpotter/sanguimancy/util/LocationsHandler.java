@@ -36,6 +36,8 @@ public class LocationsHandler implements Serializable {
                     if (file.createNewFile()) {
                         Sanguimancy.logger.info("Creating " + fileName + " in " + String.valueOf(DimensionManager.getCurrentSaveRootDirectory()));
                     }
+                } else if (file.createNewFile()) {
+                    Sanguimancy.logger.info("Creating " + name + " in " + String.valueOf(DimensionManager.getCurrentSaveRootDirectory()));
                 } else {
                     throw new IOException("Failed to create directory " + file.getParent());
                 }
