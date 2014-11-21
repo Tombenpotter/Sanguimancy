@@ -1,10 +1,7 @@
 package tombenpotter.sanguimancy.rituals;
 
 import WayofTime.alchemicalWizardry.ModBlocks;
-import WayofTime.alchemicalWizardry.api.rituals.IMasterRitualStone;
-import WayofTime.alchemicalWizardry.api.rituals.RitualComponent;
-import WayofTime.alchemicalWizardry.api.rituals.RitualEffect;
-import WayofTime.alchemicalWizardry.api.rituals.Rituals;
+import WayofTime.alchemicalWizardry.api.rituals.*;
 import WayofTime.alchemicalWizardry.api.soulNetwork.SoulNetworkHandler;
 import WayofTime.alchemicalWizardry.common.spell.complex.effect.SpellHelper;
 import net.minecraft.block.Block;
@@ -130,7 +127,7 @@ public class RitualEffectPortal extends RitualEffect {
     }
 
     @Override
-    public void onRitualBroken(IMasterRitualStone ritualStone) {
+    public void onRitualBroken(IMasterRitualStone ritualStone, RitualBreakMethod method) {
         World world = ritualStone.getWorld();
         int x = ritualStone.getXCoord();
         int y = ritualStone.getYCoord();

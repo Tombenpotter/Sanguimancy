@@ -1,3 +1,7 @@
+Version 1.1.8-3:
+Fixed a bug with the Aura of Obliteration.
+Updated to Blood Magic 1.2.1
+
 Version 1.1.8-2:
 Bugfix. The PortalLocations file could sometimes not be created. I yelled at it, and now it works.
 

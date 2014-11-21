@@ -3,6 +3,7 @@ package tombenpotter.sanguimancy.rituals;
 import WayofTime.alchemicalWizardry.ModBlocks;
 import WayofTime.alchemicalWizardry.api.alchemy.energy.ReagentRegistry;
 import WayofTime.alchemicalWizardry.api.rituals.IMasterRitualStone;
+import WayofTime.alchemicalWizardry.api.rituals.RitualBreakMethod;
 import WayofTime.alchemicalWizardry.api.rituals.RitualComponent;
 import WayofTime.alchemicalWizardry.api.rituals.RitualEffect;
 import WayofTime.alchemicalWizardry.api.soulNetwork.SoulNetworkHandler;
@@ -61,10 +62,6 @@ public class RitualEffectQuarry extends RitualEffect {
         boolean hasTerrae = this.canDrainReagent(ritualStone, ReagentRegistry.terraeReagent, reagentDrain, true);
         boolean hasOrbisTerrae = this.canDrainReagent(ritualStone, ReagentRegistry.orbisTerraeReagent, reagentDrain, true);
         if (currentEssence < this.getCostPerRefresh()) {
-            EntityPlayer entityOwner = SpellHelper.getPlayerForUsername(owner);
-            if (entityOwner == null) {
-                return false;
-            }
             SoulNetworkHandler.causeNauseaToPlayer(owner);
         } else {
             for (int i = 0; i < 6; i++) {
@@ -108,7 +105,7 @@ public class RitualEffectQuarry extends RitualEffect {
 
     @Override
     public void performEffect(IMasterRitualStone ritualStone) {
-        onRitualBroken(ritualStone);
+        onRitualBroken(ritualStone, RitualBreakMethod.DEACTIVATE);
     }
 
     @Override

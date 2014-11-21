@@ -33,7 +33,7 @@ item.Sanguimancy.soulCorruption.remove.name=Remove Soul Corruption
 item.Sanguimancy.soulCorruption.negate.name=Negate Soul Corruption
 item.Sanguimancy.soulCorruption.reader.name=Soul Corruption Reader
 item.Sanguimancy.corruptedDemonShard.name=Corrupted Demon Shard
-item.Sanguimancy.corruptionCatalist.name=Corruption Catalist
+item.Sanguimancy.corruptionCatalist.name=Corruption Catalyst
 item.Sanguimancy.oreLump.name=Ore Lump
 item.Sanguimancy.bloodAmulet.name=Blood Amulet
 
@@ -60,6 +60,7 @@ ritual.Sanguimancy.portal=Gate of the Fold
 #Chat Messages
 chat.Sanguimancy.blood.required=Blood Required
 chat.Sanguimancy.soul.corruption=Soul Corruption
+chat.Sanguimancy.not.enough.LP=You don't seem to have enough LP
 
 #Tooltips
 info.Sanguimancy.tooltip.shift.info=Press Shift for info
