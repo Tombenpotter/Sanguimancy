@@ -1,6 +1,6 @@
 package tombenpotter.sanguimancy.util;
 
-import WayofTime.alchemicalWizardry.api.soulNetwork.LifeEssenceNetwork;
+import WayofTime.alchemicalWizardry.api.soulNetwork.SoulNetworkHandler;
 import WayofTime.alchemicalWizardry.common.items.EnergyItems;
 import cpw.mods.fml.client.event.ConfigChangedEvent;
 import cpw.mods.fml.client.registry.ClientRegistry;
@@ -13,9 +13,7 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.StatCollector;
-import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeChunkManager;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
@@ -46,28 +44,18 @@ public class EventHandler {
             if (event.entity instanceof EntityPlayer) {
                 EntityPlayer player = (EntityPlayer) event.entity;
                 String owner = player.getCommandSenderName();
-                World worldSave = MinecraftServer.getServer().worldServers[0];
-                LifeEssenceNetwork data = (LifeEssenceNetwork) worldSave.loadItemData(LifeEssenceNetwork.class, owner);
-                if (data == null) {
-                    data = new LifeEssenceNetwork(owner);
-                    worldSave.setItemData(owner, data);
-                }
-
-                int currentEssence = data.currentEssence;
+                int currentEssence = SoulNetworkHandler.getCurrentEssence(owner);
                 if (event.source.getEntity() != null && event.source.getEntity() instanceof EntityPlayer) {
                     EntityPlayer perpetrator = (EntityPlayer) event.source.getEntity();
                     ItemStack attunedStack = new ItemStack(ItemsRegistry.playerSacrificer, 1, 1);
                     if (perpetrator.inventory.hasItemStack(attunedStack)) {
                         perpetrator.inventory.consumeInventoryItem(attunedStack.getItem());
-
                         ItemStack focusedStack = new ItemStack(ItemsRegistry.playerSacrificer, 1, 2);
                         EnergyItems.checkAndSetItemOwner(focusedStack, owner);
                         focusedStack.stackTagCompound.setInteger("bloodStolen", currentEssence);
                         focusedStack.stackTagCompound.setString("thiefName", perpetrator.getCommandSenderName());
                         perpetrator.inventory.addItemStackToInventory(focusedStack);
-
-                        data.currentEssence = 0;
-                        data.markDirty();
+                        SoulNetworkHandler.setCurrentEssence(owner, 0);
                         NBTTagCompound tag = SoulCorruptionHelper.getModTag(player, Sanguimancy.modid);
                         SoulCorruptionHelper.incrementCorruption(tag);
                     }
@@ -124,7 +112,7 @@ public class EventHandler {
     }
 
     public static class ClientEventHandler {
-        public static KeyBinding keySearchPlayer = new KeyBinding("key.sanguimancy.search", Keyboard.KEY_F, Sanguimancy.modid);
+        public static KeyBinding keySearchPlayer = new KeyBinding("key.Sanguimancy.search", Keyboard.KEY_F, Sanguimancy.modid);
 
         public ClientEventHandler() {
             ClientRegistry.registerKeyBinding(keySearchPlayer);

@@ -1,6 +1,5 @@
 package tombenpotter.sanguimancy.rituals;
 
-import WayofTime.alchemicalWizardry.ModBlocks;
 import WayofTime.alchemicalWizardry.api.alchemy.energy.ReagentRegistry;
 import WayofTime.alchemicalWizardry.api.rituals.IMasterRitualStone;
 import WayofTime.alchemicalWizardry.api.rituals.RitualBreakMethod;
@@ -8,18 +7,10 @@ import WayofTime.alchemicalWizardry.api.rituals.RitualComponent;
 import WayofTime.alchemicalWizardry.api.rituals.RitualEffect;
 import WayofTime.alchemicalWizardry.api.soulNetwork.SoulNetworkHandler;
 import WayofTime.alchemicalWizardry.common.spell.complex.effect.SpellHelper;
-import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
 import net.minecraft.inventory.IInventory;
-import net.minecraft.server.MinecraftServer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
-import net.minecraftforge.fluids.Fluid;
-import net.minecraftforge.fluids.FluidRegistry;
-import tombenpotter.sanguimancy.util.RitualUtils;
-import tterrag.core.common.util.BlockCoord;
-import tterrag.core.common.util.blockiterators.CubicBlockIterator;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -67,6 +58,7 @@ public class RitualEffectQuarry extends RitualEffect {
             for (int i = 0; i < 6; i++) {
                 SpellHelper.sendIndexedParticleToAllAround(world, x, y, z, 20, world.provider.dimensionId, 3, x, y, z);
             }
+            /*
             CubicBlockIterator iterator1 = new CubicBlockIterator(new BlockCoord(x, y, z), 17 * RitualUtils.getRangeMultiplier(hasTerrae, hasOrbisTerrae));
             while (iterator1.hasNext()) {
                 BlockCoord currentCoord = iterator1.next();
@@ -98,7 +90,7 @@ public class RitualEffectQuarry extends RitualEffect {
                     world.setBlock(currentCoord.x, currentCoord.y, currentCoord.z, Blocks.air, 0, 2);
                     SoulNetworkHandler.syphonFromNetwork(owner, getCostPerRefresh());
                 }
-            }
+            }*/
         }
         return true;
     }

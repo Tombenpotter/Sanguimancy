@@ -65,16 +65,12 @@ repositories {
         name 'CB Repo'
         url "http://chickenbones.net/maven/"
     }
-	maven { // ttCore
-    name 'tterrag Repo'
-    url "http://maven.tterrag.com/"
   }
 }
 
 dependencies {
     compile "mcp.mobius.waila:Waila:1.5.5_1.7.10"
 	compile "codechicken:NotEnoughItems:1.7.10-1.0.3.64:dev"
-	compile "tterrag.core:ttCore:MC1.7.10-0.0.3-33:deobf"
     compile fileTree(dir: 'libs', include: '*.jar')
 }
 

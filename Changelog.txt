@@ -1,3 +1,9 @@
+Version 1.1.8-4:
+Removed dependency on ttCore. It's not needed anymore.
+Removed the Aura of Obliteration. It's not gone forever, I just need to rework it. A lot.
+Changed the sacrificing mechanic to use WayofTime's secure stuff instead of mine.
+Started working on wands. Yes, wands. Shhh!
+
 Version 1.1.8-3:
 Fixed a bug with the Aura of Obliteration.
 Updated to Blood Magic 1.2.1

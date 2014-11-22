@@ -1,6 +1,6 @@
 package tombenpotter.sanguimancy.blocks;
 
-import WayofTime.alchemicalWizardry.api.soulNetwork.LifeEssenceNetwork;
+import WayofTime.alchemicalWizardry.api.soulNetwork.SoulNetworkHandler;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
@@ -14,7 +14,6 @@ import net.minecraft.entity.effect.EntityLightningBolt;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.server.MinecraftServer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.util.StatCollector;
@@ -86,30 +85,16 @@ public class BlockSacrificeTransfer extends BlockContainer {
                 RandomUtils.checkAndSetCompound(stack);
                 if (stack.stackTagCompound.getString("thiefName").equals(player.getCommandSenderName())) {
                     String owner = player.getCommandSenderName();
-                    World worldSave = MinecraftServer.getServer().worldServers[0];
-                    LifeEssenceNetwork data = (LifeEssenceNetwork) worldSave.loadItemData(LifeEssenceNetwork.class, owner);
-                    if (data == null) {
-                        data = new LifeEssenceNetwork(owner);
-                        worldSave.setItemData(owner, data);
-                    }
-                    int currentEssence = data.currentEssence;
-                    data.currentEssence = currentEssence + stack.stackTagCompound.getInteger("bloodStolen");
-                    data.markDirty();
+                    int currentEssence = SoulNetworkHandler.getCurrentEssence(owner);
+                    SoulNetworkHandler.setCurrentEssence(owner, currentEssence + stack.stackTagCompound.getInteger("bloodStolen"));
                     player.setFire(1000);
                     tile.setInventorySlotContents(0, null);
                     NBTTagCompound tag = SoulCorruptionHelper.getModTag(player, Sanguimancy.modid);
                     SoulCorruptionHelper.addCorruption(tag, 2);
                 } else if (stack.stackTagCompound.getString("ownerName").equals(player.getCommandSenderName())) {
                     String sacrificed = player.getCommandSenderName();
-                    World worldSave = MinecraftServer.getServer().worldServers[0];
-                    LifeEssenceNetwork sacrificedData = (LifeEssenceNetwork) worldSave.loadItemData(LifeEssenceNetwork.class, sacrificed);
-                    if (sacrificedData == null) {
-                        sacrificedData = new LifeEssenceNetwork(sacrificed);
-                        worldSave.setItemData(sacrificed, sacrificedData);
-                    }
-                    int sacrificedEssence = sacrificedData.currentEssence;
-                    sacrificedData.currentEssence = sacrificedEssence + stack.stackTagCompound.getInteger("bloodStolen");
-                    sacrificedData.markDirty();
+                    int sacrificedEssence = SoulNetworkHandler.getCurrentEssence(sacrificed);
+                    SoulNetworkHandler.setCurrentEssence(sacrificed, sacrificedEssence + stack.stackTagCompound.getInteger("bloodStolen"));
                     tile.setInventorySlotContents(0, null);
                 } else {
                     player.addChatComponentMessage(new ChatComponentTranslation(StatCollector.translateToLocal("info.Sanguimancy.tooltip.sacrifice.transfer")));

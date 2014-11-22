@@ -1,16 +1,13 @@
 package tombenpotter.sanguimancy.util;
 
-import WayofTime.alchemicalWizardry.ModBlocks;
 import WayofTime.alchemicalWizardry.common.Int3;
 import WayofTime.alchemicalWizardry.common.spell.complex.effect.SpellHelper;
 import net.minecraft.block.Block;
 import net.minecraft.entity.item.EntityItem;
-import net.minecraft.init.Blocks;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.world.World;
-import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 
@@ -47,31 +44,6 @@ public class RitualUtils {
                 }
             }
             return blocks;
-        }
-    }
-
-    public static class QuarryUtils {
-        public static ArrayList<Int3> getBlocksInArea(World world, int x, int y, int z, int multiplier) {
-            ArrayList<Int3> blocks = new ArrayList<Int3>();
-            for (int j = 0; j <= 32 * multiplier; j++) {
-                for (int i = -16 * multiplier; i <= 16 * multiplier; i++) {
-                    for (int k = -16 * multiplier; k <= 16 * multiplier; k++) {
-                        if (!world.isAirBlock(x + i, y + j, z + k) && world.getBlock(x + i, y + j, z + k).getBlockHardness(world, x + i, y + j, z + k) >= 0) {
-                            if (!(world.getBlock(x + i, y + j, z + k) == ModBlocks.blockMasterStone) && !(world.getBlock(x + i, y + j, z + k) == ModBlocks.ritualStone) && !(world.getTileEntity(x + i, y + j, z + k) instanceof IInventory)) {
-                                blocks.add(new Int3(x + i, y + j, z + k));
-                            }
-                        }
-                    }
-                }
-            }
-            return blocks;
-        }
-
-        public static void deleteLiquids(World world, int x, int y, int z) {
-            Fluid fluid = FluidRegistry.lookupFluidForBlock(world.getBlock(x, y, z));
-            if (fluid != null && FluidRegistry.isFluidRegistered(fluid)) {
-                if (world.getBlockMetadata(x, y, z) == 0) world.setBlock(x, y, z, Blocks.stone);
-            }
         }
     }
 
