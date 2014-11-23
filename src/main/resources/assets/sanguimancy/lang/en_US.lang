@@ -36,6 +36,7 @@ item.Sanguimancy.corruptedDemonShard.name=Corrupted Demon Shard
 item.Sanguimancy.corruptionCatalist.name=Corruption Catalyst
 item.Sanguimancy.oreLump.name=Ore Lump
 item.Sanguimancy.bloodAmulet.name=Blood Amulet
+item.Sanguimancy.spellWand.name=Wand
 
 #Entities
 entity.Sanguimancy.EntityChickenMinion.name=Chicken Minion

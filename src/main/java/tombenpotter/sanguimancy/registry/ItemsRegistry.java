@@ -12,6 +12,7 @@ public class ItemsRegistry {
     public static Item corruptionCatalyst;
     public static Item oreLump;
     public static Item bloodAmulet;
+    public static Item wand;
 
     public static void registerItems() {
         playerSacrificer = new ItemPlayerSacrificer();
@@ -31,5 +32,8 @@ public class ItemsRegistry {
 
         bloodAmulet = new ItemBloodAmulet();
         GameRegistry.registerItem(bloodAmulet, "bloodAmulet");
+
+        wand = new ItemWand();
+        GameRegistry.registerItem(wand, "wand");
     }
 }
