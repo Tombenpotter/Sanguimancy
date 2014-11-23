@@ -1,5 +1,6 @@
 package tombenpotter.sanguimancy.util;
 
+import WayofTime.alchemicalWizardry.api.event.RitualActivatedEvent;
 import WayofTime.alchemicalWizardry.api.soulNetwork.SoulNetworkHandler;
 import WayofTime.alchemicalWizardry.common.items.EnergyItems;
 import cpw.mods.fml.client.event.ConfigChangedEvent;
@@ -95,6 +96,16 @@ public class EventHandler {
 
     @SubscribeEvent
     public void onCorruptedInfusion(EventCorruptedInfusion.EventPlayerCorruptedInfusion event) {
+    }
+
+    @SubscribeEvent
+    public void onRitualActivation(RitualActivatedEvent event) {
+        if (event.player != null) {
+            NBTTagCompound tag = SoulCorruptionHelper.getModTag(event.player, Sanguimancy.modid);
+            if (SoulCorruptionHelper.isCorruptionOver(tag, 15) && event.player.worldObj.rand.nextInt(10) == 0) {
+                event.setCanceled(true);
+            }
+        }
     }
 
     @SubscribeEvent
