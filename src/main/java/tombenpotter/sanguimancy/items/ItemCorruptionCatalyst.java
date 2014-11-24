@@ -64,7 +64,7 @@ public class ItemCorruptionCatalyst extends Item {
     }
 
     @Override
-    public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player) {
+        public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player) {
         RandomUtils.checkAndSetCompound(stack);
         if (!stack.stackTagCompound.hasKey("activated")) {
             stack.stackTagCompound.setBoolean("activated", false);

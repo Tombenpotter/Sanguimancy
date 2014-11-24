@@ -1,5 +1,6 @@
 package tombenpotter.sanguimancy.util;
 
+import WayofTime.alchemicalWizardry.api.event.ItemBindEvent;
 import WayofTime.alchemicalWizardry.api.event.RitualActivatedEvent;
 import WayofTime.alchemicalWizardry.api.soulNetwork.SoulNetworkHandler;
 import WayofTime.alchemicalWizardry.common.items.EnergyItems;
@@ -12,9 +13,13 @@ import cpw.mods.fml.common.gameevent.TickEvent;
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.StatCollector;
+import net.minecraft.world.WorldServer;
+import net.minecraftforge.common.DimensionManager;
 import net.minecraftforge.common.ForgeChunkManager;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
@@ -25,6 +30,7 @@ import tombenpotter.sanguimancy.network.EventCorruptedInfusion;
 import tombenpotter.sanguimancy.network.PacketHandler;
 import tombenpotter.sanguimancy.network.PacketPlayerSearch;
 import tombenpotter.sanguimancy.registry.ItemsRegistry;
+import tombenpotter.sanguimancy.world.WorldProviderSoulNetworkDimension;
 
 public class EventHandler {
 
@@ -72,6 +78,18 @@ public class EventHandler {
             NBTTagCompound tag = SoulCorruptionHelper.getModTag(player, Sanguimancy.modid);
             if (SoulCorruptionHelper.getCorruptionLevel(tag) > 0) return;
             else SoulCorruptionHelper.negateCorruption(tag);
+
+            if (!tag.hasKey("SoulNetworkMainfestationDimID")) {
+                tag.setInteger("SoulNetworkMainfestationDimID", DimensionManager.getNextFreeDimId());
+            }
+
+            int dimID = tag.getInteger("SoulNetworkMainfestationDimID");
+            if (!DimensionManager.isDimensionRegistered(dimID)) {
+                WorldProviderSoulNetworkDimension provider = new WorldProviderSoulNetworkDimension();
+                provider.setDimension(dimID);
+                DimensionManager.registerProviderType(dimID, provider.getClass(), false);
+                DimensionManager.registerDimension(dimID, dimID);
+            }
         }
     }
 
@@ -119,6 +137,21 @@ public class EventHandler {
     public void onChunkUnforce(ForgeChunkManager.UnforceChunkEvent event) {
         if (!Loader.isModLoaded("loaderlist")) {
             RandomUtils.writeLog(event.ticket.getModId() + " unforcing the loading of the chunk at x= " + String.valueOf(event.location.getCenterXPos()) + " and z=" + String.valueOf(event.location.getCenterZPosition()) + " in dimension " + String.valueOf(event.ticket.world.provider.dimensionId), "ChunkloadingLog.txt");
+        }
+    }
+
+    @SubscribeEvent
+    public void onItemAddedToSN(ItemBindEvent event) {
+        if (!event.player.worldObj.isRemote) {
+            NBTTagCompound tag = SoulCorruptionHelper.getModTag(event.player, Sanguimancy.modid);
+            int dimID = tag.getInteger("SoulNetworkMainfestationDimID");
+            System.out.println(dimID);
+            System.out.println(event.player.worldObj.provider.dimensionId);
+            WorldServer dimWorld = MinecraftServer.getServer().worldServerForDimension(dimID);
+            int baseX = dimWorld.getSpawnPoint().posX + 16;
+            int baseZ = dimWorld.getSpawnPoint().posZ;
+            int baseY = dimWorld.getTopSolidOrLiquidBlock(baseX, baseZ);
+            dimWorld.setBlock(baseX, baseY, baseZ, Blocks.chest);
         }
     }
 
