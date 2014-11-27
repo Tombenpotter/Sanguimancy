@@ -22,6 +22,8 @@ tile.Sanguimancy.corruptionCrystallizer.name=Soul Corruption Crystallizer
 tile.Sanguimancy.lumpCleaner.name=Blood Cleanser
 tile.Sanguimancy.bloodTank.name=Blood Tank
 tile.Sanguimancy.dimensionalPortal.name=Dimensional Gate
+tile.Sanguimancy.bloodStoneStair.name=Bloodstone Brick Stairs
+tile.Sanguimancy.largeBloodStoneStair.name=Large Bloodstone Brick Stairs
 
 #Items
 item.Sanguimancy.playerSacrificer.unattuned.name=Unattuned Player Sacrificing Stone

@@ -18,6 +18,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.StatCollector;
+import net.minecraft.world.ChunkCoordIntPair;
 import net.minecraft.world.WorldServer;
 import net.minecraftforge.common.DimensionManager;
 import net.minecraftforge.common.ForgeChunkManager;
@@ -30,6 +31,7 @@ import tombenpotter.sanguimancy.network.EventCorruptedInfusion;
 import tombenpotter.sanguimancy.network.PacketHandler;
 import tombenpotter.sanguimancy.network.PacketPlayerSearch;
 import tombenpotter.sanguimancy.registry.ItemsRegistry;
+import tombenpotter.sanguimancy.util.singletons.SNBoundItems;
 import tombenpotter.sanguimancy.world.WorldProviderSoulNetworkDimension;
 
 public class EventHandler {
@@ -148,10 +150,14 @@ public class EventHandler {
             System.out.println(dimID);
             System.out.println(event.player.worldObj.provider.dimensionId);
             WorldServer dimWorld = MinecraftServer.getServer().worldServerForDimension(dimID);
-            int baseX = dimWorld.getSpawnPoint().posX + 16;
-            int baseZ = dimWorld.getSpawnPoint().posZ;
+            ChunkCoordIntPair chunkCoords = new ChunkCoordIntPair(dimWorld.getSpawnPoint().posX >> 4, dimWorld.getSpawnPoint().posZ >> 4);
+            int baseX = chunkCoords.getCenterXPos() + 16;
+            int baseZ = chunkCoords.getCenterZPosition();
             int baseY = dimWorld.getTopSolidOrLiquidBlock(baseX, baseZ);
-            dimWorld.setBlock(baseX, baseY, baseZ, Blocks.chest);
+            String name = event.itemStack.getUnlocalizedName() + event.itemStack.toString() + event.player.getCommandSenderName();
+            if (SNBoundItems.getSNBountItems().addItem(name, event.itemStack.getTagCompound())) {
+                dimWorld.setBlock(baseX, baseY, baseZ, Blocks.chest);
+            }
         }
     }
 

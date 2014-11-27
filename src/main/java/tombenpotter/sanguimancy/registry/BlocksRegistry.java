@@ -1,5 +1,6 @@
 package tombenpotter.sanguimancy.registry;
 
+import WayofTime.alchemicalWizardry.ModBlocks;
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -20,6 +21,8 @@ public class BlocksRegistry {
     public static Block lumpCleaner;
     public static Block bloodTank;
     public static Block dimensionalPortal;
+    public static Block bloodStoneStairs;
+    public static Block largeBloodStoneStairs;
 
     public static void registerBlocks() {
         altarDiviner = new BlockAltarDiviner(Material.iron);
@@ -45,5 +48,11 @@ public class BlocksRegistry {
 
         dimensionalPortal = new BlockDimensionalPortal(Material.iron);
         GameRegistry.registerBlock(dimensionalPortal, "BlockDimensionalPortal").setBlockName(Sanguimancy.modid + ".dimensionalPortal");
+
+        bloodStoneStairs = new BlockBloodStoneStair(ModBlocks.bloodStoneBrick, 0);
+        GameRegistry.registerBlock(bloodStoneStairs, "BlockBloodStoneStairs").setBlockName(Sanguimancy.modid + ".bloodStoneStair");
+
+        largeBloodStoneStairs = new BlockLargeBloodStoneStair(ModBlocks.largeBloodStoneBrick, 0);
+        GameRegistry.registerBlock(largeBloodStoneStairs, "BlockLargeBloodStoneStairs").setBlockName(Sanguimancy.modid + ".largeBloodStoneStair");
     }
 }

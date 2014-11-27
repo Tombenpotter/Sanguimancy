@@ -32,4 +32,9 @@ public class WorldProviderSoulNetworkDimension extends WorldProvider {
     public boolean getWorldHasVoidParticles() {
         return false;
     }
+
+    @Override
+    public boolean canRespawnHere() {
+        return false;
+    }
 }

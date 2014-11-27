@@ -13,7 +13,7 @@ import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import tombenpotter.sanguimancy.tile.TileDimensionalPortal;
-import tombenpotter.sanguimancy.util.LocationsHandler;
+import tombenpotter.sanguimancy.util.singletons.LocationsHandler;
 import tombenpotter.sanguimancy.util.PortalLocation;
 import tombenpotter.sanguimancy.util.TeleportingUtils;
 
