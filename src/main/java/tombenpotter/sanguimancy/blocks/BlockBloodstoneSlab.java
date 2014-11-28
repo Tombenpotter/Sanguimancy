@@ -3,15 +3,15 @@ package tombenpotter.sanguimancy.blocks;
 import WayofTime.alchemicalWizardry.ModBlocks;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockStairs;
+import net.minecraft.block.BlockSlab;
+import net.minecraft.block.material.Material;
 import net.minecraft.util.IIcon;
 import tombenpotter.sanguimancy.Sanguimancy;
 
-public class BlockLargeBloodstoneStair extends BlockStairs {
+public class BlockBloodstoneSlab extends BlockSlab {
 
-    public BlockLargeBloodstoneStair(Block block, int var2) {
-        super(block, var2);
+    public BlockBloodstoneSlab(boolean bool, Material material) {
+        super(bool, material);
         setHardness(5.0F);
         setCreativeTab(Sanguimancy.tabSanguimancy);
     }
@@ -19,6 +19,11 @@ public class BlockLargeBloodstoneStair extends BlockStairs {
     @Override
     @SideOnly(Side.CLIENT)
     public IIcon getIcon(int par1, int par2) {
-        return ModBlocks.largeBloodStoneBrick.getIcon(par1, par2);
+        return ModBlocks.bloodStoneBrick.getIcon(par1, par2);
+    }
+
+    @Override
+    public String func_150002_b(int p_150002_1_) {
+        return "BloodstoneSlab";
     }
 }

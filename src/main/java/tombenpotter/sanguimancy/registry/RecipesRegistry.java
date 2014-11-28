@@ -18,7 +18,7 @@ import tombenpotter.sanguimancy.util.RandomUtils;
 
 public class RecipesRegistry {
 
-    public static IRecipe altarEmitter, sacrificeTransferrer, corruptionReader, unattunedPlayerSacrificer, corruptionCrystallizer, bloodTank, lumpCleaner, bloodAmulet, bloodstoneStairs, largeBloodstoneStairs;
+    public static IRecipe altarEmitter, sacrificeTransferrer, corruptionReader, unattunedPlayerSacrificer, corruptionCrystallizer, bloodTank, lumpCleaner, bloodAmulet, bloodstoneStairs, largeBloodstoneStairs, bloodstoneSlab, largeBloodstoneSlab;
     public static AltarRecipe altarDiviner, attunedPlayerSacrificer, corruptionCatalyst;
     public static RecipeCorruptedInfusion poisonousPotato, rottenFlesh, crackedStoneBricks, bonemeal, soulSand, corruptedDemonShard, cobblestone, gravel, sand, dirt;
 
@@ -28,6 +28,10 @@ public class RecipesRegistry {
         corruptionReader = GameRegistry.addShapedRecipe(RandomUtils.SanguimancyItemStacks.corruptionReader, "AXA", "ZYB", "AXA", 'X', Blocks.soul_sand, 'Y', new ItemStack(ModItems.divinationSigil), 'Z', new ItemStack(Items.skull, 1, 1), 'A', Blocks.nether_brick, 'B', Items.ender_eye);
         bloodstoneStairs = GameRegistry.addShapedRecipe(RandomUtils.SanguimancyItemStacks.bloodstoneStairs, "X  ", "XX ", "XXX", 'X', ModBlocks.bloodStoneBrick);
         largeBloodstoneStairs = GameRegistry.addShapedRecipe(RandomUtils.SanguimancyItemStacks.largeBloodstoneStairs, "X  ", "XX ", "XXX", 'X', ModBlocks.largeBloodStoneBrick);
+        bloodstoneSlab = GameRegistry.addShapedRecipe(RandomUtils.SanguimancyItemStacks.bloodstoneSlab, "XXX", 'X', ModBlocks.bloodStoneBrick);
+        largeBloodstoneSlab = GameRegistry.addShapedRecipe(RandomUtils.SanguimancyItemStacks.largeBloodstoneSlab, "XXX", 'X', ModBlocks.largeBloodStoneBrick);
+        GameRegistry.addShapedRecipe(new ItemStack(ModBlocks.bloodStoneBrick), "X", "X", 'X', RandomUtils.SanguimancyItemStacks.bloodstoneSlab);
+        GameRegistry.addShapedRecipe(new ItemStack(ModBlocks.largeBloodStoneBrick), "X", "X", 'X', RandomUtils.SanguimancyItemStacks.largeBloodstoneSlab);
     }
 
     public static void registerAltarRecipes() {

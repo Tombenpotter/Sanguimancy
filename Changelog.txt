@@ -1,6 +1,8 @@
 Version 1.1.9-Alpha1:
 Added a wand that can store 4 Complex Spell Crystals.
 Added a 10% chance of rituals not starting if Soul Corruption is over 15.
+Started working on the SN Manifestation.
+Added Bloodstone and Large Bloodstone slabs and stairs.
 
 Version 1.1.8-4:
 Removed dependency on ttCore. It's not needed anymore.

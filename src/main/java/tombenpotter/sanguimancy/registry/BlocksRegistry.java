@@ -23,6 +23,10 @@ public class BlocksRegistry {
     public static Block dimensionalPortal;
     public static Block bloodStoneStairs;
     public static Block largeBloodStoneStairs;
+    public static Block bloodstoneSlab;
+    public static Block doubleBloodstoneSlab;
+    public static Block largeBloodstoneSlab;
+    public static Block doubleLargeBloodstoneSlab;
 
     public static void registerBlocks() {
         altarDiviner = new BlockAltarDiviner(Material.iron);
@@ -49,10 +53,22 @@ public class BlocksRegistry {
         dimensionalPortal = new BlockDimensionalPortal(Material.iron);
         GameRegistry.registerBlock(dimensionalPortal, "BlockDimensionalPortal").setBlockName(Sanguimancy.modid + ".dimensionalPortal");
 
-        bloodStoneStairs = new BlockBloodStoneStair(ModBlocks.bloodStoneBrick, 0);
+        bloodStoneStairs = new BlockBloodstoneStair(ModBlocks.bloodStoneBrick, 0);
         GameRegistry.registerBlock(bloodStoneStairs, "BlockBloodStoneStairs").setBlockName(Sanguimancy.modid + ".bloodStoneStair");
 
-        largeBloodStoneStairs = new BlockLargeBloodStoneStair(ModBlocks.largeBloodStoneBrick, 0);
+        largeBloodStoneStairs = new BlockLargeBloodstoneStair(ModBlocks.largeBloodStoneBrick, 0);
         GameRegistry.registerBlock(largeBloodStoneStairs, "BlockLargeBloodStoneStairs").setBlockName(Sanguimancy.modid + ".largeBloodStoneStair");
+
+        bloodstoneSlab = new BlockBloodstoneSlab(false, Material.rock);
+        GameRegistry.registerBlock(bloodstoneSlab, "BlockBloodStoneSlab").setBlockName(Sanguimancy.modid + ".bloodStoneSlab");
+
+        doubleBloodstoneSlab = new BlockBloodstoneSlab(true, Material.rock);
+        GameRegistry.registerBlock(doubleBloodstoneSlab, "BlockDoubleBloodStoneSlab").setBlockName(Sanguimancy.modid + ".doubleBloodStoneSlab");
+
+        largeBloodstoneSlab = new BlockLargeBloodstoneSlab(false, Material.rock);
+        GameRegistry.registerBlock(largeBloodstoneSlab, "BlockLargeBloodStoneSlab").setBlockName(Sanguimancy.modid + ".largeBloodStoneSlab");
+
+        doubleLargeBloodstoneSlab = new BlockLargeBloodstoneSlab(true, Material.rock);
+        GameRegistry.registerBlock(doubleLargeBloodstoneSlab, "BlockDoubleLargeBloodStoneSlab").setBlockName(Sanguimancy.modid + ".doubleLargeBloodStoneSlab");
     }
 }
