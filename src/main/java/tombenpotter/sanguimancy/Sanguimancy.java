@@ -76,7 +76,7 @@ public class Sanguimancy {
         RitualRegistry.registerRituals();
         RecipesRegistry.registerAltarRecipes();
         FMLCommonHandler.instance().bus().register(new EventHandler());
-        MinecraftForge.EVENT_BUS.register(new EventHandler());
+        MinecraftForge.EVENT_BUS.register(new EventHandler.ClientEventHandler());
         PacketHandler.registerPackets();
         if (Loader.isModLoaded("Waila")) {
             FMLInterModComms.sendMessage("Waila", "register", "tombenpotter.sanguimancy.compat.WailaCorruptionCrystallizer.register");

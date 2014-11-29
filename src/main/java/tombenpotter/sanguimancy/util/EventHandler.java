@@ -10,21 +10,26 @@ import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.InputEvent;
 import cpw.mods.fml.common.gameevent.TickEvent;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.ChunkCoordIntPair;
 import net.minecraft.world.WorldServer;
+import net.minecraftforge.client.event.RenderPlayerEvent;
 import net.minecraftforge.common.DimensionManager;
 import net.minecraftforge.common.ForgeChunkManager;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.player.AttackEntityEvent;
 import org.lwjgl.input.Keyboard;
+import org.lwjgl.opengl.GL11;
 import tombenpotter.sanguimancy.Sanguimancy;
 import tombenpotter.sanguimancy.network.EventCorruptedInfusion;
 import tombenpotter.sanguimancy.network.PacketHandler;
@@ -178,6 +183,39 @@ public class EventHandler {
         public void onKeyInput(InputEvent.KeyInputEvent event) {
             if (keySearchPlayer.isPressed()) {
                 PacketHandler.INSTANCE.sendToServer(new PacketPlayerSearch());
+            }
+        }
+
+        @SubscribeEvent
+        public void onRenderPlayerSpecial(RenderPlayerEvent.Specials.Post event) {
+            if (event.entityPlayer.getCommandSenderName().equals("Tombenpotter")) {
+                GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
+                GL11.glPushMatrix();
+                event.renderer.modelBipedMain.bipedBody.render(0.1F);
+                Minecraft.getMinecraft().renderEngine.bindTexture(new ResourceLocation(Sanguimancy.texturePath + ":textures/items/Wand.png"));
+                GL11.glTranslatef(0.0F, -0.95F, -0.125F);
+                Tessellator t = Tessellator.instance;
+                GL11.glPushMatrix();
+                GL11.glRotatef(-20.0F, 0.0F, 1.0F, 0.0F);
+                GL11.glRotatef(-5.0F, 0.0F, 1.0F, 0.0F);
+                t.startDrawingQuads();
+                t.addVertexWithUV(0.0D, 0.0D, 0.0D, 0.0D, 0.0D);
+                t.addVertexWithUV(0.0D, 1.0D, 0.0D, 0.0D, 1.0D);
+                t.addVertexWithUV(1.0D, 1.0D, 0.0D, 1.0D, 1.0D);
+                t.addVertexWithUV(1.0D, 0.0D, 0.0D, 1.0D, 0.0D);
+                t.draw();
+                GL11.glPopMatrix();
+                GL11.glPushMatrix();
+                GL11.glRotatef(5.0F, 0.0F, 1.0F, 0.0F);
+                GL11.glRotatef(20.0F, 0.0F, 1.0F, 0.0F);
+                t.startDrawingQuads();
+                t.addVertexWithUV(0.0D, 0.0D, 0.0D, 0.0D, 0.0D);
+                t.addVertexWithUV(0.0D, 1.0D, 0.0D, 0.0D, 1.0D);
+                t.addVertexWithUV(-1.0D, 1.0D, 0.0D, 1.0D, 1.0D);
+                t.addVertexWithUV(-1.0D, 0.0D, 0.0D, 1.0D, 0.0D);
+                t.draw();
+                GL11.glPopMatrix();
+                GL11.glPopMatrix();
             }
         }
     }
