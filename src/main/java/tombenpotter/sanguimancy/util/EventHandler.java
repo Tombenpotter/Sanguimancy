@@ -161,10 +161,6 @@ public class EventHandler {
                 if (dimWorld.getTileEntity(baseX, baseY, baseZ) != null && dimWorld.getTileEntity(baseX, baseY, baseZ) instanceof TileBoundItem) {
                     TileBoundItem tile = (TileBoundItem) dimWorld.getTileEntity(baseX, baseY, baseZ);
                     tile.setInventorySlotContents(0, event.itemStack.copy());
-                    NBTTagCompound tileTag = new NBTTagCompound();
-                    tile.writeToNBT(tileTag);
-                    tileTag.setString("BoundItemEntry", name);
-                    tile.readFromNBT(tag);
                     dimWorld.markBlockForUpdate(baseX, baseY, baseZ);
                 }
             }
