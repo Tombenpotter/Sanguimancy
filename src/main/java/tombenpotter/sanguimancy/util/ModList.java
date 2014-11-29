@@ -9,19 +9,16 @@ public enum ModList {
     private String ID;
     private boolean loaded;
 
-    ModList(String modId)
-    {
+    ModList(String modId) {
         ID = modId;
         loaded = Loader.isModLoaded(modId);
     }
 
-    public boolean isLoaded()
-    {
+    public boolean isLoaded() {
         return loaded;
     }
 
-    public class Names
-    {
+    public class Names {
         public static final String OPENCOMPUTERS = "OpenComputers";
         public static final String COMPUTERCRAFT = "ComputerCraft";
     }

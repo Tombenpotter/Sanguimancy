@@ -6,7 +6,6 @@ import cpw.mods.fml.common.FMLCommonHandler;
 import net.minecraft.client.model.ModelChicken;
 import net.minecraft.item.Item;
 import net.minecraftforge.client.MinecraftForgeClient;
-import tombenpotter.sanguimancy.client.model.ModelInterface;
 import tombenpotter.sanguimancy.client.render.*;
 import tombenpotter.sanguimancy.entity.EntityChickenMinion;
 import tombenpotter.sanguimancy.entity.EntityPlayerPointer;
@@ -31,13 +30,13 @@ public class ClientProxy extends CommonProxy {
         ClientRegistry.bindTileEntitySpecialRenderer(TileCorruptionCrystallizer.class, new RenderCorruptionCrystallizer());
         RenderingRegistry.registerBlockHandler(BlocksRegistry.bloodTank.getRenderType(), new RenderBloodTank());
         ClientRegistry.bindTileEntitySpecialRenderer(TileBoundItem.class, new RenderBoundItem());
-        ClientRegistry.bindTileEntitySpecialRenderer(TileBloodInterface.class, new RenderInterface());
+        ClientRegistry.bindTileEntitySpecialRenderer(TileBloodInterface.class, new RenderBloodInterface());
 
         MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(BlocksRegistry.altarDiviner), new RenderAltarDiviner());
         MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(BlocksRegistry.corruptionCrystallizer), new RenderCorruptionCrystallizer());
         MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(BlocksRegistry.bloodTank), new RenderBloodTank());
         MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(BlocksRegistry.boundItem), new RenderBoundItem());
-        MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(BlocksRegistry.bloodInterface), new RenderItemInterface(new ModelInterface()));
+        MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(BlocksRegistry.bloodInterface), new RenderBloodInterface());
 
         RenderingRegistry.registerEntityRenderingHandler(EntityChickenMinion.class, new RenderChickenMinion(new ModelChicken(), 1.0F));
         RenderingRegistry.registerEntityRenderingHandler(EntityPlayerPointer.class, new RenderPlayerPointer());

@@ -1,9 +1,9 @@
 package tombenpotter.sanguimancy.compat.lua.events;
 
-import tombenpotter.sanguimancy.tile.TileBloodInterface;
 import net.minecraft.tileentity.TileEntity;
+import tombenpotter.sanguimancy.tile.TileBloodInterface;
 
-public class LuaOrbMaxed extends LuaEvent{
+public class LuaOrbMaxed extends LuaEvent {
 
     private boolean prevLess = false;
 
@@ -13,17 +13,15 @@ public class LuaOrbMaxed extends LuaEvent{
 
     @Override
     public boolean checkEvent(TileEntity te) {
-        TileBloodInterface bloodInterface = (TileBloodInterface)te;
-        if (bloodInterface!=null)
-        {
+        TileBloodInterface bloodInterface = (TileBloodInterface) te;
+        if (bloodInterface != null) {
             if (bloodInterface.getLifeEssence() == bloodInterface.getOrbMax()) {
                 if (prevLess) {
                     announce(te, prevLess);
                     prevLess = false;
                     return true;
                 }
-            }
-            else {
+            } else {
                 if (!prevLess) {
                     announce(te, prevLess);
                     prevLess = true;

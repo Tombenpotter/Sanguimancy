@@ -1,7 +1,6 @@
 package tombenpotter.sanguimancy.blocks;
 
 import WayofTime.alchemicalWizardry.AlchemicalWizardry;
-import tombenpotter.sanguimancy.tile.TileBloodInterface;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
@@ -9,9 +8,9 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
+import tombenpotter.sanguimancy.tile.TileBloodInterface;
 
-public class BlockBloodInterface extends BlockContainer
-{
+public class BlockBloodInterface extends BlockContainer {
     public BlockBloodInterface() {
         super(Material.iron);
         this.setCreativeTab(AlchemicalWizardry.tabBloodMagic);
@@ -22,10 +21,9 @@ public class BlockBloodInterface extends BlockContainer
 
     @Override
     public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float hitX, float hitY, float hitZ) {
-        TileEntity te = world.getTileEntity(x,y,z);
-        if (te !=null && te instanceof TileBloodInterface)
-        {
-            TileBloodInterface bloodInterface = (TileBloodInterface)te;
+        TileEntity te = world.getTileEntity(x, y, z);
+        if (te != null && te instanceof TileBloodInterface) {
+            TileBloodInterface bloodInterface = (TileBloodInterface) te;
             if (!bloodInterface.isItemValidForSlot(0, player.getCurrentEquippedItem())) return true;
             if (!world.isRemote) {
                 ItemStack oldStack = bloodInterface.getStackInSlot(0);
@@ -40,21 +38,20 @@ public class BlockBloodInterface extends BlockContainer
     @Override
     public boolean removedByPlayer(World world, EntityPlayer player, int x, int y, int z, boolean willHarvest) {
         if (!player.capabilities.isCreativeMode)
-            breakBlock(world,x,y,z);
+            breakBlock(world, x, y, z);
         return super.removedByPlayer(world, player, x, y, z, willHarvest);
     }
 
     @Override
     public void breakBlock(World world, int x, int y, int z, Block p_149749_5_, int p_149749_6_) {
-        breakBlock(world,x,y,z);
+        breakBlock(world, x, y, z);
         super.breakBlock(world, x, y, z, p_149749_5_, p_149749_6_);
     }
 
-    private void breakBlock(World world, int xCoord, int yCoord, int zCoord)
-    {
-        TileEntity te = world.getTileEntity(xCoord,yCoord,zCoord);
+    private void breakBlock(World world, int xCoord, int yCoord, int zCoord) {
+        TileEntity te = world.getTileEntity(xCoord, yCoord, zCoord);
         if (te instanceof TileBloodInterface)
-            ((TileBloodInterface)te).breakInterface();
+            ((TileBloodInterface) te).breakInterface();
     }
 
     @Override
@@ -63,14 +60,12 @@ public class BlockBloodInterface extends BlockContainer
     }
 
     @Override
-    public int getRenderType()
-    {
+    public int getRenderType() {
         return -1;
     }
 
     @Override
-    public boolean isOpaqueCube()
-    {
+    public boolean isOpaqueCube() {
         return false;
     }
 
@@ -86,8 +81,8 @@ public class BlockBloodInterface extends BlockContainer
 
     @Override
     public int getComparatorInputOverride(World world, int x, int y, int z, int p_149736_5_) {
-        TileEntity te = world.getTileEntity(x,y,z);
-        if (te !=null && te instanceof TileBloodInterface) {
+        TileEntity te = world.getTileEntity(x, y, z);
+        if (te != null && te instanceof TileBloodInterface) {
             TileBloodInterface bloodInterface = (TileBloodInterface) te;
             return bloodInterface.getComparatorLevel();
         }

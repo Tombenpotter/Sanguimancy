@@ -4,8 +4,8 @@ import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
 
-public class ModelInterface extends ModelBase
-{
+public class ModelInterface extends ModelBase {
+
     //fields
     ModelRenderer topBarA;
     ModelRenderer topBarB;
@@ -20,8 +20,7 @@ public class ModelInterface extends ModelBase
     ModelRenderer bottomBarC;
     ModelRenderer bottomBarD;
 
-    public ModelInterface()
-    {
+    public ModelInterface() {
         textureWidth = 64;
         textureHeight = 32;
 
@@ -99,8 +98,7 @@ public class ModelInterface extends ModelBase
         setRotation(bottomBarD, 0F, 0F, 0F);
     }
 
-    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5)
-    {
+    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
         super.render(entity, f, f1, f2, f3, f4, f5);
         topBarA.render(f5);
         topBarB.render(f5);
@@ -116,10 +114,24 @@ public class ModelInterface extends ModelBase
         bottomBarD.render(f5);
     }
 
-    private void setRotation(ModelRenderer model, float x, float y, float z)
-    {
+    private void setRotation(ModelRenderer model, float x, float y, float z) {
         model.rotateAngleX = x;
         model.rotateAngleY = y;
         model.rotateAngleZ = z;
+    }
+
+    public void renderAll() {
+        topBarA.render(0.625F);
+        topBarB.render(0.625F);
+        topBarC.render(0.625F);
+        topBarD.render(0.625F);
+        supportA.render(0.625F);
+        supportB.render(0.625F);
+        supportC.render(0.625F);
+        supportD.render(0.625F);
+        bottomBarA.render(0.625F);
+        bottomBarB.render(0.625F);
+        bottomBarC.render(0.625F);
+        bottomBarD.render(0.625F);
     }
 }

@@ -12,11 +12,9 @@ public class LuaGetStackInSlot extends LuaMethod {
 
     @Override
     public Object[] call(TileEntity te, Object[] args) throws LuaException, InterruptedException {
-        if (te instanceof IInventory && args!=null && args.length==1 && args[0] instanceof Number)
-        {
-            ItemStack stack = ((IInventory)te).getStackInSlot(((Number)args[0]).intValue());
-            if (stack!=null)
-            {
+        if (te instanceof IInventory && args != null && args.length == 1 && args[0] instanceof Number) {
+            ItemStack stack = ((IInventory) te).getStackInSlot(((Number) args[0]).intValue());
+            if (stack != null) {
                 return new Object[]{LuaHelper.stackToMap(stack)};
             }
         }

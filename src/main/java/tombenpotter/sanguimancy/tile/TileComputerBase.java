@@ -1,9 +1,5 @@
 package tombenpotter.sanguimancy.tile;
 
-import tombenpotter.sanguimancy.compat.lua.events.LuaEvent;
-import tombenpotter.sanguimancy.compat.lua.methods.LuaMethod;
-import tombenpotter.sanguimancy.util.ModList;
-import tombenpotter.sanguimancy.util.Timer;
 import cpw.mods.fml.common.Optional;
 import dan200.computercraft.api.lua.ILuaContext;
 import dan200.computercraft.api.lua.LuaException;
@@ -12,15 +8,14 @@ import dan200.computercraft.api.peripheral.IPeripheral;
 import li.cil.oc.api.Network;
 import li.cil.oc.api.machine.Arguments;
 import li.cil.oc.api.machine.Context;
-import li.cil.oc.api.network.Component;
-import li.cil.oc.api.network.Environment;
-import li.cil.oc.api.network.ManagedPeripheral;
-import li.cil.oc.api.network.Message;
-import li.cil.oc.api.network.Node;
-import li.cil.oc.api.network.Visibility;
+import li.cil.oc.api.network.*;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
+import tombenpotter.sanguimancy.compat.lua.events.LuaEvent;
+import tombenpotter.sanguimancy.compat.lua.methods.LuaMethod;
+import tombenpotter.sanguimancy.util.ModList;
+import tombenpotter.sanguimancy.util.Timer;
 
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
@@ -32,21 +27,19 @@ import java.util.Set;
         @Optional.Interface(iface = "dan200.computercraft.api.peripheral.IPeripheral", modid = ModList.Names.COMPUTERCRAFT),
         @Optional.Interface(iface = "li.cil.oc.api.network.Environment", modid = ModList.Names.OPENCOMPUTERS),
         @Optional.Interface(iface = "li.cil.oc.api.network.ManagedPeripheral", modid = ModList.Names.OPENCOMPUTERS)
-        })
-public abstract class TileComputerBase extends TileEntity implements ManagedPeripheral, Environment, IPeripheral
-{
+})
+public abstract class TileComputerBase extends TileEntity implements ManagedPeripheral, Environment, IPeripheral {
     protected final String name;
     protected final Map<Integer, String> methodIDs = new LinkedHashMap<Integer, String>();
-    protected final Map<String, LuaMethod> methodNames = new LinkedHashMap<String,LuaMethod>();
-    protected final Map<Timer,LuaEvent> events = new LinkedHashMap<Timer, LuaEvent>();
+    protected final Map<String, LuaMethod> methodNames = new LinkedHashMap<String, LuaMethod>();
+    protected final Map<Timer, LuaEvent> events = new LinkedHashMap<Timer, LuaEvent>();
     private boolean initialize = true;
 
     private Set<Object> computers = new LinkedHashSet<Object>();
     private Set<Object> context = new LinkedHashSet<Object>();
-    private final Object node = ModList.opencomputers.isLoaded()? this.createNode() : null;
+    private final Object node = ModList.opencomputers.isLoaded() ? this.createNode() : null;
 
-    public TileComputerBase(String name)
-    {
+    public TileComputerBase(String name) {
         this.name = name;
     }
 
@@ -54,22 +47,19 @@ public abstract class TileComputerBase extends TileEntity implements ManagedPeri
     public void updateEntity() {
         super.updateEntity();
         if (!worldObj.isRemote) serverUpdate();
-        if (initialize)init();
+        if (initialize) init();
     }
 
-    public void init()
-    {
+    public void init() {
         if (ModList.opencomputers.isLoaded()) {
-            if (node instanceof Component && ((Component)node).network() == null)
+            if (node instanceof Component && ((Component) node).network() == null)
                 Network.joinOrCreateNetwork(this);
         }
         initialize = false;
     }
 
-    public void serverUpdate()
-    {
-        for (Timer timer: events.keySet())
-        {
+    public void serverUpdate() {
+        for (Timer timer : events.keySet()) {
             if (timer.update()) events.get(timer).checkEvent(this);
         }
     }
@@ -79,7 +69,7 @@ public abstract class TileComputerBase extends TileEntity implements ManagedPeri
         super.readFromNBT(compound);
         if (ModList.opencomputers.isLoaded()) {
             if (node instanceof Component)
-                ((Component)node).load(compound);
+                ((Component) node).load(compound);
         }
     }
 
@@ -88,20 +78,18 @@ public abstract class TileComputerBase extends TileEntity implements ManagedPeri
         super.writeToNBT(compound);
         if (ModList.opencomputers.isLoaded()) {
             if (node instanceof Component)
-                ((Component)node).save(compound);
+                ((Component) node).save(compound);
         }
     }
 
     //####################Peripheral Stuff################
 
-    public String[] getMethods()
-    {
+    public String[] getMethods() {
         return methodNames.keySet().toArray(new String[methodNames.size()]);
     }
 
-    public void addMethod(LuaMethod method)
-    {
-        if (ModList.computercraft.isLoaded() ||ModList.opencomputers.isLoaded()) {
+    public void addMethod(LuaMethod method) {
+        if (ModList.computercraft.isLoaded() || ModList.opencomputers.isLoaded()) {
             int num = methodIDs.size();
             if (!methodNames.containsKey(method.getMethodName())) {
                 methodIDs.put(num, method.getMethodName());
@@ -110,10 +98,9 @@ public abstract class TileComputerBase extends TileEntity implements ManagedPeri
         }
     }
 
-    public void addEvent(LuaEvent event, int count)
-    {
-        if (ModList.computercraft.isLoaded() ||ModList.opencomputers.isLoaded())
-            events.put(new Timer(count),event);
+    public void addEvent(LuaEvent event, int count) {
+        if (ModList.computercraft.isLoaded() || ModList.opencomputers.isLoaded())
+            events.put(new Timer(count), event);
     }
 
     public String getType() {
@@ -132,8 +119,9 @@ public abstract class TileComputerBase extends TileEntity implements ManagedPeri
     @Optional.Method(modid = ModList.Names.COMPUTERCRAFT)
     public Object[] callMethod(IComputerAccess iComputerAccess, ILuaContext iLuaContext, int i, Object[] objects) throws LuaException, InterruptedException {
         try {
-            return methodIDs.containsKey(i)? methodNames.get(methodIDs.get(i)).call(this,objects):null;
-        } catch (Exception e) {}
+            return methodIDs.containsKey(i) ? methodNames.get(methodIDs.get(i)).call(this, objects) : null;
+        } catch (Exception e) {
+        }
         return null;
     }
 
@@ -156,8 +144,7 @@ public abstract class TileComputerBase extends TileEntity implements ManagedPeri
     }
 
     @Optional.Method(modid = ModList.Names.COMPUTERCRAFT)
-    public Set<Object> getComputers()
-    {
+    public Set<Object> getComputers() {
         return computers;
     }
 
@@ -189,7 +176,7 @@ public abstract class TileComputerBase extends TileEntity implements ManagedPeri
         super.onChunkUnload();
         if (ModList.opencomputers.isLoaded()) {
             if (node instanceof Component)
-                ((Component)node).remove();
+                ((Component) node).remove();
         }
         this.onInvalidateOrUnload(worldObj, xCoord, yCoord, zCoord, false);
     }
@@ -199,12 +186,13 @@ public abstract class TileComputerBase extends TileEntity implements ManagedPeri
     public final void invalidate() {
         super.invalidate();
         if (node instanceof Component)
-            ((Component)node).remove();
+            ((Component) node).remove();
         this.onInvalidateOrUnload(worldObj, xCoord, yCoord, zCoord, true);
     }
 
     @Optional.Method(modid = ModList.Names.OPENCOMPUTERS)
-    protected void onInvalidateOrUnload(World world, int x, int y, int z, boolean invalid) {}
+    protected void onInvalidateOrUnload(World world, int x, int y, int z, boolean invalid) {
+    }
 
     @Optional.Method(modid = ModList.Names.OPENCOMPUTERS)
     private Node createNode() {
@@ -219,7 +207,7 @@ public abstract class TileComputerBase extends TileEntity implements ManagedPeri
     @Override
     @Optional.Method(modid = ModList.Names.OPENCOMPUTERS)
     public Node node() {
-        return (Node)node;
+        return (Node) node;
     }
 
     @Override
@@ -240,11 +228,11 @@ public abstract class TileComputerBase extends TileEntity implements ManagedPeri
 
     @Override
     @Optional.Method(modid = ModList.Names.OPENCOMPUTERS)
-    public void onMessage(Message message) {}
+    public void onMessage(Message message) {
+    }
 
     @Optional.Method(modid = ModList.Names.OPENCOMPUTERS)
-    public Set<Object> getContext()
-    {
+    public Set<Object> getContext() {
         return context;
     }
 }

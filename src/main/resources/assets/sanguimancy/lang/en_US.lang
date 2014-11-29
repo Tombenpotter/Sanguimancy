@@ -28,6 +28,7 @@ tile.Sanguimancy.bloodStoneSlab.name=Bloodstone Slab
 tile.Sanguimancy.largeBloodStoneSlab.name=Large Bloodstone Slab
 tile.Sanguimancy.doubleBloodStoneSlab.name=Bloodstone Slab
 tile.Sanguimancy.doubleLargeBloodStoneSlab.name=Large Bloodstone Slab
+tile.Sanguimancy.boundItem=Bound Item
 tile.Sanguimancy.interface.name=Blood Interface
 
 #Items

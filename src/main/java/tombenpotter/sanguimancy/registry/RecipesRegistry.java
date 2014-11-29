@@ -6,7 +6,6 @@ import WayofTime.alchemicalWizardry.api.altarRecipeRegistry.AltarRecipe;
 import WayofTime.alchemicalWizardry.api.altarRecipeRegistry.AltarRecipeRegistry;
 import WayofTime.alchemicalWizardry.api.items.ShapedBloodOrbRecipe;
 import bloodutils.api.registries.RecipeRegistry;
-import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -97,16 +96,16 @@ public class RecipesRegistry {
         RecipeBloodCleanser.addRecipe(new ItemStack(Blocks.cobblestone), new ItemStack(Blocks.netherrack));
 
         ItemStack stackInterface = new ItemStack(BlocksRegistry.bloodInterface);
-        ItemStack stackRune = new ItemStack(ModBlocks.bloodRune,1,0);
+        ItemStack stackRune = new ItemStack(ModBlocks.bloodRune, 1, 0);
         if (ModList.computercraft.isLoaded()) {
             PeripheralProvider.register();
-            ItemStack modem = GameRegistry.findItemStack(ModList.Names.COMPUTERCRAFT, "CC-Cable",1);
+            ItemStack modem = GameRegistry.findItemStack(ModList.Names.COMPUTERCRAFT, "CC-Cable", 1);
             modem.setItemDamage(1);
             GameRegistry.addShapelessRecipe(stackInterface.copy(), stackRune, modem);
         }
         if (ModList.opencomputers.isLoaded())
             GameRegistry.addShapelessRecipe(stackInterface.copy(), stackRune, new ItemStack(GameRegistry.findBlock(ModList.Names.OPENCOMPUTERS, "adapter")));
-        if (!(ModList.opencomputers.isLoaded()||ModList.computercraft.isLoaded()))
-            GameRegistry.addShapelessRecipe(stackInterface.copy(),stackRune.copy(), new ItemStack(Blocks.unpowered_comparator));
+        if (!(ModList.opencomputers.isLoaded() || ModList.computercraft.isLoaded()))
+            GameRegistry.addShapelessRecipe(stackInterface.copy(), stackRune.copy(), new ItemStack(Blocks.unpowered_comparator));
     }
 }

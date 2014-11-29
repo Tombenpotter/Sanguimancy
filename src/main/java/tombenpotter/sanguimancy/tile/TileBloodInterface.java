@@ -2,7 +2,12 @@ package tombenpotter.sanguimancy.tile;
 
 import WayofTime.alchemicalWizardry.api.items.interfaces.IBloodOrb;
 import WayofTime.alchemicalWizardry.common.items.EnergyBattery;
-import com.sun.xml.internal.bind.v2.runtime.reflect.Lister;
+import net.minecraft.entity.item.EntityItem;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.IInventory;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.network.Packet;
 import tombenpotter.sanguimancy.compat.lua.events.LuaOrbMaxed;
 import tombenpotter.sanguimancy.compat.lua.methods.LuaGetLifeEssence;
 import tombenpotter.sanguimancy.compat.lua.methods.LuaGetOrbMax;
@@ -11,12 +16,6 @@ import tombenpotter.sanguimancy.network.BloodInterfaceUpdateMessage;
 import tombenpotter.sanguimancy.network.PacketHandler;
 import tombenpotter.sanguimancy.registry.BlocksRegistry;
 import tombenpotter.sanguimancy.util.Timer;
-import net.minecraft.entity.item.EntityItem;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.IInventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.network.Packet;
 
 public class TileBloodInterface extends TileComputerBase implements IInventory {
 
@@ -26,8 +25,7 @@ public class TileBloodInterface extends TileComputerBase implements IInventory {
     private String ownerName = null;
     private Timer redstoneUpdate;
 
-    public TileBloodInterface()
-    {
+    public TileBloodInterface() {
         super("BloodInterface");
         redstoneUpdate = new Timer(5);
         //this.addMethod(new LuaGetStackInSlot());
@@ -36,30 +34,25 @@ public class TileBloodInterface extends TileComputerBase implements IInventory {
         this.addMethod(new LuaGetOwner());
     }
 
-    private void triggerUpdate()
-    {
-        if (!worldObj.isRemote) worldObj.markBlockForUpdate(xCoord,yCoord,zCoord);
+    private void triggerUpdate() {
+        if (!worldObj.isRemote) worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
     }
 
     @Override
-    public String getType()
-    {
+    public String getType() {
         return "blood_interface";
     }
 
-    public int getLifeEssence()
-    {
+    public int getLifeEssence() {
         if (ownerName == null || itemStack == null) return 0;
-        return Math.min(maxOrbLP, ((EnergyBattery)itemStack.getItem()).getCurrentEssence(itemStack));
+        return Math.min(maxOrbLP, ((EnergyBattery) itemStack.getItem()).getCurrentEssence(itemStack));
     }
 
-    public String getOwner()
-    {
+    public String getOwner() {
         return ownerName;
     }
 
-    public int getOrbMax()
-    {
+    public int getOrbMax() {
         return maxOrbLP;
     }
 
@@ -70,7 +63,7 @@ public class TileBloodInterface extends TileComputerBase implements IInventory {
 
     @Override
     public ItemStack getStackInSlot(int slot) {
-        return slot == 0? itemStack : null;
+        return slot == 0 ? itemStack : null;
     }
 
     @Override
@@ -81,21 +74,19 @@ public class TileBloodInterface extends TileComputerBase implements IInventory {
     @Override
     public ItemStack getStackInSlotOnClosing(int slot) {
         ItemStack stack = getStackInSlot(slot);
-        if (stack != null)
-        {
+        if (stack != null) {
             setInventorySlotContents(slot, null);
         }
         return stack;
     }
 
-    public void breakInterface()
-    {
-        if (!worldObj.isRemote){
-            if (itemStack!=null){
-                float spawnX = xCoord+0.5F;
-                float spawnY = yCoord+0.5F;
-                float spawnZ = zCoord+0.5F;
-                EntityItem droppedItem = new EntityItem(this.worldObj,spawnX,spawnY,spawnZ,itemStack);
+    public void breakInterface() {
+        if (!worldObj.isRemote) {
+            if (itemStack != null) {
+                float spawnX = xCoord + 0.5F;
+                float spawnY = yCoord + 0.5F;
+                float spawnZ = zCoord + 0.5F;
+                EntityItem droppedItem = new EntityItem(this.worldObj, spawnX, spawnY, spawnZ, itemStack);
                 this.worldObj.spawnEntityInWorld(droppedItem);
             }
         }
@@ -107,8 +98,7 @@ public class TileBloodInterface extends TileComputerBase implements IInventory {
     }
 
     @Override
-    public void serverUpdate()
-    {
+    public void serverUpdate() {
         super.serverUpdate();
         if (redstoneUpdate.update()) updateRedstone();
     }
@@ -121,8 +111,7 @@ public class TileBloodInterface extends TileComputerBase implements IInventory {
 
     @Override
     public void setInventorySlotContents(int slot, ItemStack itemStack) {
-        if (slot==0)
-        {
+        if (slot == 0) {
             this.itemStack = itemStack;
             updateOrb();
             updateRedstone();
@@ -130,26 +119,23 @@ public class TileBloodInterface extends TileComputerBase implements IInventory {
         }
     }
 
-    public void updateOrb()
-    {
-        maxOrbLP = itemStack == null ? 0 : ((EnergyBattery)itemStack.getItem()).getMaxEssence();
+    public void updateOrb() {
+        maxOrbLP = itemStack == null ? 0 : ((EnergyBattery) itemStack.getItem()).getMaxEssence();
         ownerName = itemStack == null || !itemStack.hasTagCompound() || !itemStack.getTagCompound().hasKey("ownerName") ? null : itemStack.getTagCompound().getString("ownerName");
     }
 
-    public void updateRedstone()
-    {
+    public void updateRedstone() {
         int result = calcRedstone();
-        if (result!=redstone)
-        {
+        if (result != redstone) {
             redstone = result;
-            if (worldObj!=null && !worldObj.isRemote) worldObj.notifyBlocksOfNeighborChange(xCoord,yCoord,zCoord, BlocksRegistry.bloodInterface);
+            if (worldObj != null && !worldObj.isRemote)
+                worldObj.notifyBlocksOfNeighborChange(xCoord, yCoord, zCoord, BlocksRegistry.bloodInterface);
         }
     }
 
-    public int calcRedstone()
-    {
+    public int calcRedstone() {
         if (itemStack == null || maxOrbLP == 0) return 0;
-        return 15*getLifeEssence()/maxOrbLP;
+        return 15 * getLifeEssence() / maxOrbLP;
     }
 
     @Override
@@ -170,7 +156,7 @@ public class TileBloodInterface extends TileComputerBase implements IInventory {
     @Override
     public void markDirty() {
         super.markDirty();
-        if (worldObj!=null && !worldObj.isRemote) {
+        if (worldObj != null && !worldObj.isRemote) {
             BloodInterfaceUpdateMessage message = new BloodInterfaceUpdateMessage(this);
             PacketHandler.INSTANCE.sendToAll(message);
         }
@@ -182,16 +168,18 @@ public class TileBloodInterface extends TileComputerBase implements IInventory {
     }
 
     @Override
-    public void openInventory() {}
+    public void openInventory() {
+    }
 
     @Override
-    public void closeInventory() {}
+    public void closeInventory() {
+    }
 
     @Override
     public boolean isItemValidForSlot(int slot, ItemStack itemStack) {
         if (this.itemStack != null && itemStack != null) return false;
         if (this.itemStack != null && itemStack == null) return true;
-        NBTTagCompound itemTag = itemStack!=null?itemStack.stackTagCompound:null;
+        NBTTagCompound itemTag = itemStack != null ? itemStack.stackTagCompound : null;
         if (itemTag == null || !itemTag.hasKey("ownerName") || itemTag.getString("ownerName").equals("")) return false;
         return slot == 0 && itemStack.getItem() instanceof IBloodOrb;
     }
@@ -200,8 +188,7 @@ public class TileBloodInterface extends TileComputerBase implements IInventory {
     public void readFromNBT(NBTTagCompound compound) {
         super.readFromNBT(compound);
         NBTTagCompound item = compound.getCompoundTag("Item");
-        if (item != null)
-        {
+        if (item != null) {
             itemStack = ItemStack.loadItemStackFromNBT(item);
             updateOrb();
             updateRedstone();
@@ -211,9 +198,8 @@ public class TileBloodInterface extends TileComputerBase implements IInventory {
     @Override
     public void writeToNBT(NBTTagCompound compound) {
         super.writeToNBT(compound);
-        if (itemStack!=null)
-        {
-            compound.setTag("Item",itemStack.writeToNBT(new NBTTagCompound()));
+        if (itemStack != null) {
+            compound.setTag("Item", itemStack.writeToNBT(new NBTTagCompound()));
         }
     }
 
@@ -222,8 +208,7 @@ public class TileBloodInterface extends TileComputerBase implements IInventory {
     }
 
     @Override
-    public Packet getDescriptionPacket()
-    {
+    public Packet getDescriptionPacket() {
         writeToNBT(new NBTTagCompound());
         return PacketHandler.INSTANCE.getPacketFrom(new BloodInterfaceUpdateMessage(this));
     }

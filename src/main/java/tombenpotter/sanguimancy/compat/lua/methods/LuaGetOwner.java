@@ -1,18 +1,17 @@
 package tombenpotter.sanguimancy.compat.lua.methods;
 
-import tombenpotter.sanguimancy.tile.TileBloodInterface;
 import net.minecraft.tileentity.TileEntity;
+import tombenpotter.sanguimancy.tile.TileBloodInterface;
 
-public class LuaGetOwner extends LuaMethod{
+public class LuaGetOwner extends LuaMethod {
     public LuaGetOwner() {
         super("getOwner");
     }
 
     @Override
     public Object[] call(TileEntity te, Object[] args) {
-        if (te instanceof TileBloodInterface)
-        {
-            return new String[]{((TileBloodInterface)te).getOwner()};
+        if (te instanceof TileBloodInterface) {
+            return new String[]{((TileBloodInterface) te).getOwner()};
         }
         return new Object[0];
     }

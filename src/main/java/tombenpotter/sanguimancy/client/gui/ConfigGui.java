@@ -15,18 +15,18 @@ import static tombenpotter.sanguimancy.util.ConfigHandler.*;
 
 public class ConfigGui extends GuiConfig {
 
-	public ConfigGui(GuiScreen parentScreen) {
-		super(parentScreen, getConfigElements(parentScreen), Sanguimancy.modid, false, false, StatCollector.translateToLocal("gui." + Sanguimancy.modid  + ".config.title"));
-	}
+    public ConfigGui(GuiScreen parentScreen) {
+        super(parentScreen, getConfigElements(parentScreen), Sanguimancy.modid, false, false, StatCollector.translateToLocal("gui." + Sanguimancy.modid + ".config.title"));
+    }
 
-	@SuppressWarnings("rawtypes")
-	private static List<IConfigElement> getConfigElements(GuiScreen parent) {
-		List<IConfigElement> list = new ArrayList<IConfigElement>();
+    @SuppressWarnings("rawtypes")
+    private static List<IConfigElement> getConfigElements(GuiScreen parent) {
+        List<IConfigElement> list = new ArrayList<IConfigElement>();
 
-		list.add(new ConfigElement<ConfigCategory>(config.getCategory(rituals.toLowerCase())));
-		list.add(new ConfigElement<ConfigCategory>(config.getCategory(balancing.toLowerCase())));
-		list.add(new ConfigElement<ConfigCategory>(config.getCategory(features.toLowerCase())));
+        list.add(new ConfigElement<ConfigCategory>(config.getCategory(rituals.toLowerCase())));
+        list.add(new ConfigElement<ConfigCategory>(config.getCategory(balancing.toLowerCase())));
+        list.add(new ConfigElement<ConfigCategory>(config.getCategory(features.toLowerCase())));
 
-		return list;
-	}
+        return list;
+    }
 }

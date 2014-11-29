@@ -82,8 +82,8 @@ public class ItemOreLump extends Item {
             } else {
                 return 0;
             }
-        } else{
-            return  super.getColorFromItemStack(stack, pass);
+        } else {
+            return super.getColorFromItemStack(stack, pass);
         }
     }
 
