@@ -139,9 +139,7 @@ public class TileAltarDiviner extends TileEntity implements IInventory {
     public final Packet getDescriptionPacket() {
         NBTTagCompound nbt = new NBTTagCompound();
         writeToNBT(nbt);
-
         S35PacketUpdateTileEntity packet = new S35PacketUpdateTileEntity(xCoord, yCoord, zCoord, 0, nbt);
-
         return packet;
     }
 

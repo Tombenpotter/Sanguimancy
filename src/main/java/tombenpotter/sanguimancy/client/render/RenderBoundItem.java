@@ -4,7 +4,6 @@ import cpw.mods.fml.client.FMLClientHandler;
 import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
@@ -13,16 +12,17 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.IItemRenderer;
 import org.lwjgl.opengl.GL11;
 import tombenpotter.sanguimancy.Sanguimancy;
-import tombenpotter.sanguimancy.client.model.ModelAltarDiviner;
-import tombenpotter.sanguimancy.tile.TileAltarDiviner;
+import tombenpotter.sanguimancy.client.model.ModelCube;
+import tombenpotter.sanguimancy.tile.TileBoundItem;
 import tombenpotter.sanguimancy.util.RandomUtils;
 
-public class RenderAltarDiviner extends TileEntitySpecialRenderer implements IItemRenderer {
-    public ModelAltarDiviner model = new ModelAltarDiviner();
-    private final RenderItem customRenderItem;
-    public ResourceLocation texture = new ResourceLocation(Sanguimancy.texturePath + ":textures/blocks/AltarDiviner.png");
+public class RenderBoundItem extends TileEntitySpecialRenderer implements IItemRenderer {
 
-    public RenderAltarDiviner() {
+    public ModelCube model = new ModelCube();
+    private final RenderItem customRenderItem;
+    public ResourceLocation texture = new ResourceLocation(Sanguimancy.texturePath + ":textures/blocks/BoundItem.png");
+
+    public RenderBoundItem() {
         customRenderItem = new RenderItem() {
             @Override
             public boolean shouldBob() {
@@ -34,9 +34,9 @@ public class RenderAltarDiviner extends TileEntitySpecialRenderer implements IIt
 
     @Override
     public void renderTileEntityAt(TileEntity tileEntity, double x, double y, double z, float scale) {
-        renderModel((TileAltarDiviner) tileEntity, x, y, z);
-        if (tileEntity instanceof TileAltarDiviner) {
-            TileAltarDiviner tile = (TileAltarDiviner) tileEntity;
+        renderModel((TileBoundItem) tileEntity, x, y, z);
+        if (tileEntity instanceof TileBoundItem) {
+            TileBoundItem tile = (TileBoundItem) tileEntity;
             GL11.glPushMatrix();
             if (tile.getStackInSlot(0) != null) {
                 float scaleFactor = getGhostItemScaleFactor(tile.getStackInSlot(0));
@@ -45,9 +45,9 @@ public class RenderAltarDiviner extends TileEntitySpecialRenderer implements IIt
                 ghostEntityItem.hoverStart = 0.0F;
                 ghostEntityItem.setEntityItemStack(tile.getStackInSlot(0));
                 if (ghostEntityItem.getEntityItem().getItem() instanceof ItemBlock) {
-                    GL11.glTranslatef((float) x + 0.5F, (float) y + 1F, (float) z + 0.5F);
+                    GL11.glTranslatef((float) x + 0.5F, (float) y + 0.5F, (float) z + 0.5F);
                 } else {
-                    GL11.glTranslatef((float) x + 0.5F, (float) y + 1F, (float) z + 0.5F);
+                    GL11.glTranslatef((float) x + 0.5F, (float) y + 0.5F, (float) z + 0.5F);
                 }
                 GL11.glScalef(scaleFactor, scaleFactor, scaleFactor);
                 GL11.glRotatef(rotationAngle, 0.0F, 1.0F, 0.0F);
@@ -57,14 +57,13 @@ public class RenderAltarDiviner extends TileEntitySpecialRenderer implements IIt
         }
     }
 
-    public void renderModel(TileAltarDiviner tile, double x, double y, double z) {
-        float scale = 1F;
+    public void renderModel(TileBoundItem tile, double x, double y, double z) {
+        float scale = 0.1F;
         GL11.glPushMatrix();
-        GL11.glTranslatef((float) x + 0.5F, (float) y + 1.5F, (float) z + 0.5F);
+        GL11.glTranslatef((float) x + 0.5f, (float) y - 0.5F, (float) z + 0.5f);
         GL11.glScalef(scale, scale, scale);
         FMLClientHandler.instance().getClient().renderEngine.bindTexture(texture);
-        GL11.glRotatef(180F, 90.0F, 0.0F, 90.0F);
-        model.render((Entity) null, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.0625F);
+        model.renderAll();
         GL11.glPopMatrix();
     }
 
@@ -129,33 +128,31 @@ public class RenderAltarDiviner extends TileEntitySpecialRenderer implements IIt
     public void renderItem(ItemRenderType type, ItemStack item, Object... data) {
         switch (type) {
             case ENTITY: { //item entity
-                if (item.getItem() == RandomUtils.SanguimancyItemStacks.altarDiviner.getItem())
+                if (item.getItem() == RandomUtils.SanguimancyItemStacks.boundItem.getItem())
                     render(0.5F, 15F, -0.5F, 0.1F);
                 return;
             }
             case EQUIPPED: { //third person in hand
-                if (item.getItem() == RandomUtils.SanguimancyItemStacks.altarDiviner.getItem())
+                if (item.getItem() == RandomUtils.SanguimancyItemStacks.boundItem.getItem())
                     render(2F, 15F, 5F, 0.1F);
                 return;
             }
             case EQUIPPED_FIRST_PERSON: { //first person in hand
-                if (item.getItem() == RandomUtils.SanguimancyItemStacks.altarDiviner.getItem())
+                if (item.getItem() == RandomUtils.SanguimancyItemStacks.boundItem.getItem())
                     render(1F, 19F, 7F, 0.1F);
                 return;
             }
             case INVENTORY: { //the item in inventories
-                if (item.getItem() == RandomUtils.SanguimancyItemStacks.altarDiviner.getItem())
+                if (item.getItem() == RandomUtils.SanguimancyItemStacks.boundItem.getItem())
                     render(-0.01F, 10F, 0.0F, 0.1F);
                 return;
             }
             default:
                 return;
         }
-
     }
 
     private void render(float x, float y, float z, float size) {
-
         FMLClientHandler.instance().getClient().renderEngine.bindTexture(texture);
         GL11.glPushMatrix(); // start
         GL11.glScalef(size, size, size);

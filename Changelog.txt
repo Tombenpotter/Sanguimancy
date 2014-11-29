@@ -3,6 +3,8 @@ Added a wand that can store 4 Complex Spell Crystals.
 Added a 10% chance of rituals not starting if Soul Corruption is over 15.
 Started working on the SN Manifestation.
 Added Bloodstone and Large Bloodstone slabs and stairs.
+More work on the SN Manifestation, and fixing the Altar Diviner rendering!
+Updated to the last Blood Magic.
 
 Version 1.1.8-4:
 Removed dependency on ttCore. It's not needed anymore.

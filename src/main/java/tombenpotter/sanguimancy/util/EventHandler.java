@@ -13,7 +13,6 @@ import cpw.mods.fml.common.gameevent.TickEvent;
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.server.MinecraftServer;
@@ -30,7 +29,9 @@ import tombenpotter.sanguimancy.Sanguimancy;
 import tombenpotter.sanguimancy.network.EventCorruptedInfusion;
 import tombenpotter.sanguimancy.network.PacketHandler;
 import tombenpotter.sanguimancy.network.PacketPlayerSearch;
+import tombenpotter.sanguimancy.registry.BlocksRegistry;
 import tombenpotter.sanguimancy.registry.ItemsRegistry;
+import tombenpotter.sanguimancy.tile.TileBoundItem;
 import tombenpotter.sanguimancy.util.singletons.SNBoundItems;
 import tombenpotter.sanguimancy.world.WorldProviderSoulNetworkDimension;
 
@@ -156,7 +157,16 @@ public class EventHandler {
             int baseY = dimWorld.getTopSolidOrLiquidBlock(baseX, baseZ);
             String name = event.itemStack.getUnlocalizedName() + event.itemStack.toString() + event.player.getCommandSenderName();
             if (SNBoundItems.getSNBountItems().addItem(name, event.itemStack.getTagCompound())) {
-                dimWorld.setBlock(baseX, baseY, baseZ, Blocks.chest);
+                dimWorld.setBlock(baseX, baseY, baseZ, BlocksRegistry.boundItem);
+                if (dimWorld.getTileEntity(baseX, baseY, baseZ) != null && dimWorld.getTileEntity(baseX, baseY, baseZ) instanceof TileBoundItem) {
+                    TileBoundItem tile = (TileBoundItem) dimWorld.getTileEntity(baseX, baseY, baseZ);
+                    tile.setInventorySlotContents(0, event.itemStack.copy());
+                    NBTTagCompound tileTag = new NBTTagCompound();
+                    tile.writeToNBT(tileTag);
+                    tileTag.setString("BoundItemEntry", name);
+                    tile.readFromNBT(tag);
+                    dimWorld.markBlockForUpdate(baseX, baseY, baseZ);
+                }
             }
         }
     }

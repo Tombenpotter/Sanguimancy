@@ -27,6 +27,7 @@ public class BlocksRegistry {
     public static Block doubleBloodstoneSlab;
     public static Block largeBloodstoneSlab;
     public static Block doubleLargeBloodstoneSlab;
+    public static Block boundItem;
 
     public static void registerBlocks() {
         altarDiviner = new BlockAltarDiviner(Material.iron);
@@ -70,5 +71,8 @@ public class BlocksRegistry {
 
         doubleLargeBloodstoneSlab = new BlockLargeBloodstoneSlab(true, Material.rock);
         GameRegistry.registerBlock(doubleLargeBloodstoneSlab, "BlockDoubleLargeBloodStoneSlab").setBlockName(Sanguimancy.modid + ".doubleLargeBloodStoneSlab");
+
+        boundItem = new BlockBoundItem(Material.iron);
+        GameRegistry.registerBlock(boundItem, "BlockBoundItem").setBlockName(Sanguimancy.modid + ".boundItem");
     }
 }

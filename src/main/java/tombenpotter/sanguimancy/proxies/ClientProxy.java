@@ -11,6 +11,7 @@ import tombenpotter.sanguimancy.entity.EntityChickenMinion;
 import tombenpotter.sanguimancy.entity.EntityPlayerPointer;
 import tombenpotter.sanguimancy.registry.BlocksRegistry;
 import tombenpotter.sanguimancy.tile.TileAltarDiviner;
+import tombenpotter.sanguimancy.tile.TileBoundItem;
 import tombenpotter.sanguimancy.tile.TileCorruptionCrystallizer;
 import tombenpotter.sanguimancy.util.EventHandler;
 
@@ -25,14 +26,16 @@ public class ClientProxy extends CommonProxy {
     @Override
     public void registerRenders() {
         ClientRegistry.bindTileEntitySpecialRenderer(TileAltarDiviner.class, new RenderAltarDiviner());
-        MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(BlocksRegistry.corruptionCrystallizer), new RenderItemCorruptionCrystallizer());
         ClientRegistry.bindTileEntitySpecialRenderer(TileCorruptionCrystallizer.class, new RenderCorruptionCrystallizer());
+        RenderingRegistry.registerBlockHandler(BlocksRegistry.bloodTank.getRenderType(), new RenderBloodTank());
+        ClientRegistry.bindTileEntitySpecialRenderer(TileBoundItem.class, new RenderBoundItem());
 
-        MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(BlocksRegistry.altarDiviner), new RenderItemAltarDiviner());
+        MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(BlocksRegistry.altarDiviner), new RenderAltarDiviner());
+        MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(BlocksRegistry.corruptionCrystallizer), new RenderCorruptionCrystallizer());
         MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(BlocksRegistry.bloodTank), new RenderBloodTank());
+        MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(BlocksRegistry.boundItem), new RenderBoundItem());
 
         RenderingRegistry.registerEntityRenderingHandler(EntityChickenMinion.class, new RenderChickenMinion(new ModelChicken(), 1.0F));
         RenderingRegistry.registerEntityRenderingHandler(EntityPlayerPointer.class, new RenderPlayerPointer());
-        RenderingRegistry.registerBlockHandler(BlocksRegistry.bloodTank.getRenderType(), new RenderBloodTank());
     }
 }
