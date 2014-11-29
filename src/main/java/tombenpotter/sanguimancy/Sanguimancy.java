@@ -16,11 +16,13 @@ import net.minecraftforge.common.MinecraftForge;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import tombenpotter.sanguimancy.compat.BUCompat;
+import tombenpotter.sanguimancy.compat.computercraft.PeripheralProvider;
 import tombenpotter.sanguimancy.network.PacketHandler;
 import tombenpotter.sanguimancy.proxies.CommonProxy;
 import tombenpotter.sanguimancy.registry.*;
 import tombenpotter.sanguimancy.util.ConfigHandler;
 import tombenpotter.sanguimancy.util.EventHandler;
+import tombenpotter.sanguimancy.util.ModList;
 import tombenpotter.sanguimancy.util.RandomUtils;
 
 @Mod(modid = Sanguimancy.modid, name = Sanguimancy.name, version = Sanguimancy.version, dependencies = Sanguimancy.depend, guiFactory = "tombenpotter.sanguimancy.client.gui.ConfigGuiFactory")
@@ -65,6 +67,7 @@ public class Sanguimancy {
         RecipesRegistry.registerShapedRecipes();
         RecipesRegistry.registerOrbRecipes();
         EntitiesRegistry.registerEntities();
+        if (ModList.computercraft.isLoaded()) PeripheralProvider.register();
     }
 
     @Mod.EventHandler
