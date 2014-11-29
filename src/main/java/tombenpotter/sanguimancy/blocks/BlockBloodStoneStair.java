@@ -8,9 +8,9 @@ import net.minecraft.block.BlockStairs;
 import net.minecraft.util.IIcon;
 import tombenpotter.sanguimancy.Sanguimancy;
 
-public class BlockBloodstoneStair extends BlockStairs {
+public class BlockBloodStoneStair extends BlockStairs {
 
-    public BlockBloodstoneStair(Block block, int var2) {
+    public BlockBloodStoneStair(Block block, int var2) {
         super(block, var2);
         setHardness(5.0F);
         setCreativeTab(Sanguimancy.tabSanguimancy);

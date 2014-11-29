@@ -10,5 +10,6 @@ public class PacketHandler {
 
     public static void registerPackets() {
         INSTANCE.registerMessage(PacketPlayerSearch.class, PacketPlayerSearch.class, 0, Side.SERVER);
+        INSTANCE.registerMessage(BloodInterfaceUpdateMessage.class, BloodInterfaceUpdateMessage.class, 1, Side.CLIENT);
     }
 }

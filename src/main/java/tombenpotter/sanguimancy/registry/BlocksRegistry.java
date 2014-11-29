@@ -28,6 +28,7 @@ public class BlocksRegistry {
     public static Block largeBloodstoneSlab;
     public static Block doubleLargeBloodstoneSlab;
     public static Block boundItem;
+    public static Block bloodInterface;
 
     public static void registerBlocks() {
         altarDiviner = new BlockAltarDiviner(Material.iron);
@@ -54,10 +55,10 @@ public class BlocksRegistry {
         dimensionalPortal = new BlockDimensionalPortal(Material.iron);
         GameRegistry.registerBlock(dimensionalPortal, "BlockDimensionalPortal").setBlockName(Sanguimancy.modid + ".dimensionalPortal");
 
-        bloodStoneStairs = new BlockBloodstoneStair(ModBlocks.bloodStoneBrick, 0);
+        bloodStoneStairs = new BlockBloodStoneStair(ModBlocks.bloodStoneBrick, 0);
         GameRegistry.registerBlock(bloodStoneStairs, "BlockBloodStoneStairs").setBlockName(Sanguimancy.modid + ".bloodStoneStair");
 
-        largeBloodStoneStairs = new BlockLargeBloodstoneStair(ModBlocks.largeBloodStoneBrick, 0);
+        largeBloodStoneStairs = new BlockLargeBloodStoneStair(ModBlocks.largeBloodStoneBrick, 0);
         GameRegistry.registerBlock(largeBloodStoneStairs, "BlockLargeBloodStoneStairs").setBlockName(Sanguimancy.modid + ".largeBloodStoneStair");
 
         bloodstoneSlab = new BlockBloodstoneSlab(false, Material.rock);
@@ -74,5 +75,8 @@ public class BlocksRegistry {
 
         boundItem = new BlockBoundItem(Material.iron);
         GameRegistry.registerBlock(boundItem, "BlockBoundItem").setBlockName(Sanguimancy.modid + ".boundItem");
+
+        bloodInterface = new BlockBloodInterface();
+        GameRegistry.registerBlock(bloodInterface, "interface").setBlockName(Sanguimancy.modid + ".interface");
     }
 }
