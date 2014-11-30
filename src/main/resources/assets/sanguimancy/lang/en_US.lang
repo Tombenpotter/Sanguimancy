@@ -28,7 +28,7 @@ tile.Sanguimancy.bloodStoneSlab.name=Bloodstone Slab
 tile.Sanguimancy.largeBloodStoneSlab.name=Large Bloodstone Slab
 tile.Sanguimancy.doubleBloodStoneSlab.name=Bloodstone Slab
 tile.Sanguimancy.doubleLargeBloodStoneSlab.name=Large Bloodstone Slab
-tile.Sanguimancy.boundItem=Bound Item
+tile.Sanguimancy.boundItem.name=Bound Item
 tile.Sanguimancy.interface.name=Blood Interface
 
 #Items
@@ -70,6 +70,7 @@ ritual.Sanguimancy.portal=Gate of the Fold
 chat.Sanguimancy.blood.required=Blood Required
 chat.Sanguimancy.soul.corruption=Soul Corruption
 chat.Sanguimancy.not.enough.LP=You don't seem to have enough LP
+chat.Sanguimancy.bound.item=Bound Item
 
 #Tooltips
 info.Sanguimancy.tooltip.shift.info=Press Shift for info

@@ -1,12 +1,15 @@
 package tombenpotter.sanguimancy.util;
 
 import WayofTime.alchemicalWizardry.api.event.ItemBindEvent;
+import WayofTime.alchemicalWizardry.api.event.ItemDrainNetworkEvent;
+import WayofTime.alchemicalWizardry.api.event.PlayerAddToNetworkEvent;
 import WayofTime.alchemicalWizardry.api.event.RitualActivatedEvent;
 import WayofTime.alchemicalWizardry.api.soulNetwork.SoulNetworkHandler;
 import WayofTime.alchemicalWizardry.common.items.EnergyItems;
 import cpw.mods.fml.client.event.ConfigChangedEvent;
 import cpw.mods.fml.client.registry.ClientRegistry;
 import cpw.mods.fml.common.Loader;
+import cpw.mods.fml.common.eventhandler.Event;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.InputEvent;
 import cpw.mods.fml.common.gameevent.TickEvent;
@@ -18,12 +21,12 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.ChunkCoordIntPair;
 import net.minecraft.world.WorldServer;
 import net.minecraftforge.client.event.RenderPlayerEvent;
-import net.minecraftforge.common.DimensionManager;
 import net.minecraftforge.common.ForgeChunkManager;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
@@ -38,7 +41,6 @@ import tombenpotter.sanguimancy.registry.BlocksRegistry;
 import tombenpotter.sanguimancy.registry.ItemsRegistry;
 import tombenpotter.sanguimancy.tile.TileBoundItem;
 import tombenpotter.sanguimancy.util.singletons.SNBoundItems;
-import tombenpotter.sanguimancy.world.WorldProviderSoulNetworkDimension;
 
 public class EventHandler {
 
@@ -86,18 +88,6 @@ public class EventHandler {
             NBTTagCompound tag = SoulCorruptionHelper.getModTag(player, Sanguimancy.modid);
             if (SoulCorruptionHelper.getCorruptionLevel(tag) > 0) return;
             else SoulCorruptionHelper.negateCorruption(tag);
-
-            if (!tag.hasKey("SoulNetworkMainfestationDimID")) {
-                tag.setInteger("SoulNetworkMainfestationDimID", DimensionManager.getNextFreeDimId());
-            }
-
-            int dimID = tag.getInteger("SoulNetworkMainfestationDimID");
-            if (!DimensionManager.isDimensionRegistered(dimID)) {
-                WorldProviderSoulNetworkDimension provider = new WorldProviderSoulNetworkDimension();
-                provider.setDimension(dimID);
-                DimensionManager.registerProviderType(dimID, provider.getClass(), false);
-                DimensionManager.registerDimension(dimID, dimID);
-            }
         }
     }
 
@@ -129,7 +119,7 @@ public class EventHandler {
         if (event.player != null) {
             NBTTagCompound tag = SoulCorruptionHelper.getModTag(event.player, Sanguimancy.modid);
             if (SoulCorruptionHelper.isCorruptionOver(tag, 15) && event.player.worldObj.rand.nextInt(10) == 0) {
-                event.setCanceled(true);
+                event.setResult(Event.Result.DENY);
             }
         }
     }
@@ -151,23 +141,60 @@ public class EventHandler {
     @SubscribeEvent
     public void onItemAddedToSN(ItemBindEvent event) {
         if (!event.player.worldObj.isRemote) {
-            NBTTagCompound tag = SoulCorruptionHelper.getModTag(event.player, Sanguimancy.modid);
-            int dimID = tag.getInteger("SoulNetworkMainfestationDimID");
-            System.out.println(dimID);
-            System.out.println(event.player.worldObj.provider.dimensionId);
+            int dimID = ConfigHandler.snDimID;
             WorldServer dimWorld = MinecraftServer.getServer().worldServerForDimension(dimID);
             ChunkCoordIntPair chunkCoords = new ChunkCoordIntPair(dimWorld.getSpawnPoint().posX >> 4, dimWorld.getSpawnPoint().posZ >> 4);
-            int baseX = chunkCoords.getCenterXPos() + 16;
-            int baseZ = chunkCoords.getCenterZPosition();
-            int baseY = dimWorld.getTopSolidOrLiquidBlock(baseX, baseZ);
-            String name = event.itemStack.getUnlocalizedName() + event.itemStack.toString() + event.player.getCommandSenderName();
-            if (SNBoundItems.getSNBountItems().addItem(name, event.itemStack.getTagCompound())) {
-                dimWorld.setBlock(baseX, baseY, baseZ, BlocksRegistry.boundItem);
-                if (dimWorld.getTileEntity(baseX, baseY, baseZ) != null && dimWorld.getTileEntity(baseX, baseY, baseZ) instanceof TileBoundItem) {
-                    TileBoundItem tile = (TileBoundItem) dimWorld.getTileEntity(baseX, baseY, baseZ);
-                    tile.setInventorySlotContents(0, event.itemStack.copy());
-                    dimWorld.markBlockForUpdate(baseX, baseY, baseZ);
+            int baseX = (chunkCoords.chunkXPos << 4) + (dimWorld.rand.nextInt(16) + 1);
+            int baseZ = (chunkCoords.chunkZPos << 4) + (dimWorld.rand.nextInt(16) + 1);
+            int baseY = dimWorld.getTopSolidOrLiquidBlock(baseX, baseZ) + dimWorld.rand.nextInt(4);
+            BlockLocation blockLocation = new BlockLocation(baseX, baseY, baseZ, dimID);
+            String name = String.valueOf(dimID) + String.valueOf(baseX) + String.valueOf(baseY) + String.valueOf(baseZ) + event.itemStack.getUnlocalizedName() + event.itemStack.getDisplayName() + event.itemStack.toString() + event.player.getCommandSenderName();
+
+            if (dimWorld.isAirBlock(baseX, baseY, baseZ)) {
+                RandomUtils.checkAndSetCompound(event.itemStack);
+                if (SNBoundItems.getSNBountItems().addItem(name, event.itemStack.getTagCompound())) {
+                    dimWorld.setBlock(baseX, baseY, baseZ, BlocksRegistry.boundItem);
+                    event.itemStack.stackTagCompound.setString("SavedItemName", name);
+                    blockLocation.writeToNBT(event.itemStack.stackTagCompound);
+                    if (dimWorld.getTileEntity(baseX, baseY, baseZ) != null && dimWorld.getTileEntity(baseX, baseY, baseZ) instanceof TileBoundItem) {
+                        TileBoundItem tile = (TileBoundItem) dimWorld.getTileEntity(baseX, baseY, baseZ);
+                        tile.setInventorySlotContents(0, event.itemStack.copy());
+                        tile.getCustomNBTTag().setString("SavedItemName", name);
+                        dimWorld.markBlockForUpdate(baseX, baseY, baseZ);
+                    }
                 }
+            }
+        }
+    }
+
+    @SubscribeEvent
+    public void onItemDrainNetwork(ItemDrainNetworkEvent event) {
+        if (!event.player.worldObj.isRemote && event.itemStack != null) {
+            if (event.itemStack.stackTagCompound.hasKey("SavedItemName")) {
+                String name = event.itemStack.stackTagCompound.getString("SavedItemName");
+                if (!SNBoundItems.getSNBountItems().hasKey(name)) {
+                    event.player.addChatComponentMessage(new ChatComponentText("HAHA YOU SUCK - REMOVE"));
+                    RandomUtils.unbindItemStack(event.itemStack);
+                    event.setResult(Event.Result.DENY);
+                }
+            } else {
+                event.setResult(Event.Result.DENY);
+            }
+        }
+    }
+
+    @SubscribeEvent
+    public void onOrbAddToNetwork(PlayerAddToNetworkEvent event) {
+        if (!event.player.worldObj.isRemote && event.itemStack != null) {
+            if (event.itemStack.stackTagCompound.hasKey("SavedItemName")) {
+                String name = event.itemStack.stackTagCompound.getString("SavedItemName");
+                if (!SNBoundItems.getSNBountItems().hasKey(name)) {
+                    event.player.addChatComponentMessage(new ChatComponentText("HAHA YOU SUCK - ADD"));
+                    RandomUtils.unbindItemStack(event.itemStack);
+                    event.setResult(Event.Result.DENY);
+                }
+            } else {
+                event.setResult(Event.Result.DENY);
             }
         }
     }
@@ -188,7 +215,7 @@ public class EventHandler {
 
         @SubscribeEvent
         public void onRenderPlayerSpecialAntlers(RenderPlayerEvent.Specials.Post event) {
-            String names[] = {"Tombenpotter", "Speedynutty68", "WayofFlowingTime", "Jadedcat", "Kris1432", "Drullkus", "TheOrangeGenius", "Direwolf20", "Pahimar"};
+            String names[] = {"Tombenpotter", "Speedynutty68", "WayofFlowingTime", "Jadedcat", "Kris1432", "Drullkus", "TheOrangeGenius", "Direwolf20", "Pahimar", "ValiarMarcus", "Alex_hawks"};
             for (String name : names) {
                 if (event.entityPlayer.getCommandSenderName().equalsIgnoreCase(name)) {
                     GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);

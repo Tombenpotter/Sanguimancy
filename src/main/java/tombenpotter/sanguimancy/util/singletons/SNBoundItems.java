@@ -5,7 +5,6 @@ import net.minecraft.nbt.NBTSizeTracker;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.DimensionManager;
 import tombenpotter.sanguimancy.Sanguimancy;
-import tombenpotter.sanguimancy.util.PortalLocation;
 
 import java.io.*;
 import java.util.HashMap;
@@ -96,7 +95,7 @@ public class SNBoundItems implements Serializable {
         return false;
     }
 
-    public boolean removeItem(String name, PortalLocation location) {
+    public boolean removeItem(String name) {
         if (!boundItems.isEmpty()) {
             if (boundItems.get(name) != null) {
                 boundItems.remove(name);
@@ -114,6 +113,10 @@ public class SNBoundItems implements Serializable {
 
     public byte[] getItemB(String name) {
         return boundItems.get(name);
+    }
+
+    public boolean hasKey(String name) {
+        return boundItems.containsKey(name);
     }
 
     public NBTTagCompound getItemT(String name) {

@@ -18,6 +18,7 @@ import net.minecraftforge.fluids.IFluidHandler;
 import tombenpotter.sanguimancy.Sanguimancy;
 import tombenpotter.sanguimancy.registry.BlocksRegistry;
 import tombenpotter.sanguimancy.registry.ItemsRegistry;
+import tombenpotter.sanguimancy.world.WorldProviderSoulNetworkDimension;
 
 import java.awt.*;
 import java.io.BufferedWriter;
@@ -217,6 +218,23 @@ public class RandomUtils {
 
     public static void fireEvent(Event event) {
         MinecraftForge.EVENT_BUS.post(event);
+    }
+
+    public static void unbindItemStack(ItemStack stack) {
+        checkAndSetCompound(stack);
+        if (stack.stackTagCompound.hasKey("ownerName") && !stack.stackTagCompound.getString("ownerName").equals("")) {
+            stack.stackTagCompound.setString("ownerName", "");
+        }
+    }
+
+    public static void createSNDimension() {
+        int dimID = ConfigHandler.snDimID;
+        if (!DimensionManager.isDimensionRegistered(dimID)) {
+            WorldProviderSoulNetworkDimension provider = new WorldProviderSoulNetworkDimension();
+            provider.setDimension(dimID);
+            DimensionManager.registerProviderType(dimID, provider.getClass(), true);
+            DimensionManager.registerDimension(dimID, dimID);
+        }
     }
 
     public static class SanguimancyItemStacks {

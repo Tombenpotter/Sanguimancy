@@ -7,7 +7,6 @@ import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.biome.WorldChunkManager;
 import net.minecraft.world.biome.WorldChunkManagerHell;
 import net.minecraft.world.chunk.IChunkProvider;
-import net.minecraft.world.gen.ChunkProviderFlat;
 
 public class WorldProviderSoulNetworkDimension extends WorldProvider {
 
@@ -19,22 +18,17 @@ public class WorldProviderSoulNetworkDimension extends WorldProvider {
 
     @Override
     public IChunkProvider createChunkGenerator() {
-        return new ChunkProviderFlat(worldObj, worldObj.getSeed(), false, "SoulNetworkDimension");
+        return new ChunkProviderSNDimension(worldObj, worldObj.getSeed(), false, "SoulNetworkDimension");
     }
 
     @Override
     public String getDimensionName() {
-        return "Soul Network Dimension " + String.valueOf(dimensionId);
+        return "Soul Network Dimension";
     }
 
     @Override
     @SideOnly(Side.CLIENT)
     public boolean getWorldHasVoidParticles() {
-        return false;
-    }
-
-    @Override
-    public boolean canRespawnHere() {
         return false;
     }
 }

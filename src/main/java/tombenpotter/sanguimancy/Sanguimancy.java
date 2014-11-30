@@ -52,7 +52,6 @@ public class Sanguimancy {
 
     @SidedProxy(clientSide = clientProxy, serverSide = commonProxy)
     public static CommonProxy proxy;
-
     @Mod.Instance(Sanguimancy.modid)
     public static Sanguimancy instance;
 
@@ -76,6 +75,7 @@ public class Sanguimancy {
         RitualRegistry.registerRituals();
         RecipesRegistry.registerAltarRecipes();
         FMLCommonHandler.instance().bus().register(new EventHandler());
+        MinecraftForge.EVENT_BUS.register(new EventHandler());
         MinecraftForge.EVENT_BUS.register(new EventHandler.ClientEventHandler());
         PacketHandler.registerPackets();
         if (Loader.isModLoaded("Waila")) {

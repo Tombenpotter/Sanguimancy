@@ -24,6 +24,7 @@ public class ConfigHandler {
     public static boolean enablePump;
     public static boolean enableQuarry;
     public static boolean enablePortal;
+    public static int snDimID;
 
     public static void init(File file) {
         config = new Configuration(file);
@@ -50,6 +51,8 @@ public class ConfigHandler {
         enablePump = config.get(rituals, "enablePump", true).getBoolean(enablePump);
         enableQuarry = config.get(rituals, "enableQuarry", true).getBoolean(enableQuarry);
         enablePortal = config.get(rituals, "enablePortal", true).getBoolean(enablePortal);
+
+        snDimID = config.get(features, "soulNetworkDimensionID", 42).getInt(snDimID);
 
         config.save();
     }

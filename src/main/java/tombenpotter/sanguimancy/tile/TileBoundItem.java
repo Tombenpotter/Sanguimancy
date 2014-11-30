@@ -1,5 +1,6 @@
 package tombenpotter.sanguimancy.tile;
 
+import WayofTime.alchemicalWizardry.ModItems;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
@@ -9,13 +10,18 @@ import net.minecraft.network.NetworkManager;
 import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.ChatComponentText;
+import net.minecraft.util.StatCollector;
+import tombenpotter.sanguimancy.util.ICustomNBTTag;
 
-public class TileBoundItem extends TileEntity implements IInventory {
+public class TileBoundItem extends TileEntity implements IInventory, ICustomNBTTag {
 
     public ItemStack[] slots;
+    private NBTTagCompound custoomNBTTag;
 
     public TileBoundItem() {
         slots = new ItemStack[1];
+        custoomNBTTag = new NBTTagCompound();
     }
 
     public int getSizeInventory() {
@@ -60,7 +66,6 @@ public class TileBoundItem extends TileEntity implements IInventory {
 
     public void setInventorySlotContents(int par1, ItemStack par2ItemStack) {
         this.slots[par1] = par2ItemStack;
-
         if (par2ItemStack != null && par2ItemStack.stackSize > this.getInventoryStackLimit()) {
             par2ItemStack.stackSize = this.getInventoryStackLimit();
         }
@@ -90,6 +95,7 @@ public class TileBoundItem extends TileEntity implements IInventory {
                 this.slots[b0] = ItemStack.loadItemStackFromNBT(nbttagcompound1);
             }
         }
+        custoomNBTTag = tagCompound.getCompoundTag("customNBTTag");
     }
 
     @Override
@@ -106,6 +112,19 @@ public class TileBoundItem extends TileEntity implements IInventory {
             }
         }
         tagCompound.setTag("Items", nbttaglist);
+        tagCompound.setTag("customNBTTag", custoomNBTTag);
+    }
+
+    public boolean onBlockRightClicked(EntityPlayer player, ItemStack stack) {
+        if (stack != null && getStackInSlot(0) != null) {
+            if (stack.isItemEqual(new ItemStack(ModItems.divinationSigil)) || stack.isItemEqual(new ItemStack(ModItems.itemSeerSigil))) {
+                if (!worldObj.isRemote) {
+                    player.addChatComponentMessage(new ChatComponentText(StatCollector.translateToLocal("chat.Sanguimancy.bound.item") + ": " + getStackInSlot(0).getDisplayName()));
+                }
+                return true;
+            }
+        }
+        return false;
     }
 
     public int getInventoryStackLimit() {
@@ -134,9 +153,7 @@ public class TileBoundItem extends TileEntity implements IInventory {
     public final Packet getDescriptionPacket() {
         NBTTagCompound nbt = new NBTTagCompound();
         writeToNBT(nbt);
-
         S35PacketUpdateTileEntity packet = new S35PacketUpdateTileEntity(xCoord, yCoord, zCoord, 0, nbt);
-
         return packet;
     }
 
@@ -148,10 +165,18 @@ public class TileBoundItem extends TileEntity implements IInventory {
 
     @Override
     public void markDirty() {
-        super.markDirty(); // Mark dirty for gamesave
-        if (worldObj.isRemote) {
-            return;
-        }
-        this.worldObj.markBlockForUpdate(xCoord, yCoord, zCoord); // Update block + TE via Network
+        super.markDirty();
+        if (worldObj.isRemote) return;
+        this.worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+    }
+
+    @Override
+    public NBTTagCompound getCustomNBTTag() {
+        return custoomNBTTag;
+    }
+
+    @Override
+    public void setCustomNBTTag(NBTTagCompound tag) {
+        custoomNBTTag = tag;
     }
 }
