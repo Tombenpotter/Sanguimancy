@@ -27,7 +27,7 @@ public class BloodInterfaceUpdateMessage implements IMessage, IMessageHandler<Bl
             itemID = Item.getIdFromItem(stack.getItem());
             itemDamage = stack.getItemDamage();
             if (stack.hasTagCompound() && stack.getTagCompound().hasKey("ownerName")) {
-                bytes = MessageHelper.stringToByeArray(stack.getTagCompound().getString("ownerName"));
+                bytes = MessageHelper.stringToByteArray(stack.getTagCompound().getString("ownerName"));
             }
         }
     }

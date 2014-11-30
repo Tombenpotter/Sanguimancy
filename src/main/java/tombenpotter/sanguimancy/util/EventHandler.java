@@ -187,35 +187,38 @@ public class EventHandler {
         }
 
         @SubscribeEvent
-        public void onRenderPlayerSpecial(RenderPlayerEvent.Specials.Post event) {
-            if (event.entityPlayer.getCommandSenderName().equals("Tombenpotter")) {
-                GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-                GL11.glPushMatrix();
-                event.renderer.modelBipedMain.bipedBody.render(0.1F);
-                Minecraft.getMinecraft().renderEngine.bindTexture(new ResourceLocation(Sanguimancy.texturePath + ":textures/items/Wand.png"));
-                GL11.glTranslatef(0.0F, -0.95F, -0.125F);
-                Tessellator t = Tessellator.instance;
-                GL11.glPushMatrix();
-                GL11.glRotatef(-20.0F, 0.0F, 1.0F, 0.0F);
-                GL11.glRotatef(-5.0F, 0.0F, 1.0F, 0.0F);
-                t.startDrawingQuads();
-                t.addVertexWithUV(0.0D, 0.0D, 0.0D, 0.0D, 0.0D);
-                t.addVertexWithUV(0.0D, 1.0D, 0.0D, 0.0D, 1.0D);
-                t.addVertexWithUV(1.0D, 1.0D, 0.0D, 1.0D, 1.0D);
-                t.addVertexWithUV(1.0D, 0.0D, 0.0D, 1.0D, 0.0D);
-                t.draw();
-                GL11.glPopMatrix();
-                GL11.glPushMatrix();
-                GL11.glRotatef(5.0F, 0.0F, 1.0F, 0.0F);
-                GL11.glRotatef(20.0F, 0.0F, 1.0F, 0.0F);
-                t.startDrawingQuads();
-                t.addVertexWithUV(0.0D, 0.0D, 0.0D, 0.0D, 0.0D);
-                t.addVertexWithUV(0.0D, 1.0D, 0.0D, 0.0D, 1.0D);
-                t.addVertexWithUV(-1.0D, 1.0D, 0.0D, 1.0D, 1.0D);
-                t.addVertexWithUV(-1.0D, 0.0D, 0.0D, 1.0D, 0.0D);
-                t.draw();
-                GL11.glPopMatrix();
-                GL11.glPopMatrix();
+        public void onRenderPlayerSpecialAntlers(RenderPlayerEvent.Specials.Post event) {
+            String names[] = {"Tombenpotter", "Speedynutty68", "WayofFlowingTime", "Jadedcat", "Kris1432", "Drullkus", "TheOrangeGenius", "Direwolf20", "Pahimar"};
+            for (String name : names) {
+                if (event.entityPlayer.getCommandSenderName().equalsIgnoreCase(name)) {
+                    GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
+                    GL11.glPushMatrix();
+                    event.renderer.modelBipedMain.bipedBody.render(0.1F);
+                    Minecraft.getMinecraft().renderEngine.bindTexture(new ResourceLocation(Sanguimancy.texturePath + ":textures/items/Wand.png"));
+                    GL11.glTranslatef(0.0F, -0.95F, -0.125F);
+                    Tessellator tesselator = Tessellator.instance;
+                    GL11.glPushMatrix();
+                    GL11.glRotatef(-20.0F, 0.0F, 1.0F, 0.0F);
+                    GL11.glRotatef(-5.0F, 0.0F, 1.0F, 0.0F);
+                    tesselator.startDrawingQuads();
+                    tesselator.addVertexWithUV(0.0D, 0.0D, 0.0D, 0.0D, 0.0D);
+                    tesselator.addVertexWithUV(0.0D, 1.0D, 0.0D, 0.0D, 1.0D);
+                    tesselator.addVertexWithUV(1.0D, 1.0D, 0.0D, 1.0D, 1.0D);
+                    tesselator.addVertexWithUV(1.0D, 0.0D, 0.0D, 1.0D, 0.0D);
+                    tesselator.draw();
+                    GL11.glPopMatrix();
+                    GL11.glPushMatrix();
+                    GL11.glRotatef(5.0F, 0.0F, 1.0F, 0.0F);
+                    GL11.glRotatef(20.0F, 0.0F, 1.0F, 0.0F);
+                    tesselator.startDrawingQuads();
+                    tesselator.addVertexWithUV(0.0D, 0.0D, 0.0D, 0.0D, 0.0D);
+                    tesselator.addVertexWithUV(0.0D, 1.0D, 0.0D, 0.0D, 1.0D);
+                    tesselator.addVertexWithUV(-1.0D, 1.0D, 0.0D, 1.0D, 1.0D);
+                    tesselator.addVertexWithUV(-1.0D, 0.0D, 0.0D, 1.0D, 0.0D);
+                    tesselator.draw();
+                    GL11.glPopMatrix();
+                    GL11.glPopMatrix();
+                }
             }
         }
     }

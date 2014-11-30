@@ -35,7 +35,7 @@ public class Sanguimancy {
     public static final String commonProxy = "tombenpotter.sanguimancy.proxies.CommonProxy";
     public static final String depend = "required-after:AWWayofTime;" + "after:BloodUtils;" + "after:Waila";
     public static final String channel = "Sanguimancy";
-    public static final String version = "1.1.8";
+    public static final String version = "1.1.9";
     public static boolean isTTLoaded = false;
     public static Logger logger = LogManager.getLogger(Sanguimancy.name);
     public static CreativeTabs tabSanguimancy = new CreativeTabs("tab" + Sanguimancy.modid) {

@@ -5,6 +5,8 @@ Started working on the SN Manifestation.
 Added Bloodstone and Large Bloodstone slabs and stairs.
 More work on the SN Manifestation, and fixing the Altar Diviner rendering!
 Updated to the last Blood Magic.
+Hilburn added a Blood Interface! Yay, thanks a lot to him :D.
+Fixed a world crashing bug. C:.
 
 Version 1.1.8-4:
 Removed dependency on ttCore. It's not needed anymore.
