@@ -1,4 +1,4 @@
-package tombenpotter.sanguimancy.util;
+package tombenpotter.sanguimancy.util.enums;
 
 import cpw.mods.fml.common.Loader;
 

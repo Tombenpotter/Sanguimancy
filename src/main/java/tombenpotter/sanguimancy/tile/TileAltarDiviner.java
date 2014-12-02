@@ -13,13 +13,16 @@ import net.minecraft.network.NetworkManager;
 import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
+import tombenpotter.sanguimancy.util.interfaces.ICustomNBTTag;
 
-public class TileAltarDiviner extends TileEntity implements IInventory {
+public class TileAltarDiviner extends TileEntity implements IInventory, ICustomNBTTag {
 
     private ItemStack[] slots;
+    private NBTTagCompound custoomNBTTag;
 
     public TileAltarDiviner() {
         slots = new ItemStack[1];
+        custoomNBTTag = new NBTTagCompound();
     }
 
     public int getSizeInventory() {
@@ -95,6 +98,7 @@ public class TileAltarDiviner extends TileEntity implements IInventory {
                 this.slots[b0] = ItemStack.loadItemStackFromNBT(nbttagcompound1);
             }
         }
+        custoomNBTTag = tagCompound.getCompoundTag("customNBTTag");
     }
 
     @Override
@@ -111,6 +115,7 @@ public class TileAltarDiviner extends TileEntity implements IInventory {
             }
         }
         tagCompound.setTag("Items", nbttaglist);
+        tagCompound.setTag("customNBTTag", custoomNBTTag);
     }
 
     public int getInventoryStackLimit() {
@@ -202,5 +207,15 @@ public class TileAltarDiviner extends TileEntity implements IInventory {
                 }
             }
         }
+    }
+
+    @Override
+    public NBTTagCompound getCustomNBTTag() {
+        return custoomNBTTag;
+    }
+
+    @Override
+    public void setCustomNBTTag(NBTTagCompound tag) {
+        custoomNBTTag = tag;
     }
 }

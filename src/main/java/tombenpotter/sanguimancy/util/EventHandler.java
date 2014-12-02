@@ -40,7 +40,7 @@ import tombenpotter.sanguimancy.network.PacketPlayerSearch;
 import tombenpotter.sanguimancy.registry.BlocksRegistry;
 import tombenpotter.sanguimancy.registry.ItemsRegistry;
 import tombenpotter.sanguimancy.tile.TileBoundItem;
-import tombenpotter.sanguimancy.util.singletons.SNBoundItems;
+import tombenpotter.sanguimancy.util.singletons.BoundItems;
 
 public class EventHandler {
 
@@ -147,15 +147,14 @@ public class EventHandler {
             int baseX = (chunkCoords.chunkXPos << 4) + (dimWorld.rand.nextInt(16) + 1);
             int baseZ = (chunkCoords.chunkZPos << 4) + (dimWorld.rand.nextInt(16) + 1);
             int baseY = dimWorld.getTopSolidOrLiquidBlock(baseX, baseZ) + dimWorld.rand.nextInt(4);
-            BlockLocation blockLocation = new BlockLocation(baseX, baseY, baseZ, dimID);
-            String name = String.valueOf(dimID) + String.valueOf(baseX) + String.valueOf(baseY) + String.valueOf(baseZ) + event.itemStack.getUnlocalizedName() + event.itemStack.getDisplayName() + event.itemStack.toString() + event.player.getCommandSenderName();
+            BoundItemState boundItemState = new BoundItemState(baseX, baseY, baseZ, dimID, true);
+            String name = String.valueOf(dimID) + String.valueOf(baseX) + String.valueOf(baseY) + String.valueOf(baseZ) + event.itemStack.getUnlocalizedName() + event.itemStack.getDisplayName() + event.itemStack.toString() + event.player.getCommandSenderName() + String.valueOf(boundItemState.activated);
 
             if (dimWorld.isAirBlock(baseX, baseY, baseZ)) {
                 RandomUtils.checkAndSetCompound(event.itemStack);
-                if (SNBoundItems.getSNBountItems().addItem(name, event.itemStack.getTagCompound())) {
+                if (BoundItems.getBoundItems().addItem(name, boundItemState)) {
                     dimWorld.setBlock(baseX, baseY, baseZ, BlocksRegistry.boundItem);
                     event.itemStack.stackTagCompound.setString("SavedItemName", name);
-                    blockLocation.writeToNBT(event.itemStack.stackTagCompound);
                     if (dimWorld.getTileEntity(baseX, baseY, baseZ) != null && dimWorld.getTileEntity(baseX, baseY, baseZ) instanceof TileBoundItem) {
                         TileBoundItem tile = (TileBoundItem) dimWorld.getTileEntity(baseX, baseY, baseZ);
                         tile.setInventorySlotContents(0, event.itemStack.copy());
@@ -172,8 +171,12 @@ public class EventHandler {
         if (!event.player.worldObj.isRemote && event.itemStack != null) {
             if (event.itemStack.stackTagCompound.hasKey("SavedItemName")) {
                 String name = event.itemStack.stackTagCompound.getString("SavedItemName");
-                if (!SNBoundItems.getSNBountItems().hasKey(name)) {
+                if (!BoundItems.getBoundItems().hasKey(name)) {
                     event.player.addChatComponentMessage(new ChatComponentText("HAHA YOU SUCK - REMOVE"));
+                    RandomUtils.unbindItemStack(event.itemStack);
+                    event.setResult(Event.Result.DENY);
+                } else if (!BoundItems.getBoundItems().getLinkedLocation(name).activated) {
+                    event.player.addChatComponentMessage(new ChatComponentText("HAHA YOU SUCK - DEACTIVATED"));
                     RandomUtils.unbindItemStack(event.itemStack);
                     event.setResult(Event.Result.DENY);
                 }
@@ -188,9 +191,11 @@ public class EventHandler {
         if (!event.player.worldObj.isRemote && event.itemStack != null) {
             if (event.itemStack.stackTagCompound.hasKey("SavedItemName")) {
                 String name = event.itemStack.stackTagCompound.getString("SavedItemName");
-                if (!SNBoundItems.getSNBountItems().hasKey(name)) {
+                if (!BoundItems.getBoundItems().hasKey(name)) {
                     event.player.addChatComponentMessage(new ChatComponentText("HAHA YOU SUCK - ADD"));
-                    RandomUtils.unbindItemStack(event.itemStack);
+                    event.setResult(Event.Result.DENY);
+                } else if (!BoundItems.getBoundItems().getLinkedLocation(name).activated) {
+                    event.player.addChatComponentMessage(new ChatComponentText("HAHA YOU SUCK - DEACTIVATED"));
                     event.setResult(Event.Result.DENY);
                 }
             } else {

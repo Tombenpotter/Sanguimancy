@@ -14,8 +14,9 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import tombenpotter.sanguimancy.compat.lua.events.LuaEvent;
 import tombenpotter.sanguimancy.compat.lua.methods.LuaMethod;
-import tombenpotter.sanguimancy.util.ModList;
+import tombenpotter.sanguimancy.util.interfaces.ICustomNBTTag;
 import tombenpotter.sanguimancy.util.Timer;
+import tombenpotter.sanguimancy.util.enums.ModList;
 
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
@@ -28,7 +29,7 @@ import java.util.Set;
         @Optional.Interface(iface = "li.cil.oc.api.network.Environment", modid = ModList.Names.OPENCOMPUTERS),
         @Optional.Interface(iface = "li.cil.oc.api.network.ManagedPeripheral", modid = ModList.Names.OPENCOMPUTERS)
 })
-public abstract class TileComputerBase extends TileEntity implements ManagedPeripheral, Environment, IPeripheral {
+public abstract class TileComputerBase extends TileEntity implements ManagedPeripheral, Environment, IPeripheral, ICustomNBTTag {
     protected final String name;
     protected final Map<Integer, String> methodIDs = new LinkedHashMap<Integer, String>();
     protected final Map<String, LuaMethod> methodNames = new LinkedHashMap<String, LuaMethod>();

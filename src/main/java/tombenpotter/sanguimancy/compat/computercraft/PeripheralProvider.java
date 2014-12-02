@@ -7,7 +7,7 @@ import dan200.computercraft.api.peripheral.IPeripheralProvider;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import tombenpotter.sanguimancy.tile.TileComputerBase;
-import tombenpotter.sanguimancy.util.ModList;
+import tombenpotter.sanguimancy.util.enums.ModList;
 
 @Optional.Interface(iface = "dan200.computercraft.api.peripheral.IPeripheralProvider", modid = ModList.Names.COMPUTERCRAFT)
 public class PeripheralProvider implements IPeripheralProvider {

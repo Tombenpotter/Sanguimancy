@@ -7,10 +7,17 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.TileEntity;
 import tombenpotter.sanguimancy.items.ItemPlayerSacrificer;
+import tombenpotter.sanguimancy.util.interfaces.ICustomNBTTag;
 
-public class TileSacrificeTransfer extends TileEntity implements IInventory {
+public class TileSacrificeTransfer extends TileEntity implements IInventory, ICustomNBTTag {
+
     public ItemStack[] slots = new ItemStack[1];
     public boolean spewFire;
+    private NBTTagCompound custoomNBTTag;
+
+    public TileSacrificeTransfer() {
+        custoomNBTTag = new NBTTagCompound();
+    }
 
     @Override
     public int getSizeInventory() {
@@ -74,6 +81,7 @@ public class TileSacrificeTransfer extends TileEntity implements IInventory {
                 this.slots[b0] = ItemStack.loadItemStackFromNBT(nbttagcompound1);
             }
         }
+        custoomNBTTag = tagCompound.getCompoundTag("customNBTTag");
     }
 
     @Override
@@ -90,6 +98,7 @@ public class TileSacrificeTransfer extends TileEntity implements IInventory {
             }
         }
         tagCompound.setTag("Items", nbttaglist);
+        tagCompound.setTag("customNBTTag", custoomNBTTag);
     }
 
     @Override
@@ -129,5 +138,15 @@ public class TileSacrificeTransfer extends TileEntity implements IInventory {
     public void updateEntity() {
         if (slots[0] != null && slots[0].getItem() instanceof ItemPlayerSacrificer) spewFire = true;
         else spewFire = false;
+    }
+
+    @Override
+    public NBTTagCompound getCustomNBTTag() {
+        return custoomNBTTag;
+    }
+
+    @Override
+    public void setCustomNBTTag(NBTTagCompound tag) {
+        custoomNBTTag = tag;
     }
 }

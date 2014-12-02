@@ -12,7 +12,7 @@ import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.StatCollector;
-import tombenpotter.sanguimancy.util.ICustomNBTTag;
+import tombenpotter.sanguimancy.util.interfaces.ICustomNBTTag;
 
 public class TileBoundItem extends TileEntity implements IInventory, ICustomNBTTag {
 

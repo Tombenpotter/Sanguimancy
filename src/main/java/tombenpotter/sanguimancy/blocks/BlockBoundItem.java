@@ -12,7 +12,8 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import tombenpotter.sanguimancy.Sanguimancy;
 import tombenpotter.sanguimancy.tile.TileBoundItem;
-import tombenpotter.sanguimancy.util.singletons.SNBoundItems;
+import tombenpotter.sanguimancy.util.BoundItemState;
+import tombenpotter.sanguimancy.util.singletons.BoundItems;
 
 import java.util.Random;
 
@@ -65,7 +66,7 @@ public class BlockBoundItem extends BlockContainer {
     public void breakBlock(World world, int x, int y, int z, Block block, int p_149749_6_) {
         if (world.getTileEntity(x, y, z) != null && world.getTileEntity(x, y, z) instanceof TileBoundItem) {
             TileBoundItem tile = (TileBoundItem) world.getTileEntity(x, y, z);
-            SNBoundItems.getSNBountItems().removeItem(tile.getCustomNBTTag().getString("SavedItemName"));
+            BoundItems.getBoundItems().removeItem(tile.getCustomNBTTag().getString("SavedItemName"));
         }
         super.breakBlock(world, x, y, z, block, p_149749_6_);
     }
@@ -86,10 +87,12 @@ public class BlockBoundItem extends BlockContainer {
         if (!world.isRemote) {
             TileBoundItem tile = (TileBoundItem) world.getTileEntity(x, y, z);
             if (!world.isBlockIndirectlyGettingPowered(x, y, z)) {
-                SNBoundItems.getSNBountItems().addItem(tile.getCustomNBTTag().getString("SavedItemName"), tile.getStackInSlot(0).getTagCompound());
+                BoundItems.getBoundItems().removeItem(tile.getCustomNBTTag().getString("SavedItemName"));
+                BoundItems.getBoundItems().addItem(tile.getCustomNBTTag().getString("SavedItemName"), new BoundItemState(x, y, z, world.provider.dimensionId, true));
                 world.scheduleBlockUpdate(x, y, z, this, 4);
             } else if (world.isBlockIndirectlyGettingPowered(x, y, z)) {
-                SNBoundItems.getSNBountItems().removeItem(tile.getCustomNBTTag().getString("SavedItemName"));
+                BoundItems.getBoundItems().removeItem(tile.getCustomNBTTag().getString("SavedItemName"));
+                BoundItems.getBoundItems().addItem(tile.getCustomNBTTag().getString("SavedItemName"), new BoundItemState(x, y, z, world.provider.dimensionId, false));
             }
         }
     }

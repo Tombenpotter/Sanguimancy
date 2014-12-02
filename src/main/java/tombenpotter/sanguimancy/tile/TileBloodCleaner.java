@@ -13,8 +13,9 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.fluids.*;
 import tombenpotter.sanguimancy.recipes.RecipeBloodCleanser;
+import tombenpotter.sanguimancy.util.interfaces.ICustomNBTTag;
 
-public class TileBloodCleaner extends TileEntity implements ISidedInventory, IFluidHandler {
+public class TileBloodCleaner extends TileEntity implements ISidedInventory, IFluidHandler, ICustomNBTTag {
 
     public ItemStack[] inventory;
     public int capacity;
@@ -22,6 +23,7 @@ public class TileBloodCleaner extends TileEntity implements ISidedInventory, IFl
     public int maxTicks;
     public FluidTank tank;
     public boolean isActive;
+    private NBTTagCompound custoomNBTTag;
 
     public TileBloodCleaner() {
         inventory = new ItemStack[2];
@@ -29,6 +31,7 @@ public class TileBloodCleaner extends TileEntity implements ISidedInventory, IFl
         maxTicks = 150;
         tank = new FluidTank(new FluidStack(AlchemicalWizardry.lifeEssenceFluid, 0), capacity);
         isActive = false;
+        custoomNBTTag = new NBTTagCompound();
     }
 
     @Override
@@ -107,6 +110,7 @@ public class TileBloodCleaner extends TileEntity implements ISidedInventory, IFl
                 this.inventory[b0] = ItemStack.loadItemStackFromNBT(nbttagcompound1);
             }
         }
+        custoomNBTTag = tagCompound.getCompoundTag("customNBTTag");
     }
 
     @Override
@@ -125,6 +129,7 @@ public class TileBloodCleaner extends TileEntity implements ISidedInventory, IFl
             }
         }
         tagCompound.setTag("Items", nbttaglist);
+        tagCompound.setTag("customNBTTag", custoomNBTTag);
     }
 
     @Override
@@ -298,5 +303,15 @@ public class TileBloodCleaner extends TileEntity implements ISidedInventory, IFl
     public void markDirty() {
         super.markDirty();
         this.worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+    }
+
+    @Override
+    public NBTTagCompound getCustomNBTTag() {
+        return custoomNBTTag;
+    }
+
+    @Override
+    public void setCustomNBTTag(NBTTagCompound tag) {
+        custoomNBTTag = tag;
     }
 }

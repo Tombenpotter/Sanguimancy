@@ -15,13 +15,19 @@ import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 import tombenpotter.sanguimancy.Sanguimancy;
+import tombenpotter.sanguimancy.util.interfaces.ICustomNBTTag;
 import tombenpotter.sanguimancy.util.SoulCorruptionHelper;
 
-public class TileCorruptionCrystallizer extends TileSegmentedReagentHandler {
+public class TileCorruptionCrystallizer extends TileSegmentedReagentHandler implements ICustomNBTTag {
 
     public int corruptionStored = 0;
     public String owner;
     public boolean multiblockFormed;
+    private NBTTagCompound custoomNBTTag;
+
+    public TileCorruptionCrystallizer() {
+        custoomNBTTag = new NBTTagCompound();
+    }
 
     @Override
     public void updateEntity() {
@@ -39,19 +45,21 @@ public class TileCorruptionCrystallizer extends TileSegmentedReagentHandler {
     }
 
     @Override
-    public void readFromNBT(NBTTagCompound tag) {
-        super.readFromNBT(tag);
-        owner = tag.getString("owner");
-        corruptionStored = tag.getInteger("corruptionStored");
-        multiblockFormed = tag.getBoolean("multiblockFormed");
+    public void readFromNBT(NBTTagCompound tagCompound) {
+        super.readFromNBT(tagCompound);
+        owner = tagCompound.getString("owner");
+        corruptionStored = tagCompound.getInteger("corruptionStored");
+        multiblockFormed = tagCompound.getBoolean("multiblockFormed");
+        custoomNBTTag = tagCompound.getCompoundTag("customNBTTag");
     }
 
     @Override
-    public void writeToNBT(NBTTagCompound tag) {
-        super.writeToNBT(tag);
-        tag.setString("owner", owner);
-        tag.setInteger("corruptionStored", corruptionStored);
-        tag.setBoolean("multiblockFormed", multiblockFormed);
+    public void writeToNBT(NBTTagCompound tagCompound) {
+        super.writeToNBT(tagCompound);
+        tagCompound.setString("owner", owner);
+        tagCompound.setInteger("corruptionStored", corruptionStored);
+        tagCompound.setBoolean("multiblockFormed", multiblockFormed);
+        tagCompound.setTag("customNBTTag", custoomNBTTag);
     }
 
     public boolean checkMultiblockTier(World world, int x, int y, int z) {
@@ -153,5 +161,15 @@ public class TileCorruptionCrystallizer extends TileSegmentedReagentHandler {
             return true;
         }
         return false;
+    }
+
+    @Override
+    public NBTTagCompound getCustomNBTTag() {
+        return custoomNBTTag;
+    }
+
+    @Override
+    public void setCustomNBTTag(NBTTagCompound tag) {
+        custoomNBTTag = tag;
     }
 }

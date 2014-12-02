@@ -16,5 +16,8 @@ public class TileRegistry {
         GameRegistry.registerTileEntity(TileDimensionalPortal.class, "TileDimensionalPortal");
         GameRegistry.registerTileEntity(TileBoundItem.class, "TileBoundItem");
         GameRegistry.registerTileEntity(TileBloodInterface.class, "TileBloodInterface");
+        GameRegistry.registerTileEntity(TileKnot.class, "TileKnot");
+        GameRegistry.registerTileEntity(TileBranch.class, "TileBranch");
+        GameRegistry.registerTileEntity(TilePart.class, "TilePart");
     }
 }

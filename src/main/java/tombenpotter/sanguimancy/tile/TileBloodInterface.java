@@ -24,6 +24,7 @@ public class TileBloodInterface extends TileComputerBase implements IInventory {
     private int redstone = 0;
     private String ownerName = null;
     private Timer redstoneUpdate;
+    private NBTTagCompound custoomNBTTag;
 
     public TileBloodInterface() {
         super("BloodInterface");
@@ -32,6 +33,7 @@ public class TileBloodInterface extends TileComputerBase implements IInventory {
         this.addMethod(new LuaGetLifeEssence());
         this.addMethod(new LuaGetOrbMax());
         this.addMethod(new LuaGetOwner());
+        custoomNBTTag = new NBTTagCompound();
     }
 
     private void triggerUpdate() {
@@ -193,6 +195,7 @@ public class TileBloodInterface extends TileComputerBase implements IInventory {
             updateOrb();
             updateRedstone();
         }
+        custoomNBTTag = compound.getCompoundTag("customNBTTag");
     }
 
     @Override
@@ -201,6 +204,7 @@ public class TileBloodInterface extends TileComputerBase implements IInventory {
         if (itemStack != null) {
             compound.setTag("Item", itemStack.writeToNBT(new NBTTagCompound()));
         }
+        compound.setTag("customNBTTag", custoomNBTTag);
     }
 
     public int getComparatorLevel() {
@@ -211,5 +215,15 @@ public class TileBloodInterface extends TileComputerBase implements IInventory {
     public Packet getDescriptionPacket() {
         writeToNBT(new NBTTagCompound());
         return PacketHandler.INSTANCE.getPacketFrom(new BloodInterfaceUpdateMessage(this));
+    }
+
+    @Override
+    public NBTTagCompound getCustomNBTTag() {
+        return custoomNBTTag;
+    }
+
+    @Override
+    public void setCustomNBTTag(NBTTagCompound tag) {
+        custoomNBTTag = tag;
     }
 }

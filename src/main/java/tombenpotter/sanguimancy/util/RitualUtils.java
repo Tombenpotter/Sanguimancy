@@ -92,15 +92,10 @@ public class RitualUtils {
     public static int getRangeMultiplier(boolean hasTerrae, boolean hasOrbisTerrae) {
         int multiplier = 1;
         if (hasTerrae) {
-            if (hasOrbisTerrae) {
-                multiplier = 8;
-            } else {
-                multiplier = 2;
-            }
+            if (hasOrbisTerrae) multiplier = 8;
+            else multiplier = 2;
         } else {
-            if (hasOrbisTerrae) {
-                multiplier = 4;
-            }
+            if (hasOrbisTerrae) multiplier = 4;
         }
         return multiplier;
     }

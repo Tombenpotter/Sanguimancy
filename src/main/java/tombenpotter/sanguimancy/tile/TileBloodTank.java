@@ -7,15 +7,18 @@ import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.fluids.*;
+import tombenpotter.sanguimancy.util.interfaces.ICustomNBTTag;
 
-public class TileBloodTank extends TileEntity implements IFluidHandler {
+public class TileBloodTank extends TileEntity implements IFluidHandler, ICustomNBTTag {
 
     public int capacity;
     public FluidTank tank;
+    private NBTTagCompound custoomNBTTag;
 
     public TileBloodTank() {
         capacity = 16 * FluidContainerRegistry.BUCKET_VOLUME;
         tank = new FluidTank(capacity);
+        custoomNBTTag = new NBTTagCompound();
     }
 
     @Override
@@ -58,6 +61,7 @@ public class TileBloodTank extends TileEntity implements IFluidHandler {
         super.readFromNBT(tagCompound);
         tank.readFromNBT(tagCompound.getCompoundTag("tank"));
         capacity = tagCompound.getInteger("capacity");
+        custoomNBTTag = tagCompound.getCompoundTag("customNBTTag");
     }
 
     @Override
@@ -65,6 +69,7 @@ public class TileBloodTank extends TileEntity implements IFluidHandler {
         super.writeToNBT(tagCompound);
         if (tank.getFluidAmount() != 0) tagCompound.setTag("tank", tank.writeToNBT(new NBTTagCompound()));
         tagCompound.setInteger("capacity", capacity);
+        tagCompound.setTag("customNBTTag", custoomNBTTag);
     }
 
     @Override
@@ -79,5 +84,15 @@ public class TileBloodTank extends TileEntity implements IFluidHandler {
     public void onDataPacket(NetworkManager net, S35PacketUpdateTileEntity pkt) {
         NBTTagCompound nbt = pkt.func_148857_g();
         readFromNBT(nbt);
+    }
+
+    @Override
+    public NBTTagCompound getCustomNBTTag() {
+        return custoomNBTTag;
+    }
+
+    @Override
+    public void setCustomNBTTag(NBTTagCompound tag) {
+        custoomNBTTag = tag;
     }
 }

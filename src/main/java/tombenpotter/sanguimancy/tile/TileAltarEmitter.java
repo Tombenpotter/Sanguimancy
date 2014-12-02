@@ -8,11 +8,17 @@ import net.minecraft.network.NetworkManager;
 import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
+import tombenpotter.sanguimancy.util.interfaces.ICustomNBTTag;
 
-public class TileAltarEmitter extends TileEntity {
+public class TileAltarEmitter extends TileEntity implements ICustomNBTTag {
 
     public int bloodAsked;
     public boolean isOverBloodAsked;
+    private NBTTagCompound custoomNBTTag;
+
+    public TileAltarEmitter() {
+        custoomNBTTag = new NBTTagCompound();
+    }
 
     @Override
     public void updateEntity() {
@@ -71,6 +77,7 @@ public class TileAltarEmitter extends TileEntity {
         super.readFromNBT(tagCompound);
         bloodAsked = tagCompound.getInteger("bloodAsked");
         isOverBloodAsked = tagCompound.getBoolean("isBloodOverAsked");
+        custoomNBTTag = tagCompound.getCompoundTag("customNBTTag");
     }
 
     @Override
@@ -78,6 +85,7 @@ public class TileAltarEmitter extends TileEntity {
         super.writeToNBT(tagCompound);
         tagCompound.setInteger("bloodAsked", bloodAsked);
         tagCompound.setBoolean("isBloodOverAsked", isOverBloodAsked);
+        tagCompound.setTag("customNBTTag", custoomNBTTag);
     }
 
 
@@ -85,9 +93,7 @@ public class TileAltarEmitter extends TileEntity {
     public final Packet getDescriptionPacket() {
         NBTTagCompound nbt = new NBTTagCompound();
         writeToNBT(nbt);
-
         S35PacketUpdateTileEntity packet = new S35PacketUpdateTileEntity(xCoord, yCoord, zCoord, 0, nbt);
-
         return packet;
     }
 
@@ -104,5 +110,15 @@ public class TileAltarEmitter extends TileEntity {
             return;
         }
         this.worldObj.markBlockForUpdate(xCoord, yCoord, zCoord); // Update block + TE via Network
+    }
+
+    @Override
+    public NBTTagCompound getCustomNBTTag() {
+        return custoomNBTTag;
+    }
+
+    @Override
+    public void setCustomNBTTag(NBTTagCompound tag) {
+        custoomNBTTag = tag;
     }
 }
