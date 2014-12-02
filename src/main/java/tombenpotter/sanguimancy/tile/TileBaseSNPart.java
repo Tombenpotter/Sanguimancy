@@ -21,9 +21,12 @@ public abstract class TileBaseSNPart extends TileEntity implements ISNPart, ICus
             if (postition != null) {
                 if (postition.getTile(worldObj) instanceof ISNKnot && !blockPosList.hashMap.containsKey(postition)) {
                     blockPosList.hashMap.put(postition, true);
+                    return blockPosList;
                 } else if (postition.getTile(worldObj) instanceof ISNComponent && !blockPosList.hashMap.containsKey(postition)) {
+                    blockPosList.hashMap.put(postition, false);
                     ISNComponent component = (ISNComponent) postition.getTile(worldObj);
-                    blockPosList.hashMap.putAll(component.getAdjacentComponents(blockPosList).hashMap);
+                    component.getAdjacentComponents(blockPosList);
+                    return blockPosList;
                 }
             }
         }

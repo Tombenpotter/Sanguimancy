@@ -1,8 +1,6 @@
 package tombenpotter.sanguimancy.tile;
 
-import net.minecraft.init.Blocks;
 import net.minecraft.nbt.NBTTagCompound;
-import tombenpotter.sanguimancy.util.BlockPostition;
 import tombenpotter.sanguimancy.util.enums.EnumSNType;
 
 public class TilePart extends TileBaseSNPart {
@@ -11,17 +9,6 @@ public class TilePart extends TileBaseSNPart {
 
     public TilePart() {
         custoomNBTTag = new NBTTagCompound();
-    }
-
-    @Override
-    public void updateEntity() {
-        for (BlockPostition postition : getSNKnots()) {
-            if (postition != null) {
-                if (worldObj.isAirBlock(postition.x, postition.y + 1, postition.z)) {
-                    worldObj.setBlock(postition.x, postition.y + 1, postition.z, Blocks.diamond_block);
-                }
-            }
-        }
     }
 
     public void readFromNBT(NBTTagCompound tagCompound) {

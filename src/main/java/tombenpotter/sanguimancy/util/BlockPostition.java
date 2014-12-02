@@ -23,6 +23,12 @@ public class BlockPostition {
         z = tile.zCoord;
     }
 
+    @Override
+    public boolean equals(Object o)
+    {
+        return o instanceof BlockPostition ? ((BlockPostition) o).x == this.x && ((BlockPostition) o).y == this.y && ((BlockPostition) o).z == this.z : false;
+    }
+
     public Block getBlock(World world) {
         return world.getBlock(x, y, z);
     }
