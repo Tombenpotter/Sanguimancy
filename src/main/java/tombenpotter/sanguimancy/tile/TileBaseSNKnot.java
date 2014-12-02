@@ -1,6 +1,7 @@
 package tombenpotter.sanguimancy.tile;
 
 import net.minecraft.tileentity.TileEntity;
+import tombenpotter.sanguimancy.util.BoolAndBlockPosList;
 import tombenpotter.sanguimancy.util.interfaces.ICustomNBTTag;
 import tombenpotter.sanguimancy.util.interfaces.ISNKnot;
 
@@ -14,5 +15,10 @@ public abstract class TileBaseSNKnot extends TileEntity implements ISNKnot, ICus
             return false;
         }
         return true;
+    }
+
+    @Override
+    public BoolAndBlockPosList getAdjacentComponents() {
+        return null;
     }
 }

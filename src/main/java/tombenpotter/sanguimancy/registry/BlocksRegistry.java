@@ -30,6 +30,10 @@ public class BlocksRegistry {
     public static Block boundItem;
     public static Block bloodInterface;
 
+    public static Block testKnot;
+    public static Block testBranch;
+    public static Block testPart;
+
     public static void registerBlocks() {
         altarDiviner = new BlockAltarDiviner(Material.iron);
         GameRegistry.registerBlock(altarDiviner, ItemBlockAltarDiviner.class, "BlockAltarDiviner").setBlockName(Sanguimancy.modid + ".altarDiviner");
@@ -77,6 +81,15 @@ public class BlocksRegistry {
         GameRegistry.registerBlock(boundItem, "BlockBoundItem").setBlockName(Sanguimancy.modid + ".boundItem");
 
         bloodInterface = new BlockBloodInterface();
-        GameRegistry.registerBlock(bloodInterface, "interface").setBlockName(Sanguimancy.modid + ".interface");
+        GameRegistry.registerBlock(bloodInterface, "BlockBloodInterface").setBlockName(Sanguimancy.modid + ".interface");
+
+        testKnot = new BlockTestKnot(Material.iron);
+        GameRegistry.registerBlock(testKnot, "TestKnot").setBlockName(Sanguimancy.modid + ".testKnot");
+
+        testBranch = new BlockTestBranch(Material.iron);
+        GameRegistry.registerBlock(testBranch, "TestBranch").setBlockName(Sanguimancy.modid + ".testBranch");
+
+        testPart = new BlockTestPart(Material.iron);
+        GameRegistry.registerBlock(testPart, "TestPart").setBlockName(Sanguimancy.modid + ".testPart");
     }
 }

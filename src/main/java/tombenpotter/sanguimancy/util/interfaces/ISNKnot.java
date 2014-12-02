@@ -1,6 +1,6 @@
 package tombenpotter.sanguimancy.util.interfaces;
 
-public interface ISNKnot {
+public interface ISNKnot extends ISNComponent {
 
     public boolean isSNKnotactive();
 

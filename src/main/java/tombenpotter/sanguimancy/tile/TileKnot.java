@@ -9,6 +9,7 @@ public class TileKnot extends TileBaseSNKnot {
 
     public TileKnot() {
         custoomNBTTag = new NBTTagCompound();
+        knotOwner = "Tombenpotter";
     }
 
     @Override
