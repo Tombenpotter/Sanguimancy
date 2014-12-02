@@ -18,7 +18,7 @@ public abstract class TileBaseSNKnot extends TileEntity implements ISNKnot, ICus
     }
 
     @Override
-    public BoolAndBlockPosList getAdjacentComponents() {
+    public BoolAndBlockPosList getAdjacentComponents(BoolAndBlockPosList blockPosList) {
         return null;
     }
 }

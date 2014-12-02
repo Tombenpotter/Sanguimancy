@@ -12,16 +12,14 @@ import tombenpotter.sanguimancy.util.interfaces.ISNKnot;
 public abstract class TileBaseSNBranch extends TileEntity implements ISNBranch, ICustomNBTTag {
 
     @Override
-    public BoolAndBlockPosList getAdjacentComponents() {
-        BoolAndBlockPosList blockPosList = new BoolAndBlockPosList();
+    public BoolAndBlockPosList getAdjacentComponents(BoolAndBlockPosList blockPosList) {
         for (BlockPostition postition : getAdjacentSNComponents()) {
             if (postition != null) {
                 if (postition.getTile(worldObj) instanceof ISNKnot && !blockPosList.hashMap.containsKey(postition)) {
                     blockPosList.hashMap.put(postition, true);
                     return blockPosList;
                 } else if (postition.getTile(worldObj) instanceof ISNComponent && !blockPosList.hashMap.containsKey(postition)) {
-                    ISNComponent component = (ISNComponent) postition.getTile(worldObj);
-                    blockPosList.hashMap.putAll(component.getAdjacentComponents().hashMap);
+                    blockPosList.hashMap.put(postition, false);
                 }
             }
         }

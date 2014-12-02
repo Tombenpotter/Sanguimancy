@@ -4,5 +4,5 @@ import tombenpotter.sanguimancy.util.BoolAndBlockPosList;
 
 public interface ISNComponent {
 
-    public BoolAndBlockPosList getAdjacentComponents();
+    public BoolAndBlockPosList getAdjacentComponents(BoolAndBlockPosList blockPosList);
 }
