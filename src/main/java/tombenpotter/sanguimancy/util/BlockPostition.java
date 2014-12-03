@@ -24,9 +24,13 @@ public class BlockPostition {
     }
 
     @Override
-    public boolean equals(Object o)
-    {
-        return o instanceof BlockPostition ? ((BlockPostition) o).x == this.x && ((BlockPostition) o).y == this.y && ((BlockPostition) o).z == this.z : false;
+    public boolean equals(Object o) {
+        return o instanceof BlockPostition ? (((BlockPostition) o).x == this.x && ((BlockPostition) o).y == this.y && ((BlockPostition) o).z == this.z) : false;
+    }
+
+    @Override
+    public int hashCode() {
+        return this.x * 1912 + this.y * 1219 + this.z;
     }
 
     public Block getBlock(World world) {
