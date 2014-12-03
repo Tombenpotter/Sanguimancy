@@ -12,24 +12,23 @@ import tombenpotter.sanguimancy.util.interfaces.ISNKnot;
 public abstract class TileBaseSNBranch extends TileEntity implements ISNBranch, ICustomNBTTag {
 
     @Override
-    public BoolAndBlockPosList getAdjacentComponents(BoolAndBlockPosList blockPosList) {
-        for (BlockPostition postition : getAdjacentSNComponents()) {
-            if (postition != null) {
+    public BoolAndBlockPosList getAdjacentComponents(BlockPostition originalPosition, BoolAndBlockPosList blockPosList) {
+        for (BlockPostition postition : getAdjacentISNComponents()) {
+            if (postition != null && !postition.equals(originalPosition)) {
                 if (postition.getTile(worldObj) instanceof ISNKnot && !blockPosList.hashMap.containsKey(postition)) {
                     blockPosList.hashMap.put(postition, true);
-                    return blockPosList;
                 } else if (postition.getTile(worldObj) instanceof ISNComponent && !blockPosList.hashMap.containsKey(postition)) {
                     blockPosList.hashMap.put(postition, false);
                     ISNComponent component = (ISNComponent) postition.getTile(worldObj);
-                    component.getAdjacentComponents(blockPosList);
-                    return blockPosList;
+                    component.getAdjacentComponents(new BlockPostition(this.xCoord, this.yCoord, this.zCoord), blockPosList);
                 }
             }
         }
         return blockPosList;
     }
 
-    public BlockPostition[] getAdjacentSNComponents() {
+    @Override
+    public BlockPostition[] getAdjacentISNComponents() {
         int i = 0;
         BlockPostition[] adjacentBranches = new BlockPostition[6];
         for (ForgeDirection direction : ForgeDirection.VALID_DIRECTIONS) {
