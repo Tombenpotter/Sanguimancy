@@ -11,7 +11,6 @@ import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.world.World;
 import tombenpotter.sanguimancy.Sanguimancy;
 import tombenpotter.sanguimancy.util.ConfigHandler;
-import tombenpotter.sanguimancy.util.RandomUtils;
 import tombenpotter.sanguimancy.util.TeleportingUtils;
 
 public class ItemCorruptedDemonShard extends Item {
@@ -28,7 +27,6 @@ public class ItemCorruptedDemonShard extends Item {
 
     @Override
     public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player) {
-        RandomUtils.createSNDimension();
         if (!world.isRemote) {
             if (player.worldObj.provider.dimensionId != 0) {
                 ChunkCoordinates chunkCoords = MinecraftServer.getServer().worldServerForDimension(0).getSpawnPoint();

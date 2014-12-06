@@ -24,15 +24,14 @@ public class BlocksRegistry {
     public static Block bloodStoneStairs;
     public static Block largeBloodStoneStairs;
     public static Block bloodstoneSlab;
-    public static Block doubleBloodstoneSlab;
     public static Block largeBloodstoneSlab;
-    public static Block doubleLargeBloodstoneSlab;
     public static Block boundItem;
     public static Block bloodInterface;
 
-    public static Block testKnot;
-    public static Block testBranch;
-    public static Block testPart;
+    public static Block knotActivator;
+    public static Block simpleKnot;
+    public static Block toggleKnot;
+    public static Block simpleBranch;
 
     public static void registerBlocks() {
         altarDiviner = new BlockAltarDiviner(Material.iron);
@@ -68,28 +67,25 @@ public class BlocksRegistry {
         bloodstoneSlab = new BlockBloodstoneSlab(false, Material.rock);
         GameRegistry.registerBlock(bloodstoneSlab, "BlockBloodStoneSlab").setBlockName(Sanguimancy.modid + ".bloodStoneSlab");
 
-        doubleBloodstoneSlab = new BlockBloodstoneSlab(true, Material.rock);
-        GameRegistry.registerBlock(doubleBloodstoneSlab, "BlockDoubleBloodStoneSlab").setBlockName(Sanguimancy.modid + ".doubleBloodStoneSlab");
-
         largeBloodstoneSlab = new BlockLargeBloodstoneSlab(false, Material.rock);
         GameRegistry.registerBlock(largeBloodstoneSlab, "BlockLargeBloodStoneSlab").setBlockName(Sanguimancy.modid + ".largeBloodStoneSlab");
 
-        doubleLargeBloodstoneSlab = new BlockLargeBloodstoneSlab(true, Material.rock);
-        GameRegistry.registerBlock(doubleLargeBloodstoneSlab, "BlockDoubleLargeBloodStoneSlab").setBlockName(Sanguimancy.modid + ".doubleLargeBloodStoneSlab");
-
-        boundItem = new BlockBoundItem(Material.iron);
-        GameRegistry.registerBlock(boundItem, "BlockBoundItem").setBlockName(Sanguimancy.modid + ".boundItem");
+        boundItem = new BlockItemSNPart(Material.iron);
+        GameRegistry.registerBlock(boundItem, "BlockItemSNPart").setBlockName(Sanguimancy.modid + ".itemSNPart");
 
         bloodInterface = new BlockBloodInterface();
         GameRegistry.registerBlock(bloodInterface, "BlockBloodInterface").setBlockName(Sanguimancy.modid + ".interface");
 
-        testKnot = new BlockTestKnot(Material.iron);
-        GameRegistry.registerBlock(testKnot, "TestKnot").setBlockName(Sanguimancy.modid + ".testKnot");
+        knotActivator = new BlockKnotActivator(Material.iron);
+        GameRegistry.registerBlock(knotActivator, "BlockKnotActivator").setBlockName(Sanguimancy.modid + ".knotActivator");
 
-        testBranch = new BlockTestBranch(Material.iron);
-        GameRegistry.registerBlock(testBranch, "TestBranch").setBlockName(Sanguimancy.modid + ".testBranch");
+        simpleKnot = new BlockSimpleSNKnot(Material.iron);
+        GameRegistry.registerBlock(simpleKnot, "BlockSimpleSoulKnot").setBlockName(Sanguimancy.modid + ".simpleSNKnot");
 
-        testPart = new BlockTestPart(Material.iron);
-        GameRegistry.registerBlock(testPart, "TestPart").setBlockName(Sanguimancy.modid + ".testPart");
+        toggleKnot = new BlockToggleSNKnot(Material.iron);
+        GameRegistry.registerBlock(toggleKnot, "BlockToggledSoulKnot").setBlockName(Sanguimancy.modid + ".toggleSNKnot");
+
+        simpleBranch = new BlockSimpleSNBranch(Material.iron);
+        GameRegistry.registerBlock(simpleBranch, "BlockSimpleSoulBranch").setBlockName(Sanguimancy.modid + ".simpleSNBranch");
     }
 }

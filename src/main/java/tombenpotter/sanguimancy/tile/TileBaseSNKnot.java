@@ -11,18 +11,38 @@ import tombenpotter.sanguimancy.util.interfaces.ISNKnot;
 public abstract class TileBaseSNKnot extends TileEntity implements ISNKnot, ICustomNBTTag {
 
     @Override
-    public boolean isSNKnotactive() {
-        if (!worldObj.isBlockIndirectlyGettingPowered(xCoord, yCoord, zCoord)) {
-            return true;
-        } else if (worldObj.isBlockIndirectlyGettingPowered(xCoord, yCoord, zCoord)) {
-            return false;
+    public BoolAndBlockPosList getComponentsInNetwork() {
+        BoolAndBlockPosList blockPosList = new BoolAndBlockPosList();
+        for (BlockPostition postition : getAdjacentISNComponents()) {
+            if (postition != null) {
+                if (!blockPosList.hashMap.containsKey(postition) && postition.getTile(worldObj) != null && postition.getTile(worldObj) instanceof ISNKnot) {
+                    ISNKnot knot = (ISNKnot) postition.getTile(worldObj);
+                    if (knot.isSNKnotactive()) blockPosList.hashMap.put(postition, knot.isSNKnot());
+                } else if (!blockPosList.hashMap.containsKey(postition) && postition.getTile(worldObj) != null && postition.getTile(worldObj) instanceof ISNComponent) {
+                    ISNComponent component = (ISNComponent) postition.getTile(worldObj);
+                    blockPosList.hashMap.put(postition, component.isSNKnot());
+                    component.getAdjacentComponents(new BlockPostition(this.xCoord, this.yCoord, this.zCoord), blockPosList);
+                }
+            }
         }
-        return true;
+        return blockPosList;
     }
 
     @Override
     public BoolAndBlockPosList getAdjacentComponents(BlockPostition originalPosition, BoolAndBlockPosList blockPosList) {
-        return null;
+        for (BlockPostition postition : getAdjacentISNComponents()) {
+            if (postition != null) {
+                if (!blockPosList.hashMap.containsKey(postition) && postition.getTile(worldObj) != null && postition.getTile(worldObj) instanceof ISNKnot) {
+                    ISNKnot knot = (ISNKnot) postition.getTile(worldObj);
+                    if (knot.isSNKnotactive()) blockPosList.hashMap.put(postition, knot.isSNKnot());
+                } else if (!blockPosList.hashMap.containsKey(postition) && postition.getTile(worldObj) != null && postition.getTile(worldObj) instanceof ISNComponent) {
+                    ISNComponent component = (ISNComponent) postition.getTile(worldObj);
+                    blockPosList.hashMap.put(postition, component.isSNKnot());
+                    component.getAdjacentComponents(new BlockPostition(this.xCoord, this.yCoord, this.zCoord), blockPosList);
+                }
+            }
+        }
+        return blockPosList;
     }
 
     @Override
@@ -30,7 +50,7 @@ public abstract class TileBaseSNKnot extends TileEntity implements ISNKnot, ICus
         int i = 0;
         BlockPostition[] adjacentBranches = new BlockPostition[6];
         for (ForgeDirection direction : ForgeDirection.VALID_DIRECTIONS) {
-            if (worldObj.getTileEntity(xCoord + direction.offsetX, yCoord + direction.offsetY, zCoord + direction.offsetZ) instanceof ISNComponent) {
+            if (worldObj.getTileEntity(xCoord + direction.offsetX, yCoord + direction.offsetY, zCoord + direction.offsetZ) != null && worldObj.getTileEntity(xCoord + direction.offsetX, yCoord + direction.offsetY, zCoord + direction.offsetZ) instanceof ISNComponent) {
                 adjacentBranches[i] = new BlockPostition(xCoord + direction.offsetX, yCoord + direction.offsetY, zCoord + direction.offsetZ);
             } else {
                 adjacentBranches[i] = null;

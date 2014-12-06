@@ -1,6 +1,7 @@
 Version 1.1.9-Alpha2:
 Implemented the customNBTTag interface in all of my tile entities but one. This allows other mods to store data on my tiles!
-More work on the SN Manifestation. ISNKnot, ISNBranch and ISNPart have joined the party!
+More work on the SN Manifestation. ISNComponent, ISNKnot, ISNBranch and ISNPart have joined the party!
+The system should be totally working. Now I just need to use it C:.
 
 Version 1.1.9-Alpha1:
 Added a wand that can store 4 Complex Spell Crystals.

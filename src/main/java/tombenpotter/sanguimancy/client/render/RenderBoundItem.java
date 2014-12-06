@@ -13,7 +13,7 @@ import net.minecraftforge.client.IItemRenderer;
 import org.lwjgl.opengl.GL11;
 import tombenpotter.sanguimancy.Sanguimancy;
 import tombenpotter.sanguimancy.client.model.ModelCube;
-import tombenpotter.sanguimancy.tile.TileBoundItem;
+import tombenpotter.sanguimancy.tile.TileItemSNPart;
 import tombenpotter.sanguimancy.util.RandomUtils;
 
 public class RenderBoundItem extends TileEntitySpecialRenderer implements IItemRenderer {
@@ -34,9 +34,9 @@ public class RenderBoundItem extends TileEntitySpecialRenderer implements IItemR
 
     @Override
     public void renderTileEntityAt(TileEntity tileEntity, double x, double y, double z, float scale) {
-        renderModel((TileBoundItem) tileEntity, x, y, z);
-        if (tileEntity instanceof TileBoundItem) {
-            TileBoundItem tile = (TileBoundItem) tileEntity;
+        renderModel((TileItemSNPart) tileEntity, x, y, z);
+        if (tileEntity instanceof TileItemSNPart) {
+            TileItemSNPart tile = (TileItemSNPart) tileEntity;
             GL11.glPushMatrix();
             if (tile.getStackInSlot(0) != null) {
                 float scaleFactor = getGhostItemScaleFactor(tile.getStackInSlot(0));
@@ -57,7 +57,7 @@ public class RenderBoundItem extends TileEntitySpecialRenderer implements IItemR
         }
     }
 
-    public void renderModel(TileBoundItem tile, double x, double y, double z) {
+    public void renderModel(TileItemSNPart tile, double x, double y, double z) {
         float scale = 0.1F;
         GL11.glPushMatrix();
         GL11.glTranslatef((float) x + 0.5f, (float) y - 0.5F, (float) z + 0.5f);

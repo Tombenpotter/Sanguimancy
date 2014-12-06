@@ -9,17 +9,16 @@ import net.minecraft.nbt.NBTTagList;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.StatCollector;
-import tombenpotter.sanguimancy.util.interfaces.ICustomNBTTag;
+import tombenpotter.sanguimancy.util.enums.EnumSNType;
 
-public class TileBoundItem extends TileEntity implements IInventory, ICustomNBTTag {
+public class TileItemSNPart extends TileBaseSNPart implements IInventory {
 
     public ItemStack[] slots;
     private NBTTagCompound custoomNBTTag;
 
-    public TileBoundItem() {
+    public TileItemSNPart() {
         slots = new ItemStack[1];
         custoomNBTTag = new NBTTagCompound();
     }
@@ -168,6 +167,16 @@ public class TileBoundItem extends TileEntity implements IInventory, ICustomNBTT
         super.markDirty();
         if (worldObj.isRemote) return;
         this.worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+    }
+
+    @Override
+    public EnumSNType getType() {
+        return EnumSNType.ITEM;
+    }
+
+    @Override
+    public boolean isSNKnot() {
+        return false;
     }
 
     @Override

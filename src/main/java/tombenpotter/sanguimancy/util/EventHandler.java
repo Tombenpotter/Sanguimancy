@@ -39,7 +39,7 @@ import tombenpotter.sanguimancy.network.PacketHandler;
 import tombenpotter.sanguimancy.network.PacketPlayerSearch;
 import tombenpotter.sanguimancy.registry.BlocksRegistry;
 import tombenpotter.sanguimancy.registry.ItemsRegistry;
-import tombenpotter.sanguimancy.tile.TileBoundItem;
+import tombenpotter.sanguimancy.tile.TileItemSNPart;
 import tombenpotter.sanguimancy.util.singletons.BoundItems;
 
 public class EventHandler {
@@ -155,8 +155,8 @@ public class EventHandler {
                 if (BoundItems.getBoundItems().addItem(name, boundItemState)) {
                     dimWorld.setBlock(baseX, baseY, baseZ, BlocksRegistry.boundItem);
                     event.itemStack.stackTagCompound.setString("SavedItemName", name);
-                    if (dimWorld.getTileEntity(baseX, baseY, baseZ) != null && dimWorld.getTileEntity(baseX, baseY, baseZ) instanceof TileBoundItem) {
-                        TileBoundItem tile = (TileBoundItem) dimWorld.getTileEntity(baseX, baseY, baseZ);
+                    if (dimWorld.getTileEntity(baseX, baseY, baseZ) != null && dimWorld.getTileEntity(baseX, baseY, baseZ) instanceof TileItemSNPart) {
+                        TileItemSNPart tile = (TileItemSNPart) dimWorld.getTileEntity(baseX, baseY, baseZ);
                         tile.setInventorySlotContents(0, event.itemStack.copy());
                         tile.getCustomNBTTag().setString("SavedItemName", name);
                         dimWorld.markBlockForUpdate(baseX, baseY, baseZ);
@@ -187,7 +187,7 @@ public class EventHandler {
     }
 
     @SubscribeEvent
-    public void onOrbAddToNetwork(PlayerAddToNetworkEvent event) {
+    public void onItemAddToNetwork(PlayerAddToNetworkEvent event) {
         if (!event.player.worldObj.isRemote && event.itemStack != null) {
             if (event.itemStack.stackTagCompound.hasKey("SavedItemName")) {
                 String name = event.itemStack.stackTagCompound.getString("SavedItemName");

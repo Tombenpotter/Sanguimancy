@@ -14,10 +14,10 @@ public class TileRegistry {
         GameRegistry.registerTileEntity(TileBloodCleaner.class, "TileBloodCleaner");
         GameRegistry.registerTileEntity(TileBloodTank.class, "TileBloodTank");
         GameRegistry.registerTileEntity(TileDimensionalPortal.class, "TileDimensionalPortal");
-        GameRegistry.registerTileEntity(TileBoundItem.class, "TileBoundItem");
+        GameRegistry.registerTileEntity(TileItemSNPart.class, "TileItemSNPart");
         GameRegistry.registerTileEntity(TileBloodInterface.class, "TileBloodInterface");
-        GameRegistry.registerTileEntity(TileKnot.class, "TileKnot");
-        GameRegistry.registerTileEntity(TileBranch.class, "TileBranch");
-        GameRegistry.registerTileEntity(TilePart.class, "TilePart");
+        GameRegistry.registerTileEntity(TileSimpleSNKnot.class, "TileSimpleSNKnot");
+        GameRegistry.registerTileEntity(TileSimpleSNBranch.class, "TileSimpleSNBranch");
+        GameRegistry.registerTileEntity(TileToggleSNKnot.class, "TileToggleSNKnot");
     }
 }

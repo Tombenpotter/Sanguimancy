@@ -28,8 +28,12 @@ tile.Sanguimancy.bloodStoneSlab.name=Bloodstone Slab
 tile.Sanguimancy.largeBloodStoneSlab.name=Large Bloodstone Slab
 tile.Sanguimancy.doubleBloodStoneSlab.name=Bloodstone Slab
 tile.Sanguimancy.doubleLargeBloodStoneSlab.name=Large Bloodstone Slab
-tile.Sanguimancy.boundItem.name=Bound Item
+tile.Sanguimancy.itemSNPart.name=Item Manifestation
 tile.Sanguimancy.interface.name=Blood Interface
+tile.Sanguimancy.knotActivator.name=Soul Knot Activator
+tile.Sanguimancy.simpleSNKnot.name=Simple Soul Knot
+tile.Sanguimancy.toggleSNKnot.name=Toggled Soul Knot
+tile.Sanguimancy.simpleSNBranch.name=Simple Soul Branch
 
 #Items
 item.Sanguimancy.playerSacrificer.unattuned.name=Unattuned Player Sacrificing Stone

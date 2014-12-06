@@ -280,8 +280,6 @@ public class RandomUtils {
         public static ItemStack largeBloodstoneStairs = new ItemStack(BlocksRegistry.largeBloodStoneStairs);
         public static ItemStack bloodstoneSlab = new ItemStack(BlocksRegistry.bloodstoneSlab);
         public static ItemStack largeBloodstoneSlab = new ItemStack(BlocksRegistry.largeBloodstoneSlab);
-        public static ItemStack doubleBloodstoneSlab = new ItemStack(BlocksRegistry.doubleBloodstoneSlab);
-        public static ItemStack doubleLargeBloodstoneSlab = new ItemStack(BlocksRegistry.doubleLargeBloodstoneSlab);
         public static ItemStack boundItem = new ItemStack(BlocksRegistry.boundItem);
     }
 }

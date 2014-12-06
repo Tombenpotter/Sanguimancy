@@ -67,6 +67,7 @@ public class Sanguimancy {
         RecipesRegistry.registerOrbRecipes();
         EntitiesRegistry.registerEntities();
         if (ModList.computercraft.isLoaded()) PeripheralProvider.register();
+        RandomUtils.createSNDimension();
     }
 
     @Mod.EventHandler

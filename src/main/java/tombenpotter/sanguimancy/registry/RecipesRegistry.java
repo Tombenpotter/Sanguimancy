@@ -15,8 +15,8 @@ import net.minecraftforge.oredict.OreDictionary;
 import tombenpotter.sanguimancy.compat.computercraft.PeripheralProvider;
 import tombenpotter.sanguimancy.recipes.RecipeBloodCleanser;
 import tombenpotter.sanguimancy.recipes.RecipeCorruptedInfusion;
-import tombenpotter.sanguimancy.util.enums.ModList;
 import tombenpotter.sanguimancy.util.RandomUtils;
+import tombenpotter.sanguimancy.util.enums.ModList;
 
 public class RecipesRegistry {
 

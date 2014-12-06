@@ -7,4 +7,6 @@ public interface ISNKnot extends ISNComponent {
     public String getSNKnotOwner();
 
     public void setSNKnotOwner(String owner);
+
+    public void setKnotActive(boolean isActive);
 }

@@ -12,7 +12,7 @@ import tombenpotter.sanguimancy.entity.EntityPlayerPointer;
 import tombenpotter.sanguimancy.registry.BlocksRegistry;
 import tombenpotter.sanguimancy.tile.TileAltarDiviner;
 import tombenpotter.sanguimancy.tile.TileBloodInterface;
-import tombenpotter.sanguimancy.tile.TileBoundItem;
+import tombenpotter.sanguimancy.tile.TileItemSNPart;
 import tombenpotter.sanguimancy.tile.TileCorruptionCrystallizer;
 import tombenpotter.sanguimancy.util.EventHandler;
 
@@ -29,7 +29,7 @@ public class ClientProxy extends CommonProxy {
         ClientRegistry.bindTileEntitySpecialRenderer(TileAltarDiviner.class, new RenderAltarDiviner());
         ClientRegistry.bindTileEntitySpecialRenderer(TileCorruptionCrystallizer.class, new RenderCorruptionCrystallizer());
         RenderingRegistry.registerBlockHandler(BlocksRegistry.bloodTank.getRenderType(), new RenderBloodTank());
-        ClientRegistry.bindTileEntitySpecialRenderer(TileBoundItem.class, new RenderBoundItem());
+        ClientRegistry.bindTileEntitySpecialRenderer(TileItemSNPart.class, new RenderBoundItem());
         ClientRegistry.bindTileEntitySpecialRenderer(TileBloodInterface.class, new RenderBloodInterface());
 
         MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(BlocksRegistry.altarDiviner), new RenderAltarDiviner());

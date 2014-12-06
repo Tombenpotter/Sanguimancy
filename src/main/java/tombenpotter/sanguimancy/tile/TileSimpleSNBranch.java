@@ -1,13 +1,12 @@
 package tombenpotter.sanguimancy.tile;
 
 import net.minecraft.nbt.NBTTagCompound;
-import tombenpotter.sanguimancy.util.enums.EnumSNType;
 
-public class TilePart extends TileBaseSNPart {
+public class TileSimpleSNBranch extends TileBaseSNBranch {
 
     private NBTTagCompound custoomNBTTag;
 
-    public TilePart() {
+    public TileSimpleSNBranch() {
         custoomNBTTag = new NBTTagCompound();
     }
 
@@ -32,7 +31,7 @@ public class TilePart extends TileBaseSNPart {
     }
 
     @Override
-    public EnumSNType getType() {
-        return EnumSNType.ITEM;
+    public boolean isSNKnot() {
+        return false;
     }
 }
