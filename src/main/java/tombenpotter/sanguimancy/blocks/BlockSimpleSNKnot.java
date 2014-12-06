@@ -37,12 +37,11 @@ public class BlockSimpleSNKnot extends BlockContainer {
 
     @Override
     public void onNeighborBlockChange(World world, int x, int y, int z, Block neighborBlock) {
-        ISNComponent tile = (ISNComponent) world.getTileEntity(x, y, z);
-        if (!tile.getComponentsInNetwork().hashMap.isEmpty()) {
-            for (BlockPostition postition : tile.getComponentsInNetwork().hashMap.keySet()) {
-                if (!world.isAirBlock(postition.x, postition.y, postition.z)) {
-                    world.markBlockForUpdate(postition.x, postition.y, postition.z);
-                }
+        ISNComponent knot = (ISNComponent) world.getTileEntity(x, y, z);
+        if (!knot.getComponentsInNetwork().hashMap.isEmpty()) {
+            for (BlockPostition postition : knot.getComponentsInNetwork().hashMap.keySet()) {
+                ISNComponent component = (ISNComponent) postition.getTile(world);
+                component.onNetworkUpdate();
             }
         }
     }

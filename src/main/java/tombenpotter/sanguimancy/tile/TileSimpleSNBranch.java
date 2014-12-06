@@ -34,4 +34,8 @@ public class TileSimpleSNBranch extends TileBaseSNBranch {
     public boolean isSNKnot() {
         return false;
     }
+
+    @Override
+    public void onNetworkUpdate() {
+    }
 }

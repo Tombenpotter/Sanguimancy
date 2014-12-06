@@ -32,7 +32,7 @@ public abstract class TileBaseSNBranch extends TileEntity implements ISNBranch, 
     @Override
     public BoolAndBlockPosList getAdjacentComponents(BlockPostition originalPosition, BoolAndBlockPosList blockPosList) {
         for (BlockPostition postition : getAdjacentISNComponents()) {
-            if (postition != null) {
+            if (postition != null && !postition.equals(originalPosition)) {
                 if (!blockPosList.hashMap.containsKey(postition) && postition.getTile(worldObj) != null && postition.getTile(worldObj) instanceof ISNKnot) {
                     ISNKnot knot = (ISNKnot) postition.getTile(worldObj);
                     if (knot.isSNKnotactive()) blockPosList.hashMap.put(postition, knot.isSNKnot());

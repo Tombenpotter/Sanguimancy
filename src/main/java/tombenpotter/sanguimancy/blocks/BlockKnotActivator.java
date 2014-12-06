@@ -9,6 +9,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 import tombenpotter.sanguimancy.Sanguimancy;
 import tombenpotter.sanguimancy.tile.TileSimpleSNKnot;
+import tombenpotter.sanguimancy.util.interfaces.ISNComponent;
 
 public class BlockKnotActivator extends Block {
 
@@ -31,6 +32,8 @@ public class BlockKnotActivator extends Block {
                 TileSimpleSNKnot knot = (TileSimpleSNKnot) world.getTileEntity(x + direction.offsetX, y + direction.offsetY, z + direction.offsetZ);
                 if (world.getBlockPowerInput(x, y, z) > 0) knot.setKnotActive(false);
                 else knot.setKnotActive(true);
+                ISNComponent component = (ISNComponent) world.getTileEntity(x + direction.offsetX, y + direction.offsetY, z + direction.offsetZ);
+                component.onNetworkUpdate();
                 world.markBlockForUpdate(x, y, z);
             }
         }

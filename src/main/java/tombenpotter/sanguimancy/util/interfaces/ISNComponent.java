@@ -12,4 +12,6 @@ public interface ISNComponent {
     public BoolAndBlockPosList getComponentsInNetwork();
 
     public boolean isSNKnot();
+
+    public void onNetworkUpdate();
 }

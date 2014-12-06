@@ -62,4 +62,8 @@ public class TileSimpleSNKnot extends TileBaseSNKnot {
     public boolean isSNKnot() {
         return true;
     }
+
+    @Override
+    public void onNetworkUpdate() {
+    }
 }

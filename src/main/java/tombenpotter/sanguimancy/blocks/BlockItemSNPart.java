@@ -13,9 +13,7 @@ import net.minecraft.world.World;
 import tombenpotter.sanguimancy.Sanguimancy;
 import tombenpotter.sanguimancy.tile.TileItemSNPart;
 import tombenpotter.sanguimancy.util.BlockPostition;
-import tombenpotter.sanguimancy.util.BoundItemState;
-import tombenpotter.sanguimancy.util.interfaces.ISNKnot;
-import tombenpotter.sanguimancy.util.interfaces.ISNPart;
+import tombenpotter.sanguimancy.util.interfaces.ISNComponent;
 import tombenpotter.sanguimancy.util.singletons.BoundItems;
 
 import java.util.Random;
@@ -87,24 +85,11 @@ public class BlockItemSNPart extends BlockContainer {
 
     @Override
     public void onNeighborBlockChange(World world, int x, int y, int z, Block neighborBlock) {
-        TileItemSNPart tile = (TileItemSNPart) world.getTileEntity(x, y, z);
-        for (BlockPostition postition : tile.getComponentsInNetwork().hashMap.keySet()) {
-            world.markBlockForUpdate(postition.x, postition.y, postition.z);
-        }
-        ISNPart part = (ISNPart) world.getTileEntity(x, y, z);
-        if (!part.getSNKnots().isEmpty()) {
-            for (BlockPostition postition : part.getSNKnots()) {
-                ISNKnot knot = (ISNKnot) postition.getTile(world);
-                if (!world.isRemote) {
-                    if (!knot.isSNKnotactive()) {
-                        BoundItems.getBoundItems().removeItem(tile.getCustomNBTTag().getString("SavedItemName"));
-                        BoundItems.getBoundItems().addItem(tile.getCustomNBTTag().getString("SavedItemName"), new BoundItemState(x, y, z, world.provider.dimensionId, true));
-                    } else {
-                        BoundItems.getBoundItems().removeItem(tile.getCustomNBTTag().getString("SavedItemName"));
-                        BoundItems.getBoundItems().addItem(tile.getCustomNBTTag().getString("SavedItemName"), new BoundItemState(x, y, z, world.provider.dimensionId, false));
-
-                    }
-                }
+        ISNComponent branch = (ISNComponent) world.getTileEntity(x, y, z);
+        if (!branch.getComponentsInNetwork().hashMap.isEmpty()) {
+            for (BlockPostition postition : branch.getComponentsInNetwork().hashMap.keySet()) {
+                ISNComponent component = (ISNComponent) postition.getTile(world);
+                component.onNetworkUpdate();
             }
         }
     }

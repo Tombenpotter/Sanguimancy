@@ -34,9 +34,12 @@ public class BlockSimpleSNBranch extends BlockContainer {
 
     @Override
     public void onNeighborBlockChange(World world, int x, int y, int z, Block neighborBlock) {
-        ISNComponent tile = (ISNComponent) world.getTileEntity(x, y, z);
-        for (BlockPostition postition : tile.getComponentsInNetwork().hashMap.keySet()) {
-            world.markBlockForUpdate(postition.x, postition.y, postition.z);
+        ISNComponent branch = (ISNComponent) world.getTileEntity(x, y, z);
+        if (!branch.getComponentsInNetwork().hashMap.isEmpty()) {
+            for (BlockPostition postition : branch.getComponentsInNetwork().hashMap.keySet()) {
+                ISNComponent component = (ISNComponent) postition.getTile(world);
+                component.onNetworkUpdate();
+            }
         }
     }
 }
