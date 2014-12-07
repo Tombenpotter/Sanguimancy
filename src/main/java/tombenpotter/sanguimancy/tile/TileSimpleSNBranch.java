@@ -1,6 +1,7 @@
 package tombenpotter.sanguimancy.tile;
 
 import net.minecraft.nbt.NBTTagCompound;
+import tombenpotter.sanguimancy.util.BlockPostition;
 
 public class TileSimpleSNBranch extends TileBaseSNBranch {
 
@@ -36,6 +37,6 @@ public class TileSimpleSNBranch extends TileBaseSNBranch {
     }
 
     @Override
-    public void onNetworkUpdate() {
+    public void onNetworkUpdate(BlockPostition originalPosition) {
     }
 }

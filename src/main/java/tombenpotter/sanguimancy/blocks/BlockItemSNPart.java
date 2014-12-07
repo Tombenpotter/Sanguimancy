@@ -89,7 +89,7 @@ public class BlockItemSNPart extends BlockContainer {
         if (!branch.getComponentsInNetwork().hashMap.isEmpty()) {
             for (BlockPostition postition : branch.getComponentsInNetwork().hashMap.keySet()) {
                 ISNComponent component = (ISNComponent) postition.getTile(world);
-                component.onNetworkUpdate();
+                component.onNetworkUpdate(new BlockPostition(x, y, z));
             }
         }
     }

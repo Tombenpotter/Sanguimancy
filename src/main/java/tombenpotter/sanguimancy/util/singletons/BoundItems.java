@@ -70,7 +70,7 @@ public class BoundItems implements Serializable {
 
     public boolean addItem(String name, BoundItemState location) {
         if (!items.isEmpty() && items.get(name) != null) {
-            Sanguimancy.logger.info("Location " + name + " already exists.");
+            Sanguimancy.logger.info("State " + name + " already exists.");
             updateFile(fileName, items);
             return false;
         } else {
@@ -82,14 +82,14 @@ public class BoundItems implements Serializable {
     }
 
     public boolean removeItem(String name) {
-        if (items.get(name) != null && !items.isEmpty()) {
+        if (items != null && !items.isEmpty() && items.get(name) != null) {
             if (items.containsKey(name)) {
                 items.remove(name);
                 Sanguimancy.logger.info("Removing " + name);
                 updateFile(fileName, items);
                 return true;
             } else {
-                Sanguimancy.logger.info("No location matching " + name);
+                Sanguimancy.logger.info("No state matching " + name);
                 updateFile(fileName, items);
                 return false;
             }

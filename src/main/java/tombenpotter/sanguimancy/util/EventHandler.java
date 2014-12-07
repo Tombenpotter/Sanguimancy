@@ -177,7 +177,6 @@ public class EventHandler {
                     event.setResult(Event.Result.DENY);
                 } else if (!BoundItems.getBoundItems().getLinkedLocation(name).activated) {
                     event.player.addChatComponentMessage(new ChatComponentText("HAHA YOU SUCK - DEACTIVATED"));
-                    RandomUtils.unbindItemStack(event.itemStack);
                     event.setResult(Event.Result.DENY);
                 }
             } else {

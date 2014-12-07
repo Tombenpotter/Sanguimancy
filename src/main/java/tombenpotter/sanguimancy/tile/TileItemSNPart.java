@@ -14,7 +14,6 @@ import net.minecraft.util.StatCollector;
 import tombenpotter.sanguimancy.util.BlockPostition;
 import tombenpotter.sanguimancy.util.BoundItemState;
 import tombenpotter.sanguimancy.util.enums.EnumSNType;
-import tombenpotter.sanguimancy.util.interfaces.ISNComponent;
 import tombenpotter.sanguimancy.util.interfaces.ISNKnot;
 import tombenpotter.sanguimancy.util.singletons.BoundItems;
 
@@ -185,26 +184,22 @@ public class TileItemSNPart extends TileBaseSNPart implements IInventory {
     }
 
     @Override
-    public void onNetworkUpdate() {
-        for (BlockPostition postition : getComponentsInNetwork().hashMap.keySet()) {
-            ISNComponent component = (ISNComponent) postition.getTile(worldObj);
-            component.onNetworkUpdate();
-        }
+    public void onNetworkUpdate(BlockPostition originalPosition) {
         if (!getSNKnots().isEmpty()) {
             for (BlockPostition postition : getSNKnots()) {
                 ISNKnot knot = (ISNKnot) postition.getTile(worldObj);
-                if (!worldObj.isRemote) {
-                    if (!knot.isSNKnotactive()) {
-                        BoundItems.getBoundItems().removeItem(getCustomNBTTag().getString("SavedItemName"));
-                        BoundItems.getBoundItems().addItem(getCustomNBTTag().getString("SavedItemName"), new BoundItemState(xCoord, yCoord, zCoord, worldObj.provider.dimensionId, true));
-                    } else {
-                        BoundItems.getBoundItems().removeItem(getCustomNBTTag().getString("SavedItemName"));
-                        BoundItems.getBoundItems().addItem(getCustomNBTTag().getString("SavedItemName"), new BoundItemState(xCoord, yCoord, zCoord, worldObj.provider.dimensionId, false));
-
-                    }
-                }
+                BoundItems.getBoundItems().removeItem(getCustomNBTTag().getString("SavedItemName"));
+                BoundItems.getBoundItems().addItem(getCustomNBTTag().getString("SavedItemName"), new BoundItemState(xCoord, yCoord, zCoord, worldObj.provider.dimensionId, knot.isSNKnotactive()));
             }
+        } else {
+            BoundItems.getBoundItems().removeItem(getCustomNBTTag().getString("SavedItemName"));
+            BoundItems.getBoundItems().addItem(getCustomNBTTag().getString("SavedItemName"), new BoundItemState(xCoord, yCoord, zCoord, worldObj.provider.dimensionId, false));
         }
+    }
+
+    public void disablePart(Boolean bool) {
+        BoundItems.getBoundItems().removeItem(getCustomNBTTag().getString("SavedItemName"));
+        BoundItems.getBoundItems().addItem(getCustomNBTTag().getString("SavedItemName"), new BoundItemState(xCoord, yCoord, zCoord, worldObj.provider.dimensionId, bool));
     }
 
     @Override

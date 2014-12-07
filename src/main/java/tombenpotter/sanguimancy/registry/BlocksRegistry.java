@@ -28,7 +28,6 @@ public class BlocksRegistry {
     public static Block boundItem;
     public static Block bloodInterface;
 
-    public static Block knotActivator;
     public static Block simpleKnot;
     public static Block toggleKnot;
     public static Block simpleBranch;
@@ -75,9 +74,6 @@ public class BlocksRegistry {
 
         bloodInterface = new BlockBloodInterface();
         GameRegistry.registerBlock(bloodInterface, "BlockBloodInterface").setBlockName(Sanguimancy.modid + ".interface");
-
-        knotActivator = new BlockKnotActivator(Material.iron);
-        GameRegistry.registerBlock(knotActivator, "BlockKnotActivator").setBlockName(Sanguimancy.modid + ".knotActivator");
 
         simpleKnot = new BlockSimpleSNKnot(Material.iron);
         GameRegistry.registerBlock(simpleKnot, "BlockSimpleSoulKnot").setBlockName(Sanguimancy.modid + ".simpleSNKnot");

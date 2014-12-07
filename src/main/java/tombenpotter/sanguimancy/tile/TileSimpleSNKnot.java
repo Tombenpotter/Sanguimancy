@@ -1,15 +1,19 @@
 package tombenpotter.sanguimancy.tile;
 
+import WayofTime.alchemicalWizardry.ModItems;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import tombenpotter.sanguimancy.util.BlockPostition;
 
 public class TileSimpleSNKnot extends TileBaseSNKnot {
 
     public String knotOwner;
     private NBTTagCompound custoomNBTTag;
-    public boolean knotActive = true;
+    public boolean knotActive;
 
     public TileSimpleSNKnot() {
         custoomNBTTag = new NBTTagCompound();
+        knotActive = true;
     }
 
     @Override
@@ -64,6 +68,22 @@ public class TileSimpleSNKnot extends TileBaseSNKnot {
     }
 
     @Override
-    public void onNetworkUpdate() {
+    public void onNetworkUpdate(BlockPostition originalPosition) {
+    }
+
+    public boolean onBlockRightClicked(ItemStack stack) {
+        if (stack != null) {
+            if (stack.isItemEqual(new ItemStack(ModItems.divinationSigil)) || stack.isItemEqual(new ItemStack(ModItems.itemSeerSigil))) {
+                for (BlockPostition postition : getSNParts()) {
+                    if (postition != null && postition.getTile(worldObj) != null && postition.getTile(worldObj) instanceof TileItemSNPart) {
+                        TileItemSNPart part = (TileItemSNPart) postition.getTile(worldObj);
+                        part.disablePart(!isSNKnotactive());
+                    }
+                }
+                setKnotActive(!isSNKnotactive());
+                return true;
+            }
+        }
+        return false;
     }
 }

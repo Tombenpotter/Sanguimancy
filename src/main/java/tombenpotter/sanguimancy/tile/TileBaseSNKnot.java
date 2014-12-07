@@ -7,8 +7,24 @@ import tombenpotter.sanguimancy.util.BoolAndBlockPosList;
 import tombenpotter.sanguimancy.util.interfaces.ICustomNBTTag;
 import tombenpotter.sanguimancy.util.interfaces.ISNComponent;
 import tombenpotter.sanguimancy.util.interfaces.ISNKnot;
+import tombenpotter.sanguimancy.util.interfaces.ISNPart;
+
+import java.util.ArrayList;
+import java.util.HashMap;
 
 public abstract class TileBaseSNKnot extends TileEntity implements ISNKnot, ICustomNBTTag {
+
+    @Override
+    public ArrayList<BlockPostition> getSNParts() {
+        ArrayList<BlockPostition> list = new ArrayList<BlockPostition>();
+        HashMap<BlockPostition, Boolean> map = getComponentsInNetwork().hashMap;
+        for (BlockPostition postition : map.keySet()) {
+            if (postition.getTile(worldObj) != null && postition.getTile(worldObj) instanceof ISNPart) {
+                list.add(postition);
+            }
+        }
+        return list;
+    }
 
     @Override
     public BoolAndBlockPosList getComponentsInNetwork() {

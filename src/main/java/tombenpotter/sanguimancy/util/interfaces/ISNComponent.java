@@ -13,5 +13,5 @@ public interface ISNComponent {
 
     public boolean isSNKnot();
 
-    public void onNetworkUpdate();
+    public void onNetworkUpdate(BlockPostition originalPosition);
 }
