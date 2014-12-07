@@ -7,36 +7,51 @@ import tombenpotter.sanguimancy.util.BoundItemState;
 import java.io.*;
 import java.util.HashMap;
 
-public class BoundItems implements Serializable {
-    private static HashMap<String, BoundItemState> items;
+public class BoundItems {
+    private HashMap<String, BoundItemState> items;
     private static BoundItems boundItems;
     private static final String fileName = String.valueOf(DimensionManager.getCurrentSaveRootDirectory()) + "/" + Sanguimancy.texturePath + "/BoundItems.dat";
 
     private BoundItems() {
-        items = new HashMap<String, BoundItemState>();
+
     }
 
     public static BoundItems getBoundItems() {
-        if (boundItems == null || loadFile(fileName) == null) {
+        /*if (boundItems == null && loadFile(fileName) == null) {
             boundItems = new BoundItems();
+            updateFile(fileName, items);
             return boundItems;
         } else {
             items = loadFile(fileName);
             return boundItems;
+        }*/
+
+        if( boundItems == null )
+        {
+            boundItems = new BoundItems();
+            boundItems.loadFile();
         }
+
+        if( boundItems.items == null )
+        {
+            boundItems.items = new HashMap<String, BoundItemState>();
+            boundItems.updateFile();
+        }
+
+        return boundItems;
     }
 
-    private static HashMap<String, BoundItemState> loadFile(String name) {
+    private /*HashMap<String, BoundItemState>*/void loadFile() {
         HashMap<String, BoundItemState> map = null;
-        File file = new File(name);
+        File file = new File(fileName);
         try {
             if (!file.exists()) {
                 if (file.getParentFile().mkdir()) {
                     if (file.createNewFile()) {
-                        Sanguimancy.logger.info("Creating " + name + " in " + String.valueOf(DimensionManager.getCurrentSaveRootDirectory()));
+                        Sanguimancy.logger.info("Creating " + fileName + " in " + String.valueOf(DimensionManager.getCurrentSaveRootDirectory()));
                     }
                 } else if (file.createNewFile()) {
-                    Sanguimancy.logger.info("Creating " + name + " in " + String.valueOf(DimensionManager.getCurrentSaveRootDirectory()));
+                    Sanguimancy.logger.info("Creating " + fileName + " in " + String.valueOf(DimensionManager.getCurrentSaveRootDirectory()));
                 } else {
                     throw new IOException("Failed to create directory " + file.getParent());
                 }
@@ -46,21 +61,21 @@ public class BoundItems implements Serializable {
             map = (HashMap<String, BoundItemState>) in.readObject();
             in.close();
             fileIn.close();
-            return map;
+            items = map;
+            //return map;
         } catch (IOException e) {
             e.printStackTrace();
-            return null;
+            //return null;
         } catch (ClassNotFoundException e) {
             Sanguimancy.logger.error(String.valueOf(file) + " was not found in " + String.valueOf(DimensionManager.getCurrentSaveRootDirectory()));
-            return null;
         }
     }
 
-    private static void updateFile(String file, HashMap<String, BoundItemState> object) {
+    private void updateFile() {
         try {
-            FileOutputStream fos = new FileOutputStream(file);
+            FileOutputStream fos = new FileOutputStream(fileName);
             ObjectOutputStream oos = new ObjectOutputStream(fos);
-            oos.writeObject(object);
+            oos.writeObject(items);
             oos.close();
         } catch (IOException e) {
             e.printStackTrace();
@@ -70,12 +85,12 @@ public class BoundItems implements Serializable {
     public boolean addItem(String name, BoundItemState location) {
         if (!items.isEmpty() && items.get(name) != null) {
             Sanguimancy.logger.info("Location " + name + " already exists.");
-            updateFile(fileName, items);
+            updateFile();
             return false;
         } else {
             items.put(name, location);
             Sanguimancy.logger.info("Adding " + name);
-            updateFile(fileName, items);
+            updateFile();
             return true;
         }
     }
@@ -85,11 +100,11 @@ public class BoundItems implements Serializable {
             if (items.containsKey(name)) {
                 items.remove(name);
                 Sanguimancy.logger.info("Removing " + name);
-                updateFile(fileName, items);
+                updateFile();
                 return true;
             } else {
                 Sanguimancy.logger.info("No location matching " + name);
-                updateFile(fileName, items);
+                updateFile();
                 return false;
             }
         }
