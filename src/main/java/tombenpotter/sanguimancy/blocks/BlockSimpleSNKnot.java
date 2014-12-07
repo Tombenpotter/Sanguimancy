@@ -9,7 +9,6 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.ChatComponentText;
 import net.minecraft.world.World;
 import tombenpotter.sanguimancy.Sanguimancy;
 import tombenpotter.sanguimancy.tile.TileSimpleSNKnot;
@@ -47,9 +46,6 @@ public class BlockSimpleSNKnot extends BlockContainer {
         if (world.getTileEntity(x, y, z) != null && world.getTileEntity(x, y, z) instanceof TileSimpleSNKnot) {
             TileSimpleSNKnot tile = (TileSimpleSNKnot) world.getTileEntity(x, y, z);
             if (tile.onBlockRightClicked(player.getHeldItem())) {
-                if (!world.isRemote) {
-                    player.addChatComponentMessage(new ChatComponentText(String.valueOf(tile.isSNKnotactive())));
-                }
                 return true;
             }
         }

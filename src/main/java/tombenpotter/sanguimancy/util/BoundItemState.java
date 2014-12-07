@@ -15,7 +15,7 @@ public class BoundItemState implements Serializable {
     public int y;
     public int z;
     public int dimID;
-    public boolean activated;
+    public Boolean activated;
 
     public BoundItemState(int xPos, int yPos, int zPos, int dimensionID, boolean isActivated) {
         x = xPos;
@@ -51,5 +51,15 @@ public class BoundItemState implements Serializable {
 
     public TileEntity getTileEntity(World world) {
         return world.getTileEntity(x, y, z);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        return o instanceof BoundItemState ? (((BoundItemState) o).x == this.x && ((BoundItemState) o).y == this.y && ((BoundItemState) o).z == this.z && ((BoundItemState) o).dimID == this.dimID && ((BoundItemState) o).activated == this.activated) : false;
+    }
+
+    @Override
+    public int hashCode() {
+        return this.x * 2811 + this.y * 1128 + this.z * 2607 + this.dimID * 0726 + (activated == true ? 1 : 0);
     }
 }

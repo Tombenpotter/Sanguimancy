@@ -8,7 +8,6 @@ import java.io.*;
 import java.util.HashMap;
 
 public class BoundItems implements Serializable {
-
     private static HashMap<String, BoundItemState> items;
     private static BoundItems boundItems;
     private static final String fileName = String.valueOf(DimensionManager.getCurrentSaveRootDirectory()) + "/" + Sanguimancy.texturePath + "/BoundItems.dat";
@@ -70,7 +69,7 @@ public class BoundItems implements Serializable {
 
     public boolean addItem(String name, BoundItemState location) {
         if (!items.isEmpty() && items.get(name) != null) {
-            Sanguimancy.logger.info("State " + name + " already exists.");
+            Sanguimancy.logger.info("Location " + name + " already exists.");
             updateFile(fileName, items);
             return false;
         } else {
@@ -82,14 +81,14 @@ public class BoundItems implements Serializable {
     }
 
     public boolean removeItem(String name) {
-        if (items != null && !items.isEmpty() && items.get(name) != null) {
+        if (items.get(name) != null && !items.isEmpty()) {
             if (items.containsKey(name)) {
                 items.remove(name);
                 Sanguimancy.logger.info("Removing " + name);
                 updateFile(fileName, items);
                 return true;
             } else {
-                Sanguimancy.logger.info("No state matching " + name);
+                Sanguimancy.logger.info("No location matching " + name);
                 updateFile(fileName, items);
                 return false;
             }
@@ -105,4 +104,3 @@ public class BoundItems implements Serializable {
         return items.get(name);
     }
 }
-

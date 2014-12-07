@@ -281,5 +281,8 @@ public class RandomUtils {
         public static ItemStack bloodstoneSlab = new ItemStack(BlocksRegistry.bloodstoneSlab);
         public static ItemStack largeBloodstoneSlab = new ItemStack(BlocksRegistry.largeBloodstoneSlab);
         public static ItemStack boundItem = new ItemStack(BlocksRegistry.boundItem);
+        public static ItemStack simpleBranch = new ItemStack(BlocksRegistry.simpleBranch);
+        public static ItemStack simpleKnot = new ItemStack(BlocksRegistry.simpleKnot);
+        public static ItemStack toggleKnot = new ItemStack(BlocksRegistry.toggleKnot);
     }
 }

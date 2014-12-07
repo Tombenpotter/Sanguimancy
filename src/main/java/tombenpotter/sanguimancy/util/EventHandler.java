@@ -148,7 +148,7 @@ public class EventHandler {
             int baseZ = (chunkCoords.chunkZPos << 4) + (dimWorld.rand.nextInt(16) + 1);
             int baseY = dimWorld.getTopSolidOrLiquidBlock(baseX, baseZ) + dimWorld.rand.nextInt(4);
             BoundItemState boundItemState = new BoundItemState(baseX, baseY, baseZ, dimID, true);
-            String name = String.valueOf(dimID) + String.valueOf(baseX) + String.valueOf(baseY) + String.valueOf(baseZ) + event.itemStack.getUnlocalizedName() + event.itemStack.getDisplayName() + event.itemStack.toString() + event.player.getCommandSenderName() + String.valueOf(boundItemState.activated);
+            String name = String.valueOf(dimID) + String.valueOf(baseX) + String.valueOf(baseY) + String.valueOf(baseZ) + event.itemStack.getUnlocalizedName() + event.itemStack.getDisplayName() + event.itemStack.getItemDamage() + event.player.getCommandSenderName();
 
             if (dimWorld.isAirBlock(baseX, baseY, baseZ)) {
                 RandomUtils.checkAndSetCompound(event.itemStack);
@@ -163,6 +163,7 @@ public class EventHandler {
                     }
                 }
             }
+            event.player.addChatComponentMessage(new ChatComponentText(StatCollector.translateToLocal("chat.Sanguimancy.added")));
         }
     }
 
@@ -172,11 +173,11 @@ public class EventHandler {
             if (event.itemStack.stackTagCompound.hasKey("SavedItemName")) {
                 String name = event.itemStack.stackTagCompound.getString("SavedItemName");
                 if (!BoundItems.getBoundItems().hasKey(name)) {
-                    event.player.addChatComponentMessage(new ChatComponentText("HAHA YOU SUCK - REMOVE"));
+                    event.player.addChatComponentMessage(new ChatComponentText(StatCollector.translateToLocal("chat.Sanguimancy.removed")));
                     RandomUtils.unbindItemStack(event.itemStack);
                     event.setResult(Event.Result.DENY);
                 } else if (!BoundItems.getBoundItems().getLinkedLocation(name).activated) {
-                    event.player.addChatComponentMessage(new ChatComponentText("HAHA YOU SUCK - DEACTIVATED"));
+                    event.player.addChatComponentMessage(new ChatComponentText(StatCollector.translateToLocal("chat.Sanguimancy.deactivated")));
                     event.setResult(Event.Result.DENY);
                 }
             } else {
@@ -191,10 +192,10 @@ public class EventHandler {
             if (event.itemStack.stackTagCompound.hasKey("SavedItemName")) {
                 String name = event.itemStack.stackTagCompound.getString("SavedItemName");
                 if (!BoundItems.getBoundItems().hasKey(name)) {
-                    event.player.addChatComponentMessage(new ChatComponentText("HAHA YOU SUCK - ADD"));
+                    event.player.addChatComponentMessage(new ChatComponentText(StatCollector.translateToLocal("chat.Sanguimancy.removed")));
                     event.setResult(Event.Result.DENY);
                 } else if (!BoundItems.getBoundItems().getLinkedLocation(name).activated) {
-                    event.player.addChatComponentMessage(new ChatComponentText("HAHA YOU SUCK - DEACTIVATED"));
+                    event.player.addChatComponentMessage(new ChatComponentText(StatCollector.translateToLocal("chat.Sanguimancy.deactivated")));
                     event.setResult(Event.Result.DENY);
                 }
             } else {
@@ -204,7 +205,7 @@ public class EventHandler {
     }
 
     public static class ClientEventHandler {
-        public static KeyBinding keySearchPlayer = new KeyBinding("key.Sanguimancy.search", Keyboard.KEY_F, Sanguimancy.modid);
+        public static KeyBinding keySearchPlayer = new KeyBinding(StatCollector.translateToLocal("key.Sanguimancy.search"), Keyboard.KEY_F, Sanguimancy.modid);
 
         public ClientEventHandler() {
             ClientRegistry.registerKeyBinding(keySearchPlayer);

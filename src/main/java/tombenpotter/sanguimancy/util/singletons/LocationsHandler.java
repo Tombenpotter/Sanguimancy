@@ -13,34 +13,33 @@ public class LocationsHandler implements Serializable {
     private static HashMap<String, ArrayList<PortalLocation>> portals;
     private static LocationsHandler locationsHandler;
     private static final String fileName = String.valueOf(DimensionManager.getCurrentSaveRootDirectory()) + "/" + Sanguimancy.texturePath + "/PortalLocations.dat";
+    public static final long serialVersionUID = 10102001;
 
     private LocationsHandler() {
         portals = new HashMap<String, ArrayList<PortalLocation>>();
     }
 
     public static LocationsHandler getLocationsHandler() {
-        if (locationsHandler == null || loadFile(fileName) == null) {
+        if (locationsHandler == null || loadFile() == null) {
             locationsHandler = new LocationsHandler();
             return locationsHandler;
         } else {
-            portals = loadFile(fileName);
+            portals = loadFile();
             return locationsHandler;
         }
     }
 
-    private static HashMap<String, ArrayList<PortalLocation>> loadFile(String name) {
-        HashMap<String, ArrayList<PortalLocation>> map = null;
-        File file = new File(name);
+    private static HashMap<String, ArrayList<PortalLocation>> loadFile() {
+        HashMap<String, ArrayList<PortalLocation>> map;
+        File file = new File(fileName);
         try {
             if (!file.exists()) {
                 if (file.getParentFile().mkdir()) {
                     if (file.createNewFile()) {
-                        Sanguimancy.logger.info("Creating " + name + " in " + String.valueOf(DimensionManager.getCurrentSaveRootDirectory()));
+                        Sanguimancy.logger.info("Creating " + fileName + " in " + String.valueOf(DimensionManager.getCurrentSaveRootDirectory()));
                     }
                 } else if (file.createNewFile()) {
-                    Sanguimancy.logger.info("Creating " + name + " in " + String.valueOf(DimensionManager.getCurrentSaveRootDirectory()));
-                } else {
-                    throw new IOException("Failed to create directory " + file.getParent());
+                    Sanguimancy.logger.info("Creating " + fileName + " in " + String.valueOf(DimensionManager.getCurrentSaveRootDirectory()));
                 }
             }
             FileInputStream fileIn = new FileInputStream(file);

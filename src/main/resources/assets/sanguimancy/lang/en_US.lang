@@ -75,6 +75,9 @@ chat.Sanguimancy.blood.required=Blood Required
 chat.Sanguimancy.soul.corruption=Soul Corruption
 chat.Sanguimancy.not.enough.LP=You don't seem to have enough LP
 chat.Sanguimancy.bound.item=Bound Item
+chat.Sanguimancy.deactivated=The item's ties to your Soul seem to be weakened to the point of not working.
+chat.Sanguimancy.removed=The item's ties to your Soul seem to be severed.
+chat.Sanguimancy.added=You feel something creating ties to your Soul.
 
 #Tooltips
 info.Sanguimancy.tooltip.shift.info=Press Shift for info

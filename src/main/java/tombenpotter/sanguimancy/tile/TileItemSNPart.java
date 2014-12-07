@@ -198,8 +198,10 @@ public class TileItemSNPart extends TileBaseSNPart implements IInventory {
     }
 
     public void disablePart(Boolean bool) {
-        BoundItems.getBoundItems().removeItem(getCustomNBTTag().getString("SavedItemName"));
-        BoundItems.getBoundItems().addItem(getCustomNBTTag().getString("SavedItemName"), new BoundItemState(xCoord, yCoord, zCoord, worldObj.provider.dimensionId, bool));
+        if (!worldObj.isRemote) {
+            BoundItems.getBoundItems().removeItem(getCustomNBTTag().getString("SavedItemName"));
+            BoundItems.getBoundItems().addItem(getCustomNBTTag().getString("SavedItemName"), new BoundItemState(xCoord, yCoord, zCoord, worldObj.provider.dimensionId, bool));
+        }
     }
 
     @Override
