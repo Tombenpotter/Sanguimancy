@@ -9,6 +9,9 @@ import tombenpotter.sanguimancy.util.interfaces.ISNBranch;
 import tombenpotter.sanguimancy.util.interfaces.ISNComponent;
 import tombenpotter.sanguimancy.util.interfaces.ISNKnot;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 public abstract class TileBaseSNBranch extends TileEntity implements ISNBranch, ICustomNBTTag {
 
     @Override
@@ -59,5 +62,14 @@ public abstract class TileBaseSNBranch extends TileEntity implements ISNBranch, 
             i++;
         }
         return adjacentBranches;
+    }
+
+    public ArrayList<BlockPostition> getSNKnots() {
+        ArrayList<BlockPostition> list = new ArrayList<BlockPostition>();
+        HashMap<BlockPostition, Boolean> map = getComponentsInNetwork().hashMap;
+        for (BlockPostition postition : map.keySet()) {
+            if (map.get(postition)) list.add(postition);
+        }
+        return list;
     }
 }

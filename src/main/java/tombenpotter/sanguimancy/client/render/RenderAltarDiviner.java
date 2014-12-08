@@ -155,7 +155,6 @@ public class RenderAltarDiviner extends TileEntitySpecialRenderer implements IIt
     }
 
     private void render(float x, float y, float z, float size) {
-
         FMLClientHandler.instance().getClient().renderEngine.bindTexture(texture);
         GL11.glPushMatrix(); // start
         GL11.glScalef(size, size, size);
