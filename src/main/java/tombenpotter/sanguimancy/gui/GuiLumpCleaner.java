@@ -18,7 +18,7 @@ public class GuiLumpCleaner extends GuiContainer {
     @SuppressWarnings("unused")
     public ContainerLumpCleaner container;
     public TileBloodCleaner te;
-    String containerName = "Ore Lump Cleaner";
+    String containerName = "Blood Cleanser";
 
     public GuiLumpCleaner(EntityPlayer player, TileBloodCleaner tile) {
         super(new ContainerLumpCleaner(player, tile));

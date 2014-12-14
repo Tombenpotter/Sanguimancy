@@ -13,6 +13,7 @@ public class ItemsRegistry {
     public static Item oreLump;
     public static Item bloodAmulet;
     public static Item wand;
+    public static Item chunkClaimer;
 
     public static void registerItems() {
         playerSacrificer = new ItemPlayerSacrificer();
@@ -35,5 +36,8 @@ public class ItemsRegistry {
 
         wand = new ItemWand();
         GameRegistry.registerItem(wand, "wand");
+
+        chunkClaimer = new ItemChunkClaimer();
+        GameRegistry.registerItem(chunkClaimer, "chunkClaimer");
     }
 }

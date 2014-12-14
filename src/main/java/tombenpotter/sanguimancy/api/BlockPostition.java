@@ -7,11 +7,11 @@ import net.minecraft.world.World;
 
 public class BlockPostition {
 
-    public int x;
-    public int y;
-    public int z;
+    public double x;
+    public double y;
+    public double z;
 
-    public BlockPostition(int posX, int posY, int posZ) {
+    public BlockPostition(double posX, double posY, double posZ) {
         x = posX;
         y = posY;
         z = posZ;
@@ -30,26 +30,26 @@ public class BlockPostition {
 
     @Override
     public int hashCode() {
-        return this.x * 1912 + this.y * 1219 + this.z;
+        return (int) (this.x * 1912 + this.y * 1219 + this.z);
     }
 
     public Block getBlock(World world) {
-        return world.getBlock(x, y, z);
+        return world.getBlock((int) x, (int) y, (int) z);
     }
 
     public TileEntity getTile(World world) {
-        return world.getTileEntity(x, y, z);
+        return world.getTileEntity((int) x, (int) y, (int) z);
     }
 
     public void readFromNBT(NBTTagCompound tag) {
-        x = tag.getCompoundTag("BlockPostition").getInteger("posX");
-        y = tag.getCompoundTag("BlockPostition").getInteger("posY");
-        z = tag.getCompoundTag("BlockPostition").getInteger("posZ");
+        x = tag.getCompoundTag("BlockPostition").getDouble("posX");
+        y = tag.getCompoundTag("BlockPostition").getDouble("posY");
+        z = tag.getCompoundTag("BlockPostition").getDouble("posZ");
     }
 
     public void writeToNBT(NBTTagCompound tag) {
-        tag.getCompoundTag("BlockPostition").setInteger("posX", x);
-        tag.getCompoundTag("BlockPostition").setInteger("posY", y);
-        tag.getCompoundTag("BlockPostition").setInteger("posZ", z);
+        tag.getCompoundTag("BlockPostition").setDouble("posX", x);
+        tag.getCompoundTag("BlockPostition").setDouble("posY", y);
+        tag.getCompoundTag("BlockPostition").setDouble("posZ", z);
     }
 }

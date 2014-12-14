@@ -13,7 +13,6 @@ public class BoundItems {
     private static final String fileName = String.valueOf(DimensionManager.getCurrentSaveRootDirectory()) + "/" + Sanguimancy.texturePath + "/BoundItems.dat";
 
     private BoundItems() {
-
     }
 
     public static BoundItems getBoundItems() {
@@ -49,8 +48,10 @@ public class BoundItems {
             in.close();
             fileIn.close();
             items = map;
+
         } catch (IOException e) {
             e.printStackTrace();
+            //return null;
         } catch (ClassNotFoundException e) {
             Sanguimancy.logger.error(String.valueOf(file) + " was not found in " + String.valueOf(DimensionManager.getCurrentSaveRootDirectory()));
         }

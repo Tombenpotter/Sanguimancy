@@ -24,7 +24,6 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
-import net.minecraft.world.ChunkCoordIntPair;
 import net.minecraft.world.WorldServer;
 import net.minecraftforge.client.event.RenderPlayerEvent;
 import net.minecraftforge.common.ForgeChunkManager;
@@ -41,6 +40,7 @@ import tombenpotter.sanguimancy.registry.BlocksRegistry;
 import tombenpotter.sanguimancy.registry.ItemsRegistry;
 import tombenpotter.sanguimancy.tile.TileItemSNPart;
 import tombenpotter.sanguimancy.util.singletons.BoundItems;
+import tombenpotter.sanguimancy.util.singletons.ClaimedChunks;
 
 public class EventHandler {
 
@@ -143,27 +143,30 @@ public class EventHandler {
         if (!event.player.worldObj.isRemote) {
             int dimID = ConfigHandler.snDimID;
             WorldServer dimWorld = MinecraftServer.getServer().worldServerForDimension(dimID);
-            ChunkCoordIntPair chunkCoords = new ChunkCoordIntPair(dimWorld.getSpawnPoint().posX >> 4, dimWorld.getSpawnPoint().posZ >> 4);
-            int baseX = (chunkCoords.chunkXPos << 4) + (dimWorld.rand.nextInt(16) + 1);
-            int baseZ = (chunkCoords.chunkZPos << 4) + (dimWorld.rand.nextInt(16) + 1);
-            int baseY = dimWorld.getTopSolidOrLiquidBlock(baseX, baseZ) + dimWorld.rand.nextInt(4);
-            BoundItemState boundItemState = new BoundItemState(baseX, baseY, baseZ, dimID, true);
-            String name = String.valueOf(dimID) + String.valueOf(baseX) + String.valueOf(baseY) + String.valueOf(baseZ) + event.itemStack.getUnlocalizedName() + event.itemStack.getDisplayName() + event.itemStack.getItemDamage() + event.player.getCommandSenderName();
-
-            if (dimWorld.isAirBlock(baseX, baseY, baseZ)) {
-                RandomUtils.checkAndSetCompound(event.itemStack);
-                if (BoundItems.getBoundItems().addItem(name, boundItemState)) {
-                    dimWorld.setBlock(baseX, baseY, baseZ, BlocksRegistry.boundItem);
-                    event.itemStack.stackTagCompound.setString("SavedItemName", name);
-                    if (dimWorld.getTileEntity(baseX, baseY, baseZ) != null && dimWorld.getTileEntity(baseX, baseY, baseZ) instanceof TileItemSNPart) {
-                        TileItemSNPart tile = (TileItemSNPart) dimWorld.getTileEntity(baseX, baseY, baseZ);
-                        tile.setInventorySlotContents(0, event.itemStack.copy());
-                        tile.getCustomNBTTag().setString("SavedItemName", name);
-                        dimWorld.markBlockForUpdate(baseX, baseY, baseZ);
+            if (ClaimedChunks.getClaimedChunks().getLinkedChunks(event.player.getCommandSenderName()) != null) {
+                int baseX = (ClaimedChunks.getClaimedChunks().getLinkedChunks(event.player.getCommandSenderName()).get(0).chunkXPos << 4) + (dimWorld.rand.nextInt(16) + 1);
+                int baseZ = (ClaimedChunks.getClaimedChunks().getLinkedChunks(event.player.getCommandSenderName()).get(0).chunkZPos << 4) + (dimWorld.rand.nextInt(16) + 1);
+                int baseY = dimWorld.getTopSolidOrLiquidBlock(baseX, baseZ) + 2;
+                BoundItemState boundItemState = new BoundItemState(baseX, baseY, baseZ, dimID, true);
+                String name = String.valueOf(dimID) + String.valueOf(baseX) + String.valueOf(baseY) + String.valueOf(baseZ) + event.itemStack.getUnlocalizedName() + event.itemStack.getDisplayName() + event.itemStack.getItemDamage() + event.player.getCommandSenderName();
+                if (dimWorld.isAirBlock(baseX, baseY, baseZ)) {
+                    RandomUtils.checkAndSetCompound(event.itemStack);
+                    if (BoundItems.getBoundItems().addItem(name, boundItemState)) {
+                        dimWorld.setBlock(baseX, baseY, baseZ, BlocksRegistry.boundItem);
+                        event.itemStack.stackTagCompound.setString("SavedItemName", name);
+                        if (dimWorld.getTileEntity(baseX, baseY, baseZ) != null && dimWorld.getTileEntity(baseX, baseY, baseZ) instanceof TileItemSNPart) {
+                            TileItemSNPart tile = (TileItemSNPart) dimWorld.getTileEntity(baseX, baseY, baseZ);
+                            tile.setInventorySlotContents(0, event.itemStack.copy());
+                            tile.getCustomNBTTag().setString("SavedItemName", name);
+                            dimWorld.markBlockForUpdate(baseX, baseY, baseZ);
+                        }
                     }
                 }
+                event.player.addChatComponentMessage(new ChatComponentText(StatCollector.translateToLocal("chat.Sanguimancy.added.success")));
+            } else {
+                event.player.addChatComponentMessage(new ChatComponentText(StatCollector.translateToLocal("chat.Sanguimancy.added.fail")));
+                event.setResult(Event.Result.DENY);
             }
-            event.player.addChatComponentMessage(new ChatComponentText(StatCollector.translateToLocal("chat.Sanguimancy.added")));
         }
     }
 
