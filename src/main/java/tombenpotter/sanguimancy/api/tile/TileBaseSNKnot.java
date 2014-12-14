@@ -1,25 +1,27 @@
-package tombenpotter.sanguimancy.tile;
+package tombenpotter.sanguimancy.api.tile;
 
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.util.ForgeDirection;
-import tombenpotter.sanguimancy.util.BlockPostition;
-import tombenpotter.sanguimancy.util.BoolAndBlockPosList;
-import tombenpotter.sanguimancy.util.interfaces.ICustomNBTTag;
-import tombenpotter.sanguimancy.util.interfaces.ISNComponent;
-import tombenpotter.sanguimancy.util.interfaces.ISNKnot;
-import tombenpotter.sanguimancy.util.interfaces.ISNPart;
+import tombenpotter.sanguimancy.api.BlockPostition;
+import tombenpotter.sanguimancy.api.BoolAndBlockPosList;
+import tombenpotter.sanguimancy.api.ICustomNBTTag;
+import tombenpotter.sanguimancy.api.soulNetworkManifestation.ISNComponent;
+import tombenpotter.sanguimancy.api.soulNetworkManifestation.ISNKnot;
+import tombenpotter.sanguimancy.api.soulNetworkManifestation.ISNPart;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public abstract class TileBaseSNPart extends TileEntity implements ISNPart, ICustomNBTTag {
+public abstract class TileBaseSNKnot extends TileEntity implements ISNKnot, ICustomNBTTag {
 
     @Override
-    public ArrayList<BlockPostition> getSNKnots() {
+    public ArrayList<BlockPostition> getSNParts() {
         ArrayList<BlockPostition> list = new ArrayList<BlockPostition>();
         HashMap<BlockPostition, Boolean> map = getComponentsInNetwork().hashMap;
         for (BlockPostition postition : map.keySet()) {
-            if (map.get(postition)) list.add(postition);
+            if (postition.getTile(worldObj) != null && postition.getTile(worldObj) instanceof ISNPart) {
+                list.add(postition);
+            }
         }
         return list;
     }

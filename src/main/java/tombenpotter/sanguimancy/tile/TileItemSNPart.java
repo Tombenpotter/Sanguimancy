@@ -11,10 +11,11 @@ import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.StatCollector;
-import tombenpotter.sanguimancy.util.BlockPostition;
+import tombenpotter.sanguimancy.api.BlockPostition;
+import tombenpotter.sanguimancy.api.tile.TileBaseSNPart;
 import tombenpotter.sanguimancy.util.BoundItemState;
-import tombenpotter.sanguimancy.util.enums.EnumSNType;
-import tombenpotter.sanguimancy.util.interfaces.ISNKnot;
+import tombenpotter.sanguimancy.api.EnumSNType;
+import tombenpotter.sanguimancy.api.soulNetworkManifestation.ISNKnot;
 import tombenpotter.sanguimancy.util.singletons.BoundItems;
 
 public class TileItemSNPart extends TileBaseSNPart implements IInventory {

@@ -1,4 +1,4 @@
-package tombenpotter.sanguimancy.util.enums;
+package tombenpotter.sanguimancy.api;
 
 public enum EnumSNType {
     ITEM,

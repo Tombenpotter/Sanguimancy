@@ -1,4 +1,6 @@
-package tombenpotter.sanguimancy.util;
+package tombenpotter.sanguimancy.api;
+
+import tombenpotter.sanguimancy.api.BlockPostition;
 
 import java.util.HashMap;
 

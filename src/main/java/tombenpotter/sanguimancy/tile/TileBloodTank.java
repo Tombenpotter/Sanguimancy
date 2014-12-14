@@ -7,7 +7,7 @@ import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.fluids.*;
-import tombenpotter.sanguimancy.util.interfaces.ICustomNBTTag;
+import tombenpotter.sanguimancy.api.ICustomNBTTag;
 
 public class TileBloodTank extends TileEntity implements IFluidHandler, ICustomNBTTag {
 

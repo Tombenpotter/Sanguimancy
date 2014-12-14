@@ -80,10 +80,10 @@ public class Sanguimancy {
         MinecraftForge.EVENT_BUS.register(new EventHandler.ClientEventHandler());
         PacketHandler.registerPackets();
         if (Loader.isModLoaded("Waila")) {
-            FMLInterModComms.sendMessage("Waila", "register", "tombenpotter.sanguimancy.compat.WailaCorruptionCrystallizer.register");
-            FMLInterModComms.sendMessage("Waila", "register", "tombenpotter.sanguimancy.compat.WailaAltarDiviner.register");
-            FMLInterModComms.sendMessage("Waila", "register", "tombenpotter.sanguimancy.compat.WailaAltarEmitter.register");
-            FMLInterModComms.sendMessage("Waila", "register", "tombenpotter.sanguimancy.compat.WailaBloodTank.register");
+            FMLInterModComms.sendMessage("Waila", "register", "tombenpotter.sanguimancy.compat.waila.WailaCorruptionCrystallizer.register");
+            FMLInterModComms.sendMessage("Waila", "register", "tombenpotter.sanguimancy.compat.waila.WailaAltarDiviner.register");
+            FMLInterModComms.sendMessage("Waila", "register", "tombenpotter.sanguimancy.compat.waila.WailaAltarEmitter.register");
+            FMLInterModComms.sendMessage("Waila", "register", "tombenpotter.sanguimancy.compat.waila.WailaBloodTank.register");
         }
         NetworkRegistry.INSTANCE.registerGuiHandler(this, proxy);
     }

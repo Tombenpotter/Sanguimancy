@@ -14,9 +14,9 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import tombenpotter.sanguimancy.compat.lua.events.LuaEvent;
 import tombenpotter.sanguimancy.compat.lua.methods.LuaMethod;
-import tombenpotter.sanguimancy.util.Timer;
+import tombenpotter.sanguimancy.api.Timer;
 import tombenpotter.sanguimancy.util.enums.ModList;
-import tombenpotter.sanguimancy.util.interfaces.ICustomNBTTag;
+import tombenpotter.sanguimancy.api.ICustomNBTTag;
 
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;

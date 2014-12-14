@@ -1,10 +1,15 @@
 package tombenpotter.sanguimancy.client.render;
 
 import cpw.mods.fml.client.FMLClientHandler;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.FontRenderer;
+import net.minecraft.client.renderer.OpenGlHelper;
+import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.entity.item.EntityItem;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
@@ -37,6 +42,9 @@ public class RenderBoundItem extends TileEntitySpecialRenderer implements IItemR
         renderModel((TileItemSNPart) tileEntity, x, y, z);
         if (tileEntity instanceof TileItemSNPart) {
             TileItemSNPart tile = (TileItemSNPart) tileEntity;
+            if (tile.getStackInSlot(0) != null) {
+                renderNameTag(tile, x, y, z);
+            }
             GL11.glPushMatrix();
             if (tile.getStackInSlot(0) != null) {
                 float scaleFactor = getGhostItemScaleFactor(tile.getStackInSlot(0));
@@ -64,6 +72,43 @@ public class RenderBoundItem extends TileEntitySpecialRenderer implements IItemR
         GL11.glScalef(scale, scale, scale);
         FMLClientHandler.instance().getClient().renderEngine.bindTexture(texture);
         model.renderAll();
+        GL11.glPopMatrix();
+    }
+
+    public void renderNameTag(TileItemSNPart tile, double x, double y, double z) {
+        float f = 1.6F;
+        float f1 = 0.016666668F * f;
+        EntityPlayer player = Minecraft.getMinecraft().thePlayer;
+        String s = tile.getStackInSlot(0).getDisplayName();
+        RenderManager manager = RenderManager.instance;
+        FontRenderer fontrenderer = manager.getFontRenderer();
+        GL11.glPushMatrix();
+        GL11.glTranslatef((float) x + 0.5F, (float) y + 0.5F, (float) z + 0.5F);
+        GL11.glNormal3f(0.0F, 1.0F, 0.0F);
+        GL11.glRotatef(-manager.playerViewY, 0.0F, 1.0F, 0.0F);
+        GL11.glRotatef(manager.playerViewX, 1.0F, 0.0F, 0.0F);
+        GL11.glScalef(-f1, -f1, f1);
+        GL11.glDisable(GL11.GL_LIGHTING);
+        GL11.glTranslatef(0.0F, 0.25F / f1, 0.0F);
+        GL11.glDepthMask(false);
+        GL11.glEnable(GL11.GL_BLEND);
+        OpenGlHelper.glBlendFunc(770, 771, 1, 0);
+        Tessellator tessellator = Tessellator.instance;
+        GL11.glDisable(GL11.GL_TEXTURE_2D);
+        tessellator.startDrawingQuads();
+        int i = fontrenderer.getStringWidth(s) / 2;
+        tessellator.setColorRGBA_F(0.0F, 0.0F, 0.0F, 0.25F);
+        tessellator.addVertex((double) (-i - 1), -1.0D, 0.0D);
+        tessellator.addVertex((double) (-i - 1), 8.0D, 0.0D);
+        tessellator.addVertex((double) (i + 1), 8.0D, 0.0D);
+        tessellator.addVertex((double) (i + 1), -1.0D, 0.0D);
+        tessellator.draw();
+        GL11.glEnable(GL11.GL_TEXTURE_2D);
+        GL11.glDepthMask(true);
+        fontrenderer.drawString(s, -fontrenderer.getStringWidth(s) / 2, 0, 0xFFFFFF);
+        GL11.glEnable(GL11.GL_LIGHTING);
+        GL11.glDisable(GL11.GL_BLEND);
+        GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
         GL11.glPopMatrix();
     }
 

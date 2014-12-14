@@ -1,4 +1,4 @@
-package tombenpotter.sanguimancy.compat;
+package tombenpotter.sanguimancy.compat.nei;
 
 import codechicken.nei.api.API;
 import codechicken.nei.api.IConfigureNEI;

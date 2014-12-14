@@ -1,6 +1,6 @@
-package tombenpotter.sanguimancy.util.interfaces;
+package tombenpotter.sanguimancy.api.soulNetworkManifestation;
 
-import tombenpotter.sanguimancy.util.BlockPostition;
+import tombenpotter.sanguimancy.api.BlockPostition;
 
 import java.util.ArrayList;
 

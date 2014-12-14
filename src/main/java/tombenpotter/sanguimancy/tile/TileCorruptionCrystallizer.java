@@ -16,7 +16,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 import tombenpotter.sanguimancy.Sanguimancy;
 import tombenpotter.sanguimancy.util.SoulCorruptionHelper;
-import tombenpotter.sanguimancy.util.interfaces.ICustomNBTTag;
+import tombenpotter.sanguimancy.api.ICustomNBTTag;
 
 public class TileCorruptionCrystallizer extends TileSegmentedReagentHandler implements ICustomNBTTag {
 

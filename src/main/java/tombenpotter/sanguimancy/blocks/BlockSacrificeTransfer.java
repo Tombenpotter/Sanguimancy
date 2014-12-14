@@ -20,6 +20,7 @@ import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import tombenpotter.sanguimancy.Sanguimancy;
 import tombenpotter.sanguimancy.client.particle.EntityColoredFlameFX;
+import tombenpotter.sanguimancy.items.ItemPlayerSacrificer;
 import tombenpotter.sanguimancy.tile.TileSacrificeTransfer;
 import tombenpotter.sanguimancy.util.RandomUtils;
 import tombenpotter.sanguimancy.util.SoulCorruptionHelper;
@@ -110,7 +111,7 @@ public class BlockSacrificeTransfer extends BlockContainer {
     @SideOnly(Side.CLIENT)
     public void randomDisplayTick(World world, int x, int y, int z, Random rand) {
         TileSacrificeTransfer tile = (TileSacrificeTransfer) world.getTileEntity(x, y, z);
-        if (tile.spewFire) {
+        if (tile.getStackInSlot(0) != null && tile.getStackInSlot(0).getItem() instanceof ItemPlayerSacrificer) {
             for (float i = 0; i <= 7; i += 0.1) {
                 EntityFX fire = new EntityColoredFlameFX(world, x - 0.5, y + i, z + 0.5, 0, 0.1, 0, 255, 72, 0);
                 Minecraft.getMinecraft().effectRenderer.addEffect(fire);

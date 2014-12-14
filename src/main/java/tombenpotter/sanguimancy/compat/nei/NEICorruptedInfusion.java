@@ -1,4 +1,4 @@
-package tombenpotter.sanguimancy.compat;
+package tombenpotter.sanguimancy.compat.nei;
 
 import codechicken.nei.PositionedStack;
 import codechicken.nei.recipe.GuiRecipe;
@@ -10,73 +10,79 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.StatCollector;
 import org.lwjgl.input.Mouse;
 import tombenpotter.sanguimancy.Sanguimancy;
-import tombenpotter.sanguimancy.recipes.RecipeBloodCleanser;
+import tombenpotter.sanguimancy.recipes.RecipeCorruptedInfusion;
 
 import java.awt.*;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
-public class NEIBloodCleanser extends TemplateRecipeHandler {
+public class NEICorruptedInfusion extends TemplateRecipeHandler {
 
-    public class CachedCleansingRecipe extends CachedRecipe {
-        public ItemStack input;
+    public class CachedCorruptionRecipe extends CachedRecipe {
+        public ItemStack[] input;
         public ItemStack output;
+        public int time;
+        public int miniumCorruption;
+        public boolean exactAmountandNbt;
 
-        public CachedCleansingRecipe(RecipeBloodCleanser recipe) {
+        public CachedCorruptionRecipe(RecipeCorruptedInfusion recipe) {
             this.input = recipe.fInput;
             this.output = recipe.fOutput;
+            this.time = recipe.fTime;
+            this.miniumCorruption = recipe.fMiniumCorruption;
+            this.exactAmountandNbt = recipe.fExactAmountandNbt;
         }
 
         @Override
         public List<PositionedStack> getIngredients() {
             ArrayList<PositionedStack> stacks = new ArrayList<PositionedStack>();
-            stacks.add(new PositionedStack(input, 47, 5));
+            stacks.add(new PositionedStack(input, 20, 10));
             return stacks;
         }
 
         @Override
         public PositionedStack getResult() {
-            return new PositionedStack(output, 124, 23);
+            return new PositionedStack(output, 124, 10);
         }
     }
 
     @Override
     public String getOverlayIdentifier() {
-        return "bloodcleansingrecipes";
+        return "corruptedinfusionrecipes";
     }
 
     @Override
     public void loadTransferRects() {
-        transferRects.add(new RecipeTransferRect(new Rectangle(77, 25, 24, 17), "bloodcleansingrecipes"));
+        transferRects.add(new RecipeTransferRect(new Rectangle(65, 10, 22, 16), "corruptedinfusionrecipes"));
     }
 
     @Override
     public String getGuiTexture() {
-        return Sanguimancy.texturePath + ":textures/gui/LumpCleaner.png";
+        return Sanguimancy.texturePath + ":textures/gui/nei/base_gui.png";
     }
 
     @Override
     public String getRecipeName() {
-        return StatCollector.translateToLocal("compat.nei.blood.cleanser");
+        return StatCollector.translateToLocal("compat.nei.corrupted.infusion");
     }
 
     @Override
     public void loadCraftingRecipes(String outputId, Object... results) {
         if (outputId.equals("item"))
             loadCraftingRecipes((ItemStack) results[0]);
-        else if (outputId.equals("bloodcleansingrecipes")) {
-            for (RecipeBloodCleanser r : RecipeBloodCleanser.getAllRecipes()) {
-                arecipes.add(new CachedCleansingRecipe(r));
+        else if (outputId.equals("corruptedinfusionrecipes")) {
+            for (RecipeCorruptedInfusion r : RecipeCorruptedInfusion.getAllRecipes()) {
+                arecipes.add(new CachedCorruptionRecipe(r));
             }
         }
     }
 
     @Override
     public void loadCraftingRecipes(ItemStack result) {
-        for (RecipeBloodCleanser r : RecipeBloodCleanser.getAllRecipes()) {
+        for (RecipeCorruptedInfusion r : RecipeCorruptedInfusion.getAllRecipes()) {
             if (r.fOutput.isItemEqual(result))
-                arecipes.add(new CachedCleansingRecipe(r));
+                arecipes.add(new CachedCorruptionRecipe(r));
         }
     }
 
@@ -85,9 +91,17 @@ public class NEIBloodCleanser extends TemplateRecipeHandler {
         if (ingredients.length == 0)
             return;
         if ("item".equals(inputId)) {
-            for (RecipeBloodCleanser r : RecipeBloodCleanser.getRecipes((ItemStack) ingredients[0]))
-                arecipes.add(new CachedCleansingRecipe(r));
+            for (RecipeCorruptedInfusion r : RecipeCorruptedInfusion.getPossibleRecipes(new ItemStack[]{(ItemStack) ingredients[0]}, 500))
+                arecipes.add(new CachedCorruptionRecipe(r));
         }
+    }
+
+    @Override
+    public void drawExtras(int id) {
+        CachedCorruptionRecipe recipe = (CachedCorruptionRecipe) arecipes.get(id);
+        Minecraft.getMinecraft().fontRenderer.drawString(StatCollector.translateToLocal("compat.nei.corrupted.infusion.time") + ": " + recipe.time, 30, 35, 0x4F4C49);
+        Minecraft.getMinecraft().fontRenderer.drawString(StatCollector.translateToLocal("compat.nei.corrupted.infusion.minimum.corruption") + ": " + recipe.miniumCorruption, 30, 45, 0x4F4C49);
+        Minecraft.getMinecraft().fontRenderer.drawString(StatCollector.translateToLocal("compat.nei.corrupted.infusion.minimum.exact") + ": " + recipe.exactAmountandNbt, 30, 55, 0x4F4C49);
     }
 
     public void drawTexturedModalRect(int par1, int par2, int par3, int par4, int par5, int par6, int w, int h) {
@@ -101,6 +115,7 @@ public class NEIBloodCleanser extends TemplateRecipeHandler {
         tess.addVertexWithUV((double) (par1 + 0), (double) (par2 + 0), 0.0F, (double) ((float) (par3 + 0) * f), (double) ((float) (par4 + 0) * f1));
         tess.draw();
     }
+
 
     //Taken from the Blood Magic Repo, written by Joshie
     public Point getMouse(int width, int height) {

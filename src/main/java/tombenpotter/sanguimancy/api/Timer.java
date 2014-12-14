@@ -1,4 +1,4 @@
-package tombenpotter.sanguimancy.util;
+package tombenpotter.sanguimancy.api;
 
 public class Timer {
     private int reset;

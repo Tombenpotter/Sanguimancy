@@ -1,4 +1,4 @@
-package tombenpotter.sanguimancy.compat;
+package tombenpotter.sanguimancy.compat.waila;
 
 import mcp.mobius.waila.api.IWailaConfigHandler;
 import mcp.mobius.waila.api.IWailaDataAccessor;
@@ -6,15 +6,16 @@ import mcp.mobius.waila.api.IWailaDataProvider;
 import mcp.mobius.waila.api.IWailaRegistrar;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.StatCollector;
-import tombenpotter.sanguimancy.blocks.BlockCorruptionCrystallizer;
-import tombenpotter.sanguimancy.tile.TileCorruptionCrystallizer;
+import tombenpotter.sanguimancy.blocks.BlockBloodTank;
+import tombenpotter.sanguimancy.tile.TileBloodTank;
+import tombenpotter.sanguimancy.util.RandomUtils;
 
 import java.util.List;
 
-public class WailaCorruptionCrystallizer implements IWailaDataProvider {
+public class WailaBloodTank implements IWailaDataProvider {
 
     public static void register(IWailaRegistrar registrar) {
-        registrar.registerBodyProvider(new WailaCorruptionCrystallizer(), BlockCorruptionCrystallizer.class);
+        registrar.registerBodyProvider(new WailaBloodTank(), BlockBloodTank.class);
     }
 
     @Override
@@ -29,12 +30,13 @@ public class WailaCorruptionCrystallizer implements IWailaDataProvider {
 
     @Override
     public List<String> getWailaBody(ItemStack itemStack, List<String> currenttip, IWailaDataAccessor accessor, IWailaConfigHandler config) {
-        boolean isCrystallizer = accessor.getTileEntity() instanceof TileCorruptionCrystallizer;
-        if (isCrystallizer) {
-            TileCorruptionCrystallizer tile = (TileCorruptionCrystallizer) accessor.getTileEntity();
-            currenttip.add(StatCollector.translateToLocal("compat.waila.multiblock.formed") + ": " + String.valueOf(tile.multiblockFormed));
-            currenttip.add(StatCollector.translateToLocal("compat.waila.corruption.stored") + ": " + String.valueOf(tile.corruptionStored));
-            currenttip.add(StatCollector.translateToLocal("compat.waila.owner") + ": " + tile.owner);
+        boolean isTank = accessor.getTileEntity() instanceof TileBloodTank;
+        if (isTank) {
+            TileBloodTank tank = (TileBloodTank) accessor.getTileEntity();
+            if (tank.tank.getFluid() != null) {
+                currenttip.add(StatCollector.translateToLocal("info.Sanguimancy.tooltip.fluid") + ": " + RandomUtils.capitalizeFirstLetter(tank.tank.getFluid().getLocalizedName()));
+                currenttip.add(StatCollector.translateToLocal("info.Sanguimancy.tooltip.amount") + ": " + tank.tank.getFluidAmount() + "/" + tank.tank.getCapacity() + "mB");
+            }
         }
         return currenttip;
     }

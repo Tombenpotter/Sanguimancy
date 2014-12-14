@@ -15,7 +15,7 @@ import tombenpotter.sanguimancy.compat.lua.methods.LuaGetOwner;
 import tombenpotter.sanguimancy.network.BloodInterfaceUpdateMessage;
 import tombenpotter.sanguimancy.network.PacketHandler;
 import tombenpotter.sanguimancy.registry.BlocksRegistry;
-import tombenpotter.sanguimancy.util.Timer;
+import tombenpotter.sanguimancy.api.Timer;
 
 public class TileBloodInterface extends TileComputerBase implements IInventory {
 

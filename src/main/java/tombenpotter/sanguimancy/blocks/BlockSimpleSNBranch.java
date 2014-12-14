@@ -13,8 +13,8 @@ import net.minecraft.world.World;
 import tombenpotter.sanguimancy.Sanguimancy;
 import tombenpotter.sanguimancy.client.particle.EntityColoredFlameFX;
 import tombenpotter.sanguimancy.tile.TileSimpleSNBranch;
-import tombenpotter.sanguimancy.util.BlockPostition;
-import tombenpotter.sanguimancy.util.interfaces.ISNComponent;
+import tombenpotter.sanguimancy.api.BlockPostition;
+import tombenpotter.sanguimancy.api.soulNetworkManifestation.ISNComponent;
 
 import java.util.Random;
 

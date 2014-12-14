@@ -1,7 +1,10 @@
 package tombenpotter.sanguimancy.tile;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.nbt.NBTTagCompound;
-import tombenpotter.sanguimancy.util.BlockPostition;
+import tombenpotter.sanguimancy.api.BlockPostition;
+import tombenpotter.sanguimancy.api.tile.TileBaseSNBranch;
 
 public class TileSimpleSNBranch extends TileBaseSNBranch {
 
@@ -37,6 +40,16 @@ public class TileSimpleSNBranch extends TileBaseSNBranch {
     }
 
     @Override
+    @SideOnly(Side.CLIENT)
     public void onNetworkUpdate(BlockPostition originalPosition) {
+        /*
+        for (BlockPostition positition : getSNKnots()) {
+            EntityParticleBeam beam = new EntityParticleBeam(worldObj, xCoord + 0.5, yCoord + 0.5, zCoord + 0.5);
+            double velocity = Math.sqrt(Math.pow(positition.x, 2) + Math.pow(positition.y, 2) + Math.pow(positition.z, 2));
+            double wantedVel = 0.3d;
+            beam.setVelocity(wantedVel * positition.x / velocity, wantedVel * positition.y / velocity, wantedVel * positition.z / velocity);
+            beam.setDestination(xCoord + positition.x, yCoord + positition.y, zCoord + positition.z);
+            worldObj.spawnEntityInWorld(beam);
+        }*/
     }
 }

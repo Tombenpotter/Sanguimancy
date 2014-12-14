@@ -1,4 +1,4 @@
-package tombenpotter.sanguimancy.util.interfaces;
+package tombenpotter.sanguimancy.api;
 
 import net.minecraft.nbt.NBTTagCompound;
 

@@ -1,4 +1,4 @@
-package tombenpotter.sanguimancy.compat;
+package tombenpotter.sanguimancy.compat.waila;
 
 import mcp.mobius.waila.api.IWailaConfigHandler;
 import mcp.mobius.waila.api.IWailaDataAccessor;

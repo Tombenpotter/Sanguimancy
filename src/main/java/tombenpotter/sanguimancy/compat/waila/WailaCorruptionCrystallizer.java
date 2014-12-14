@@ -1,4 +1,4 @@
-package tombenpotter.sanguimancy.compat;
+package tombenpotter.sanguimancy.compat.waila;
 
 import mcp.mobius.waila.api.IWailaConfigHandler;
 import mcp.mobius.waila.api.IWailaDataAccessor;
@@ -6,15 +6,15 @@ import mcp.mobius.waila.api.IWailaDataProvider;
 import mcp.mobius.waila.api.IWailaRegistrar;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.StatCollector;
-import tombenpotter.sanguimancy.blocks.BlockAltarDiviner;
-import tombenpotter.sanguimancy.tile.TileAltarDiviner;
+import tombenpotter.sanguimancy.blocks.BlockCorruptionCrystallizer;
+import tombenpotter.sanguimancy.tile.TileCorruptionCrystallizer;
 
 import java.util.List;
 
-public class WailaAltarDiviner implements IWailaDataProvider {
+public class WailaCorruptionCrystallizer implements IWailaDataProvider {
 
     public static void register(IWailaRegistrar registrar) {
-        registrar.registerBodyProvider(new WailaAltarDiviner(), BlockAltarDiviner.class);
+        registrar.registerBodyProvider(new WailaCorruptionCrystallizer(), BlockCorruptionCrystallizer.class);
     }
 
     @Override
@@ -29,13 +29,12 @@ public class WailaAltarDiviner implements IWailaDataProvider {
 
     @Override
     public List<String> getWailaBody(ItemStack itemStack, List<String> currenttip, IWailaDataAccessor accessor, IWailaConfigHandler config) {
-        boolean isDiviner = accessor.getTileEntity() instanceof TileAltarDiviner;
-        if (isDiviner) {
-            TileAltarDiviner tile = (TileAltarDiviner) accessor.getTileEntity();
-            if (tile.getStackInSlot(0) != null) {
-                currenttip.add(StatCollector.translateToLocal("compat.waila.content") + ": " + tile.getStackInSlot(0).getDisplayName());
-                currenttip.add(StatCollector.translateToLocal("compat.waila.stacksize") + ": " + String.valueOf(tile.getStackInSlot(0).stackSize));
-            }
+        boolean isCrystallizer = accessor.getTileEntity() instanceof TileCorruptionCrystallizer;
+        if (isCrystallizer) {
+            TileCorruptionCrystallizer tile = (TileCorruptionCrystallizer) accessor.getTileEntity();
+            currenttip.add(StatCollector.translateToLocal("compat.waila.multiblock.formed") + ": " + String.valueOf(tile.multiblockFormed));
+            currenttip.add(StatCollector.translateToLocal("compat.waila.corruption.stored") + ": " + String.valueOf(tile.corruptionStored));
+            currenttip.add(StatCollector.translateToLocal("compat.waila.owner") + ": " + tile.owner);
         }
         return currenttip;
     }

@@ -8,7 +8,7 @@ import net.minecraft.network.NetworkManager;
 import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
-import tombenpotter.sanguimancy.util.interfaces.ICustomNBTTag;
+import tombenpotter.sanguimancy.api.ICustomNBTTag;
 
 public class TileAltarEmitter extends TileEntity implements ICustomNBTTag {
 
@@ -69,7 +69,6 @@ public class TileAltarEmitter extends TileEntity implements ICustomNBTTag {
                 }
             }
         }
-
     }
 
     @Override

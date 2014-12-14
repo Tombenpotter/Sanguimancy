@@ -12,8 +12,8 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import tombenpotter.sanguimancy.Sanguimancy;
 import tombenpotter.sanguimancy.tile.TileItemSNPart;
-import tombenpotter.sanguimancy.util.BlockPostition;
-import tombenpotter.sanguimancy.util.interfaces.ISNComponent;
+import tombenpotter.sanguimancy.api.BlockPostition;
+import tombenpotter.sanguimancy.api.soulNetworkManifestation.ISNComponent;
 import tombenpotter.sanguimancy.util.singletons.BoundItems;
 
 import java.util.Random;

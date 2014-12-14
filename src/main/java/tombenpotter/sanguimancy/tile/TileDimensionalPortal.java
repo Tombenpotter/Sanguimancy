@@ -2,7 +2,7 @@ package tombenpotter.sanguimancy.tile;
 
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
-import tombenpotter.sanguimancy.util.interfaces.ICustomNBTTag;
+import tombenpotter.sanguimancy.api.ICustomNBTTag;
 
 public class TileDimensionalPortal extends TileEntity implements ICustomNBTTag {
 

@@ -1,4 +1,4 @@
-package tombenpotter.sanguimancy.compat;
+package tombenpotter.sanguimancy.compat.waila;
 
 import mcp.mobius.waila.api.IWailaConfigHandler;
 import mcp.mobius.waila.api.IWailaDataAccessor;
@@ -6,16 +6,15 @@ import mcp.mobius.waila.api.IWailaDataProvider;
 import mcp.mobius.waila.api.IWailaRegistrar;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.StatCollector;
-import tombenpotter.sanguimancy.blocks.BlockBloodTank;
-import tombenpotter.sanguimancy.tile.TileBloodTank;
-import tombenpotter.sanguimancy.util.RandomUtils;
+import tombenpotter.sanguimancy.blocks.BlockAltarDiviner;
+import tombenpotter.sanguimancy.tile.TileAltarDiviner;
 
 import java.util.List;
 
-public class WailaBloodTank implements IWailaDataProvider {
+public class WailaAltarDiviner implements IWailaDataProvider {
 
     public static void register(IWailaRegistrar registrar) {
-        registrar.registerBodyProvider(new WailaBloodTank(), BlockBloodTank.class);
+        registrar.registerBodyProvider(new WailaAltarDiviner(), BlockAltarDiviner.class);
     }
 
     @Override
@@ -30,12 +29,12 @@ public class WailaBloodTank implements IWailaDataProvider {
 
     @Override
     public List<String> getWailaBody(ItemStack itemStack, List<String> currenttip, IWailaDataAccessor accessor, IWailaConfigHandler config) {
-        boolean isTank = accessor.getTileEntity() instanceof TileBloodTank;
-        if (isTank) {
-            TileBloodTank tank = (TileBloodTank) accessor.getTileEntity();
-            if (tank.tank.getFluid() != null) {
-                currenttip.add(StatCollector.translateToLocal("info.Sanguimancy.tooltip.fluid") + ": " + RandomUtils.capitalizeFirstLetter(tank.tank.getFluid().getLocalizedName()));
-                currenttip.add(StatCollector.translateToLocal("info.Sanguimancy.tooltip.amount") + ": " + tank.tank.getFluidAmount() + "/" + tank.tank.getCapacity() + "mB");
+        boolean isDiviner = accessor.getTileEntity() instanceof TileAltarDiviner;
+        if (isDiviner) {
+            TileAltarDiviner tile = (TileAltarDiviner) accessor.getTileEntity();
+            if (tile.getStackInSlot(0) != null) {
+                currenttip.add(StatCollector.translateToLocal("compat.waila.content") + ": " + tile.getStackInSlot(0).getDisplayName());
+                currenttip.add(StatCollector.translateToLocal("compat.waila.stacksize") + ": " + String.valueOf(tile.getStackInSlot(0).stackSize));
             }
         }
         return currenttip;
