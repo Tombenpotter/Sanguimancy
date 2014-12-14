@@ -1,7 +1,6 @@
 package tombenpotter.sanguimancy.client.render;
 
 import cpw.mods.fml.client.FMLClientHandler;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.Tessellator;
@@ -9,7 +8,6 @@ import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.entity.item.EntityItem;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
@@ -78,7 +76,6 @@ public class RenderBoundItem extends TileEntitySpecialRenderer implements IItemR
     public void renderNameTag(TileItemSNPart tile, double x, double y, double z) {
         float f = 1.6F;
         float f1 = 0.016666668F * f;
-        EntityPlayer player = Minecraft.getMinecraft().thePlayer;
         String s = tile.getStackInSlot(0).getDisplayName();
         RenderManager manager = RenderManager.instance;
         FontRenderer fontrenderer = manager.getFontRenderer();

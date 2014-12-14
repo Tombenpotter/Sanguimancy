@@ -56,7 +56,7 @@ public class EventHandler {
     }
 
     @SubscribeEvent
-    public void onLivingDeath(LivingDeathEvent event) {
+    public void onPlayerSacrificed(LivingDeathEvent event) {
         if (event.entity != null && !event.entity.worldObj.isRemote) {
             if (event.entity instanceof EntityPlayer) {
                 EntityPlayer player = (EntityPlayer) event.entity;
@@ -82,7 +82,7 @@ public class EventHandler {
     }
 
     @SubscribeEvent
-    public void onJoinWorld(EntityJoinWorldEvent event) {
+    public void onPlayerJoinWorld(EntityJoinWorldEvent event) {
         if (!event.entity.worldObj.isRemote && event.entity != null && event.entity instanceof EntityPlayer) {
             EntityPlayer player = (EntityPlayer) event.entity;
             NBTTagCompound tag = SoulCorruptionHelper.getModTag(player, Sanguimancy.modid);
@@ -223,8 +223,8 @@ public class EventHandler {
             String names[] = {"Tombenpotter", "Speedynutty68", "WayofFlowingTime", "Jadedcat", "Kris1432", "Drullkus", "TheOrangeGenius", "Direwolf20", "Pahimar", "ValiarMarcus", "Alex_hawks"};
             for (String name : names) {
                 if (event.entityPlayer.getCommandSenderName().equalsIgnoreCase(name)) {
-                    GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
                     GL11.glPushMatrix();
+                    GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
                     event.renderer.modelBipedMain.bipedBody.render(0.1F);
                     Minecraft.getMinecraft().renderEngine.bindTexture(new ResourceLocation(Sanguimancy.texturePath + ":textures/items/Wand.png"));
                     GL11.glTranslatef(0.0F, -0.95F, -0.125F);

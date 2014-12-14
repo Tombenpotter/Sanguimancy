@@ -30,11 +30,6 @@ public class RenderSoulBranch extends TileEntitySpecialRenderer implements IItem
         bindTexture(text);
         TileSimpleSNBranch branch = (TileSimpleSNBranch) tileEntity;
         drawCore(tileEntity);
-        for (int i = 0; i < branch.getAdjacentISNComponents().length; i++) {
-            if (branch.getAdjacentISNComponents()[i] != null) {
-                drawConnection(ForgeDirection.VALID_DIRECTIONS[i]);
-            }
-        }
         GL11.glEnable(GL11.GL_LIGHTING);
         GL11.glTranslated(-translationX, -translationY, -translationZ);
     }
@@ -216,9 +211,6 @@ public class RenderSoulBranch extends TileEntitySpecialRenderer implements IItem
         GL11.glRotatef(180, 1, 0, 0);
         GL11.glRotatef(-90, 0, 1, 0);
         drawCore(null);
-        for (ForgeDirection direction : ForgeDirection.VALID_DIRECTIONS) {
-            drawConnection(direction);
-        }
         GL11.glPopMatrix(); // end
     }
 }

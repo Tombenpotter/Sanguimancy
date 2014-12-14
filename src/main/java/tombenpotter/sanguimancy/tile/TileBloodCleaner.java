@@ -4,9 +4,6 @@ import WayofTime.alchemicalWizardry.AlchemicalWizardry;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.network.NetworkManager;
-import net.minecraft.network.Packet;
-import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.fluids.*;
 import tombenpotter.sanguimancy.api.tile.TileBaseSidedInventory;
@@ -173,25 +170,5 @@ public class TileBloodCleaner extends TileBaseSidedInventory implements IFluidHa
     public boolean isItemValidForSlot(int slot, ItemStack stack) {
         if (slot == 0) return true;
         else return false;
-    }
-
-    @Override
-    public final Packet getDescriptionPacket() {
-        NBTTagCompound nbt = new NBTTagCompound();
-        writeToNBT(nbt);
-        S35PacketUpdateTileEntity packet = new S35PacketUpdateTileEntity(xCoord, yCoord, zCoord, 0, nbt);
-        return packet;
-    }
-
-    @Override
-    public void onDataPacket(NetworkManager net, S35PacketUpdateTileEntity pkt) {
-        NBTTagCompound nbt = pkt.func_148857_g();
-        readFromNBT(nbt);
-    }
-
-    @Override
-    public void markDirty() {
-        super.markDirty();
-        this.worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
     }
 }

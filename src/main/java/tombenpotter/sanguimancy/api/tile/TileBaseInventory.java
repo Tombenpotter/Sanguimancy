@@ -4,6 +4,9 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
+import net.minecraft.network.NetworkManager;
+import net.minecraft.network.Packet;
+import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import tombenpotter.sanguimancy.api.ICustomNBTTag;
 
@@ -119,5 +122,29 @@ public abstract class TileBaseInventory extends TileEntity implements IInventory
     @Override
     public void setCustomNBTTag(NBTTagCompound tag) {
         custoomNBTTag = tag;
+    }
+
+
+    @Override
+    public final Packet getDescriptionPacket() {
+        NBTTagCompound nbt = new NBTTagCompound();
+        writeToNBT(nbt);
+        S35PacketUpdateTileEntity packet = new S35PacketUpdateTileEntity(xCoord, yCoord, zCoord, 0, nbt);
+        return packet;
+    }
+
+    @Override
+    public void onDataPacket(NetworkManager net, S35PacketUpdateTileEntity pkt) {
+        NBTTagCompound nbt = pkt.func_148857_g();
+        readFromNBT(nbt);
+    }
+
+    @Override
+    public void markDirty() {
+        super.markDirty(); // Mark dirty for gamesave
+        if (worldObj.isRemote) {
+            return;
+        }
+        this.worldObj.markBlockForUpdate(xCoord, yCoord, zCoord); // Update block + TE via Network
     }
 }

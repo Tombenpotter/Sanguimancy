@@ -82,7 +82,7 @@ public class BlockBloodTank extends BlockContainer {
 
     @Override
     public void onBlockPlacedBy(World world, int x, int y, int z, EntityLivingBase entityLiving, ItemStack stack) {
-        if (world.getTileEntity(x, y, z) instanceof TileBloodTank) {
+        if (world.getTileEntity(x, y, z) != null && world.getTileEntity(x, y, z) instanceof TileBloodTank) {
             TileBloodTank tile = (TileBloodTank) world.getTileEntity(x, y, z);
             NBTTagCompound tag = stack.getTagCompound();
             if (tag != null) {

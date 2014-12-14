@@ -17,31 +17,18 @@ public class BoundItems {
     }
 
     public static BoundItems getBoundItems() {
-        /*if (boundItems == null && loadFile(fileName) == null) {
-            boundItems = new BoundItems();
-            updateFile(fileName, items);
-            return boundItems;
-        } else {
-            items = loadFile(fileName);
-            return boundItems;
-        }*/
-
-        if( boundItems == null )
-        {
+        if (boundItems == null) {
             boundItems = new BoundItems();
             boundItems.loadFile();
         }
-
-        if( boundItems.items == null )
-        {
+        if (boundItems.items == null) {
             boundItems.items = new HashMap<String, BoundItemState>();
             boundItems.updateFile();
         }
-
         return boundItems;
     }
 
-    private /*HashMap<String, BoundItemState>*/void loadFile() {
+    private void loadFile() {
         HashMap<String, BoundItemState> map = null;
         File file = new File(fileName);
         try {
@@ -62,10 +49,8 @@ public class BoundItems {
             in.close();
             fileIn.close();
             items = map;
-            //return map;
         } catch (IOException e) {
             e.printStackTrace();
-            //return null;
         } catch (ClassNotFoundException e) {
             Sanguimancy.logger.error(String.valueOf(file) + " was not found in " + String.valueOf(DimensionManager.getCurrentSaveRootDirectory()));
         }
