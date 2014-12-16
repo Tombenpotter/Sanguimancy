@@ -2,6 +2,7 @@ Version 1.1.9-Alpha3:
 Finalized the Soul Network Manifestation system. I need now to give it a bit of fluff and couple of kicks in the butts, but it's close.
 Soul Branch rendering is now done! :D
 The Altar Diviner now pulls the stuff out when the crafting operation is done. Yes, it's awesome.
+Fixed the range on the Timberman upgrade. Woooops.
 
 Version 1.1.9-Alpha2:
 Implemented the customNBTTag interface in all of my tile entities but one. This allows other mods to store data on my tiles!

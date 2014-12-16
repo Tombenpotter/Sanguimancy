@@ -1,6 +1,8 @@
 package tombenpotter.sanguimancy.client.render;
 
+import WayofTime.alchemicalWizardry.ModItems;
 import cpw.mods.fml.client.FMLClientHandler;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.Tessellator;
@@ -8,6 +10,7 @@ import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.entity.item.EntityItem;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
@@ -40,7 +43,8 @@ public class RenderBoundItem extends TileEntitySpecialRenderer implements IItemR
         renderModel((TileItemSNPart) tileEntity, x, y, z);
         if (tileEntity instanceof TileItemSNPart) {
             TileItemSNPart tile = (TileItemSNPart) tileEntity;
-            if (tile.getStackInSlot(0) != null) {
+            EntityPlayer player = Minecraft.getMinecraft().thePlayer;
+            if (tile.getStackInSlot(0) != null && player.getHeldItem() != null && player.getHeldItem().isItemEqual(new ItemStack(ModItems.itemSeerSigil))) {
                 renderNameTag(tile, x, y, z);
             }
             GL11.glPushMatrix();

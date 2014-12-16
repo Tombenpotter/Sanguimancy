@@ -15,7 +15,7 @@ import tombenpotter.sanguimancy.api.BlockPostition;
 import tombenpotter.sanguimancy.api.tile.TileBaseSNPart;
 import tombenpotter.sanguimancy.util.BoundItemState;
 import tombenpotter.sanguimancy.api.EnumSNType;
-import tombenpotter.sanguimancy.api.soulNetworkManifestation.ISNKnot;
+import tombenpotter.sanguimancy.api.snManifestation.ISNKnot;
 import tombenpotter.sanguimancy.util.singletons.BoundItems;
 
 public class TileItemSNPart extends TileBaseSNPart implements IInventory {

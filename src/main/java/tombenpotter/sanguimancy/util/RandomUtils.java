@@ -252,6 +252,7 @@ public class RandomUtils {
         public static ItemStack corruptionCatalist = new ItemStack(ItemsRegistry.corruptionCatalyst);
         public static ItemStack oreLump = new ItemStack(ItemsRegistry.oreLump);
         public static ItemStack bloodAmulet = new ItemStack(ItemsRegistry.bloodAmulet);
+        public static ItemStack chunkClaimer = new ItemStack(ItemsRegistry.chunkClaimer);
 
         // Blocks
         public static ItemStack altarEmitter = new ItemStack(BlocksRegistry.altarEmitter);

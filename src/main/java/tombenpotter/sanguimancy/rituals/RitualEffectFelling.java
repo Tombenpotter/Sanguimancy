@@ -74,7 +74,7 @@ public class RitualEffectFelling extends RitualEffect {
                 if (hasPotentia) {
                     timeDivider = 2;
                 }
-                harvestables = RitualUtils.TimbermanUtils.getHarvestablesInArea(world, x, y, z, rangeMultiplier);
+                harvestables = RitualUtils.TimbermanUtils.getHarvestablesInArea(world, x, y, z, 8 * rangeMultiplier);
             }
             for (Int3 int3 : harvestables) {
                 if (world.rand.nextInt(10 / timeDivider) == 0) {

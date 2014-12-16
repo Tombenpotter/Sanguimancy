@@ -19,6 +19,7 @@ public class ItemChunkClaimer extends Item {
     public ItemChunkClaimer() {
         setCreativeTab(Sanguimancy.tabSanguimancy);
         setUnlocalizedName(Sanguimancy.modid + ".chunkClaimer");
+        setMaxStackSize(16);
     }
 
     @SideOnly(Side.CLIENT)
@@ -32,10 +33,12 @@ public class ItemChunkClaimer extends Item {
             if (player.worldObj.provider.dimensionId == ConfigHandler.snDimID) {
                 if (ClaimedChunks.getClaimedChunks().addLocation(player.getCommandSenderName(), new ChunkIntPairSerializable((int) player.posX >> 4, (int) player.posZ >> 4))) {
                     player.addChatComponentMessage(new ChatComponentText(StatCollector.translateToLocal("chat.Sanguimancy.successfully.claimed")));
+                    player.inventory.consumeInventoryItem(this);
                 } else {
                     player.addChatComponentMessage(new ChatComponentText(StatCollector.translateToLocal("chat.Sanguimancy.unsuccessfully.claimed")));
                 }
-                player.inventory.consumeInventoryItem(this);
+            } else {
+                player.addChatComponentMessage(new ChatComponentText("chat.Sanguimancy.not.sn.dim"));
             }
         }
         return stack;

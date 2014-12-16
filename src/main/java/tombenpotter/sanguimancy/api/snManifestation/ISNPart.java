@@ -1,4 +1,4 @@
-package tombenpotter.sanguimancy.api.soulNetworkManifestation;
+package tombenpotter.sanguimancy.api.snManifestation;
 
 import tombenpotter.sanguimancy.api.BlockPostition;
 import tombenpotter.sanguimancy.api.EnumSNType;

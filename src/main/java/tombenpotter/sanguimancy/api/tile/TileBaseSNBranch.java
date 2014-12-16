@@ -5,9 +5,9 @@ import net.minecraftforge.common.util.ForgeDirection;
 import tombenpotter.sanguimancy.api.BlockPostition;
 import tombenpotter.sanguimancy.api.BoolAndBlockPosList;
 import tombenpotter.sanguimancy.api.ICustomNBTTag;
-import tombenpotter.sanguimancy.api.soulNetworkManifestation.ISNBranch;
-import tombenpotter.sanguimancy.api.soulNetworkManifestation.ISNComponent;
-import tombenpotter.sanguimancy.api.soulNetworkManifestation.ISNKnot;
+import tombenpotter.sanguimancy.api.snManifestation.ISNBranch;
+import tombenpotter.sanguimancy.api.snManifestation.ISNComponent;
+import tombenpotter.sanguimancy.api.snManifestation.ISNKnot;
 
 import java.util.ArrayList;
 import java.util.HashMap;

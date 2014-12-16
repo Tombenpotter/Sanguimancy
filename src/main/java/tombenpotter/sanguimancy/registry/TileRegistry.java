@@ -19,5 +19,6 @@ public class TileRegistry {
         GameRegistry.registerTileEntity(TileSimpleSNKnot.class, "TileSimpleSNKnot");
         GameRegistry.registerTileEntity(TileSimpleSNBranch.class, "TileSimpleSNBranch");
         GameRegistry.registerTileEntity(TileToggleSNKnot.class, "TileToggleSNKnot");
+        GameRegistry.registerTileEntity(TileRitualSNPart.class, "TileRitualSNPart");
     }
 }

@@ -10,7 +10,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import tombenpotter.sanguimancy.Sanguimancy;
 import tombenpotter.sanguimancy.api.BlockPostition;
-import tombenpotter.sanguimancy.api.soulNetworkManifestation.ISNComponent;
+import tombenpotter.sanguimancy.api.snManifestation.ISNComponent;
 import tombenpotter.sanguimancy.tile.TileSimpleSNBranch;
 
 public class BlockSimpleSNBranch extends BlockContainer {

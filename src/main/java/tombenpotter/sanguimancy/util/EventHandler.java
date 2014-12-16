@@ -88,6 +88,13 @@ public class EventHandler {
             NBTTagCompound tag = SoulCorruptionHelper.getModTag(player, Sanguimancy.modid);
             if (SoulCorruptionHelper.getCorruptionLevel(tag) > 0) return;
             else SoulCorruptionHelper.negateCorruption(tag);
+            if (!tag.getBoolean("hasInitialChunkClaimer")) {
+                player.addChatComponentMessage(new ChatComponentText(StatCollector.translateToLocal("chat.Sanguimancy.intial.claimer")));
+                if (!player.inventory.addItemStackToInventory(RandomUtils.SanguimancyItemStacks.chunkClaimer.copy())) {
+                    RandomUtils.dropItemStackInWorld(player.worldObj, player.posX, player.posY, player.posZ, RandomUtils.SanguimancyItemStacks.chunkClaimer.copy());
+                }
+                tag.setBoolean("hasInitialChunkClaimer", true);
+            }
         }
     }
 
@@ -144,29 +151,36 @@ public class EventHandler {
             int dimID = ConfigHandler.snDimID;
             WorldServer dimWorld = MinecraftServer.getServer().worldServerForDimension(dimID);
             if (ClaimedChunks.getClaimedChunks().getLinkedChunks(event.player.getCommandSenderName()) != null) {
-                int baseX = (ClaimedChunks.getClaimedChunks().getLinkedChunks(event.player.getCommandSenderName()).get(0).chunkXPos << 4) + (dimWorld.rand.nextInt(16) + 1);
-                int baseZ = (ClaimedChunks.getClaimedChunks().getLinkedChunks(event.player.getCommandSenderName()).get(0).chunkZPos << 4) + (dimWorld.rand.nextInt(16) + 1);
-                int baseY = dimWorld.getTopSolidOrLiquidBlock(baseX, baseZ) + 2;
-                BoundItemState boundItemState = new BoundItemState(baseX, baseY, baseZ, dimID, true);
-                String name = String.valueOf(dimID) + String.valueOf(baseX) + String.valueOf(baseY) + String.valueOf(baseZ) + event.itemStack.getUnlocalizedName() + event.itemStack.getDisplayName() + event.itemStack.getItemDamage() + event.player.getCommandSenderName();
-                if (dimWorld.isAirBlock(baseX, baseY, baseZ)) {
-                    RandomUtils.checkAndSetCompound(event.itemStack);
-                    if (BoundItems.getBoundItems().addItem(name, boundItemState)) {
-                        dimWorld.setBlock(baseX, baseY, baseZ, BlocksRegistry.boundItem);
-                        event.itemStack.stackTagCompound.setString("SavedItemName", name);
-                        if (dimWorld.getTileEntity(baseX, baseY, baseZ) != null && dimWorld.getTileEntity(baseX, baseY, baseZ) instanceof TileItemSNPart) {
-                            TileItemSNPart tile = (TileItemSNPart) dimWorld.getTileEntity(baseX, baseY, baseZ);
-                            tile.setInventorySlotContents(0, event.itemStack.copy());
-                            tile.getCustomNBTTag().setString("SavedItemName", name);
-                            dimWorld.markBlockForUpdate(baseX, baseY, baseZ);
+                for (ChunkIntPairSerializable chunkInt : ClaimedChunks.getClaimedChunks().getLinkedChunks(event.player.getCommandSenderName())) {
+                    int baseX = (chunkInt.chunkXPos << 4) + (dimWorld.rand.nextInt(16));
+                    int baseZ = (chunkInt.chunkZPos << 4) + (dimWorld.rand.nextInt(16));
+                    int baseY = dimWorld.getTopSolidOrLiquidBlock(baseX, baseZ) + 2;
+                    if (baseY >= 128) {
+                        continue;
+                    }
+                    BoundItemState boundItemState = new BoundItemState(baseX, baseY, baseZ, dimID, true);
+                    String name = String.valueOf(dimID) + String.valueOf(baseX) + String.valueOf(baseY) + String.valueOf(baseZ) + event.itemStack.getUnlocalizedName() + event.itemStack.getDisplayName() + event.itemStack.getItemDamage() + event.player.getCommandSenderName();
+                    if (dimWorld.isAirBlock(baseX, baseY, baseZ)) {
+                        RandomUtils.checkAndSetCompound(event.itemStack);
+                        if (BoundItems.getBoundItems().addItem(name, boundItemState)) {
+                            dimWorld.setBlock(baseX, baseY, baseZ, BlocksRegistry.boundItem);
+                            event.itemStack.stackTagCompound.setString("SavedItemName", name);
+                            if (dimWorld.getTileEntity(baseX, baseY, baseZ) != null && dimWorld.getTileEntity(baseX, baseY, baseZ) instanceof TileItemSNPart) {
+                                TileItemSNPart tile = (TileItemSNPart) dimWorld.getTileEntity(baseX, baseY, baseZ);
+                                tile.setInventorySlotContents(0, event.itemStack.copy());
+                                tile.getCustomNBTTag().setString("SavedItemName", name);
+                                dimWorld.markBlockForUpdate(baseX, baseY, baseZ);
+                            }
                         }
                     }
+                    event.player.addChatComponentMessage(new ChatComponentText(StatCollector.translateToLocal("chat.Sanguimancy.added.success")));
+                    break;
                 }
-                event.player.addChatComponentMessage(new ChatComponentText(StatCollector.translateToLocal("chat.Sanguimancy.added.success")));
             } else {
                 event.player.addChatComponentMessage(new ChatComponentText(StatCollector.translateToLocal("chat.Sanguimancy.added.fail")));
                 event.setResult(Event.Result.DENY);
             }
+
         }
     }
 
