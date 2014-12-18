@@ -5,6 +5,7 @@ import net.minecraftforge.common.util.ForgeDirection;
 import tombenpotter.sanguimancy.api.BlockPostition;
 import tombenpotter.sanguimancy.api.BoolAndBlockPosList;
 import tombenpotter.sanguimancy.api.ICustomNBTTag;
+import tombenpotter.sanguimancy.api.SNKNotBoolean;
 import tombenpotter.sanguimancy.api.snManifestation.ISNComponent;
 import tombenpotter.sanguimancy.api.snManifestation.ISNKnot;
 import tombenpotter.sanguimancy.api.snManifestation.ISNPart;
@@ -17,7 +18,7 @@ public abstract class TileBaseSNKnot extends TileEntity implements ISNKnot, ICus
     @Override
     public ArrayList<BlockPostition> getSNParts() {
         ArrayList<BlockPostition> list = new ArrayList<BlockPostition>();
-        HashMap<BlockPostition, Boolean> map = getComponentsInNetwork().hashMap;
+        HashMap<BlockPostition, SNKNotBoolean> map = getComponentsInNetwork().hashMap;
         for (BlockPostition postition : map.keySet()) {
             if (postition.getTile(worldObj) != null && postition.getTile(worldObj) instanceof ISNPart) {
                 list.add(postition);
@@ -33,10 +34,10 @@ public abstract class TileBaseSNKnot extends TileEntity implements ISNKnot, ICus
             if (postition != null) {
                 if (!blockPosList.hashMap.containsKey(postition) && postition.getTile(worldObj) != null && postition.getTile(worldObj) instanceof ISNKnot) {
                     ISNKnot knot = (ISNKnot) postition.getTile(worldObj);
-                    if (knot.isSNKnotactive()) blockPosList.hashMap.put(postition, knot.isSNKnot());
+                    blockPosList.hashMap.put(postition, new SNKNotBoolean(knot.isSNKnot(), knot.isSNKnotactive()));
                 } else if (!blockPosList.hashMap.containsKey(postition) && postition.getTile(worldObj) != null && postition.getTile(worldObj) instanceof ISNComponent) {
                     ISNComponent component = (ISNComponent) postition.getTile(worldObj);
-                    blockPosList.hashMap.put(postition, component.isSNKnot());
+                    blockPosList.hashMap.put(postition, new SNKNotBoolean(component.isSNKnot(), false));
                     component.getAdjacentComponents(new BlockPostition(this.xCoord, this.yCoord, this.zCoord), blockPosList);
                 }
             }
@@ -50,10 +51,10 @@ public abstract class TileBaseSNKnot extends TileEntity implements ISNKnot, ICus
             if (postition != null && !postition.equals(originalPosition)) {
                 if (!blockPosList.hashMap.containsKey(postition) && postition.getTile(worldObj) != null && postition.getTile(worldObj) instanceof ISNKnot) {
                     ISNKnot knot = (ISNKnot) postition.getTile(worldObj);
-                    if (knot.isSNKnotactive()) blockPosList.hashMap.put(postition, knot.isSNKnot());
+                    blockPosList.hashMap.put(postition, new SNKNotBoolean(knot.isSNKnot(), knot.isSNKnotactive()));
                 } else if (!blockPosList.hashMap.containsKey(postition) && postition.getTile(worldObj) != null && postition.getTile(worldObj) instanceof ISNComponent) {
                     ISNComponent component = (ISNComponent) postition.getTile(worldObj);
-                    blockPosList.hashMap.put(postition, component.isSNKnot());
+                    blockPosList.hashMap.put(postition, new SNKNotBoolean(component.isSNKnot(), false));
                     component.getAdjacentComponents(new BlockPostition(this.xCoord, this.yCoord, this.zCoord), blockPosList);
                 }
             }

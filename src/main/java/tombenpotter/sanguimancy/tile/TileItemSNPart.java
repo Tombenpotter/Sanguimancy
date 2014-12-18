@@ -12,11 +12,14 @@ import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.StatCollector;
 import tombenpotter.sanguimancy.api.BlockPostition;
+import tombenpotter.sanguimancy.api.EnumSNType;
+import tombenpotter.sanguimancy.api.SNKNotBoolean;
+import tombenpotter.sanguimancy.api.snManifestation.ISNKnot;
 import tombenpotter.sanguimancy.api.tile.TileBaseSNPart;
 import tombenpotter.sanguimancy.util.BoundItemState;
-import tombenpotter.sanguimancy.api.EnumSNType;
-import tombenpotter.sanguimancy.api.snManifestation.ISNKnot;
 import tombenpotter.sanguimancy.util.singletons.BoundItems;
+
+import java.util.HashMap;
 
 public class TileItemSNPart extends TileBaseSNPart implements IInventory {
 
@@ -213,5 +216,21 @@ public class TileItemSNPart extends TileBaseSNPart implements IInventory {
     @Override
     public void setCustomNBTTag(NBTTagCompound tag) {
         custoomNBTTag = tag;
+    }
+
+    @Override
+    public void updateEntity() {
+        if (worldObj.getWorldTime() % 200 == 0) {
+            HashMap<BlockPostition, SNKNotBoolean> map = getComponentsInNetwork().hashMap;
+            for (BlockPostition postition : map.keySet()) {
+                if (map.get(postition).isSNKnot && map.get(postition).isSNKnotActive && worldObj.getBlockPowerInput(xCoord, yCoord, zCoord) > 0) {
+                    disablePart(false);
+                } else if (map.get(postition).isSNKnot && !map.get(postition).isSNKnotActive) {
+                    disablePart(false);
+                } else {
+                    disablePart(true);
+                }
+            }
+        }
     }
 }

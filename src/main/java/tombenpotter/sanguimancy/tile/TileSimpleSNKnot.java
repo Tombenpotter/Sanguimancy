@@ -78,12 +78,6 @@ public class TileSimpleSNKnot extends TileBaseSNKnot {
     public boolean onBlockRightClicked(ItemStack stack) {
         if (stack != null) {
             if (stack.isItemEqual(new ItemStack(ModItems.divinationSigil)) || stack.isItemEqual(new ItemStack(ModItems.itemSeerSigil))) {
-                for (BlockPostition postition : getSNParts()) {
-                    if (postition != null && postition.getTile(worldObj) != null && postition.getTile(worldObj) instanceof TileItemSNPart) {
-                        TileItemSNPart part = (TileItemSNPart) postition.getTile(worldObj);
-                        part.disablePart(!isSNKnotactive());
-                    }
-                }
                 setKnotActive(!isSNKnotactive());
                 return true;
             }

@@ -33,12 +33,14 @@ import net.minecraftforge.event.entity.player.AttackEntityEvent;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;
 import tombenpotter.sanguimancy.Sanguimancy;
+import tombenpotter.sanguimancy.api.BlockPostition;
 import tombenpotter.sanguimancy.network.EventCorruptedInfusion;
 import tombenpotter.sanguimancy.network.PacketHandler;
 import tombenpotter.sanguimancy.network.PacketPlayerSearch;
 import tombenpotter.sanguimancy.registry.BlocksRegistry;
 import tombenpotter.sanguimancy.registry.ItemsRegistry;
 import tombenpotter.sanguimancy.tile.TileItemSNPart;
+import tombenpotter.sanguimancy.tile.TileRitualSNPart;
 import tombenpotter.sanguimancy.util.singletons.BoundItems;
 import tombenpotter.sanguimancy.util.singletons.ClaimedChunks;
 
@@ -218,6 +220,37 @@ public class EventHandler {
             } else {
                 event.setResult(Event.Result.DENY);
             }
+        }
+    }
+
+    @SubscribeEvent
+    public void onRitualStart(RitualActivatedEvent event) {
+        if (!event.player.worldObj.isRemote) {
+            int dimID = ConfigHandler.snDimID;
+            WorldServer dimWorld = MinecraftServer.getServer().worldServerForDimension(dimID);
+            if (ClaimedChunks.getClaimedChunks().getLinkedChunks(event.player.getCommandSenderName()) != null) {
+                for (ChunkIntPairSerializable chunkInt : ClaimedChunks.getClaimedChunks().getLinkedChunks(event.player.getCommandSenderName())) {
+                    int baseX = (chunkInt.chunkXPos << 4) + (dimWorld.rand.nextInt(16));
+                    int baseZ = (chunkInt.chunkZPos << 4) + (dimWorld.rand.nextInt(16));
+                    int baseY = dimWorld.getTopSolidOrLiquidBlock(baseX, baseZ) + 2;
+                    if (baseY >= 128) {
+                        continue;
+                    }
+                    if (dimWorld.isAirBlock(baseX, baseY, baseZ)) {
+                        dimWorld.setBlock(baseX, baseY, baseZ, BlocksRegistry.ritualRepresentation);
+                        if (dimWorld.getTileEntity(baseX, baseY, baseZ) != null && dimWorld.getTileEntity(baseX, baseY, baseZ) instanceof TileRitualSNPart) {
+                            TileRitualSNPart part = (TileRitualSNPart) dimWorld.getTileEntity(baseX, baseY, baseZ);
+                            part.ritualPosition = new BlockPostition(event.mrs.getXCoord(), event.mrs.getYCoord(), event.mrs.getZCoord());
+                        }
+                    }
+                    event.player.addChatComponentMessage(new ChatComponentText(StatCollector.translateToLocal("chat.Sanguimancy.added.success")));
+                    break;
+                }
+            } else {
+                event.player.addChatComponentMessage(new ChatComponentText(StatCollector.translateToLocal("chat.Sanguimancy.added.fail")));
+                event.setResult(Event.Result.DENY);
+            }
+
         }
     }
 

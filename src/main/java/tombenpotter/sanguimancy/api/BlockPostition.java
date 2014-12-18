@@ -41,15 +41,16 @@ public class BlockPostition {
         return world.getTileEntity((int) x, (int) y, (int) z);
     }
 
-    public void readFromNBT(NBTTagCompound tag) {
-        x = tag.getCompoundTag("BlockPostition").getDouble("posX");
-        y = tag.getCompoundTag("BlockPostition").getDouble("posY");
-        z = tag.getCompoundTag("BlockPostition").getDouble("posZ");
+    public static BlockPostition readFromNBT(NBTTagCompound tag) {
+        return new BlockPostition(tag.getCompoundTag("BlockPostition").getDouble("posX"),
+                tag.getCompoundTag("BlockPostition").getDouble("posY"),
+                tag.getCompoundTag("BlockPostition").getDouble("posZ"));
     }
 
-    public void writeToNBT(NBTTagCompound tag) {
+    public NBTTagCompound writeToNBT(NBTTagCompound tag) {
         tag.getCompoundTag("BlockPostition").setDouble("posX", x);
         tag.getCompoundTag("BlockPostition").setDouble("posY", y);
         tag.getCompoundTag("BlockPostition").setDouble("posZ", z);
+        return tag;
     }
 }
