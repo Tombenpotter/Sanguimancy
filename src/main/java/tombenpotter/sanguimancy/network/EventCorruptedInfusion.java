@@ -6,7 +6,6 @@ import net.minecraft.entity.player.EntityPlayer;
 import tombenpotter.sanguimancy.recipes.RecipeCorruptedInfusion;
 
 public class EventCorruptedInfusion extends Event {
-
     public final RecipeCorruptedInfusion recipeCorruptedInfusion;
 
     public EventCorruptedInfusion(RecipeCorruptedInfusion recipe) {
@@ -15,7 +14,6 @@ public class EventCorruptedInfusion extends Event {
 
     @Cancelable
     public static class EventPlayerCorruptedInfusion extends EventCorruptedInfusion {
-
         public final EntityPlayer entityPlayer;
 
         public EventPlayerCorruptedInfusion(EntityPlayer player, RecipeCorruptedInfusion recipe) {

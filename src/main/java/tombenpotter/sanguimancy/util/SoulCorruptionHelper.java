@@ -13,6 +13,7 @@ import net.minecraft.util.DamageSource;
 import tombenpotter.sanguimancy.Sanguimancy;
 import tombenpotter.sanguimancy.entity.EntityChickenMinion;
 import tombenpotter.sanguimancy.entity.EntityPlayerPointer;
+import tombenpotter.sanguimancy.network.EventSoulCorruption;
 import tombenpotter.sanguimancy.registry.BlocksRegistry;
 
 import java.util.List;
@@ -40,48 +41,53 @@ public class SoulCorruptionHelper {
         return modTag;
     }
 
-    public static int getCorruptionLevel(NBTTagCompound tag) {
+    public static int getCorruptionLevel(EntityPlayer player, NBTTagCompound tag) {
+        RandomUtils.fireEvent(new EventSoulCorruption.EventCheckSoulCorruption(player));
         return tag.getInteger(soulCorruptionTag);
     }
 
-    public static boolean isCorruptionEqual(NBTTagCompound tag, int level) {
-        return (tag.getInteger(soulCorruptionTag) == level);
+    public static boolean isCorruptionEqual(EntityPlayer player, NBTTagCompound tag, int level) {
+        return (getCorruptionLevel(player, tag) == level);
     }
 
-    public static boolean isCorruptionOver(NBTTagCompound tag, int level) {
-        return (tag.getInteger(soulCorruptionTag) >= level);
+    public static boolean isCorruptionOver(EntityPlayer player, NBTTagCompound tag, int level) {
+        return (getCorruptionLevel(player, tag) >= level);
     }
 
-    public static boolean isCorruptionLower(NBTTagCompound tag, int level) {
-        return (tag.getInteger(soulCorruptionTag) <= level);
+    public static boolean isCorruptionLower(EntityPlayer player, NBTTagCompound tag, int level) {
+        return (getCorruptionLevel(player, tag) <= level);
     }
 
-    public static void negateCorruption(NBTTagCompound tag) {
+    public static void negateCorruption(EntityPlayer player, NBTTagCompound tag) {
         tag.setInteger(soulCorruptionTag, 0);
+        RandomUtils.fireEvent(new EventSoulCorruption.EventSetSoulCorruption(player, 0));
     }
 
-    public static void setCorruptionLevel(NBTTagCompound tag, int amount) {
+    public static void setCorruptionLevel(EntityPlayer player, NBTTagCompound tag, int amount) {
         tag.setInteger(soulCorruptionTag, amount);
+        RandomUtils.fireEvent(new EventSoulCorruption.EventSetSoulCorruption(player, amount));
     }
 
-    public static void addCorruption(NBTTagCompound tag, int amount) {
-        int initialAmount = getCorruptionLevel(tag);
+    public static void addCorruption(EntityPlayer player, NBTTagCompound tag, int amount) {
+        int initialAmount = getCorruptionLevel(player, tag);
         tag.setInteger(soulCorruptionTag, initialAmount + amount);
+        RandomUtils.fireEvent(new EventSoulCorruption.EventAddSoulCorruption(player, amount));
     }
 
-    public static void removeCorruption(NBTTagCompound tag, int amount) {
-        int initialAmount = getCorruptionLevel(tag);
+    public static void removeCorruption(EntityPlayer player, NBTTagCompound tag, int amount) {
+        int initialAmount = getCorruptionLevel(player, tag);
         tag.setInteger(soulCorruptionTag, initialAmount - amount);
+        RandomUtils.fireEvent(new EventSoulCorruption.EventRemoveSoulCorruption(player, amount));
     }
 
-    public static void incrementCorruption(NBTTagCompound tag) {
-        int amount = getCorruptionLevel(tag);
-        tag.setInteger(soulCorruptionTag, amount + 1);
+    public static void incrementCorruption(EntityPlayer player, NBTTagCompound tag) {
+        int amount = getCorruptionLevel(player, tag);
+        addCorruption(player, tag, 1);
     }
 
-    public static void decrementCorruption(NBTTagCompound tag) {
-        int amount = getCorruptionLevel(tag);
-        if (amount > 0) tag.setInteger(soulCorruptionTag, amount - 1);
+    public static void decrementCorruption(EntityPlayer player, NBTTagCompound tag) {
+        int amount = getCorruptionLevel(player, tag);
+        if (amount > 0) removeCorruption(player, tag, 1);
     }
 
     public static void spawnChickenFollower(EntityPlayer player) {
@@ -122,7 +128,7 @@ public class SoulCorruptionHelper {
             int k = (int) (player.posZ + player.worldObj.rand.nextInt(16) - player.worldObj.rand.nextInt(16));
             if (j <= 5) j = j + 10;
             player.setPositionAndUpdate(i, j, k);
-            decrementCorruption(tag);
+            decrementCorruption(player, tag);
         }
     }
 

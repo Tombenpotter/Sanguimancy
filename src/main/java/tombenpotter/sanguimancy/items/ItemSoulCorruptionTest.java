@@ -81,18 +81,24 @@ public class ItemSoulCorruptionTest extends Item {
         if (!world.isRemote) {
             NBTTagCompound tag = SoulCorruptionHelper.getModTag(player, Sanguimancy.modid);
             if (stack.getItemDamage() == 0) {
-                if (!player.isSneaking()) SoulCorruptionHelper.incrementCorruption(tag);
-                else SoulCorruptionHelper.addCorruption(tag, 100);
+                if (!player.isSneaking()) {
+                    SoulCorruptionHelper.incrementCorruption(player, tag);
+                } else {
+                    SoulCorruptionHelper.addCorruption(player, tag, 100);
+                }
             }
             if (stack.getItemDamage() == 1) {
-                if (!player.isSneaking()) SoulCorruptionHelper.decrementCorruption(tag);
-                else SoulCorruptionHelper.removeCorruption(tag, 100);
+                if (!player.isSneaking()) {
+                    SoulCorruptionHelper.decrementCorruption(player, tag);
+                } else {
+                    SoulCorruptionHelper.removeCorruption(player, tag, 100);
+                }
             }
             if (stack.getItemDamage() == 2) {
-                SoulCorruptionHelper.negateCorruption(tag);
+                SoulCorruptionHelper.negateCorruption(player, tag);
             }
             if (stack.getItemDamage() == 3) {
-                player.addChatComponentMessage(new ChatComponentText(StatCollector.translateToLocal("chat.Sanguimancy.soul.corruption") + ": " + String.valueOf(SoulCorruptionHelper.getCorruptionLevel(tag))));
+                player.addChatComponentMessage(new ChatComponentText(StatCollector.translateToLocal("chat.Sanguimancy.soul.corruption") + ": " + String.valueOf(SoulCorruptionHelper.getCorruptionLevel(player, tag))));
             }
         }
         return stack;
