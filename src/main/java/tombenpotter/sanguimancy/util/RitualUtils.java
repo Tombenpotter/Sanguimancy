@@ -15,38 +15,6 @@ import java.util.ArrayList;
 
 public class RitualUtils {
 
-    public static class TimbermanUtils {
-        public static ArrayList<Int3> getHarvestablesInArea(World world, int x, int y, int z, int multiplier) {
-            ArrayList<Int3> blocks = new ArrayList<Int3>();
-            for (int j = -4 * multiplier; j <= 4 * multiplier; j++) {
-                for (int i = -4 * multiplier; i <= 4 * multiplier; i++) {
-                    for (int k = -4 * multiplier; k <= 4 * multiplier; k++) {
-                        if (!world.isAirBlock(x + i, y + j, z + k) && (world.getBlock(x + i, y + j, z + k).isWood(world, x + i, y + j, z + k) || world.getBlock(x + i, y + j, z + k).isLeaves(world, x + i, y + j, z + k))) {
-                            blocks.add(new Int3(x + i, y + j, z + k));
-                        }
-                    }
-                }
-            }
-            return blocks;
-        }
-    }
-
-    public static class PumpUtils {
-        public static ArrayList<Int3> getPumpablesInArea(World world, FluidStack fluid, int x, int y, int z, int multiplier) {
-            ArrayList<Int3> blocks = new ArrayList<Int3>();
-            for (int j = -16 * multiplier; j <= 16 * multiplier; j++) {
-                for (int i = -16 * multiplier; i <= 16 * multiplier; i++) {
-                    for (int k = -16 * multiplier; k <= 16 * multiplier; k++) {
-                        if (!world.isAirBlock(x + i, y + j, z + k) && world.getBlock(x + i, y + j, z + k) == FluidRegistry.getFluid(fluid.fluidID).getBlock() && world.getBlockMetadata(x + i, y + j, z + k) == 0) {
-                            blocks.add(new Int3(x + i, y + j, z + k));
-                        }
-                    }
-                }
-            }
-            return blocks;
-        }
-    }
-
     public static void placeInInventory(Block block, World world, int x, int y, int z, IInventory tile) {
         if (block.getDrops(world, x, y, z, world.getBlockMetadata(x, y, z), 0) != null) {
             for (ItemStack stack : block.getDrops(world, x, y, z, world.getBlockMetadata(x, y, z), 0)) {
@@ -98,5 +66,37 @@ public class RitualUtils {
             if (hasOrbisTerrae) multiplier = 4;
         }
         return multiplier;
+    }
+
+    public static class TimbermanUtils {
+        public static ArrayList<Int3> getHarvestablesInArea(World world, int x, int y, int z, int multiplier) {
+            ArrayList<Int3> blocks = new ArrayList<Int3>();
+            for (int j = -4 * multiplier; j <= 4 * multiplier; j++) {
+                for (int i = -4 * multiplier; i <= 4 * multiplier; i++) {
+                    for (int k = -4 * multiplier; k <= 4 * multiplier; k++) {
+                        if (!world.isAirBlock(x + i, y + j, z + k) && (world.getBlock(x + i, y + j, z + k).isWood(world, x + i, y + j, z + k) || world.getBlock(x + i, y + j, z + k).isLeaves(world, x + i, y + j, z + k))) {
+                            blocks.add(new Int3(x + i, y + j, z + k));
+                        }
+                    }
+                }
+            }
+            return blocks;
+        }
+    }
+
+    public static class PumpUtils {
+        public static ArrayList<Int3> getPumpablesInArea(World world, FluidStack fluid, int x, int y, int z, int multiplier) {
+            ArrayList<Int3> blocks = new ArrayList<Int3>();
+            for (int j = -16 * multiplier; j <= 16 * multiplier; j++) {
+                for (int i = -16 * multiplier; i <= 16 * multiplier; i++) {
+                    for (int k = -16 * multiplier; k <= 16 * multiplier; k++) {
+                        if (!world.isAirBlock(x + i, y + j, z + k) && world.getBlock(x + i, y + j, z + k) == FluidRegistry.getFluid(fluid.fluidID).getBlock() && world.getBlockMetadata(x + i, y + j, z + k) == 0) {
+                            blocks.add(new Int3(x + i, y + j, z + k));
+                        }
+                    }
+                }
+            }
+            return blocks;
+        }
     }
 }

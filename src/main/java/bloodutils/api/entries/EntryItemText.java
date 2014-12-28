@@ -14,18 +14,17 @@ import org.lwjgl.opengl.GL12;
 import java.util.List;
 
 public class EntryItemText implements IEntry {
+    public ItemStack stack;
+    public String entryName;
+
     public EntryItemText(ItemStack stack) {
         this.stack = stack;
     }
-
-    public ItemStack stack;
 
     public EntryItemText(ItemStack stack, String entryName) {
         this.stack = stack;
         this.entryName = entryName;
     }
-
-    public String entryName;
 
     @Override
     public void draw(GuiEntry entry, int width, int height, int left, int top, EntityPlayer player, String key, int page, int mX, int mY) {

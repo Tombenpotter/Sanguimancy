@@ -18,18 +18,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class EntryAltarRecipe implements IEntry {
+    public AltarRecipe recipes;
+    public ItemStack input;
+    public ItemStack output;
+    public int essence;
+    public ArrayList<ItemIcon> icons = new ArrayList<ItemIcon>();
+
     public EntryAltarRecipe(AltarRecipe recipes) {
         this.recipes = recipes;
         populate(recipes);
     }
-
-    public AltarRecipe recipes;
-
-    public ItemStack input;
-    public ItemStack output;
-    public int essence;
-
-    public ArrayList<ItemIcon> icons = new ArrayList<ItemIcon>();
 
     @SuppressWarnings("unchecked")
     public void populate(AltarRecipe recipe) {
@@ -99,14 +97,13 @@ public class EntryAltarRecipe implements IEntry {
     }
 
     static class ItemIcon {
+        public ItemStack stack;
+        public int x, y;
         public ItemIcon(ItemStack stack, int x, int y) {
             this.stack = stack;
             this.x = x;
             this.y = y;
         }
-
-        public ItemStack stack;
-        public int x, y;
 
         public void onMouseBetween(int mX, int mY) {
             int xSize = x + 16;

@@ -18,8 +18,8 @@ import tombenpotter.sanguimancy.registry.BlocksRegistry;
 import tombenpotter.sanguimancy.tile.TileAltarDiviner;
 
 public class RenderAltarDiviner extends TileEntitySpecialRenderer implements IItemRenderer {
-    public ModelAltarDiviner model = new ModelAltarDiviner();
     private final RenderItem customRenderItem;
+    public ModelAltarDiviner model = new ModelAltarDiviner();
     public ResourceLocation texture = new ResourceLocation(Sanguimancy.texturePath + ":textures/blocks/AltarDiviner.png");
 
     public RenderAltarDiviner() {

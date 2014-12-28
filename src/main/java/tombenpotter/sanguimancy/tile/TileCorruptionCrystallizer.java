@@ -15,8 +15,8 @@ import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 import tombenpotter.sanguimancy.Sanguimancy;
-import tombenpotter.sanguimancy.util.SoulCorruptionHelper;
 import tombenpotter.sanguimancy.api.ICustomNBTTag;
+import tombenpotter.sanguimancy.util.SoulCorruptionHelper;
 
 public class TileCorruptionCrystallizer extends TileSegmentedReagentHandler implements ICustomNBTTag {
 
@@ -105,9 +105,9 @@ public class TileCorruptionCrystallizer extends TileSegmentedReagentHandler impl
         if (player != null) {
             NBTTagCompound tag = SoulCorruptionHelper.getModTag(player, Sanguimancy.modid);
             if (canDrainReagent(ReagentRegistry.sanctusReagent, 20)) {
-                if (SoulCorruptionHelper.isCorruptionOver(tag, 1) && (world.getWorldTime() % 200 == 0)) {
+                if (SoulCorruptionHelper.isCorruptionOver(player, tag, 1) && (world.getWorldTime() % 200 == 0)) {
                     drain(ForgeDirection.UNKNOWN, 20, true);
-                    SoulCorruptionHelper.decrementCorruption(tag);
+                    SoulCorruptionHelper.decrementCorruption(player, tag);
                     corruptionStored = corruptionStored + 1;
                     SoulNetworkHandler.syphonFromNetwork(player.getCommandSenderName(), 500);
                 } else if (corruptionStored > 0 && canDrainReagent(ReagentRegistry.sanctusReagent, 5)) {
@@ -119,7 +119,7 @@ public class TileCorruptionCrystallizer extends TileSegmentedReagentHandler impl
             } else {
                 if (corruptionStored > 0) {
                     if ((world.getWorldTime() % 100 == 0)) {
-                        SoulCorruptionHelper.incrementCorruption(tag);
+                        SoulCorruptionHelper.incrementCorruption(player, tag);
                         corruptionStored = corruptionStored - 1;
                     }
                 }

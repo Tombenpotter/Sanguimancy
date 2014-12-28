@@ -8,9 +8,9 @@ import java.io.*;
 import java.util.HashMap;
 
 public class BoundItems {
-    private HashMap<String, BoundItemState> items;
-    private static BoundItems boundItems;
     private static final String fileName = String.valueOf(DimensionManager.getCurrentSaveRootDirectory()) + "/" + Sanguimancy.texturePath + "/BoundItems.dat";
+    private static BoundItems boundItems;
+    private HashMap<String, BoundItemState> items;
 
     private BoundItems() {
     }

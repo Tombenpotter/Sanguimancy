@@ -15,10 +15,10 @@ import tombenpotter.sanguimancy.registry.BlocksRegistry;
 import tombenpotter.sanguimancy.tile.TileSimpleSNBranch;
 
 public class RenderSoulBranch extends TileEntitySpecialRenderer implements IItemRenderer {
-    private ResourceLocation text = new ResourceLocation(Sanguimancy.texturePath + ":textures/blocks/SimpleSoulBranch.png");
     float pixel = 2F / 16F;
     float texturePixel = 1F / 32F;
     boolean drawInside = true;
+    private ResourceLocation text = new ResourceLocation(Sanguimancy.texturePath + ":textures/blocks/SimpleSoulBranch.png");
 
     public RenderSoulBranch() {
     }

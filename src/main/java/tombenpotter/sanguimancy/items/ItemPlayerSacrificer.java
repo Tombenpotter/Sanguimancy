@@ -83,7 +83,6 @@ public class ItemPlayerSacrificer extends Item implements IBindable {
     @Override
     public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean par4) {
         if (!(stack.stackTagCompound == null) && stack.getItemDamage() == 2 || stack.getItemDamage() == 3) {
-            list.add(StatCollector.translateToLocal("info.Sanguimancy.tooltip.sacrifice.player.owner") + ": " + stack.stackTagCompound.getString("ownerName"));
             list.add(StatCollector.translateToLocal("info.Sanguimancy.tooltip.sacrifice.player.stolen") + ": " + stack.stackTagCompound.getInteger("bloodStolen"));
             list.add(StatCollector.translateToLocal("info.Sanguimancy.tooltip.sacrifice.player.thief") + ": " + stack.stackTagCompound.getString("thiefName"));
         }

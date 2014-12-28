@@ -19,32 +19,21 @@ import java.util.List;
 
 public class NEICorruptedInfusion extends TemplateRecipeHandler {
 
-    public class CachedCorruptionRecipe extends CachedRecipe {
-        public ItemStack[] input;
-        public ItemStack output;
-        public int time;
-        public int miniumCorruption;
-        public boolean exactAmountandNbt;
+    public static Point getMousePosition() {
+        Dimension size = displaySize();
+        Dimension res = displayRes();
+        return new Point(Mouse.getX() * size.width / res.width, size.height - Mouse.getY() * size.height / res.height - 1);
+    }
 
-        public CachedCorruptionRecipe(RecipeCorruptedInfusion recipe) {
-            this.input = recipe.fInput;
-            this.output = recipe.fOutput;
-            this.time = recipe.fTime;
-            this.miniumCorruption = recipe.fMiniumCorruption;
-            this.exactAmountandNbt = recipe.fExactAmountandNbt;
-        }
+    public static Dimension displaySize() {
+        Minecraft mc = Minecraft.getMinecraft();
+        ScaledResolution res = new ScaledResolution(mc, mc.displayWidth, mc.displayHeight);
+        return new Dimension(res.getScaledWidth(), res.getScaledHeight());
+    }
 
-        @Override
-        public List<PositionedStack> getIngredients() {
-            ArrayList<PositionedStack> stacks = new ArrayList<PositionedStack>();
-            stacks.add(new PositionedStack(input, 20, 10));
-            return stacks;
-        }
-
-        @Override
-        public PositionedStack getResult() {
-            return new PositionedStack(output, 124, 10);
-        }
+    public static Dimension displayRes() {
+        Minecraft mc = Minecraft.getMinecraft();
+        return new Dimension(mc.displayWidth, mc.displayHeight);
     }
 
     @Override
@@ -116,7 +105,6 @@ public class NEICorruptedInfusion extends TemplateRecipeHandler {
         tess.draw();
     }
 
-
     //Taken from the Blood Magic Repo, written by Joshie
     public Point getMouse(int width, int height) {
         Point mousepos = this.getMousePosition();
@@ -162,20 +150,31 @@ public class NEICorruptedInfusion extends TemplateRecipeHandler {
         }
     }
 
-    public static Point getMousePosition() {
-        Dimension size = displaySize();
-        Dimension res = displayRes();
-        return new Point(Mouse.getX() * size.width / res.width, size.height - Mouse.getY() * size.height / res.height - 1);
-    }
+    public class CachedCorruptionRecipe extends CachedRecipe {
+        public ItemStack[] input;
+        public ItemStack output;
+        public int time;
+        public int miniumCorruption;
+        public boolean exactAmountandNbt;
 
-    public static Dimension displaySize() {
-        Minecraft mc = Minecraft.getMinecraft();
-        ScaledResolution res = new ScaledResolution(mc, mc.displayWidth, mc.displayHeight);
-        return new Dimension(res.getScaledWidth(), res.getScaledHeight());
-    }
+        public CachedCorruptionRecipe(RecipeCorruptedInfusion recipe) {
+            this.input = recipe.fInput;
+            this.output = recipe.fOutput;
+            this.time = recipe.fTime;
+            this.miniumCorruption = recipe.fMiniumCorruption;
+            this.exactAmountandNbt = recipe.fExactAmountandNbt;
+        }
 
-    public static Dimension displayRes() {
-        Minecraft mc = Minecraft.getMinecraft();
-        return new Dimension(mc.displayWidth, mc.displayHeight);
+        @Override
+        public List<PositionedStack> getIngredients() {
+            ArrayList<PositionedStack> stacks = new ArrayList<PositionedStack>();
+            stacks.add(new PositionedStack(input, 20, 10));
+            return stacks;
+        }
+
+        @Override
+        public PositionedStack getResult() {
+            return new PositionedStack(output, 124, 10);
+        }
     }
 }

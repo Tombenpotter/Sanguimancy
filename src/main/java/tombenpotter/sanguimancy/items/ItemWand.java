@@ -63,9 +63,6 @@ public class ItemWand extends Item {
                 list.add(StatCollector.translateToLocal("info.Sanguimancy.tooltip.shift.info"));
             } else {
                 list.add("Current Spell: " + String.valueOf(stack.stackTagCompound.getInteger("currentSpell") + 1));
-                if (!stack.stackTagCompound.getString("ownerName").equals("")) {
-                    list.add("Current owner: " + stack.stackTagCompound.getString("ownerName"));
-                }
                 list.add("Coords: " + itemTag.getInteger("xCoord") + ", " + itemTag.getInteger("yCoord") + ", " + itemTag.getInteger("zCoord"));
                 list.add("Bound Dimension: " + getDimensionID(itemTag));
             }

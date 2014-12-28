@@ -10,17 +10,15 @@ import net.minecraft.util.ResourceLocation;
 import org.lwjgl.opengl.GL11;
 
 public class GuiCategories extends GuiScreen {
-    public GuiCategories(EntityPlayer player) {
-        this.player = player;
-    }
-
     private static final ResourceLocation gui = new ResourceLocation("bloodutils:textures/gui/front.png");
-
     int gwidth = 192;
     int gheight = 192;
     int x, y;
     ElementCategory[] categories = new ElementCategory[EntryRegistry.categories.size()];
     EntityPlayer player;
+    public GuiCategories(EntityPlayer player) {
+        this.player = player;
+    }
 
     @Override
     public void initGui() {

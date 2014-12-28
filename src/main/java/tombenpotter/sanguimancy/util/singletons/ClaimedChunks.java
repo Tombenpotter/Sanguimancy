@@ -9,9 +9,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class ClaimedChunks {
-    private HashMap<String, ArrayList<ChunkIntPairSerializable>> chunks;
-    private static ClaimedChunks claimedChunks;
     private static final String fileName = String.valueOf(DimensionManager.getCurrentSaveRootDirectory()) + "/" + Sanguimancy.texturePath + "/ClaimedChunks.dat";
+    private static ClaimedChunks claimedChunks;
+    private HashMap<String, ArrayList<ChunkIntPairSerializable>> chunks;
 
     private ClaimedChunks() {
     }

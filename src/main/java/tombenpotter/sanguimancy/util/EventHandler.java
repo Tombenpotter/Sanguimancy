@@ -76,7 +76,7 @@ public class EventHandler {
                         perpetrator.inventory.addItemStackToInventory(focusedStack);
                         SoulNetworkHandler.setCurrentEssence(owner, 0);
                         NBTTagCompound tag = SoulCorruptionHelper.getModTag(player, Sanguimancy.modid);
-                        SoulCorruptionHelper.incrementCorruption(tag);
+                        SoulCorruptionHelper.incrementCorruption(player, tag);
                     }
                 }
             }
@@ -88,8 +88,8 @@ public class EventHandler {
         if (!event.entity.worldObj.isRemote && event.entity != null && event.entity instanceof EntityPlayer) {
             EntityPlayer player = (EntityPlayer) event.entity;
             NBTTagCompound tag = SoulCorruptionHelper.getModTag(player, Sanguimancy.modid);
-            if (SoulCorruptionHelper.getCorruptionLevel(tag) > 0) return;
-            else SoulCorruptionHelper.negateCorruption(tag);
+            if (SoulCorruptionHelper.getCorruptionLevel(player, tag) > 0) return;
+            else SoulCorruptionHelper.negateCorruption(player, tag);
             if (!tag.getBoolean("hasInitialChunkClaimer")) {
                 player.addChatComponentMessage(new ChatComponentText(StatCollector.translateToLocal("chat.Sanguimancy.intial.claimer")));
                 if (!player.inventory.addItemStackToInventory(RandomUtils.SanguimancyItemStacks.chunkClaimer.copy())) {
@@ -103,11 +103,21 @@ public class EventHandler {
     @SubscribeEvent
     public void onPlayerTick(TickEvent.PlayerTickEvent event) {
         NBTTagCompound tag = SoulCorruptionHelper.getModTag(event.player, Sanguimancy.modid);
-        if (SoulCorruptionHelper.isCorruptionOver(tag, 10)) SoulCorruptionHelper.spawnChickenFollower(event.player);
-        if (SoulCorruptionHelper.isCorruptionOver(tag, 25)) SoulCorruptionHelper.killGrass(event.player);
-        if (SoulCorruptionHelper.isCorruptionOver(tag, 40)) SoulCorruptionHelper.hurtAndHealAnimals(event.player);
-        if (SoulCorruptionHelper.isCorruptionOver(tag, 50)) SoulCorruptionHelper.spawnIllusion(event.player);
-        if (SoulCorruptionHelper.isCorruptionOver(tag, 70)) SoulCorruptionHelper.randomTeleport(event.player);
+        if (SoulCorruptionHelper.isCorruptionOver(event.player, tag, 10)) {
+            SoulCorruptionHelper.spawnChickenFollower(event.player);
+        }
+        if (SoulCorruptionHelper.isCorruptionOver(event.player, tag, 25)) {
+            SoulCorruptionHelper.killGrass(event.player);
+        }
+        if (SoulCorruptionHelper.isCorruptionOver(event.player, tag, 40)) {
+            SoulCorruptionHelper.hurtAndHealAnimals(event.player);
+        }
+        if (SoulCorruptionHelper.isCorruptionOver(event.player, tag, 50)) {
+            SoulCorruptionHelper.spawnIllusion(event.player);
+        }
+        if (SoulCorruptionHelper.isCorruptionOver(event.player, tag, 70)) {
+            SoulCorruptionHelper.randomTeleport(event.player);
+        }
     }
 
     @SubscribeEvent
@@ -115,7 +125,8 @@ public class EventHandler {
         if (event.entityPlayer != null && event.target != null && event.target instanceof EntityLivingBase) {
             NBTTagCompound tag = SoulCorruptionHelper.getModTag(event.entityPlayer, Sanguimancy.modid);
             EntityLivingBase target = (EntityLivingBase) event.target;
-            if (SoulCorruptionHelper.isCorruptionOver(tag, 30)) SoulCorruptionHelper.addWither(target);
+            if (SoulCorruptionHelper.isCorruptionOver(event.entityPlayer, tag, 30))
+                SoulCorruptionHelper.addWither(target);
         }
     }
 
@@ -127,7 +138,7 @@ public class EventHandler {
     public void onRitualActivation(RitualActivatedEvent event) {
         if (event.player != null) {
             NBTTagCompound tag = SoulCorruptionHelper.getModTag(event.player, Sanguimancy.modid);
-            if (SoulCorruptionHelper.isCorruptionOver(tag, 15) && event.player.worldObj.rand.nextInt(10) == 0) {
+            if (SoulCorruptionHelper.isCorruptionOver(event.player, tag, 15) && event.player.worldObj.rand.nextInt(10) == 0) {
                 event.setResult(Event.Result.DENY);
             }
         }

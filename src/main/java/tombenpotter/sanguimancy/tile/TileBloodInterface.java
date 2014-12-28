@@ -8,6 +8,7 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.Packet;
+import tombenpotter.sanguimancy.api.Timer;
 import tombenpotter.sanguimancy.compat.lua.events.LuaOrbMaxed;
 import tombenpotter.sanguimancy.compat.lua.methods.LuaGetLifeEssence;
 import tombenpotter.sanguimancy.compat.lua.methods.LuaGetOrbMax;
@@ -15,7 +16,6 @@ import tombenpotter.sanguimancy.compat.lua.methods.LuaGetOwner;
 import tombenpotter.sanguimancy.network.BloodInterfaceUpdateMessage;
 import tombenpotter.sanguimancy.network.PacketHandler;
 import tombenpotter.sanguimancy.registry.BlocksRegistry;
-import tombenpotter.sanguimancy.api.Timer;
 
 public class TileBloodInterface extends TileComputerBase implements IInventory {
 

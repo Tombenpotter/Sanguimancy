@@ -22,6 +22,7 @@ import tombenpotter.sanguimancy.proxies.CommonProxy;
 import tombenpotter.sanguimancy.registry.*;
 import tombenpotter.sanguimancy.util.ConfigHandler;
 import tombenpotter.sanguimancy.util.EventHandler;
+import tombenpotter.sanguimancy.util.HolidaysBitsAndBobsEventHandler;
 import tombenpotter.sanguimancy.util.RandomUtils;
 import tombenpotter.sanguimancy.util.enums.ModList;
 
@@ -66,6 +67,7 @@ public class Sanguimancy {
         RecipesRegistry.registerShapedRecipes();
         RecipesRegistry.registerOrbRecipes();
         EntitiesRegistry.registerEntities();
+        PotionsRegistry.potionPreInit();
         if (ModList.computercraft.isLoaded()) PeripheralProvider.register();
         RandomUtils.createSNDimension();
     }
@@ -75,8 +77,11 @@ public class Sanguimancy {
         proxy.load();
         RitualRegistry.registerRituals();
         RecipesRegistry.registerAltarRecipes();
+        PotionsRegistry.registerPotions();
         FMLCommonHandler.instance().bus().register(new EventHandler());
         MinecraftForge.EVENT_BUS.register(new EventHandler());
+        FMLCommonHandler.instance().bus().register(new HolidaysBitsAndBobsEventHandler());
+        MinecraftForge.EVENT_BUS.register(new HolidaysBitsAndBobsEventHandler());
         MinecraftForge.EVENT_BUS.register(new EventHandler.ClientEventHandler());
         PacketHandler.registerPackets();
         if (Loader.isModLoaded("Waila")) {

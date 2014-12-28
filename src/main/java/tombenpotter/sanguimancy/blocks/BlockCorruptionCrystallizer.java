@@ -62,7 +62,7 @@ public class BlockCorruptionCrystallizer extends BlockContainer {
         if (player != null) {
             NBTTagCompound tag = SoulCorruptionHelper.getModTag(player, Sanguimancy.modid);
             TileCorruptionCrystallizer tile = (TileCorruptionCrystallizer) world.getTileEntity(x, y, z);
-            SoulCorruptionHelper.addCorruption(tag, tile.corruptionStored);
+            SoulCorruptionHelper.addCorruption(player, tag, tile.corruptionStored);
         }
         world.removeTileEntity(x, y, y);
         return super.removedByPlayer(world, player, x, y, z);

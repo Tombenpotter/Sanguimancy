@@ -91,7 +91,7 @@ public class BlockSacrificeTransfer extends BlockContainer {
                     player.setFire(1000);
                     tile.setInventorySlotContents(0, null);
                     NBTTagCompound tag = SoulCorruptionHelper.getModTag(player, Sanguimancy.modid);
-                    SoulCorruptionHelper.addCorruption(tag, 2);
+                    SoulCorruptionHelper.addCorruption(player, tag, 2);
                 } else if (stack.stackTagCompound.getString("ownerName").equals(player.getCommandSenderName())) {
                     String sacrificed = player.getCommandSenderName();
                     int sacrificedEssence = SoulNetworkHandler.getCurrentEssence(sacrificed);

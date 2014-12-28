@@ -23,6 +23,12 @@ public class BlockPostition {
         z = tile.zCoord;
     }
 
+    public static BlockPostition readFromNBT(NBTTagCompound tag) {
+        return new BlockPostition(tag.getCompoundTag("BlockPostition").getDouble("posX"),
+                tag.getCompoundTag("BlockPostition").getDouble("posY"),
+                tag.getCompoundTag("BlockPostition").getDouble("posZ"));
+    }
+
     @Override
     public boolean equals(Object o) {
         return o instanceof BlockPostition ? (((BlockPostition) o).x == this.x && ((BlockPostition) o).y == this.y && ((BlockPostition) o).z == this.z) : false;
@@ -39,12 +45,6 @@ public class BlockPostition {
 
     public TileEntity getTile(World world) {
         return world.getTileEntity((int) x, (int) y, (int) z);
-    }
-
-    public static BlockPostition readFromNBT(NBTTagCompound tag) {
-        return new BlockPostition(tag.getCompoundTag("BlockPostition").getDouble("posX"),
-                tag.getCompoundTag("BlockPostition").getDouble("posY"),
-                tag.getCompoundTag("BlockPostition").getDouble("posZ"));
     }
 
     public NBTTagCompound writeToNBT(NBTTagCompound tag) {

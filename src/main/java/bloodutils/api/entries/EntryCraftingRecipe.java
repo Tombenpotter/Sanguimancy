@@ -22,17 +22,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class EntryCraftingRecipe implements IEntry {
+    public IRecipe recipes;
+    public ItemStack[] recipe;
+    public ItemStack output;
+    public ArrayList<ItemIcon> icons = new ArrayList<ItemIcon>();
+
     public EntryCraftingRecipe(IRecipe recipes) {
         this.recipes = recipes;
         populate(recipes);
     }
-
-    public IRecipe recipes;
-
-    public ItemStack[] recipe;
-    public ItemStack output;
-
-    public ArrayList<ItemIcon> icons = new ArrayList<ItemIcon>();
 
     @SuppressWarnings("unchecked")
     public void populate(IRecipe recipe) {
@@ -181,14 +179,13 @@ public class EntryCraftingRecipe implements IEntry {
     }
 
     static class ItemIcon {
+        public ItemStack stack;
+        public int x, y;
         public ItemIcon(ItemStack stack, int x, int y) {
             this.stack = stack;
             this.x = x;
             this.y = y;
         }
-
-        public ItemStack stack;
-        public int x, y;
 
         public void onMouseBetween(int mX, int mY) {
             int xSize = x + 16;

@@ -1,16 +1,19 @@
 package tombenpotter.sanguimancy.util;
 
 import cpw.mods.fml.common.eventhandler.Event;
+import net.minecraft.block.Block;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import net.minecraftforge.common.DimensionManager;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.util.EnumHelper;
 import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.fluids.FluidContainerRegistry;
 import net.minecraftforge.fluids.FluidStack;
@@ -31,6 +34,7 @@ import java.util.Random;
 public class RandomUtils {
 
     public static HashMap<String, Integer> oreDictColor = new HashMap<String, Integer>();
+    public static Item.ToolMaterial corruptedMaterial = EnumHelper.addToolMaterial("corruptedToolMaterial", Integer.MAX_VALUE, 9000, 32, 10, 32);
 
     public static void dropItems(World world, int x, int y, int z) {
         Random rand = new Random();
@@ -227,6 +231,15 @@ public class RandomUtils {
         }
     }
 
+    public static String getItemOwner(ItemStack stack) {
+        checkAndSetCompound(stack);
+        try {
+            return stack.stackTagCompound.getString("ownerName");
+        } catch (NullPointerException e) {
+            return "";
+        }
+    }
+
     public static void createSNDimension() {
         int dimID = ConfigHandler.snDimID;
         if (!DimensionManager.isDimensionRegistered(dimID)) {
@@ -234,6 +247,37 @@ public class RandomUtils {
             provider.setDimension(dimID);
             DimensionManager.registerProviderType(dimID, provider.getClass(), true);
             DimensionManager.registerDimension(dimID, dimID);
+        }
+    }
+
+    public static void dropBlockDropsWithFortune(World world, Block block, int x, int y, int z, int metadata, int fortune) {
+        if (block != null && block.getDrops(world, x, y, z, world.getBlockMetadata(x, y, z), 0) != null) {
+            for (ItemStack stack : block.getDrops(world, x, y, z, metadata, fortune)) {
+                dropItemStackInWorld(world, x, y, z, stack.copy());
+            }
+        }
+    }
+
+    public static void dropSilkDrops(World world, Block block, int x, int y, int z, int metadata) {
+        if (block != null && block.canSilkHarvest(world, null, x, y, z, metadata)) {
+            ItemStack copyStack = new ItemStack(block, 1, world.getBlockMetadata(x, y, z)).copy();
+            dropItemStackInWorld(world, x, y, z, copyStack);
+        } else {
+            dropBlockDropsWithFortune(world, block, x, y, z, metadata, 0);
+        }
+    }
+
+    public static void dropSmeltDrops(World world, Block block, int x, int y, int z, int metadata) {
+        if (block.getDrops(world, x, y, z, world.getBlockMetadata(x, y, z), 0) != null) {
+            for (ItemStack stack : block.getDrops(world, x, y, z, world.getBlockMetadata(x, y, z), 0)) {
+                ItemStack copyStack = stack.copy();
+                if (FurnaceRecipes.smelting().getSmeltingResult(copyStack) == null) {
+                    dropBlockDropsWithFortune(world, block, x, y, z, metadata, 0);
+                } else {
+                    ItemStack output = FurnaceRecipes.smelting().getSmeltingResult(stack).copy();
+                    dropItemStackInWorld(world, x, y, z, output);
+                }
+            }
         }
     }
 

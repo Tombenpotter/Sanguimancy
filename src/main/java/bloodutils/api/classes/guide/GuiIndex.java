@@ -17,29 +17,24 @@ import org.lwjgl.opengl.GL11;
 import java.util.HashMap;
 
 public class GuiIndex extends GuiScreen {
+    private static final ResourceLocation gui = new ResourceLocation("bloodutils:textures/gui/guide.png");
+    GuiButton prev, next, back;
+    Category category;
+    EntityPlayer player;
+    ElementCategory[] categories = new ElementCategory[EntryRegistry.categories.size()];
+    int gwidth = 192;
+    int gheight = 192;
+    int left, top;
+    int currPage = 0;
     public GuiIndex(Category category, EntityPlayer player) {
         this.category = category;
         this.player = player;
     }
-
     public GuiIndex(Category category, EntityPlayer player, int currPage) {
         this.category = category;
         this.player = player;
         this.currPage = currPage;
     }
-
-    private static final ResourceLocation gui = new ResourceLocation("bloodutils:textures/gui/guide.png");
-    GuiButton prev, next, back;
-
-    Category category;
-    EntityPlayer player;
-
-    ElementCategory[] categories = new ElementCategory[EntryRegistry.categories.size()];
-
-    int gwidth = 192;
-    int gheight = 192;
-    int left, top;
-    int currPage = 0;
 
     @SuppressWarnings("unchecked")
     @Override

@@ -19,26 +19,21 @@ import java.util.List;
 
 public class NEIBloodCleanser extends TemplateRecipeHandler {
 
-    public class CachedCleansingRecipe extends CachedRecipe {
-        public ItemStack input;
-        public ItemStack output;
+    public static Point getMousePosition() {
+        Dimension size = displaySize();
+        Dimension res = displayRes();
+        return new Point(Mouse.getX() * size.width / res.width, size.height - Mouse.getY() * size.height / res.height - 1);
+    }
 
-        public CachedCleansingRecipe(RecipeBloodCleanser recipe) {
-            this.input = recipe.fInput;
-            this.output = recipe.fOutput;
-        }
+    public static Dimension displaySize() {
+        Minecraft mc = Minecraft.getMinecraft();
+        ScaledResolution res = new ScaledResolution(mc, mc.displayWidth, mc.displayHeight);
+        return new Dimension(res.getScaledWidth(), res.getScaledHeight());
+    }
 
-        @Override
-        public List<PositionedStack> getIngredients() {
-            ArrayList<PositionedStack> stacks = new ArrayList<PositionedStack>();
-            stacks.add(new PositionedStack(input, 47, 5));
-            return stacks;
-        }
-
-        @Override
-        public PositionedStack getResult() {
-            return new PositionedStack(output, 124, 23);
-        }
+    public static Dimension displayRes() {
+        Minecraft mc = Minecraft.getMinecraft();
+        return new Dimension(mc.displayWidth, mc.displayHeight);
     }
 
     @Override
@@ -147,20 +142,25 @@ public class NEIBloodCleanser extends TemplateRecipeHandler {
         }
     }
 
-    public static Point getMousePosition() {
-        Dimension size = displaySize();
-        Dimension res = displayRes();
-        return new Point(Mouse.getX() * size.width / res.width, size.height - Mouse.getY() * size.height / res.height - 1);
-    }
+    public class CachedCleansingRecipe extends CachedRecipe {
+        public ItemStack input;
+        public ItemStack output;
 
-    public static Dimension displaySize() {
-        Minecraft mc = Minecraft.getMinecraft();
-        ScaledResolution res = new ScaledResolution(mc, mc.displayWidth, mc.displayHeight);
-        return new Dimension(res.getScaledWidth(), res.getScaledHeight());
-    }
+        public CachedCleansingRecipe(RecipeBloodCleanser recipe) {
+            this.input = recipe.fInput;
+            this.output = recipe.fOutput;
+        }
 
-    public static Dimension displayRes() {
-        Minecraft mc = Minecraft.getMinecraft();
-        return new Dimension(mc.displayWidth, mc.displayHeight);
+        @Override
+        public List<PositionedStack> getIngredients() {
+            ArrayList<PositionedStack> stacks = new ArrayList<PositionedStack>();
+            stacks.add(new PositionedStack(input, 47, 5));
+            return stacks;
+        }
+
+        @Override
+        public PositionedStack getResult() {
+            return new PositionedStack(output, 124, 23);
+        }
     }
 }

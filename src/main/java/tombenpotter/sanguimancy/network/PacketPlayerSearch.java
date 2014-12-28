@@ -26,7 +26,7 @@ public class PacketPlayerSearch implements IMessage, IMessageHandler<PacketPlaye
     public IMessage onMessage(PacketPlayerSearch message, MessageContext ctx) {
         EntityPlayer player = ctx.getServerHandler().playerEntity;
         NBTTagCompound tag = SoulCorruptionHelper.getModTag(player, Sanguimancy.modid);
-        if (SoulCorruptionHelper.isCorruptionOver(tag, 20)) {
+        if (SoulCorruptionHelper.isCorruptionOver(ctx.getServerHandler().playerEntity, tag, 20)) {
             SoulCorruptionHelper.locatePlayersAround(player);
         }
         return null;

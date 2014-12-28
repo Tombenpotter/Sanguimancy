@@ -9,13 +9,12 @@ import java.util.List;
 
 public class RecipeCorruptedInfusion {
 
+    public static List<RecipeCorruptedInfusion> recipeList = new LinkedList<RecipeCorruptedInfusion>();
     public final ItemStack fOutput;
     public final ItemStack[] fInput;
     public final int fMiniumCorruption;
     public final int fTime;
     public final boolean fExactAmountandNbt;
-
-    public static List<RecipeCorruptedInfusion> recipeList = new LinkedList<RecipeCorruptedInfusion>();
 
     private RecipeCorruptedInfusion(ItemStack output, ItemStack[] input, int minimumCorruption, int time, boolean exactAmountandNbt) {
         this.fOutput = output;

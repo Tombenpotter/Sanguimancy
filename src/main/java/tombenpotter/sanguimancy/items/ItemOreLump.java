@@ -36,8 +36,7 @@ public class ItemOreLump extends Item {
     public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean par4) {
         if (!GuiScreen.isShiftKeyDown()) {
             list.add(StatCollector.translateToLocal("info.Sanguimancy.tooltip.shift.info"));
-        }
-        if (GuiScreen.isShiftKeyDown()) {
+        } else {
             if (stack.hasTagCompound()) {
                 list.add(StatCollector.translateToLocal("info.Sanguimancy.tooltip.ore") + ": " + stack.stackTagCompound.getString("ore"));
             } else {

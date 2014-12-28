@@ -38,7 +38,7 @@ public class ItemChunkClaimer extends Item {
                     player.addChatComponentMessage(new ChatComponentText(StatCollector.translateToLocal("chat.Sanguimancy.unsuccessfully.claimed")));
                 }
             } else {
-                player.addChatComponentMessage(new ChatComponentText("chat.Sanguimancy.not.sn.dim"));
+                player.addChatComponentMessage(new ChatComponentText(StatCollector.translateToLocal("chat.Sanguimancy.not.sn.dim")));
             }
         }
         return stack;

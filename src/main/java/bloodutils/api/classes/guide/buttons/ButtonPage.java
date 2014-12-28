@@ -7,12 +7,11 @@ import java.awt.*;
 
 public class ButtonPage extends GuiButton {
 
+    int gwidth = 170;
+    int gheight = 180;
     public ButtonPage(int id, int xPos, int yPos, int width, int height, String string) {
         super(id, xPos, yPos, width, height, string);
     }
-
-    int gwidth = 170;
-    int gheight = 180;
 
     @Override
     public void drawButton(Minecraft mc, int x, int y) {

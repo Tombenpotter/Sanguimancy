@@ -26,6 +26,7 @@ public class ItemCorruptedDemonShard extends Item {
     }
 
     @Override
+    //TODO: Remove that testing code and find a right way to change dimensions
     public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player) {
         if (!world.isRemote) {
             if (player.worldObj.provider.dimensionId != 0) {

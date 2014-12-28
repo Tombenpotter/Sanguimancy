@@ -11,8 +11,8 @@ import tombenpotter.sanguimancy.api.tile.TileBaseSNKnot;
 public class TileSimpleSNKnot extends TileBaseSNKnot {
 
     public String knotOwner;
-    private NBTTagCompound custoomNBTTag;
     public boolean knotActive;
+    private NBTTagCompound custoomNBTTag;
 
     public TileSimpleSNKnot() {
         custoomNBTTag = new NBTTagCompound();

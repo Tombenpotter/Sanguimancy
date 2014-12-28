@@ -14,31 +14,27 @@ import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;
 
 public class GuiEntry extends GuiScreen {
+    private static final ResourceLocation gui = new ResourceLocation("bloodutils:textures/gui/guide.png");
+    int gwidth = 192;
+    int gheight = 192;
+    int prevPage;
+    int left, top;
+    String key;
+    int currPage = 1;
+    GuiButton next, prev, back;
+    EntityPlayer player;
+    Category category;
     public GuiEntry(String key, EntityPlayer player, Category category) {
         this.key = key;
         this.player = player;
         this.category = category;
     }
-
     public GuiEntry(String key, EntityPlayer player, Category category, int currPage) {
         this.key = key;
         this.player = player;
         this.category = category;
         this.currPage = currPage;
     }
-
-    private static final ResourceLocation gui = new ResourceLocation("bloodutils:textures/gui/guide.png");
-    int gwidth = 192;
-    int gheight = 192;
-    int prevPage;
-    int left, top;
-
-    String key;
-
-    int currPage = 1;
-    GuiButton next, prev, back;
-    EntityPlayer player;
-    Category category;
 
     @SuppressWarnings("unchecked")
     @Override

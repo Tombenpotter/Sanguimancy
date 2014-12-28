@@ -27,7 +27,7 @@ public class RitualEffectDrillOfTheDead extends RitualEffect {
     @Override
     public boolean startRitual(IMasterRitualStone ritualStone, EntityPlayer player) {
         NBTTagCompound tag = SoulCorruptionHelper.getModTag(player, Sanguimancy.modid);
-        SoulCorruptionHelper.incrementCorruption(tag);
+        SoulCorruptionHelper.incrementCorruption(player, tag);
         return true;
     }
 

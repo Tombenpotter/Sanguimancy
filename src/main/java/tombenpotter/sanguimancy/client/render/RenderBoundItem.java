@@ -24,8 +24,8 @@ import tombenpotter.sanguimancy.util.RandomUtils;
 
 public class RenderBoundItem extends TileEntitySpecialRenderer implements IItemRenderer {
 
-    public ModelCube model = new ModelCube();
     private final RenderItem customRenderItem;
+    public ModelCube model = new ModelCube();
     public ResourceLocation texture = new ResourceLocation(Sanguimancy.texturePath + ":textures/blocks/BoundItem.png");
 
     public RenderBoundItem() {

@@ -107,14 +107,13 @@ public class BUEntryCorruptionRecipe implements IEntry {
     }
 
     public static class ItemIcon {
+        public ItemStack stack;
+        public int x, y;
         public ItemIcon(ItemStack stack, int x, int y) {
             this.stack = stack;
             this.x = x;
             this.y = y;
         }
-
-        public ItemStack stack;
-        public int x, y;
 
         public void onMouseBetween(int mX, int mY) {
             int xSize = x + 16;

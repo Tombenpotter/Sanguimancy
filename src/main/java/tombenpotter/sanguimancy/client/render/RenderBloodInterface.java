@@ -18,9 +18,9 @@ import tombenpotter.sanguimancy.tile.TileBloodInterface;
 
 public class RenderBloodInterface extends TileEntitySpecialRenderer implements IItemRenderer {
 
-    private ModelInterface model = new ModelInterface();
-    private final RenderItem customRenderItem;
     public static final ResourceLocation texture = new ResourceLocation(Sanguimancy.texturePath + ":textures/blocks/BloodInterface.png");
+    private final RenderItem customRenderItem;
+    private ModelInterface model = new ModelInterface();
 
     public RenderBloodInterface() {
         customRenderItem = new RenderItem() {

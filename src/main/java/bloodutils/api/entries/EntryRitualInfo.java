@@ -8,12 +8,12 @@ import net.minecraft.entity.player.EntityPlayer;
 import java.util.List;
 
 public class EntryRitualInfo implements IEntry {
+    public int cost;
+
     public EntryRitualInfo(int cost) {
 
         this.cost = cost;
     }
-
-    public int cost;
 
     @Override
     public void draw(GuiEntry entry, int width, int height, int left, int top, EntityPlayer player, String key, int page, int mX, int mY) {

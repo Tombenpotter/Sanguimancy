@@ -22,17 +22,17 @@ import java.util.*;
 
 public class ChunkProviderSNDimension implements IChunkProvider {
 
-    private World worldObj;
-    private Random random;
+    private static final String __OBFID = "CL_00000391";
     private final Block[] cachedBlockIDs = new Block[256];
     private final byte[] cachedBlockMetadata = new byte[256];
     private final FlatGeneratorInfo flatWorldGenInfo;
     private final List structureGenerators = new ArrayList();
     private final boolean hasDecoration;
     private final boolean hasDungeons;
+    private World worldObj;
+    private Random random;
     private WorldGenLakes waterLakeGenerator;
     private WorldGenLakes lavaLakeGenerator;
-    private static final String __OBFID = "CL_00000391";
 
     public ChunkProviderSNDimension(World p_i2004_1_, long p_i2004_2_, boolean p_i2004_4_, String p_i2004_5_) {
         this.worldObj = p_i2004_1_;

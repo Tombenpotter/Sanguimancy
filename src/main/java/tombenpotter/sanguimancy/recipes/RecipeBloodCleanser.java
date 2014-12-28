@@ -8,10 +8,9 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class RecipeBloodCleanser {
+    public static List<RecipeBloodCleanser> recipeList = new LinkedList<RecipeBloodCleanser>();
     public final ItemStack fInput;
     public final ItemStack fOutput;
-
-    public static List<RecipeBloodCleanser> recipeList = new LinkedList<RecipeBloodCleanser>();
 
     private RecipeBloodCleanser(ItemStack input, ItemStack output) {
         this.fInput = input;

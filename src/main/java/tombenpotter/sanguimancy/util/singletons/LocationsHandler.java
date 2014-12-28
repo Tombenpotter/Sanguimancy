@@ -10,10 +10,10 @@ import java.util.HashMap;
 
 public class LocationsHandler implements Serializable {
 
+    public static final long serialVersionUID = 10102001;
+    private static final String fileName = String.valueOf(DimensionManager.getCurrentSaveRootDirectory()) + "/" + Sanguimancy.texturePath + "/PortalLocations.dat";
     private static HashMap<String, ArrayList<PortalLocation>> portals;
     private static LocationsHandler locationsHandler;
-    private static final String fileName = String.valueOf(DimensionManager.getCurrentSaveRootDirectory()) + "/" + Sanguimancy.texturePath + "/PortalLocations.dat";
-    public static final long serialVersionUID = 10102001;
 
     private LocationsHandler() {
         portals = new HashMap<String, ArrayList<PortalLocation>>();

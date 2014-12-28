@@ -3,6 +3,9 @@ package tombenpotter.sanguimancy.registry;
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.item.Item;
 import tombenpotter.sanguimancy.items.*;
+import tombenpotter.sanguimancy.items.corrupted.ItemCorruptedPickaxe;
+import tombenpotter.sanguimancy.items.corrupted.ItemCorruptedSword;
+import tombenpotter.sanguimancy.util.RandomUtils;
 
 public class ItemsRegistry {
 
@@ -14,6 +17,8 @@ public class ItemsRegistry {
     public static Item bloodAmulet;
     public static Item wand;
     public static Item chunkClaimer;
+    public static Item corruptedSword;
+    public static Item corruptedPickaxe;
 
     public static void registerItems() {
         playerSacrificer = new ItemPlayerSacrificer();
@@ -39,5 +44,11 @@ public class ItemsRegistry {
 
         chunkClaimer = new ItemChunkClaimer();
         GameRegistry.registerItem(chunkClaimer, "chunkClaimer");
+
+        corruptedSword = new ItemCorruptedSword(32);
+        GameRegistry.registerItem(corruptedSword, "corruptedSword");
+
+        corruptedPickaxe = new ItemCorruptedPickaxe(RandomUtils.corruptedMaterial);
+        GameRegistry.registerItem(corruptedPickaxe, "corruptedPickaxe");
     }
 }

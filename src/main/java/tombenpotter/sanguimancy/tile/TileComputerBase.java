@@ -12,11 +12,11 @@ import li.cil.oc.api.network.*;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
+import tombenpotter.sanguimancy.api.ICustomNBTTag;
+import tombenpotter.sanguimancy.api.Timer;
 import tombenpotter.sanguimancy.compat.lua.events.LuaEvent;
 import tombenpotter.sanguimancy.compat.lua.methods.LuaMethod;
-import tombenpotter.sanguimancy.api.Timer;
 import tombenpotter.sanguimancy.util.enums.ModList;
-import tombenpotter.sanguimancy.api.ICustomNBTTag;
 
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
@@ -34,11 +34,10 @@ public abstract class TileComputerBase extends TileEntity implements ManagedPeri
     protected final Map<Integer, String> methodIDs = new LinkedHashMap<Integer, String>();
     protected final Map<String, LuaMethod> methodNames = new LinkedHashMap<String, LuaMethod>();
     protected final Map<Timer, LuaEvent> events = new LinkedHashMap<Timer, LuaEvent>();
+    private final Object node = ModList.opencomputers.isLoaded() ? this.createNode() : null;
     private boolean initialize = true;
-
     private Set<Object> computers = new LinkedHashSet<Object>();
     private Set<Object> context = new LinkedHashSet<Object>();
-    private final Object node = ModList.opencomputers.isLoaded() ? this.createNode() : null;
 
     public TileComputerBase(String name) {
         this.name = name;

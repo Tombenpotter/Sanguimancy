@@ -40,9 +40,9 @@ public class ItemCorruptionCatalyst extends Item {
             if (entity != null && entity instanceof EntityPlayer) {
                 EntityPlayer player = (EntityPlayer) entity;
                 NBTTagCompound tag = SoulCorruptionHelper.getModTag(player, Sanguimancy.modid);
-                if (player.getHeldItem() != null && RecipeCorruptedInfusion.isRecipeValid(new ItemStack[]{player.getHeldItem()}, SoulCorruptionHelper.getCorruptionLevel(tag))) {
+                if (player.getHeldItem() != null && RecipeCorruptedInfusion.isRecipeValid(new ItemStack[]{player.getHeldItem()}, SoulCorruptionHelper.getCorruptionLevel(player, tag))) {
                     ItemStack[] input = new ItemStack[]{player.getHeldItem().copy()};
-                    RecipeCorruptedInfusion recipe = RecipeCorruptedInfusion.getPossibleRecipes(input, SoulCorruptionHelper.getCorruptionLevel(tag)).get(0);
+                    RecipeCorruptedInfusion recipe = RecipeCorruptedInfusion.getPossibleRecipes(input, SoulCorruptionHelper.getCorruptionLevel(player, tag)).get(0);
                     ItemStack output = recipe.fOutput.copy();
                     for (ItemStack inputStack : recipe.fInput) {
                         if (world.getWorldTime() % recipe.fTime == 0) {
@@ -86,8 +86,7 @@ public class ItemCorruptionCatalyst extends Item {
     public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean par4) {
         if (!GuiScreen.isShiftKeyDown()) {
             list.add(StatCollector.translateToLocal("info.Sanguimancy.tooltip.shift.info"));
-        }
-        if (GuiScreen.isShiftKeyDown()) {
+        } else {
             if (stack.hasTagCompound() && stack.stackTagCompound.hasKey("activated")) {
                 list.add(StatCollector.translateToLocal("info.Sanguimancy.tooltip.activated") + ": " + stack.stackTagCompound.getBoolean("activated"));
             }

@@ -9,6 +9,8 @@ import net.minecraft.util.StatCollector;
 import java.util.List;
 
 public class EntryText implements IEntry {
+    public String entryName;
+
     public EntryText() {
 
     }
@@ -16,8 +18,6 @@ public class EntryText implements IEntry {
     public EntryText(String entryName) {
         this.entryName = entryName;
     }
-
-    public String entryName;
 
     @Override
     public void draw(GuiEntry entry, int width, int height, int left, int top, EntityPlayer player, String key, int page, int mX, int mY) {

@@ -11,6 +11,12 @@ import net.minecraft.util.IIcon;
 import net.minecraft.util.ResourceLocation;
 
 public class ElementCategory extends GuiScreen implements IEntryElement {
+    public Category category;
+    public EntityPlayer player;
+    public int x;
+    public int y;
+    public int width;
+    public int height;
     public ElementCategory(Category category, int x, int y, int width, int height, EntityPlayer player) {
         this.category = category;
         this.player = player;
@@ -20,15 +26,6 @@ public class ElementCategory extends GuiScreen implements IEntryElement {
         this.width = width;
         this.height = height;
     }
-
-    public Category category;
-    public EntityPlayer player;
-
-    public int x;
-    public int y;
-    public int width;
-    public int height;
-
 
     @Override
     public void drawElement() {
