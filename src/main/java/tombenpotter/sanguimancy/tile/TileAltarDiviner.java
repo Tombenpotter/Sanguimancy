@@ -63,6 +63,7 @@ public class TileAltarDiviner extends TileBaseInventory {
         ItemStack stack = getStackInSlot(0).copy();
         if (AltarRecipeRegistry.isRequiredItemValid(stack, tier)) {
             int containedBlood = tile.getCurrentBlood();
+            int altarCapacity = tile.getCapacity();
             AltarRecipe recipe = AltarRecipeRegistry.getAltarRecipeForItemAndTier(stack, tier);
             int bloodRequired = recipe.liquidRequired;
             if (bloodRequired * stack.stackSize <= containedBlood) {

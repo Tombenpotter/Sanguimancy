@@ -6,7 +6,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.particle.EntityFX;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.util.ForgeDirection;
-import tombenpotter.sanguimancy.api.BlockPostition;
+import tombenpotter.sanguimancy.api.objects.BlockPostition;
 import tombenpotter.sanguimancy.api.tile.TileBaseSNBranch;
 import tombenpotter.sanguimancy.client.particle.EntityColoredFlameFX;
 

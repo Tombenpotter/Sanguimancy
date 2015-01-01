@@ -1,4 +1,4 @@
-package tombenpotter.sanguimancy.api;
+package tombenpotter.sanguimancy.api.objects;
 
 public class SNKNotBoolean {
 

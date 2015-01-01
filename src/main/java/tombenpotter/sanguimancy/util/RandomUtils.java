@@ -2,15 +2,18 @@ package tombenpotter.sanguimancy.util;
 
 import cpw.mods.fml.common.eventhandler.Event;
 import net.minecraft.block.Block;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.FurnaceRecipes;
+import net.minecraft.item.crafting.*;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
+import net.minecraftforge.client.event.RenderWorldLastEvent;
 import net.minecraftforge.common.DimensionManager;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.util.EnumHelper;
@@ -18,7 +21,9 @@ import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.fluids.FluidContainerRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.IFluidHandler;
+import net.minecraftforge.oredict.OreDictionary;
 import tombenpotter.sanguimancy.Sanguimancy;
+import tombenpotter.sanguimancy.api.objects.MapKey;
 import tombenpotter.sanguimancy.registry.BlocksRegistry;
 import tombenpotter.sanguimancy.registry.ItemsRegistry;
 import tombenpotter.sanguimancy.world.WorldProviderSoulNetworkDimension;
@@ -28,6 +33,7 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
 
@@ -35,6 +41,7 @@ public class RandomUtils {
 
     public static HashMap<String, Integer> oreDictColor = new HashMap<String, Integer>();
     public static Item.ToolMaterial corruptedMaterial = EnumHelper.addToolMaterial("corruptedToolMaterial", Integer.MAX_VALUE, 9000, 32, 10, 32);
+    public static HashMap<MapKey, ItemStack> logToPlank = new HashMap<MapKey, ItemStack>();
 
     public static void dropItems(World world, int x, int y, int z) {
         Random rand = new Random();
@@ -281,6 +288,128 @@ public class RandomUtils {
         }
     }
 
+    public static ArrayList<String> getItemStackName(ItemStack stack) {
+        ArrayList<String> list = new ArrayList<String>();
+        for (int id : OreDictionary.getOreIDs(stack)) {
+            list.add(OreDictionary.getOreName(id));
+        }
+        return list;
+    }
+
+    //Rendering code taken and adapted from Alex_Hawk's Sanguine Extras mod. He made it, and helped me debug my modifications!
+    public static void renderBlock(RenderWorldLastEvent event, EntityPlayer player, World world, Block block, int metadata, int x, int y, int z) {
+        Tessellator tessellator = Tessellator.instance;
+        tessellator.startDrawingQuads();
+        tessellator.setBrightness(block.getMixedBrightnessForBlock(world, x, y + 1, z));
+        double px = player.lastTickPosX + (player.posX - player.lastTickPosX) * event.partialTicks;
+        double py = player.lastTickPosY + (player.posY - player.lastTickPosY) * event.partialTicks;
+        double pz = player.lastTickPosZ + (player.posZ - player.lastTickPosZ) * event.partialTicks;
+        double minX = x - px;
+        double minY = y - py;
+        double minZ = z - pz;
+        double maxX = minX + 1;
+        double maxY = minY + 1;
+        double maxZ = minZ + 1;
+        float textureMinU;
+        float textureMinV;
+        float textureMaxU;
+        float textureMaxV;
+        Minecraft.getMinecraft().renderEngine.bindTexture(Minecraft.getMinecraft().renderEngine.getResourceLocation(0));
+        {
+            textureMinU = block.getIcon(0, metadata).getMinU();
+            textureMinV = block.getIcon(0, metadata).getMinV();
+            textureMaxU = block.getIcon(0, metadata).getMaxU();
+            textureMaxV = block.getIcon(0, metadata).getMaxV();
+            tessellator.addVertexWithUV(minX, minY, minZ, textureMinU, textureMinV);
+            tessellator.addVertexWithUV(maxX, minY, minZ, textureMaxU, textureMinV);
+            tessellator.addVertexWithUV(maxX, minY, maxZ, textureMaxU, textureMaxV);
+            tessellator.addVertexWithUV(minX, minY, maxZ, textureMinU, textureMaxV);
+        }
+        {
+            textureMinU = block.getIcon(1, metadata).getMinU();
+            textureMinV = block.getIcon(1, metadata).getMinV();
+            textureMaxU = block.getIcon(1, metadata).getMaxU();
+            textureMaxV = block.getIcon(1, metadata).getMaxV();
+            tessellator.addVertexWithUV(minX, maxY, maxZ, textureMinU, textureMaxV);
+            tessellator.addVertexWithUV(maxX, maxY, maxZ, textureMaxU, textureMaxV);
+            tessellator.addVertexWithUV(maxX, maxY, minZ, textureMaxU, textureMinV);
+            tessellator.addVertexWithUV(minX, maxY, minZ, textureMinU, textureMinV);
+        }
+        {
+            textureMinU = block.getIcon(2, metadata).getMinU();
+            textureMinV = block.getIcon(2, metadata).getMinV();
+            textureMaxU = block.getIcon(2, metadata).getMaxU();
+            textureMaxV = block.getIcon(2, metadata).getMaxV();
+            tessellator.addVertexWithUV(maxX, minY, minZ, textureMinU, textureMaxV);
+            tessellator.addVertexWithUV(minX, minY, minZ, textureMaxU, textureMaxV);
+            tessellator.addVertexWithUV(minX, maxY, minZ, textureMaxU, textureMinV);
+            tessellator.addVertexWithUV(maxX, maxY, minZ, textureMinU, textureMinV);
+        }
+        {
+            textureMinU = block.getIcon(3, metadata).getMinU();
+            textureMinV = block.getIcon(3, metadata).getMinV();
+            textureMaxU = block.getIcon(3, metadata).getMaxU();
+            textureMaxV = block.getIcon(3, metadata).getMaxV();
+            tessellator.addVertexWithUV(minX, minY, maxZ, textureMinU, textureMaxV);
+            tessellator.addVertexWithUV(maxX, minY, maxZ, textureMaxU, textureMaxV);
+            tessellator.addVertexWithUV(maxX, maxY, maxZ, textureMaxU, textureMinV);
+            tessellator.addVertexWithUV(minX, maxY, maxZ, textureMinU, textureMinV);
+        }
+        {
+            textureMinU = block.getIcon(4, metadata).getMinU();
+            textureMinV = block.getIcon(4, metadata).getMinV();
+            textureMaxU = block.getIcon(4, metadata).getMaxU();
+            textureMaxV = block.getIcon(4, metadata).getMaxV();
+            tessellator.addVertexWithUV(minX, minY, minZ, textureMinU, textureMaxV);
+            tessellator.addVertexWithUV(minX, minY, maxZ, textureMaxU, textureMaxV);
+            tessellator.addVertexWithUV(minX, maxY, maxZ, textureMaxU, textureMinV);
+            tessellator.addVertexWithUV(minX, maxY, minZ, textureMinU, textureMinV);
+        }
+        {
+            textureMinU = block.getIcon(5, metadata).getMinU();
+            textureMinV = block.getIcon(5, metadata).getMinV();
+            textureMaxU = block.getIcon(5, metadata).getMaxU();
+            textureMaxV = block.getIcon(5, metadata).getMaxV();
+            tessellator.addVertexWithUV(maxX, minY, maxZ, textureMinU, textureMaxV);
+            tessellator.addVertexWithUV(maxX, minY, minZ, textureMaxU, textureMaxV);
+            tessellator.addVertexWithUV(maxX, maxY, minZ, textureMaxU, textureMinV);
+            tessellator.addVertexWithUV(maxX, maxY, maxZ, textureMinU, textureMinV);
+        }
+        tessellator.draw();
+    }
+
+    public static void setLogToPlank() {
+        ArrayList<ItemStack> arrayList = OreDictionary.getOres("plankWood");
+        for (Object o : CraftingManager.getInstance().getRecipeList()) {
+            IRecipe recipe = (IRecipe) o;
+            ItemStack output = recipe.getRecipeOutput();
+            if (output != null) {
+                boolean match = false;
+                for (ItemStack plank : arrayList) {
+                    if (OreDictionary.itemMatches(plank, output, false)) {
+                        match = true;
+                        break;
+                    }
+                }
+                if (match) {
+                    ItemStack log = null;
+                    if (recipe instanceof ShapedRecipes) {
+                        log = ((ShapedRecipes) recipe).recipeItems[0];
+                    } else if (recipe instanceof ShapelessRecipes) {
+                        log = (ItemStack) ((ShapelessRecipes) recipe).recipeItems.get(0);
+                    } else {
+                        //Some weird crafting type
+                    }
+                    ItemStack plank = output.copy();
+                    plank.stackSize = 1;
+                    if (log != null) {
+                        logToPlank.put(new MapKey(log.copy()), plank);
+                    }
+                }
+            }
+        }
+    }
+
     public static class SanguimancyItemStacks {
 
         // Items
@@ -297,6 +426,9 @@ public class RandomUtils {
         public static ItemStack oreLump = new ItemStack(ItemsRegistry.oreLump);
         public static ItemStack bloodAmulet = new ItemStack(ItemsRegistry.bloodAmulet);
         public static ItemStack chunkClaimer = new ItemStack(ItemsRegistry.chunkClaimer);
+        public static ItemStack corruptedSword = new ItemStack(ItemsRegistry.corruptedSword);
+        public static ItemStack corruptedPickaxe = new ItemStack(ItemsRegistry.corruptedPickaxe);
+        public static ItemStack corruptedShovel = new ItemStack(ItemsRegistry.corruptedShovel);
 
         // Blocks
         public static ItemStack altarEmitter = new ItemStack(BlocksRegistry.altarEmitter);

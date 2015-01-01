@@ -1,6 +1,6 @@
 package tombenpotter.sanguimancy.api.snManifestation;
 
-import tombenpotter.sanguimancy.api.BlockPostition;
+import tombenpotter.sanguimancy.api.objects.BlockPostition;
 
 import java.util.ArrayList;
 

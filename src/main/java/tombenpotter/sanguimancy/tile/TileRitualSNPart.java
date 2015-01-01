@@ -9,10 +9,10 @@ import net.minecraft.network.NetworkManager;
 import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraftforge.common.MinecraftForge;
-import tombenpotter.sanguimancy.api.BlockPostition;
+import tombenpotter.sanguimancy.api.objects.BlockPostition;
 import tombenpotter.sanguimancy.api.EnumSNType;
 import tombenpotter.sanguimancy.api.ICustomNBTTag;
-import tombenpotter.sanguimancy.api.SNKNotBoolean;
+import tombenpotter.sanguimancy.api.objects.SNKNotBoolean;
 import tombenpotter.sanguimancy.api.tile.TileBaseSNPart;
 
 import java.util.HashMap;

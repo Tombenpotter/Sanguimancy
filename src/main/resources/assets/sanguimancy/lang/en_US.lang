@@ -50,6 +50,10 @@ item.Sanguimancy.oreLump.name=Ore Lump
 item.Sanguimancy.bloodAmulet.name=Blood Amulet
 item.Sanguimancy.spellWand.name=Wand
 item.Sanguimancy.chunkClaimer.name=Soul Chunk Claimer
+item.Sanguimancy.corruptedSword.name=Corrupted Blade
+item.Sanguimancy.corruptedPickaxe.name=Corrupted Pickaxe
+item.Sanguimancy.corruptedShovel.name=Corrupted Shovel
+item.Sanguimancy.corruptedAxe.name=Corrupted Axe
 
 #Entities
 entity.Sanguimancy.EntityChickenMinion.name=Chicken Minion
@@ -86,7 +90,7 @@ chat.Sanguimancy.intial.claimer=This was dropped when your Soul formed.
 chat.Sanguimancy.not.sn.dim=You are not in the Soul Network Dimension.
 
 #Tooltips
-info.Sanguimancy.tooltip.shift.info=Press Shift for info
+info.Sanguimancy.tooltip.shift.info=--Press Shift for info--
 info.Sanguimancy.tooltip.place.corner.1=Place in the corner of a
 info.Sanguimancy.tooltip.place.corner.2=9x9 platform around the altar
 info.Sanguimancy.tooltip.place.altar=Place adjacent to altar
@@ -104,18 +108,24 @@ info.Sanguimancy.tooltip.fluid=Fluid
 info.Sanguimancy.tooltip.none=None
 info.Sanguimancy.tooltip.any=Any Ore Lump
 info.Sanguimancy.toolitp.per.point=per half-heart
-info.Sanguimancy.tooltip.activated=Activated
+info.Sanguimancy.tooltip.activated=Ability activated
 info.Sanguimancy.tooltip.owner=Current owner
 info.Sanguimancy.tooltip.minimum.corruption.1=Minimum corruption to reach the tool's
 info.Sanguimancy.tooltip.minimum.corruption.2=default capabilities
 info.Sanguimancy.tooltip.wrong.player=This is not yours to use.
-info.Sanguimancy.tooltip.pickaxe.mode=Mode
-info.Sanguimancy.tooltip.pickaxe.mode.regular=Normal
+info.Sanguimancy.tooltip.mode=Mode
+info.Sanguimancy.tooltip.mode.regular=Normal
 info.Sanguimancy.tooltip.pickaxe.mode.silk.touch=Silk Touch
 info.Sanguimancy.tooltip.pickaxe.mode.fortune.1=Fortune 1
 info.Sanguimancy.tooltip.pickaxe.mode.fortune.2=Fortune 2
 info.Sanguimancy.tooltip.pickaxe.mode.fortune.3=Fortune 3
 info.Sanguimancy.tooltip.pickaxe.mode.smelt=Auto-Smelting
+info.Sanguimancy.tooltip.shovel.mode.break.down=Breaking Down
+info.Sanguimancy.tooltip.shovel.mode.lucky=Gold Digger
+info.Sanguimancy.tooltip.shovel.mode.transmute=Transmuting
+info.Sanguimancy.tooltip.axe.mode.leaf.decay=Decaying
+info.Sanguimancy.tooltip.axe.mode.head.hunter=Head Hunter
+info.Sanguimancy.tooltip.axe.mode.refine=Refining
 
 #Mods Compatibility
 #BU Tome Entries

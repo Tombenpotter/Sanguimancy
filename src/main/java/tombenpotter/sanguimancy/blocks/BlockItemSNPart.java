@@ -11,7 +11,7 @@ import net.minecraft.item.Item;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import tombenpotter.sanguimancy.Sanguimancy;
-import tombenpotter.sanguimancy.api.BlockPostition;
+import tombenpotter.sanguimancy.api.objects.BlockPostition;
 import tombenpotter.sanguimancy.api.snManifestation.ISNComponent;
 import tombenpotter.sanguimancy.tile.TileItemSNPart;
 import tombenpotter.sanguimancy.util.singletons.BoundItems;

@@ -5,7 +5,7 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import tombenpotter.sanguimancy.api.BlockPostition;
+import tombenpotter.sanguimancy.api.objects.BlockPostition;
 import tombenpotter.sanguimancy.api.tile.TileBaseSNKnot;
 
 public class TileSimpleSNKnot extends TileBaseSNKnot {

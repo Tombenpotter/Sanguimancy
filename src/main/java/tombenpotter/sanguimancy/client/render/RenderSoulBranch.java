@@ -12,7 +12,6 @@ import net.minecraftforge.common.util.ForgeDirection;
 import org.lwjgl.opengl.GL11;
 import tombenpotter.sanguimancy.Sanguimancy;
 import tombenpotter.sanguimancy.registry.BlocksRegistry;
-import tombenpotter.sanguimancy.tile.TileSimpleSNBranch;
 
 public class RenderSoulBranch extends TileEntitySpecialRenderer implements IItemRenderer {
     float pixel = 2F / 16F;
@@ -28,7 +27,6 @@ public class RenderSoulBranch extends TileEntitySpecialRenderer implements IItem
         GL11.glTranslated(translationX, translationY, translationZ);
         GL11.glDisable(GL11.GL_LIGHTING);
         bindTexture(text);
-        TileSimpleSNBranch branch = (TileSimpleSNBranch) tileEntity;
         drawCore(tileEntity);
         GL11.glEnable(GL11.GL_LIGHTING);
         GL11.glTranslated(-translationX, -translationY, -translationZ);

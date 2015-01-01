@@ -101,5 +101,6 @@ public class Sanguimancy {
             BUCompat.createEntries();
         }
         isTTLoaded = Loader.isModLoaded("ThaumicTinkerer");
+        RandomUtils.setLogToPlank();
     }
 }

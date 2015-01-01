@@ -33,7 +33,7 @@ import net.minecraftforge.event.entity.player.AttackEntityEvent;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;
 import tombenpotter.sanguimancy.Sanguimancy;
-import tombenpotter.sanguimancy.api.BlockPostition;
+import tombenpotter.sanguimancy.api.objects.BlockPostition;
 import tombenpotter.sanguimancy.network.EventCorruptedInfusion;
 import tombenpotter.sanguimancy.network.PacketHandler;
 import tombenpotter.sanguimancy.network.PacketPlayerSearch;

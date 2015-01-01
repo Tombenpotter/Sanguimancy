@@ -1,35 +1,42 @@
 package tombenpotter.sanguimancy.items.corrupted;
 
-import WayofTime.alchemicalWizardry.api.items.interfaces.IBindable;
 import WayofTime.alchemicalWizardry.common.items.EnergyItems;
 import WayofTime.alchemicalWizardry.common.spell.complex.effect.SpellHelper;
+import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import net.minecraft.block.Block;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.monster.EntityCreeper;
+import net.minecraft.entity.monster.EntitySkeleton;
+import net.minecraft.entity.monster.EntityZombie;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemPickaxe;
+import net.minecraft.init.Items;
+import net.minecraft.item.ItemAxe;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.entity.living.LivingDropsEvent;
 import tombenpotter.sanguimancy.Sanguimancy;
+import tombenpotter.sanguimancy.api.objects.MapKey;
 import tombenpotter.sanguimancy.util.RandomUtils;
 import tombenpotter.sanguimancy.util.SoulCorruptionHelper;
 
 import java.util.List;
 
-public class ItemCorruptedPickaxe extends ItemPickaxe implements IBindable {
+public class ItemCorruptedAxe extends ItemAxe {
+    public int minimumCorruption = 200;
 
-    public final int minimumCorruption = 200;
-
-    public ItemCorruptedPickaxe(ToolMaterial material) {
+    public ItemCorruptedAxe(ToolMaterial material) {
         super(material);
         setCreativeTab(Sanguimancy.tabSanguimancy);
-        setUnlocalizedName(Sanguimancy.modid + ".corruptedPickaxe");
+        setUnlocalizedName(Sanguimancy.modid + ".corruptedAxe");
         setMaxDamage(0);
+        MinecraftForge.EVENT_BUS.register(this);
     }
 
     @Override
@@ -50,23 +57,33 @@ public class ItemCorruptedPickaxe extends ItemPickaxe implements IBindable {
                 world.setBlockToAir(x, y, z);
             } else if (toolMode == 1) {
                 lpConsumption = lpConsumption * 5;
-                RandomUtils.dropSilkDrops(world, block, x, y, z, metadata);
+                for (int i = -5; i <= 5; i++) {
+                    for (int j = -5; j <= 5; j++) {
+                        for (int k = -5; k <= 5; k++) {
+                            if (world.getBlock(i, j, k).isLeaves(world, i, j, k)) {
+                                RandomUtils.dropBlockDropsWithFortune(world, block, i, j, k, metadata, 0);
+                                world.setBlockToAir(i, j, k);
+                            }
+                        }
+                    }
+                }
+                RandomUtils.dropBlockDropsWithFortune(world, block, x, y, z, metadata, 0);
                 world.setBlockToAir(x, y, z);
             } else if (toolMode == 2) {
-                lpConsumption = lpConsumption * 5;
-                RandomUtils.dropBlockDropsWithFortune(world, block, x, y, z, metadata, 1);
+                RandomUtils.dropBlockDropsWithFortune(world, block, x, y, z, metadata, 0);
                 world.setBlockToAir(x, y, z);
             } else if (toolMode == 3) {
                 lpConsumption = lpConsumption * 10;
-                RandomUtils.dropBlockDropsWithFortune(world, block, x, y, z, metadata, 2);
-                world.setBlockToAir(x, y, z);
-            } else if (toolMode == 4) {
-                lpConsumption = lpConsumption * 20;
-                RandomUtils.dropBlockDropsWithFortune(world, block, x, y, z, metadata, 3);
-                world.setBlockToAir(x, y, z);
-            } else if (toolMode == 5) {
-                lpConsumption = lpConsumption * 15;
-                RandomUtils.dropSmeltDrops(world, block, x, y, z, metadata);
+                if (!RandomUtils.getItemStackName(new ItemStack(block)).isEmpty() && RandomUtils.getItemStackName(new ItemStack(block)).contains("plankWood")) {
+                    ItemStack drops = new ItemStack(Items.stick, 3).copy();
+                    RandomUtils.dropItemStackInWorld(world, x, y, z, drops);
+                } else if (!RandomUtils.getItemStackName(new ItemStack(block)).isEmpty() && RandomUtils.getItemStackName(new ItemStack(block)).contains("logWood")) {
+                    ItemStack drops = RandomUtils.logToPlank.get(new MapKey(new ItemStack(block, 1, metadata))).copy();
+                    drops.stackSize = 6;
+                    RandomUtils.dropItemStackInWorld(world, x, y, z, drops);
+                } else {
+                    RandomUtils.dropBlockDropsWithFortune(world, block, x, y, z, metadata, 0);
+                }
                 world.setBlockToAir(x, y, z);
             }
             if (entityLivingBase instanceof EntityPlayer) {
@@ -81,7 +98,7 @@ public class ItemCorruptedPickaxe extends ItemPickaxe implements IBindable {
                 }
             }
         }
-        return getToolMode(stack) <= 5;
+        return getToolMode(stack) <= 3;
     }
 
     public int getToolMode(ItemStack stack) {
@@ -96,7 +113,7 @@ public class ItemCorruptedPickaxe extends ItemPickaxe implements IBindable {
 
     public void nextToolMode(ItemStack stack) {
         RandomUtils.checkAndSetCompound(stack);
-        if (stack.stackTagCompound.getInteger("ToolMode") + 1 <= 5) {
+        if (stack.stackTagCompound.getInteger("ToolMode") + 1 <= 3) {
             setToolMode(stack, stack.stackTagCompound.getInteger("ToolMode") + 1);
         } else {
             stack.stackTagCompound.setInteger("ToolMode", 0);
@@ -127,15 +144,11 @@ public class ItemCorruptedPickaxe extends ItemPickaxe implements IBindable {
     public String tooltipForMode(int modeID) {
         String mode = StatCollector.translateToLocal("info.Sanguimancy.tooltip.mode.regular");
         if (modeID == 1) {
-            mode = StatCollector.translateToLocal("info.Sanguimancy.tooltip.pickaxe.mode.silk.touch");
+            mode = StatCollector.translateToLocal("info.Sanguimancy.tooltip.axe.mode.leaf.decay");
         } else if (modeID == 2) {
-            mode = StatCollector.translateToLocal("info.Sanguimancy.tooltip.pickaxe.mode.fortune.1");
+            mode = StatCollector.translateToLocal("info.Sanguimancy.tooltip.axe.mode.head.hunter");
         } else if (modeID == 3) {
-            mode = StatCollector.translateToLocal("info.Sanguimancy.tooltip.pickaxe.mode.fortune.2");
-        } else if (modeID == 4) {
-            mode = StatCollector.translateToLocal("info.Sanguimancy.tooltip.pickaxe.mode.fortune.3");
-        } else if (modeID == 5) {
-            mode = StatCollector.translateToLocal("info.Sanguimancy.tooltip.pickaxe.mode.smelt");
+            mode = StatCollector.translateToLocal("info.Sanguimancy.tooltip.axe.mode.refine");
         }
         return mode;
     }
@@ -164,5 +177,54 @@ public class ItemCorruptedPickaxe extends ItemPickaxe implements IBindable {
             return super.getDigSpeed(stack, block, meta) * (playerCorruption / minimumCorruption);
         }
         return 1.0F;
+    }
+
+    @Override
+    public boolean hitEntity(ItemStack stack, EntityLivingBase target, EntityLivingBase attacker) {
+        if (attacker instanceof EntityPlayer) {
+            EntityPlayer player = (EntityPlayer) attacker;
+            EnergyItems.syphonBatteries(stack, player, 100);
+            if (player.getCommandSenderName().equals(RandomUtils.getItemOwner(stack)) && getToolMode(stack) != 0) {
+                NBTTagCompound tag = SoulCorruptionHelper.getModTag(player, Sanguimancy.modid);
+                SoulCorruptionHelper.incrementCorruption(player, tag);
+            } else if (!player.getCommandSenderName().equals(RandomUtils.getItemOwner(stack))) {
+                player.setHealth(player.getMaxHealth() / 2);
+                player.addChatComponentMessage(new ChatComponentText(StatCollector.translateToLocal("info.Sanguimancy.tooltip.wrong.player")));
+            }
+            return true;
+        }
+        return false;
+    }
+
+    public ItemStack getSkullDrop(EntityLivingBase entity) {
+        if (entity instanceof EntitySkeleton) {
+            int type = ((EntitySkeleton) entity).getSkeletonType();
+            if (type == 1) return new ItemStack(Items.skull, 1, 1);
+            else return new ItemStack(Items.skull, 1, 0);
+        } else if (entity instanceof EntityPlayer) {
+            String name = entity.getCommandSenderName();
+            ItemStack skull = new ItemStack(Items.skull, 1, 3);
+            RandomUtils.checkAndSetCompound(skull);
+            skull.stackTagCompound.setString("SkullOwner", name);
+            return skull;
+        } else if (entity instanceof EntityZombie) {
+            return new ItemStack(Items.skull, 1, 2);
+        } else if (entity instanceof EntityCreeper) {
+            return new ItemStack(Items.skull, 1, 4);
+        } else {
+            return null;
+        }
+    }
+
+    @SubscribeEvent
+    public void onEntityDrop(LivingDropsEvent event) {
+        if (event.source.getEntity() instanceof EntityPlayer) {
+            EntityPlayer player = (EntityPlayer) event.source.getEntity();
+            if (player.getHeldItem().getItem() instanceof ItemCorruptedAxe) {
+                if (player.worldObj.rand.nextInt(25) == 0 && getSkullDrop(event.entityLiving) != null) {
+                    RandomUtils.dropItemStackInWorld(event.entityLiving.worldObj, event.entityLiving.posX, event.entityLiving.posY, event.entityLiving.posZ, getSkullDrop(event.entityLiving).copy());
+                }
+            }
+        }
     }
 }

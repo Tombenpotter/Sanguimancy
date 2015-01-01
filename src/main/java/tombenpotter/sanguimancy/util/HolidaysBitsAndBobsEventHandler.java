@@ -2,6 +2,7 @@ package tombenpotter.sanguimancy.util;
 
 import WayofTime.alchemicalWizardry.common.spell.complex.effect.SpellHelper;
 import cpw.mods.fml.common.ModContainer;
+import cpw.mods.fml.common.eventhandler.EventPriority;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.registry.GameData;
 import net.minecraft.client.gui.GuiScreen;
@@ -21,7 +22,7 @@ public class HolidaysBitsAndBobsEventHandler {
         SpellHelper.sendIndexedParticleToAllAround(event.entityPlayer.worldObj, posX, posY, posZ, 20, event.entityPlayer.worldObj.provider.dimensionId, 4, posX, posY, posZ);
     }
 
-    @SubscribeEvent
+    @SubscribeEvent(priority = EventPriority.HIGHEST)
     //This code is very much inspired by the one in ProfMobius' Waila mod
     public void onSanguimancyItemTooltip(ItemTooltipEvent event) {
         try {
