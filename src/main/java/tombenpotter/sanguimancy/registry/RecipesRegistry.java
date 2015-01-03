@@ -5,24 +5,28 @@ import WayofTime.alchemicalWizardry.ModItems;
 import WayofTime.alchemicalWizardry.api.altarRecipeRegistry.AltarRecipe;
 import WayofTime.alchemicalWizardry.api.altarRecipeRegistry.AltarRecipeRegistry;
 import WayofTime.alchemicalWizardry.api.items.ShapedBloodOrbRecipe;
-import bloodutils.api.registries.RecipeRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraftforge.oredict.OreDictionary;
+import tombenpotter.sanguimancy.api.bloodutils.api.registries.RecipeRegistry;
 import tombenpotter.sanguimancy.compat.computercraft.PeripheralProvider;
 import tombenpotter.sanguimancy.recipes.RecipeBloodCleanser;
 import tombenpotter.sanguimancy.recipes.RecipeCorruptedInfusion;
 import tombenpotter.sanguimancy.util.RandomUtils;
 import tombenpotter.sanguimancy.util.enums.ModList;
 
+import java.util.ArrayList;
+
 public class RecipesRegistry {
 
-    public static IRecipe altarEmitter, sacrificeTransferrer, corruptionReader, unattunedPlayerSacrificer, corruptionCrystallizer, bloodTank, lumpCleaner, bloodAmulet, bloodstoneStairs, largeBloodstoneStairs, bloodstoneSlab, largeBloodstoneSlab;
+    public static IRecipe altarEmitter, sacrificeTransferrer, corruptionReader, unattunedPlayerSacrificer, corruptionCrystallizer, bloodTank, lumpCleaner, bloodAmulet, bloodstoneStairs, largeBloodstoneStairs, bloodstoneSlab, largeBloodstoneSlab, chunkClaimer, wand;
     public static AltarRecipe altarDiviner, attunedPlayerSacrificer, corruptionCatalyst;
     public static RecipeCorruptedInfusion poisonousPotato, rottenFlesh, crackedStoneBricks, bonemeal, soulSand, corruptedDemonShard, cobblestone, gravel, sand, dirt;
+    public static ArrayList<RecipeCorruptedInfusion> oreLumpRecipes = new ArrayList<RecipeCorruptedInfusion>();
+    public static ArrayList<RecipeBloodCleanser> oreLumpCleansing = new ArrayList<RecipeBloodCleanser>();
 
     public static void registerShapedRecipes() {
         altarEmitter = GameRegistry.addShapedRecipe(RandomUtils.SanguimancyItemStacks.altarEmitter, "XYX", "XZX", "XXX", 'X', Blocks.redstone_block, 'Y', Blocks.lever, 'Z', ModBlocks.blockAltar);
@@ -34,6 +38,8 @@ public class RecipesRegistry {
         largeBloodstoneSlab = GameRegistry.addShapedRecipe(RandomUtils.SanguimancyItemStacks.largeBloodstoneSlab, "XXX", 'X', ModBlocks.largeBloodStoneBrick);
         GameRegistry.addShapedRecipe(new ItemStack(ModBlocks.bloodStoneBrick), "X", "X", 'X', RandomUtils.SanguimancyItemStacks.bloodstoneSlab);
         GameRegistry.addShapedRecipe(new ItemStack(ModBlocks.largeBloodStoneBrick), "X", "X", 'X', RandomUtils.SanguimancyItemStacks.largeBloodstoneSlab);
+        chunkClaimer = GameRegistry.addShapedRecipe(RandomUtils.SanguimancyItemStacks.chunkClaimer, " X ", "XYX", " X ", 'X', ModItems.demonicSlate, 'Y', RandomUtils.SanguimancyItemStacks.corruptedDemonShard);
+        wand = GameRegistry.addShapedRecipe(RandomUtils.SanguimancyItemStacks.wand, "XYX", "XZX", "XZX", 'X', ModItems.reinforcedSlate, 'Y', ModItems.itemComplexSpellCrystal, 'Z', Items.stick);
     }
 
     public static void registerAltarRecipes() {
@@ -78,12 +84,12 @@ public class RecipesRegistry {
                         ItemStack oreLump = new ItemStack(ItemsRegistry.oreLump, 2, 0);
                         RandomUtils.checkAndSetCompound(oreLump);
                         oreLump.stackTagCompound.setString("ore", output);
-                        RecipeCorruptedInfusion.addRecipe(oreLump, OreDictionary.getOres(ore).get(i), 20, 200, false);
+                        oreLumpRecipes.add(RecipeCorruptedInfusion.addRecipe(oreLump, OreDictionary.getOres(ore).get(i), 20, 200, false));
                     }
                     ItemStack input = new ItemStack(ItemsRegistry.oreLump, 1, 0);
                     RandomUtils.checkAndSetCompound(input);
                     input.stackTagCompound.setString("ore", output);
-                    RecipeBloodCleanser.addRecipe(input, OreDictionary.getOres("ingot" + output).get(0));
+                    oreLumpCleansing.add(RecipeBloodCleanser.addRecipe(input, OreDictionary.getOres("ingot" + output).get(0)));
                 }
             }
         }

@@ -68,6 +68,17 @@ public class RandomUtils {
         }
     }
 
+    public static ArrayList<String> parseString(String stringToParse, int limit) {
+        if (limit == 0) return null;
+        ArrayList<String> strings = new ArrayList<String>();
+        int index = 0;
+        while (index < stringToParse.length()) {
+            strings.add(stringToParse.substring(index, Math.min(index + limit, stringToParse.length())));
+            index += limit;
+        }
+        return strings;
+    }
+
     public static EntityItem dropItemStackInWorld(World world, double x, double y, double z, ItemStack stack) {
         float f = 0.7F;
         float d0 = world.rand.nextFloat() * f + (1.0F - f) * 0.5F;
@@ -425,10 +436,12 @@ public class RandomUtils {
         public static ItemStack corruptionCatalist = new ItemStack(ItemsRegistry.corruptionCatalyst);
         public static ItemStack oreLump = new ItemStack(ItemsRegistry.oreLump);
         public static ItemStack bloodAmulet = new ItemStack(ItemsRegistry.bloodAmulet);
+        public static ItemStack wand = new ItemStack(ItemsRegistry.wand);
         public static ItemStack chunkClaimer = new ItemStack(ItemsRegistry.chunkClaimer);
         public static ItemStack corruptedSword = new ItemStack(ItemsRegistry.corruptedSword);
         public static ItemStack corruptedPickaxe = new ItemStack(ItemsRegistry.corruptedPickaxe);
         public static ItemStack corruptedShovel = new ItemStack(ItemsRegistry.corruptedShovel);
+        public static ItemStack corruptedAxe = new ItemStack(ItemsRegistry.corruptedAxe);
 
         // Blocks
         public static ItemStack altarEmitter = new ItemStack(BlocksRegistry.altarEmitter);

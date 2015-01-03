@@ -15,7 +15,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import tombenpotter.sanguimancy.compat.BUCompat;
+import tombenpotter.sanguimancy.registry.GuideRegistry;
 import tombenpotter.sanguimancy.compat.computercraft.PeripheralProvider;
 import tombenpotter.sanguimancy.network.PacketHandler;
 import tombenpotter.sanguimancy.proxies.CommonProxy;
@@ -96,10 +96,8 @@ public class Sanguimancy {
     @Mod.EventHandler
     public void postInit(FMLPostInitializationEvent event) {
         RecipesRegistry.registerCustomModRecipes();
-        if (Loader.isModLoaded("BloodUtils")) {
-            BUCompat.createCategories();
-            BUCompat.createEntries();
-        }
+        GuideRegistry.createCategories();
+        GuideRegistry.createEntries();
         isTTLoaded = Loader.isModLoaded("ThaumicTinkerer");
         RandomUtils.setLogToPlank();
     }
