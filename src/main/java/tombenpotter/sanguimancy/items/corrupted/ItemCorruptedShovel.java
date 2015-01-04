@@ -275,4 +275,10 @@ public class ItemCorruptedShovel extends ItemSpade {
             }
         }
     }
+
+    @Override
+    public boolean hitEntity(ItemStack stack, EntityLivingBase target, EntityLivingBase attacker) {
+        if (attacker instanceof EntityPlayer) EnergyItems.syphonBatteries(stack, (EntityPlayer) attacker, 15);
+        return true;
+    }
 }

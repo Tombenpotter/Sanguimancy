@@ -221,7 +221,9 @@ public class ItemCorruptedAxe extends ItemAxe {
         if (event.source.getEntity() instanceof EntityPlayer) {
             EntityPlayer player = (EntityPlayer) event.source.getEntity();
             if (player.getHeldItem().getItem() instanceof ItemCorruptedAxe) {
-                if (player.worldObj.rand.nextInt(25) == 0 && getSkullDrop(event.entityLiving) != null) {
+                NBTTagCompound tag = SoulCorruptionHelper.getModTag(player, Sanguimancy.modid);
+                int corruption = SoulCorruptionHelper.getCorruptionLevel(player, tag);
+                if (player.worldObj.rand.nextInt(50 * (minimumCorruption / corruption)) == 0 && getSkullDrop(event.entityLiving) != null) {
                     RandomUtils.dropItemStackInWorld(event.entityLiving.worldObj, event.entityLiving.posX, event.entityLiving.posY, event.entityLiving.posZ, getSkullDrop(event.entityLiving).copy());
                 }
             }

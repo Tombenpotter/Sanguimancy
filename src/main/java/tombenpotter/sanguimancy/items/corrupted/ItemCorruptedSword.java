@@ -37,6 +37,12 @@ public class ItemCorruptedSword extends Item {
     }
 
     @Override
+    public boolean onBlockDestroyed(ItemStack stack, World world, Block block, int x, int y, int z, EntityLivingBase entity) {
+        if (entity instanceof EntityPlayer) EnergyItems.syphonBatteries(stack, (EntityPlayer) entity, 5);
+        return true;
+    }
+
+    @Override
     public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean par4) {
         if (!GuiScreen.isShiftKeyDown()) {
             list.add(StatCollector.translateToLocal("info.Sanguimancy.tooltip.shift.info"));

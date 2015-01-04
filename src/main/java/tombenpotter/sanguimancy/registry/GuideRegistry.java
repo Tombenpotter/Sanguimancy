@@ -112,6 +112,24 @@ public class GuideRegistry {
         //TODO; Add a crafting recipe for the axe: corruptedAxeEntries.add(new EntryCraftingRecipe())
         corruptedAxe = new Entry(corruptedAxeEntries, "\u00A79" + StatCollector.translateToLocal("item.Sanguimancy.corruptedAxe.name"), 1);
         EntryRegistry.registerEntry(categorySanguimancyItems, items, corruptedAxe);
+
+        ArrayList<IEntry> corruptedPickaxeEntries = new ArrayList<IEntry>();
+        corruptedPickaxeEntries.addAll(entriesForLongText("guide.Sanguimancy.entry.corruptedPickaxe", RandomUtils.SanguimancyItemStacks.corruptedPickaxe));
+        //TODO; Add a crafting recipe for the pickaxe: corruptedPickaxeEntries.add(new EntryCraftingRecipe())
+        corruptedPickaxe = new Entry(corruptedPickaxeEntries, "\u00A79" + StatCollector.translateToLocal("item.Sanguimancy.corruptedPickaxe.name"), 1);
+        EntryRegistry.registerEntry(categorySanguimancyItems, items, corruptedPickaxe);
+
+        ArrayList<IEntry> corruptedShovelEntries = new ArrayList<IEntry>();
+        corruptedShovelEntries.addAll(entriesForLongText("guide.Sanguimancy.entry.corruptedShovel", RandomUtils.SanguimancyItemStacks.corruptedShovel));
+        //TODO; Add a crafting recipe for the shovel: corruptedShovelEntries.add(new EntryCraftingRecipe())
+        corruptedShovel = new Entry(corruptedShovelEntries, "\u00A79" + StatCollector.translateToLocal("item.Sanguimancy.corruptedShovel.name"), 1);
+        EntryRegistry.registerEntry(categorySanguimancyItems, items, corruptedShovel);
+
+        ArrayList<IEntry> corruptedSwordEntries = new ArrayList<IEntry>();
+        corruptedSwordEntries.addAll(entriesForLongText("guide.Sanguimancy.entry.corruptedSword", RandomUtils.SanguimancyItemStacks.corruptedSword));
+        //TODO; Add a crafting recipe for the Sword: corruptedSwordEntries.add(new EntryCraftingRecipe())
+        corruptedSword = new Entry(corruptedSwordEntries, "\u00A79" + StatCollector.translateToLocal("item.Sanguimancy.corruptedSword.name"), 1);
+        EntryRegistry.registerEntry(categorySanguimancyItems, items, corruptedSword);
     }
 
     public static void createBlockEntries() {

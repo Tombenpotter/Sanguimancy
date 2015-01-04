@@ -165,4 +165,10 @@ public class ItemCorruptedPickaxe extends ItemPickaxe implements IBindable {
         }
         return 1.0F;
     }
+
+    @Override
+    public boolean hitEntity(ItemStack stack, EntityLivingBase target, EntityLivingBase attacker) {
+        if (attacker instanceof EntityPlayer) EnergyItems.syphonBatteries(stack, (EntityPlayer) attacker, 15);
+        return true;
+    }
 }
