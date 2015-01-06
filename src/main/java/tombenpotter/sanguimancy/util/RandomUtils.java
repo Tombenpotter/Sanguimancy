@@ -68,17 +68,6 @@ public class RandomUtils {
         }
     }
 
-    public static ArrayList<String> parseString(String stringToParse, int limit) {
-        if (limit == 0) return null;
-        ArrayList<String> strings = new ArrayList<String>();
-        int index = 0;
-        while (index < stringToParse.length()) {
-            strings.add(stringToParse.substring(index, Math.min(index + limit, stringToParse.length())));
-            index += limit;
-        }
-        return strings;
-    }
-
     public static EntityItem dropItemStackInWorld(World world, double x, double y, double z, ItemStack stack) {
         float f = 0.7F;
         float d0 = world.rand.nextFloat() * f + (1.0F - f) * 0.5F;
@@ -474,5 +463,7 @@ public class RandomUtils {
         public static ItemStack simpleBranch = new ItemStack(BlocksRegistry.simpleBranch);
         public static ItemStack simpleKnot = new ItemStack(BlocksRegistry.simpleKnot);
         public static ItemStack toggleKnot = new ItemStack(BlocksRegistry.toggleKnot);
+        public static ItemStack bloodInterface = new ItemStack(BlocksRegistry.bloodInterface);
+        public static ItemStack ritualRepresentation = new ItemStack(BlocksRegistry.ritualRepresentation);
     }
 }

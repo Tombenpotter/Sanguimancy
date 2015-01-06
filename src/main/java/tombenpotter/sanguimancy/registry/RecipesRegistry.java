@@ -22,7 +22,9 @@ import java.util.ArrayList;
 
 public class RecipesRegistry {
 
-    public static IRecipe altarEmitter, sacrificeTransferrer, corruptionReader, unattunedPlayerSacrificer, corruptionCrystallizer, bloodTank, lumpCleaner, bloodAmulet, bloodstoneStairs, largeBloodstoneStairs, bloodstoneSlab, largeBloodstoneSlab, chunkClaimer, wand;
+    public static IRecipe altarEmitter, sacrificeTransferrer, corruptionReader, unattunedPlayerSacrificer, corruptionCrystallizer, bloodTank, lumpCleaner,
+            bloodAmulet, bloodstoneStairs, largeBloodstoneStairs, bloodstoneSlab, largeBloodstoneSlab, chunkClaimer, wand, bloodInterface, simpleBranch,
+            simpleKnot, toggledKnot;
     public static AltarRecipe altarDiviner, attunedPlayerSacrificer, corruptionCatalyst;
     public static RecipeCorruptedInfusion poisonousPotato, rottenFlesh, crackedStoneBricks, bonemeal, soulSand, corruptedDemonShard, cobblestone, gravel, sand, dirt;
     public static ArrayList<RecipeCorruptedInfusion> oreLumpRecipes = new ArrayList<RecipeCorruptedInfusion>();
@@ -40,6 +42,9 @@ public class RecipesRegistry {
         GameRegistry.addShapedRecipe(new ItemStack(ModBlocks.largeBloodStoneBrick), "X", "X", 'X', RandomUtils.SanguimancyItemStacks.largeBloodstoneSlab);
         chunkClaimer = GameRegistry.addShapedRecipe(RandomUtils.SanguimancyItemStacks.chunkClaimer, " X ", "XYX", " X ", 'X', ModItems.demonicSlate, 'Y', RandomUtils.SanguimancyItemStacks.corruptedDemonShard);
         wand = GameRegistry.addShapedRecipe(RandomUtils.SanguimancyItemStacks.wand, "XYX", "XZX", "XZX", 'X', ModItems.reinforcedSlate, 'Y', ModItems.itemComplexSpellCrystal, 'Z', Items.stick);
+        simpleBranch = GameRegistry.addShapedRecipe(new ItemStack(BlocksRegistry.simpleBranch, 8), "XYX", "Z Z", "XYX", 'X', ModItems.blankSlate, 'Y', ModItems.reinforcedSlate, 'Z', Blocks.glass);
+        simpleKnot = GameRegistry.addShapedRecipe(RandomUtils.SanguimancyItemStacks.simpleKnot, " X ", "XYX", " X ", 'X', RandomUtils.SanguimancyItemStacks.simpleBranch, 'Y', ModItems.demonicSlate);
+        toggledKnot = GameRegistry.addShapedRecipe(RandomUtils.SanguimancyItemStacks.toggleKnot, " X ", "XYX", " X ", 'X', Items.redstone, 'Y', RandomUtils.SanguimancyItemStacks.simpleKnot);
     }
 
     public static void registerAltarRecipes() {
@@ -107,11 +112,11 @@ public class RecipesRegistry {
             PeripheralProvider.register();
             ItemStack modem = GameRegistry.findItemStack(ModList.Names.COMPUTERCRAFT, "CC-Cable", 1);
             modem.setItemDamage(1);
-            GameRegistry.addShapelessRecipe(stackInterface.copy(), stackRune, modem);
+            bloodInterface = GameRegistry.addShapedRecipe(stackInterface.copy(), "XYX", "XZX", "XXX", 'X', Blocks.stone, 'Y', stackRune, 'Z', modem);
         }
         if (ModList.opencomputers.isLoaded())
-            GameRegistry.addShapelessRecipe(stackInterface.copy(), stackRune, new ItemStack(GameRegistry.findBlock(ModList.Names.OPENCOMPUTERS, "adapter")));
+            bloodInterface = GameRegistry.addShapedRecipe(stackInterface.copy(), "XYX", "XZX", "XXX", 'X', Blocks.stone, 'Y', stackRune, 'Z', new ItemStack(GameRegistry.findBlock(ModList.Names.OPENCOMPUTERS, "adapter")));
         if (!(ModList.opencomputers.isLoaded() || ModList.computercraft.isLoaded()))
-            GameRegistry.addShapelessRecipe(stackInterface.copy(), stackRune.copy(), new ItemStack(Blocks.unpowered_comparator));
+            bloodInterface = GameRegistry.addShapedRecipe(stackInterface.copy(), "XYX", "XZX", "XXX", 'X', Blocks.stone, 'Y', stackRune, 'Z', new ItemStack(Blocks.unpowered_comparator));
     }
 }

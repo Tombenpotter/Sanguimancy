@@ -5,6 +5,9 @@ The Altar Diviner now pulls the stuff out when the crafting operation is done. Y
 Fixed the range on the Timberman upgrade. Woooops.
 More SN Representation, and fixed a 'slight' oversight. That would bug it all!
 Added events for Soul Corruption.
+Added a full Corruption Tool set.
+Fixed derps in the portal code.
+Added documentation. FINALLY! I should be close to done with it. :D
 
 Version 1.1.9-Alpha2:
 Implemented the customNBTTag interface in all of my tile entities but one. This allows other mods to store data on my tiles!

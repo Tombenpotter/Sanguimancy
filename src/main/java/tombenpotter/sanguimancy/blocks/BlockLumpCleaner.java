@@ -21,7 +21,7 @@ import tombenpotter.sanguimancy.util.RandomUtils;
 
 public class BlockLumpCleaner extends BlockContainer {
 
-    public IIcon frontOffIcon, frontOnIcon, bottomIcon, topIcon;
+    public IIcon frontOffIcon, frontOnIcon, bottomIcon, topOffIcon, topOnIcon;
 
     public BlockLumpCleaner(Material material) {
         super(material);
@@ -36,7 +36,8 @@ public class BlockLumpCleaner extends BlockContainer {
         this.frontOffIcon = ir.registerIcon(Sanguimancy.texturePath + ":LumpCleaner_Inactive");
         this.frontOnIcon = ir.registerIcon(Sanguimancy.texturePath + ":LumpCleaner_Active");
         this.bottomIcon = ir.registerIcon(Sanguimancy.texturePath + ":LumpCleaner_Bottom");
-        this.topIcon = ir.registerIcon(Sanguimancy.texturePath + ":LumpCleaner_Top");
+        this.topOffIcon = ir.registerIcon(Sanguimancy.texturePath + ":LumpCleaner_Top_Off");
+        this.topOnIcon = ir.registerIcon(Sanguimancy.texturePath + ":LumpCleaner_Top_On");
     }
 
     @Override
@@ -92,9 +93,9 @@ public class BlockLumpCleaner extends BlockContainer {
         if (access.getTileEntity(x, y, z) != null && access.getTileEntity(x, y, z) instanceof TileBloodCleaner) {
             TileBloodCleaner tile = (TileBloodCleaner) access.getTileEntity(x, y, z);
             if (tile.isActive) {
-                return side == 1 ? this.topIcon : (side == 0 ? this.bottomIcon : (side != meta ? this.blockIcon : this.frontOnIcon));
+                return side == 1 ? this.topOnIcon : (side == 0 ? this.bottomIcon : (side != meta ? this.blockIcon : this.frontOnIcon));
             } else {
-                return side == 1 ? this.topIcon : (side == 0 ? this.bottomIcon : (side != meta ? this.blockIcon : this.frontOffIcon));
+                return side == 1 ? this.topOffIcon : (side == 0 ? this.bottomIcon : (side != meta ? this.blockIcon : this.frontOffIcon));
             }
         }
         return super.getIcon(access, x, y, z, side);
@@ -106,7 +107,7 @@ public class BlockLumpCleaner extends BlockContainer {
             return this.bottomIcon;
         }
         if (side == 1) {
-            return this.topIcon;
+            return this.topOffIcon;
         }
         if (side == 3) {
             return this.frontOffIcon;

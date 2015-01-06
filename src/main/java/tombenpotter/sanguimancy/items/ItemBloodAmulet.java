@@ -47,8 +47,8 @@ public class ItemBloodAmulet extends Item implements IFluidContainerItem {
             EntityLivingBase livingBase = (EntityLivingBase) entity;
             float health = livingBase.getHealth();
             RandomUtils.checkAndSetCompound(stack);
-            if (health < 10F && stack.hasTagCompound() && stack.stackTagCompound.hasKey("blood")) {
-                if (stack.stackTagCompound.getInteger("blood") >= bloodLoss) {
+            if (health < 10F && stack.hasTagCompound() && getFluid(stack) != null) {
+                if (getFluid(stack).fluidID == new FluidStack(AlchemicalWizardry.lifeEssenceFluid, 1).fluidID && getFluid(stack).amount >= bloodLoss) {
                     livingBase.heal(1F);
                     livingBase.motionX = 0;
                     livingBase.motionY = 0;

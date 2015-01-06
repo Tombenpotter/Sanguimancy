@@ -36,10 +36,9 @@ public class EntryImage extends EntryBase {
     }
 
     public void drawImage(GuiEntry entry, int width, int height, int left, int top, EntityPlayer player, String key, int page, int mX, int mY) {
-        int x = left + 32;
+        int x = left + width / 2 - 60;
         int y = top + 10;
         Minecraft.getMinecraft().getTextureManager().bindTexture(this.resource);
-
         GuiHelper.drawScaledIconWithoutColor(x, y, this.iconWidth, this.iconHeight, 0);
     }
 

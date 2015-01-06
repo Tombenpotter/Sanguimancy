@@ -6,14 +6,19 @@ import WayofTime.alchemicalWizardry.api.event.PlayerAddToNetworkEvent;
 import WayofTime.alchemicalWizardry.api.event.RitualActivatedEvent;
 import WayofTime.alchemicalWizardry.api.soulNetwork.SoulNetworkHandler;
 import WayofTime.alchemicalWizardry.common.items.EnergyItems;
+import WayofTime.alchemicalWizardry.common.spell.complex.effect.SpellHelper;
 import cpw.mods.fml.client.event.ConfigChangedEvent;
 import cpw.mods.fml.client.registry.ClientRegistry;
 import cpw.mods.fml.common.Loader;
+import cpw.mods.fml.common.ModContainer;
 import cpw.mods.fml.common.eventhandler.Event;
+import cpw.mods.fml.common.eventhandler.EventPriority;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.InputEvent;
 import cpw.mods.fml.common.gameevent.TickEvent;
+import cpw.mods.fml.common.registry.GameData;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.entity.EntityLivingBase;
@@ -30,6 +35,7 @@ import net.minecraftforge.common.ForgeChunkManager;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.player.AttackEntityEvent;
+import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;
 import tombenpotter.sanguimancy.Sanguimancy;
@@ -262,6 +268,31 @@ public class EventHandler {
                 event.setResult(Event.Result.DENY);
             }
 
+        }
+    }
+
+    @SubscribeEvent
+    public void onPlayerCorruptedInfusionAesthetic(EventCorruptedInfusion.EventPlayerCorruptedInfusion event) {
+        double posX = event.entityPlayer.posX;
+        double posY = event.entityPlayer.posY;
+        double posZ = event.entityPlayer.posZ;
+        event.entityPlayer.worldObj.playSoundEffect((double) ((float) posX + 0.5F), (double) ((float) posY + 0.5F), (double) ((float) posZ + 0.5F), "random.fizz", 0.5F, 2.6F + (event.entityPlayer.worldObj.rand.nextFloat() - event.entityPlayer.worldObj.rand.nextFloat()) * 0.8F);
+        SpellHelper.sendIndexedParticleToAllAround(event.entityPlayer.worldObj, posX, posY, posZ, 20, event.entityPlayer.worldObj.provider.dimensionId, 4, posX, posY, posZ);
+    }
+
+    @SubscribeEvent(priority = EventPriority.HIGHEST)
+    //This code is very much inspired by the one in ProfMobius' Waila mod
+    public void onSanguimancyItemTooltip(ItemTooltipEvent event) {
+        try {
+            ModContainer mod = GameData.findModOwner(GameData.itemRegistry.getNameForObject(event.itemStack.getItem()));
+            String modname = mod == null ? "Minecraft" : mod.getName();
+            if (modname.equals(Sanguimancy.name) && event.itemStack.stackTagCompound != null && event.itemStack.stackTagCompound.hasKey("ownerName")) {
+                if (GuiScreen.isShiftKeyDown()) {
+                    event.toolTip.add((StatCollector.translateToLocal("info.Sanguimancy.tooltip.owner") + ": " + RandomUtils.getItemOwner(event.itemStack)));
+                }
+            }
+        } catch (NullPointerException e) {
+            Sanguimancy.logger.info("No mod found for this item");
         }
     }
 

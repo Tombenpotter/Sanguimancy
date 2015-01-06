@@ -29,7 +29,7 @@ public class RitualEffectPortal extends RitualEffect {
         int direction = ritualStone.getCustomRitualTag().getInteger("ritualDirection");
         if (!world.isRemote) {
             String name = owner;
-            if (direction == 1 || direction == 4) {
+            if (direction == 1 || direction == 3) {
                 for (int i = x - 3; i <= x + 3; i++) {
                     for (int k = z - 2; k <= z + 2; k++) {
                         if (!world.isAirBlock(i, y, k) && !(world.getBlock(i, y, k) == ModBlocks.ritualStone)) {
@@ -38,16 +38,16 @@ public class RitualEffectPortal extends RitualEffect {
                     }
                 }
                 for (int j = y + 1; j <= y + 5; j++) {
-                    if (!world.isAirBlock(x - 3, y, z) && !(world.getBlock(x - 3, y, z) == ModBlocks.ritualStone)) {
+                    if (!world.isAirBlock(x - 3, j, z) && !(world.getBlock(x - 3, j, z) == ModBlocks.ritualStone)) {
                         name = RandomUtils.addStringToEnd(name, Block.blockRegistry.getNameForObject(world.getBlock(x - 3, j, z)) + String.valueOf(world.getBlockMetadata(x - 3, j, z)));
                     }
                 }
                 for (int j = y + 1; j <= y + 5; j++) {
-                    if (!world.isAirBlock(x + 3, y, z) && !(world.getBlock(x + 3, y, z) == ModBlocks.ritualStone)) {
+                    if (!world.isAirBlock(x + 3, j, z) && !(world.getBlock(x + 3, j, z) == ModBlocks.ritualStone)) {
                         name = RandomUtils.addStringToEnd(name, Block.blockRegistry.getNameForObject(world.getBlock(x + 3, j, z)) + String.valueOf(world.getBlockMetadata(x + 3, j, z)));
                     }
                 }
-            } else if (direction == 2 || direction == 3) {
+            } else if (direction == 2 || direction == 4) {
                 for (int k = z - 3; k <= z + 3; k++) {
                     for (int i = x - 2; i <= x + 2; i++) {
                         if (!world.isAirBlock(i, y, k) && !(world.getBlock(i, y, k) == ModBlocks.ritualStone)) {
@@ -56,12 +56,12 @@ public class RitualEffectPortal extends RitualEffect {
                     }
                 }
                 for (int j = y + 1; j <= y + 5; j++) {
-                    if (!world.isAirBlock(x, y, z - 3) && !(world.getBlock(x, y, y - 3) == ModBlocks.ritualStone)) {
+                    if (!world.isAirBlock(x, j, z - 3) && !(world.getBlock(x, j, z - 3) == ModBlocks.ritualStone)) {
                         name = RandomUtils.addStringToEnd(name, Block.blockRegistry.getNameForObject(world.getBlock(x, j, z - 3)) + String.valueOf(world.getBlockMetadata(x, j, z - 3)));
                     }
                 }
                 for (int j = y + 1; j <= y + 5; j++) {
-                    if (!world.isAirBlock(x, y, z + 3) && !(world.getBlock(x, y, y + 3) == ModBlocks.ritualStone)) {
+                    if (!world.isAirBlock(x, j, z + 3) && !(world.getBlock(x, j, z + 3) == ModBlocks.ritualStone)) {
                         name = RandomUtils.addStringToEnd(name, Block.blockRegistry.getNameForObject(world.getBlock(x, j, z + 3)) + String.valueOf(world.getBlockMetadata(x, j, z + 3)));
                     }
                 }
@@ -136,7 +136,7 @@ public class RitualEffectPortal extends RitualEffect {
         if (LocationsHandler.getLocationsHandler() != null) {
             LocationsHandler.getLocationsHandler().removeLocation(ritualStone.getCustomRitualTag().getString("PortalRitualID"), new PortalLocation(x, y + 1, z, world.provider.dimensionId));
         }
-        if (direction == 1 || direction == 4) {
+        if (direction == 1 || direction == 3) {
             for (int i = x - 2; i <= x + 2; i++) {
                 for (int j = y + 1; j <= y + 3; j++) {
                     if (world.getBlock(i, j, z) == BlocksRegistry.dimensionalPortal) {
@@ -144,7 +144,7 @@ public class RitualEffectPortal extends RitualEffect {
                     }
                 }
             }
-        } else if (direction == 2 || direction == 3) {
+        } else if (direction == 2 || direction == 4) {
             for (int k = z - 2; k <= z + 2; k++) {
                 for (int j = y + 1; j <= y + 3; j++) {
                     if (world.getBlock(x, j, k) == BlocksRegistry.dimensionalPortal) {
