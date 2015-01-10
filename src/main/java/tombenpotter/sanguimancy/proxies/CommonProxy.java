@@ -1,15 +1,15 @@
 package tombenpotter.sanguimancy.proxies;
 
-import tombenpotter.sanguimancy.api.bloodutils.api.classes.guide.GuiCategories;
-import tombenpotter.sanguimancy.api.bloodutils.api.classes.guide.GuiEntry;
-import tombenpotter.sanguimancy.api.bloodutils.api.classes.guide.GuiIndex;
-import tombenpotter.sanguimancy.api.bloodutils.api.compact.Category;
-import tombenpotter.sanguimancy.api.bloodutils.api.registries.EntryRegistry;
 import cpw.mods.fml.common.network.IGuiHandler;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
+import tombenpotter.sanguimancy.api.bloodutils.api.classes.guide.GuiCategories;
+import tombenpotter.sanguimancy.api.bloodutils.api.classes.guide.GuiEntry;
+import tombenpotter.sanguimancy.api.bloodutils.api.classes.guide.GuiIndex;
+import tombenpotter.sanguimancy.api.bloodutils.api.compact.Category;
+import tombenpotter.sanguimancy.api.bloodutils.api.registries.EntryRegistry;
 import tombenpotter.sanguimancy.container.ContainerLumpCleaner;
 import tombenpotter.sanguimancy.gui.GuiLumpCleaner;
 import tombenpotter.sanguimancy.tile.TileBloodCleaner;
@@ -18,6 +18,9 @@ public class CommonProxy implements IGuiHandler {
 
     public void load() {
         registerRenders();
+    }
+
+    public void postLoad() {
     }
 
     public void registerRenders() {

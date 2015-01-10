@@ -10,6 +10,7 @@ import tombenpotter.sanguimancy.client.render.*;
 import tombenpotter.sanguimancy.entity.EntityChickenMinion;
 import tombenpotter.sanguimancy.entity.EntityPlayerPointer;
 import tombenpotter.sanguimancy.registry.BlocksRegistry;
+import tombenpotter.sanguimancy.registry.GuideRegistry;
 import tombenpotter.sanguimancy.tile.*;
 import tombenpotter.sanguimancy.util.EventHandler;
 
@@ -19,6 +20,11 @@ public class ClientProxy extends CommonProxy {
     public void load() {
         registerRenders();
         FMLCommonHandler.instance().bus().register(new EventHandler.ClientEventHandler());
+    }
+
+    @Override
+    public void postLoad() {
+        GuideRegistry.createEntries();
     }
 
     @Override

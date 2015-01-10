@@ -34,6 +34,7 @@ tile.Sanguimancy.knotActivator.name=Soul Knot Activator
 tile.Sanguimancy.simpleSNKnot.name=Simple Soul Knot
 tile.Sanguimancy.toggleSNKnot.name=Toggled Soul Knot
 tile.Sanguimancy.simpleSNBranch.name=Simple Soul Branch
+tile.Sanguimancy.ritualRepresentation.name=Ritual Representation
 
 #Items
 item.Sanguimancy.playerSacrificer.unattuned.name=Unattuned Player Sacrificing Stone

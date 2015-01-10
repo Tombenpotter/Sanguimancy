@@ -1,9 +1,12 @@
 package tombenpotter.sanguimancy.items.corrupted;
 
 import WayofTime.alchemicalWizardry.common.items.EnergyItems;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -15,6 +18,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.IIcon;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import tombenpotter.sanguimancy.Sanguimancy;
@@ -28,6 +32,7 @@ public class ItemCorruptedSword extends Item {
 
     public float baseDamage;
     public int minimumCorruption = 200;
+    public IIcon activated;
 
     public ItemCorruptedSword(int damage) {
         setCreativeTab(Sanguimancy.tabSanguimancy);
@@ -37,12 +42,28 @@ public class ItemCorruptedSword extends Item {
     }
 
     @Override
-    public boolean onBlockDestroyed(ItemStack stack, World world, Block block, int x, int y, int z, EntityLivingBase entity) {
+    @SideOnly(Side.CLIENT)
+    public void registerIcons(IIconRegister ir) {
+        this.itemIcon = ir.registerIcon(Sanguimancy.texturePath + ":CorruptedSword");
+        this.activated = ir.registerIcon(Sanguimancy.texturePath + ":CorruptedSword_Activated");
+    }
+
+    @Override
+    public IIcon getIcon(ItemStack stack, int pass) {
+        RandomUtils.checkAndSetCompound(stack);
+        if (getActivated(stack)) return this.activated;
+        else return this.itemIcon;
+    }
+
+    @Override
+    public boolean onBlockDestroyed(ItemStack stack, World world, Block block, int x, int y, int z, EntityLivingBase
+            entity) {
         if (entity instanceof EntityPlayer) EnergyItems.syphonBatteries(stack, (EntityPlayer) entity, 5);
         return true;
     }
 
     @Override
+    @SideOnly(Side.CLIENT)
     public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean par4) {
         if (!GuiScreen.isShiftKeyDown()) {
             list.add(StatCollector.translateToLocal("info.Sanguimancy.tooltip.shift.info"));
@@ -54,7 +75,6 @@ public class ItemCorruptedSword extends Item {
                 if (!RandomUtils.getItemOwner(stack).equals("") && RandomUtils.getItemOwner(stack).equals(player.getCommandSenderName())) {
                     NBTTagCompound tag = SoulCorruptionHelper.getModTag(player, Sanguimancy.modid);
                     int corruption = SoulCorruptionHelper.getCorruptionLevel(player, tag);
-                    //TODO: Fix the damn tooltip
                     list.add("\u00A79+ " + (int) (baseDamage * (corruption / minimumCorruption)) + " " + StatCollector.translateToLocal("info.Sanguimancy.tooltip.attack.damage"));
                 }
             }

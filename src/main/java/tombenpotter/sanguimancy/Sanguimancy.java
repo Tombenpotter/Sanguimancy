@@ -78,7 +78,6 @@ public class Sanguimancy {
         PotionsRegistry.registerPotions();
         FMLCommonHandler.instance().bus().register(new EventHandler());
         MinecraftForge.EVENT_BUS.register(new EventHandler());
-        MinecraftForge.EVENT_BUS.register(new EventHandler.ClientEventHandler());
         PacketHandler.registerPackets();
         if (Loader.isModLoaded("Waila")) {
             FMLInterModComms.sendMessage("Waila", "register", "tombenpotter.sanguimancy.compat.waila.WailaCorruptionCrystallizer.register");
@@ -93,7 +92,7 @@ public class Sanguimancy {
     public void postInit(FMLPostInitializationEvent event) {
         RecipesRegistry.registerCustomModRecipes();
         GuideRegistry.createCategories();
-        GuideRegistry.createEntries();
+        proxy.postLoad();
         isTTLoaded = Loader.isModLoaded("ThaumicTinkerer");
         RandomUtils.setLogToPlank();
     }

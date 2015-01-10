@@ -3,6 +3,8 @@ package tombenpotter.sanguimancy.items.corrupted;
 import WayofTime.alchemicalWizardry.common.items.EnergyItems;
 import WayofTime.alchemicalWizardry.common.spell.complex.effect.SpellHelper;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
@@ -50,6 +52,7 @@ public class ItemCorruptedShovel extends ItemSpade {
     }
 
     @Override
+    @SideOnly(Side.CLIENT)
     public void registerIcons(IIconRegister ir) {
         super.registerIcons(ir);
         //TODO: Add an icon and a different overlay for every mode.
@@ -94,8 +97,11 @@ public class ItemCorruptedShovel extends ItemSpade {
     }
 
     public int getToolMode(ItemStack stack) {
-        RandomUtils.checkAndSetCompound(stack);
-        return stack.stackTagCompound.getInteger("ToolMode");
+        if (stack != null) {
+            RandomUtils.checkAndSetCompound(stack);
+            return stack.stackTagCompound.getInteger("ToolMode");
+        }
+        return 0;
     }
 
     public void setToolMode(ItemStack stack, int mode) {
@@ -121,6 +127,7 @@ public class ItemCorruptedShovel extends ItemSpade {
     }
 
     @Override
+    @SideOnly(Side.CLIENT)
     public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean par4) {
         if (!GuiScreen.isShiftKeyDown()) {
             list.add(StatCollector.translateToLocal("info.Sanguimancy.tooltip.shift.info"));
@@ -194,6 +201,7 @@ public class ItemCorruptedShovel extends ItemSpade {
     }
 
     @SubscribeEvent
+    @SideOnly(Side.CLIENT)
     public void drawTransmutationsAndBreakdowns(RenderWorldLastEvent event) {
         Minecraft minecraft = Minecraft.getMinecraft();
         EntityPlayer player = minecraft.thePlayer;
