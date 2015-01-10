@@ -6,6 +6,7 @@ import cpw.mods.fml.common.FMLCommonHandler;
 import net.minecraft.client.model.ModelChicken;
 import net.minecraft.item.Item;
 import net.minecraftforge.client.MinecraftForgeClient;
+import net.minecraftforge.common.MinecraftForge;
 import tombenpotter.sanguimancy.client.render.*;
 import tombenpotter.sanguimancy.entity.EntityChickenMinion;
 import tombenpotter.sanguimancy.entity.EntityPlayerPointer;
@@ -20,6 +21,7 @@ public class ClientProxy extends CommonProxy {
     public void load() {
         registerRenders();
         FMLCommonHandler.instance().bus().register(new EventHandler.ClientEventHandler());
+        MinecraftForge.EVENT_BUS.register(new EventHandler.ClientEventHandler());
     }
 
     @Override

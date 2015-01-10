@@ -13,7 +13,7 @@ import tombenpotter.sanguimancy.compat.lua.events.LuaOrbMaxed;
 import tombenpotter.sanguimancy.compat.lua.methods.LuaGetLifeEssence;
 import tombenpotter.sanguimancy.compat.lua.methods.LuaGetOrbMax;
 import tombenpotter.sanguimancy.compat.lua.methods.LuaGetOwner;
-import tombenpotter.sanguimancy.network.BloodInterfaceUpdateMessage;
+import tombenpotter.sanguimancy.network.packets.PacketBloodInterfaceUpdate;
 import tombenpotter.sanguimancy.network.PacketHandler;
 import tombenpotter.sanguimancy.registry.BlocksRegistry;
 
@@ -159,7 +159,7 @@ public class TileBloodInterface extends TileComputerBase implements IInventory {
     public void markDirty() {
         super.markDirty();
         if (worldObj != null && !worldObj.isRemote) {
-            BloodInterfaceUpdateMessage message = new BloodInterfaceUpdateMessage(this);
+            PacketBloodInterfaceUpdate message = new PacketBloodInterfaceUpdate(this);
             PacketHandler.INSTANCE.sendToAll(message);
         }
     }
@@ -214,7 +214,7 @@ public class TileBloodInterface extends TileComputerBase implements IInventory {
     @Override
     public Packet getDescriptionPacket() {
         writeToNBT(new NBTTagCompound());
-        return PacketHandler.INSTANCE.getPacketFrom(new BloodInterfaceUpdateMessage(this));
+        return PacketHandler.INSTANCE.getPacketFrom(new PacketBloodInterfaceUpdate(this));
     }
 
     @Override

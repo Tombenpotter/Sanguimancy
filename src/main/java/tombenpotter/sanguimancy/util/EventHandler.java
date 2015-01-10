@@ -8,21 +8,19 @@ import WayofTime.alchemicalWizardry.api.soulNetwork.SoulNetworkHandler;
 import WayofTime.alchemicalWizardry.common.items.EnergyItems;
 import WayofTime.alchemicalWizardry.common.spell.complex.effect.SpellHelper;
 import cpw.mods.fml.client.event.ConfigChangedEvent;
-import cpw.mods.fml.client.registry.ClientRegistry;
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.ModContainer;
 import cpw.mods.fml.common.eventhandler.Event;
 import cpw.mods.fml.common.eventhandler.EventPriority;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
-import cpw.mods.fml.common.gameevent.InputEvent;
 import cpw.mods.fml.common.gameevent.TickEvent;
 import cpw.mods.fml.common.registry.GameData;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.server.MinecraftServer;
@@ -36,13 +34,12 @@ import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.player.AttackEntityEvent;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
-import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;
 import tombenpotter.sanguimancy.Sanguimancy;
 import tombenpotter.sanguimancy.api.objects.BlockPostition;
-import tombenpotter.sanguimancy.network.EventCorruptedInfusion;
 import tombenpotter.sanguimancy.network.PacketHandler;
-import tombenpotter.sanguimancy.network.PacketPlayerSearch;
+import tombenpotter.sanguimancy.network.events.EventCorruptedInfusion;
+import tombenpotter.sanguimancy.network.packets.PacketSyncCorruption;
 import tombenpotter.sanguimancy.registry.BlocksRegistry;
 import tombenpotter.sanguimancy.registry.ItemsRegistry;
 import tombenpotter.sanguimancy.tile.TileItemSNPart;
@@ -92,7 +89,7 @@ public class EventHandler {
     @SubscribeEvent
     public void onPlayerJoinWorld(EntityJoinWorldEvent event) {
         if (!event.entity.worldObj.isRemote && event.entity != null && event.entity instanceof EntityPlayer) {
-            EntityPlayer player = (EntityPlayer) event.entity;
+            EntityPlayerMP player = (EntityPlayerMP) event.entity;
             NBTTagCompound tag = SoulCorruptionHelper.getModTag(player, Sanguimancy.modid);
             if (SoulCorruptionHelper.getCorruptionLevel(player, tag) > 0) return;
             else SoulCorruptionHelper.negateCorruption(player, tag);
@@ -124,6 +121,10 @@ public class EventHandler {
         if (SoulCorruptionHelper.isCorruptionOver(event.player, tag, 70)) {
             SoulCorruptionHelper.randomTeleport(event.player);
         }
+
+        if (event.player.worldObj.getWorldTime() % 200 == 0 && !event.player.worldObj.isRemote) {
+            PacketHandler.INSTANCE.sendTo(new PacketSyncCorruption(event.player), (EntityPlayerMP) event.player);
+        }
     }
 
     @SubscribeEvent
@@ -134,10 +135,6 @@ public class EventHandler {
             if (SoulCorruptionHelper.isCorruptionOver(event.entityPlayer, tag, 30))
                 SoulCorruptionHelper.addWither(target);
         }
-    }
-
-    @SubscribeEvent
-    public void onCorruptedInfusion(EventCorruptedInfusion.EventPlayerCorruptedInfusion event) {
     }
 
     @SubscribeEvent
@@ -297,6 +294,7 @@ public class EventHandler {
     }
 
     public static class ClientEventHandler {
+        /*
         public static KeyBinding keySearchPlayer = new KeyBinding(StatCollector.translateToLocal("key.Sanguimancy.search"), Keyboard.KEY_F, Sanguimancy.modid);
 
         public ClientEventHandler() {
@@ -309,10 +307,14 @@ public class EventHandler {
                 PacketHandler.INSTANCE.sendToServer(new PacketPlayerSearch());
             }
         }
+        */
+
+        public ClientEventHandler() {
+        }
 
         @SubscribeEvent
         public void onRenderPlayerSpecialAntlers(RenderPlayerEvent.Specials.Post event) {
-            String names[] = {"Tombenpotter", "Speedynutty68", "WayofFlowingTime", "Jadedcat", "Kris1432", "Drullkus", "TheOrangeGenius", "Direwolf20", "Pahimar", "ValiarMarcus", "Alex_hawks"};
+            String names[] = {"Tombenpotter", "Speedynutty68", "WayofFlowingTime", "Jadedcat", "Kris1432", "Drullkus", "TheOrangeGenius", "Direwolf20", "Pahimar", "ValiarMarcus", "Alex_hawks", "StoneWaves", "DemoXin"};
             for (String name : names) {
                 if (event.entityPlayer.getCommandSenderName().equalsIgnoreCase(name)) {
                     GL11.glPushMatrix();
@@ -343,6 +345,27 @@ public class EventHandler {
                     GL11.glPopMatrix();
                     GL11.glPopMatrix();
                 }
+            }
+        }
+
+        @SubscribeEvent
+        public void prePlayerRender(RenderPlayerEvent.Pre event) {
+            NBTTagCompound tag = SoulCorruptionHelper.getModTag(Minecraft.getMinecraft().thePlayer, Sanguimancy.modid);
+            if (SoulCorruptionHelper.isCorruptionOver(Minecraft.getMinecraft().thePlayer, tag, 20)) {
+                GL11.glPushMatrix();
+                GL11.glDisable(2929);
+                GL11.glColor3f(255, 0, 0);
+                GL11.glPopMatrix();
+            }
+        }
+
+        @SubscribeEvent
+        public void postPlayerRender(RenderPlayerEvent.Post event) {
+            NBTTagCompound tag = SoulCorruptionHelper.getModTag(Minecraft.getMinecraft().thePlayer, Sanguimancy.modid);
+            if (SoulCorruptionHelper.isCorruptionOver(Minecraft.getMinecraft().thePlayer, tag, 20)) {
+                GL11.glPushMatrix();
+                GL11.glEnable(2929);
+                GL11.glPopMatrix();
             }
         }
     }

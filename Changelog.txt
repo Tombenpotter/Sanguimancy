@@ -8,6 +8,8 @@ Added events for Soul Corruption.
 Added a full Corruption Tool set.
 Fixed derps in the portal code.
 Added documentation. FINALLY! I should be close to done with it. :D
+Fixed a lot of bugs that would prevent Sanguimancy from working server side, and some derps in the code.
+Player are now seeable through walls if you are corrupted enough.
 
 Version 1.1.9-Alpha2:
 Implemented the customNBTTag interface in all of my tile entities but one. This allows other mods to store data on my tiles!

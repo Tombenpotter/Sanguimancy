@@ -1,4 +1,4 @@
-package tombenpotter.sanguimancy.network;
+package tombenpotter.sanguimancy.network.events;
 
 import cpw.mods.fml.common.eventhandler.Cancelable;
 import cpw.mods.fml.common.eventhandler.Event;

@@ -20,11 +20,9 @@ public class RenderPlayerPointer extends RenderBiped {
         ItemStack itemstack = p_76986_1_.getHeldItem();
         this.func_82420_a(p_76986_1_, itemstack);
         double d3 = p_76986_4_ - (double) p_76986_1_.yOffset;
-
         if (p_76986_1_.isSneaking()) {
             d3 -= 0.125D;
         }
-
         super.doRender(p_76986_1_, p_76986_2_, d3, p_76986_6_, p_76986_8_, p_76986_9_);
         this.field_82423_g.aimedBow = this.field_82425_h.aimedBow = this.modelBipedMain.aimedBow = false;
         this.field_82423_g.isSneak = this.field_82425_h.isSneak = this.modelBipedMain.isSneak = false;

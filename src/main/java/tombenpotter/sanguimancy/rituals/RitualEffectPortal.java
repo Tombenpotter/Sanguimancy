@@ -28,6 +28,7 @@ public class RitualEffectPortal extends RitualEffect {
         ritualStone.getCustomRitualTag().setInteger("ritualDirection", Rituals.getDirectionOfRitual(world, x, y, z, "portalRitual"));
         int direction = ritualStone.getCustomRitualTag().getInteger("ritualDirection");
         if (!world.isRemote) {
+            ritualStone.getCustomRitualTag().removeTag("PortalRitualID");
             String name = owner;
             if (direction == 1 || direction == 3) {
                 for (int i = x - 3; i <= x + 3; i++) {
@@ -153,6 +154,7 @@ public class RitualEffectPortal extends RitualEffect {
                 }
             }
         }
+        ritualStone.getCustomRitualTag().removeTag("PortalRitualID");
     }
 
     @Override

@@ -4,6 +4,7 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.effect.EntityLightningBolt;
 import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Blocks;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.Potion;
@@ -13,7 +14,9 @@ import net.minecraft.util.DamageSource;
 import tombenpotter.sanguimancy.Sanguimancy;
 import tombenpotter.sanguimancy.entity.EntityChickenMinion;
 import tombenpotter.sanguimancy.entity.EntityPlayerPointer;
-import tombenpotter.sanguimancy.network.EventSoulCorruption;
+import tombenpotter.sanguimancy.network.PacketHandler;
+import tombenpotter.sanguimancy.network.events.EventSoulCorruption;
+import tombenpotter.sanguimancy.network.packets.PacketSyncCorruption;
 import tombenpotter.sanguimancy.registry.BlocksRegistry;
 
 import java.util.List;
@@ -60,28 +63,39 @@ public class SoulCorruptionHelper {
 
     public static void negateCorruption(EntityPlayer player, NBTTagCompound tag) {
         tag.setInteger(soulCorruptionTag, 0);
+        if (!player.worldObj.isRemote) {
+            PacketHandler.INSTANCE.sendTo(new PacketSyncCorruption(player), (EntityPlayerMP) player);
+        }
         RandomUtils.fireEvent(new EventSoulCorruption.EventSetSoulCorruption(player, 0));
     }
 
     public static void setCorruptionLevel(EntityPlayer player, NBTTagCompound tag, int amount) {
         tag.setInteger(soulCorruptionTag, amount);
+        if (!player.worldObj.isRemote) {
+            PacketHandler.INSTANCE.sendTo(new PacketSyncCorruption(player), (EntityPlayerMP) player);
+        }
         RandomUtils.fireEvent(new EventSoulCorruption.EventSetSoulCorruption(player, amount));
     }
 
     public static void addCorruption(EntityPlayer player, NBTTagCompound tag, int amount) {
         int initialAmount = getCorruptionLevel(player, tag);
         tag.setInteger(soulCorruptionTag, initialAmount + amount);
+        if (!player.worldObj.isRemote) {
+            PacketHandler.INSTANCE.sendTo(new PacketSyncCorruption(player), (EntityPlayerMP) player);
+        }
         RandomUtils.fireEvent(new EventSoulCorruption.EventAddSoulCorruption(player, amount));
     }
 
     public static void removeCorruption(EntityPlayer player, NBTTagCompound tag, int amount) {
         int initialAmount = getCorruptionLevel(player, tag);
         tag.setInteger(soulCorruptionTag, initialAmount - amount);
+        if (!player.worldObj.isRemote) {
+            PacketHandler.INSTANCE.sendTo(new PacketSyncCorruption(player), (EntityPlayerMP) player);
+        }
         RandomUtils.fireEvent(new EventSoulCorruption.EventRemoveSoulCorruption(player, amount));
     }
 
     public static void incrementCorruption(EntityPlayer player, NBTTagCompound tag) {
-        int amount = getCorruptionLevel(player, tag);
         addCorruption(player, tag, 1);
     }
 
