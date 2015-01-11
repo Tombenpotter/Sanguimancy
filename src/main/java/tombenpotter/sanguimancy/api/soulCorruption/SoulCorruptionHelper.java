@@ -85,7 +85,7 @@ public class SoulCorruptionHelper {
             minion.setTamed(true);
             player.worldObj.spawnEntityInWorld(minion);
             if (!player.worldObj.isRemote && ConfigHandler.messagesWhenCorruptionEffect) {
-                MinecraftServer.getServer().addChatMessage(new ChatComponentText(StatCollector.translateToLocal("chat.Sanguimancy.chicken.minion") + " " + player.getDisplayName()));
+                MinecraftServer.getServer().getConfigurationManager().sendChatMsg(new ChatComponentText(StatCollector.translateToLocal("chat.Sanguimancy.chicken.minion") + " " + player.getDisplayName()));
             }
         }
     }
@@ -119,7 +119,7 @@ public class SoulCorruptionHelper {
             decrementCorruption(player.getDisplayName());
 
             if (!player.worldObj.isRemote && ConfigHandler.messagesWhenCorruptionEffect) {
-                MinecraftServer.getServer().addChatMessage(new ChatComponentText(StatCollector.translateToLocal("chat.Sanguimancy.random.teleport").replace("%player%", player.getDisplayName())));
+                MinecraftServer.getServer().getConfigurationManager().sendChatMsg(new ChatComponentText(StatCollector.translateToLocal("chat.Sanguimancy.random.teleport").replace("%player%", player.getDisplayName())));
             }
         }
     }
@@ -183,9 +183,9 @@ public class SoulCorruptionHelper {
         if (player.worldObj.rand.nextInt(750) == 0) {
             int level = player.worldObj.rand.nextInt(5);
             player.addPotionEffect(new PotionEffect(PotionsRegistry.potionRemoveHeart.id, 1200, level, false));
-        }
-        if (!player.worldObj.isRemote && ConfigHandler.messagesWhenCorruptionEffect) {
-            MinecraftServer.getServer().addChatMessage(new ChatComponentText(player.getDisplayName() + " " + StatCollector.translateToLocal("chat.Sanguimancy.loose.heart")));
+            if (!player.worldObj.isRemote && ConfigHandler.messagesWhenCorruptionEffect) {
+                MinecraftServer.getServer().getConfigurationManager().sendChatMsg(new ChatComponentText(player.getDisplayName() + " " + StatCollector.translateToLocal("chat.Sanguimancy.loose.heart")));
+            }
         }
     }
 }
