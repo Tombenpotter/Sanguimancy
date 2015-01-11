@@ -24,6 +24,8 @@ public class ItemsRegistry {
     public static Item corruptedShovel;
     public static Item corruptedAxe;
     public static Item playerGuide;
+    public static Item corruptedMineral;
+    public static Item imbuedStick;
 
     public static void registerItems() {
         playerSacrificer = new ItemPlayerSacrificer();
@@ -64,5 +66,11 @@ public class ItemsRegistry {
 
         playerGuide = new ItemPlayerGuide();
         GameRegistry.registerItem(playerGuide, "playerGuide");
+
+        corruptedMineral = new ItemCorruptedMineral();
+        GameRegistry.registerItem(corruptedMineral, "corruptedMineral");
+
+        imbuedStick = new ItemImbuedStick();
+        GameRegistry.registerItem(imbuedStick, "imbuedStick");
     }
 }

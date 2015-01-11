@@ -15,6 +15,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
+import tombenpotter.sanguimancy.Sanguimancy;
 import tombenpotter.sanguimancy.api.bloodutils.api.classes.guide.GuiEntry;
 
 import java.awt.*;
@@ -160,7 +161,7 @@ public class EntryCraftingRecipe extends EntryBase {
 
     public void renderOverlay(GuiEntry entry, int width, int height, int left, int top) {
         TextureManager tm = Minecraft.getMinecraft().getTextureManager();
-        tm.bindTexture(new ResourceLocation("bloodutils:textures/gui/crafting.png"));
+        tm.bindTexture(new ResourceLocation(Sanguimancy.texturePath +":textures/gui/guide/crafting.png"));
         entry.drawTexturedModalRect(left, (height / 2 - 18) + (18 * 0) - 17, 0, 0, width, height);
     }
 

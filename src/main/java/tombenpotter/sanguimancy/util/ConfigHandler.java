@@ -27,6 +27,7 @@ public class ConfigHandler {
     public static int snDimID;
     public static int addHeartPotionID;
     public static int removeHeartPotionID;
+    public static boolean messagesWhenCorruptionEffect;
 
     public static void init(File file) {
         config = new Configuration(file);
@@ -53,9 +54,11 @@ public class ConfigHandler {
         enableQuarry = config.get(rituals, "enableQuarry", true).getBoolean(enableQuarry);
         enablePortal = config.get(rituals, "enablePortal", true).getBoolean(enablePortal);
 
+        //Features
         snDimID = config.get(features, "soulNetworkDimensionID", 42).getInt(snDimID);
         addHeartPotionID = config.get(features, "addHeartPotionID", 100).getInt(addHeartPotionID);
         removeHeartPotionID = config.get(features, "removeHeartPotionID", 101).getInt(removeHeartPotionID);
+        messagesWhenCorruptionEffect = config.get(features, "messageWhenCorruptionEffect", true).getBoolean(messagesWhenCorruptionEffect);
 
         config.save();
     }

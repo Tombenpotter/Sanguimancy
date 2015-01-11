@@ -7,6 +7,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;
+import tombenpotter.sanguimancy.Sanguimancy;
 import tombenpotter.sanguimancy.api.bloodutils.api.classes.guide.buttons.ButtonNext;
 import tombenpotter.sanguimancy.api.bloodutils.api.compact.Category;
 import tombenpotter.sanguimancy.api.bloodutils.api.compact.Entry;
@@ -14,7 +15,7 @@ import tombenpotter.sanguimancy.api.bloodutils.api.entries.IEntry;
 import tombenpotter.sanguimancy.api.bloodutils.api.registries.EntryRegistry;
 
 public class GuiEntry extends GuiScreen {
-    private static final ResourceLocation gui = new ResourceLocation("bloodutils:textures/gui/guide.png");
+    private static final ResourceLocation gui = new ResourceLocation(Sanguimancy.texturePath + ":textures/gui/guide/guide.png");
     int gwidth = 192;
     int gheight = 192;
     int prevPage;

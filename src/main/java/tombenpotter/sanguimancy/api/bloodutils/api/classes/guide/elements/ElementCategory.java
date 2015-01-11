@@ -5,6 +5,7 @@ import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.ResourceLocation;
+import tombenpotter.sanguimancy.Sanguimancy;
 import tombenpotter.sanguimancy.api.bloodutils.api.classes.guide.GuiIndex;
 import tombenpotter.sanguimancy.api.bloodutils.api.compact.Category;
 import tombenpotter.sanguimancy.api.bloodutils.api.helpers.GuiHelper;
@@ -31,7 +32,7 @@ public class ElementCategory extends GuiScreen implements IEntryElement {
     @Override
     public void drawElement() {
         IIcon icon = category.iconStack.getIconIndex();
-        Minecraft.getMinecraft().getTextureManager().bindTexture(new ResourceLocation("bloodutils:textures/misc/tab.png"));
+        Minecraft.getMinecraft().getTextureManager().bindTexture(new ResourceLocation(Sanguimancy.texturePath + ":textures/gui/guide/tab.png"));
         GuiHelper.drawIconWithoutColor(x - 1, y - 1, width + 2, height + 2, 0);
         GuiHelper.drawItemStack(category.iconStack, x + 3, y + 2);
     }

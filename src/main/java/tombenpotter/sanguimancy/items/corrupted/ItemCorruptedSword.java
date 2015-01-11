@@ -54,8 +54,7 @@ public class ItemCorruptedSword extends Item {
     }
 
     @Override
-    public boolean onBlockDestroyed(ItemStack stack, World world, Block block, int x, int y, int z, EntityLivingBase
-            entity) {
+    public boolean onBlockDestroyed(ItemStack stack, World world, Block block, int x, int y, int z, EntityLivingBase entity) {
         if (entity instanceof EntityPlayer) EnergyItems.syphonBatteries(stack, (EntityPlayer) entity, 5);
         return true;
     }

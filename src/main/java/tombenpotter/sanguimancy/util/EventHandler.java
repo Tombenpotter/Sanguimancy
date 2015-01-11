@@ -101,6 +101,13 @@ public class EventHandler {
                 }
                 tag.setBoolean("hasInitialChunkClaimer", true);
             }
+
+            if (!tag.getBoolean("hasInitialGuide")) {
+                if (!player.inventory.addItemStackToInventory(RandomUtils.SanguimancyItemStacks.playerGuide.copy())) {
+                    RandomUtils.dropItemStackInWorld(player.worldObj, player.posX, player.posY, player.posZ, RandomUtils.SanguimancyItemStacks.playerGuide.copy());
+                }
+                tag.setBoolean("hasInitialGuide", true);
+            }
         }
     }
 
@@ -110,17 +117,20 @@ public class EventHandler {
         if (SoulCorruptionHelper.isCorruptionOver(playerName, 10)) {
             SoulCorruptionHelper.spawnChickenFollower(event.player);
         }
-        if (SoulCorruptionHelper.isCorruptionOver(playerName, 25)) {
+        if (SoulCorruptionHelper.isCorruptionOver(playerName, 40)) {
             SoulCorruptionHelper.killGrass(event.player);
         }
-        if (SoulCorruptionHelper.isCorruptionOver(playerName, 40)) {
+        if (SoulCorruptionHelper.isCorruptionOver(playerName, 60)) {
             SoulCorruptionHelper.hurtAndHealAnimals(event.player);
         }
-        if (SoulCorruptionHelper.isCorruptionOver(playerName, 50)) {
+        if (SoulCorruptionHelper.isCorruptionOver(playerName, 100)) {
             SoulCorruptionHelper.spawnIllusion(event.player);
         }
-        if (SoulCorruptionHelper.isCorruptionOver(playerName, 70)) {
+        if (SoulCorruptionHelper.isCorruptionOver(playerName, 150)) {
             SoulCorruptionHelper.randomTeleport(event.player);
+        }
+        if (SoulCorruptionHelper.isCorruptionOver(playerName, 200)) {
+            SoulCorruptionHelper.looseHeart(event.player);
         }
 
         if (event.player.worldObj.getWorldTime() % 200 == 0 && !event.player.worldObj.isRemote) {

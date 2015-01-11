@@ -5,12 +5,13 @@ import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
 import org.lwjgl.opengl.GL11;
+import tombenpotter.sanguimancy.Sanguimancy;
 import tombenpotter.sanguimancy.api.bloodutils.api.classes.guide.elements.ElementCategory;
 import tombenpotter.sanguimancy.api.bloodutils.api.compact.Category;
 import tombenpotter.sanguimancy.api.bloodutils.api.registries.EntryRegistry;
 
 public class GuiCategories extends GuiScreen {
-    private static final ResourceLocation gui = new ResourceLocation("bloodutils:textures/gui/front.png");
+    private static final ResourceLocation gui = new ResourceLocation(Sanguimancy.texturePath + ":textures/gui/guide/front.png");
     int gwidth = 192;
     int gheight = 192;
     int x, y;
@@ -50,7 +51,11 @@ public class GuiCategories extends GuiScreen {
 
         /** Title */
         String str = "Categories";
-        this.drawCenteredString(fontRendererObj, str, this.x + gwidth / 2, y - 15, 0x336666);
+        this.drawCenteredString(fontRendererObj, str, this.x + gwidth / 2, y - 10, 0x336666);
+
+        /**Credit ;D**/
+        String cre = "Powered by wasliebob";
+        this.drawCenteredString(fontRendererObj, cre, this.x + gwidth / 2, y - 20, 0x336666);
 
         for (int i = 0; i < EntryRegistry.categories.size(); i++) {
             ElementCategory category = this.categories[i];

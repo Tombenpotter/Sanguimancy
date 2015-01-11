@@ -56,6 +56,8 @@ item.Sanguimancy.corruptedPickaxe.name=Corrupted Pickaxe
 item.Sanguimancy.corruptedShovel.name=Corrupted Shovel
 item.Sanguimancy.corruptedAxe.name=Corrupted Axe
 item.Sanguimancy.playerGuide.name=Sanguimancy: A how-to guide by Tombenpotter
+item.Sanguimancy.corruptedMineral.name=Corrupted Mineral
+item.Sanguimancy.imbuedStick.name=Imbued Stick
 
 #Entities
 entity.Sanguimancy.EntityChickenMinion.name=Chicken Minion
@@ -90,6 +92,9 @@ chat.Sanguimancy.successfully.claimed=This chunk was successfully claimed.
 chat.Sanguimancy.unsuccessfully.claimed=This chunk is already claimed.
 chat.Sanguimancy.intial.claimer=This was dropped when your Soul formed.
 chat.Sanguimancy.not.sn.dim=You are not in the Soul Network Dimension.
+chat.Sanguimancy.chicken.minion=An evil Chicken Minion seems to have taken an unhealthy interest in
+chat.Sanguimancy.random.teleport=Higher forces seem to have taken to bouncing %player% around
+chat.Sanguimancy.loose.heart=seems to have misplaced a couple of hearts
 
 #Tooltips
 info.Sanguimancy.tooltip.shift.info=--Press Shift for info--
@@ -143,7 +148,8 @@ guide.Sanguimancy.entry.sacrificingStones.2=Mages do not like unattuned items. T
 guide.Sanguimancy.entry.sacrificingStones.3=Once you’ve ruthlessly sacrificed a player with an Attuned Sacrificing Stone in your inventory, you get this: The Focused Player Sacrificing Stone.
 guide.Sanguimancy.entry.bloodAmulet=The Blood Amulet is an item that works on raw Life Essence. It is not tied to your Soul Network, and needs to be filled with blood to be able to function. To do so, simply right click on a Blood Tank with it. If Thermal Expansion is installed, you can use the Fluid Transposer to fill it up. The Blood Amulet is an item that will restore your health if it is under 5 hearts. It costs more than can be gained by sacrificing yourself, even with a T5 Rune of Self-Sacrifice Altar.
 guide.Sanguimancy.entry.chunkClaimer=The Chunk Claimer is an item essential to your progression in Blood Magic. Indeed, this item allows you to claim a chunk in the Soul Network Dimension as your own. Once this is done, any item you bound to yourself will be represented in this chunk. If you have no chunk claimed, you will not be able to bind items to your Soul Network. The Chunk Claimer is consumed on use, and every player receives one when they enter the world for the first time.
-guide.Sanguimancy.entry.corruptedDemonShard=This item is a crafting only-item.
+guide.Sanguimancy.entryName.craftingItems=Crafting Items
+guide.Sanguimancy.entry.craftingItems=These are items only used in crafting recipes.
 guide.Sanguimancy.entry.corruptionCatalyst.1=The Corruption Catalyst is the heart of the Corrupted Infusion mechanic. Once it is enabled via right-click, as long as it is in your inventory, any item that you hold and can be corrupted will slowly be transformed into another item. However, this process is not instantaneous, and has a requirement: a minimum level of corruption must be reached before the process starts.
 guide.Sanguimancy.entry.corruptionCatalyst.2=After this page you will find all of the Corrupted Infusion recipes.
 guide.Sanguimancy.entry.oreLump=By corrupting an ore enough, you seem to be able to get two lumps out of the blocks. These lumps are useless by themselves, but once they are cleansed with blood, each lump give one ingot of the corresponding resource.

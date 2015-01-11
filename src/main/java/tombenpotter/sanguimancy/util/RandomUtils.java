@@ -453,6 +453,9 @@ public class RandomUtils {
         public static ItemStack corruptedPickaxe = new ItemStack(ItemsRegistry.corruptedPickaxe);
         public static ItemStack corruptedShovel = new ItemStack(ItemsRegistry.corruptedShovel);
         public static ItemStack corruptedAxe = new ItemStack(ItemsRegistry.corruptedAxe);
+        public static ItemStack corruptedMineral = new ItemStack(ItemsRegistry.corruptedMineral);
+        public static ItemStack imbuedStick = new ItemStack(ItemsRegistry.imbuedStick);
+        public static ItemStack playerGuide = new ItemStack(ItemsRegistry.playerGuide);
 
         // Blocks
         public static ItemStack altarEmitter = new ItemStack(BlocksRegistry.altarEmitter);

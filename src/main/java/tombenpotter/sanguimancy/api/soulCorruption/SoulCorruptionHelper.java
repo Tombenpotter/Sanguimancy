@@ -8,15 +8,19 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.StatCollector;
 import tombenpotter.sanguimancy.Sanguimancy;
 import tombenpotter.sanguimancy.entity.EntityChickenMinion;
-import tombenpotter.sanguimancy.entity.EntityPlayerPointer;
 import tombenpotter.sanguimancy.network.PacketHandler;
 import tombenpotter.sanguimancy.network.events.EventSoulCorruption;
 import tombenpotter.sanguimancy.network.packets.PacketSyncCorruption;
 import tombenpotter.sanguimancy.registry.BlocksRegistry;
+import tombenpotter.sanguimancy.registry.PotionsRegistry;
+import tombenpotter.sanguimancy.util.ConfigHandler;
 import tombenpotter.sanguimancy.util.RandomUtils;
 import tombenpotter.sanguimancy.util.singletons.SoulCorruption;
 
@@ -80,6 +84,9 @@ public class SoulCorruptionHelper {
             minion.func_152115_b(owner);
             minion.setTamed(true);
             player.worldObj.spawnEntityInWorld(minion);
+            if (!player.worldObj.isRemote && ConfigHandler.messagesWhenCorruptionEffect) {
+                MinecraftServer.getServer().addChatMessage(new ChatComponentText(StatCollector.translateToLocal("chat.Sanguimancy.chicken.minion") + " " + player.getDisplayName()));
+            }
         }
     }
 
@@ -110,6 +117,10 @@ public class SoulCorruptionHelper {
             if (j <= 5) j = j + 10;
             player.setPositionAndUpdate(i, j, k);
             decrementCorruption(player.getDisplayName());
+
+            if (!player.worldObj.isRemote && ConfigHandler.messagesWhenCorruptionEffect) {
+                MinecraftServer.getServer().addChatMessage(new ChatComponentText(StatCollector.translateToLocal("chat.Sanguimancy.random.teleport").replace("%player%", player.getDisplayName())));
+            }
         }
     }
 
@@ -136,6 +147,7 @@ public class SoulCorruptionHelper {
         }
     }
 
+    /*
     public static void locatePlayersAround(EntityPlayer player) {
         int range = 32;
         int rangeY = 32;
@@ -151,6 +163,7 @@ public class SoulCorruptionHelper {
             }
         }
     }
+    */
 
     public static void addWither(EntityLivingBase livingBase) {
         livingBase.addPotionEffect(new PotionEffect(Potion.wither.id, 100));
@@ -163,6 +176,16 @@ public class SoulCorruptionHelper {
         if (j <= 0) j = j + 5;
         if (player.worldObj.rand.nextInt(500) == 0 && player.worldObj.isAirBlock(i, j, k)) {
             player.worldObj.setBlock(i, j, k, BlocksRegistry.illusion, player.worldObj.rand.nextInt(16), 3);
+        }
+    }
+
+    public static void looseHeart(EntityPlayer player) {
+        if (player.worldObj.rand.nextInt(750) == 0) {
+            int level = player.worldObj.rand.nextInt(5);
+            player.addPotionEffect(new PotionEffect(PotionsRegistry.potionRemoveHeart.id, 1200, level, false));
+        }
+        if (!player.worldObj.isRemote && ConfigHandler.messagesWhenCorruptionEffect) {
+            MinecraftServer.getServer().addChatMessage(new ChatComponentText(player.getDisplayName() + " " + StatCollector.translateToLocal("chat.Sanguimancy.loose.heart")));
         }
     }
 }

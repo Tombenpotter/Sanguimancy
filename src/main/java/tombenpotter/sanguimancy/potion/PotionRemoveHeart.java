@@ -4,6 +4,7 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.BaseAttributeMap;
 import net.minecraft.potion.Potion;
+import net.minecraft.util.DamageSource;
 import tombenpotter.sanguimancy.registry.PotionsRegistry;
 import tombenpotter.sanguimancy.util.ConfigHandler;
 
@@ -21,13 +22,14 @@ public class PotionRemoveHeart extends Potion {
 
     @Override
     public void applyAttributesModifiersToEntity(EntityLivingBase entityLiving, BaseAttributeMap map, int par3) {
-        if (entityLiving.isPotionActive(ConfigHandler.addHeartPotionID)) {
-            double newHealth = 20 - entityLiving.getActivePotionEffect(PotionsRegistry.potionAddHeart).getAmplifier();
+        if (entityLiving.isPotionActive(ConfigHandler.removeHeartPotionID)) {
+            double newHealth = 20 - entityLiving.getActivePotionEffect(PotionsRegistry.potionRemoveHeart).getAmplifier();
             entityLiving.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(newHealth);
         } else {
             double newHealth = 20 - 1;
             entityLiving.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(newHealth);
         }
+        entityLiving.attackEntityFrom(DamageSource.outOfWorld, 1);
     }
 
     @Override

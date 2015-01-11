@@ -4,6 +4,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.util.ResourceLocation;
 import org.lwjgl.opengl.GL11;
+import tombenpotter.sanguimancy.Sanguimancy;
 
 public class ButtonNext extends GuiButton {
     private final boolean field_146151_o;
@@ -18,7 +19,7 @@ public class ButtonNext extends GuiButton {
             boolean flag = p_146112_2_ >= this.xPosition && p_146112_3_ >= this.yPosition && p_146112_2_ < this.xPosition + this.width && p_146112_3_ < this.yPosition + this.height;
             GL11.glEnable(GL11.GL_BLEND);
             GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-            mc.getTextureManager().bindTexture(new ResourceLocation("bloodutils:textures/gui/guide.png"));
+            mc.getTextureManager().bindTexture(new ResourceLocation(Sanguimancy.texturePath + ":textures/gui/guide/guide.png"));
             int k = 0;
             int l = 192;
 
