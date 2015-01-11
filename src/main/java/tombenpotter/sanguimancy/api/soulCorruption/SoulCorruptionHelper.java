@@ -1,12 +1,11 @@
-package tombenpotter.sanguimancy.util;
+package tombenpotter.sanguimancy.api.soulCorruption;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.effect.EntityLightningBolt;
 import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Blocks;
-import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.AxisAlignedBB;
@@ -18,90 +17,59 @@ import tombenpotter.sanguimancy.network.PacketHandler;
 import tombenpotter.sanguimancy.network.events.EventSoulCorruption;
 import tombenpotter.sanguimancy.network.packets.PacketSyncCorruption;
 import tombenpotter.sanguimancy.registry.BlocksRegistry;
+import tombenpotter.sanguimancy.util.RandomUtils;
+import tombenpotter.sanguimancy.util.singletons.SoulCorruption;
 
 import java.util.List;
 
 public class SoulCorruptionHelper {
 
-    public static String soulCorruptionTag = "SoulCorruption";
-
-    public static NBTTagCompound getModTag(EntityPlayer player, String modName) {
-        NBTTagCompound tag = player.getEntityData();
-        NBTTagCompound persistTag;
-        if (tag.hasKey(EntityPlayer.PERSISTED_NBT_TAG)) persistTag = tag.getCompoundTag(EntityPlayer.PERSISTED_NBT_TAG);
-        else {
-            persistTag = new NBTTagCompound();
-            tag.setTag(EntityPlayer.PERSISTED_NBT_TAG, persistTag);
-        }
-
-        NBTTagCompound modTag;
-        if (persistTag.hasKey(modName)) {
-            modTag = persistTag.getCompoundTag(modName);
-        } else {
-            modTag = new NBTTagCompound();
-            persistTag.setTag(modName, modTag);
-        }
-        return modTag;
+    public static int getCorruptionLevel(String ownerName) {
+        RandomUtils.fireEvent(new EventSoulCorruption.EventCheckSoulCorruption(ownerName));
+        return SoulCorruption.getSoulCorruption().getCorruption(ownerName);
     }
 
-    public static int getCorruptionLevel(EntityPlayer player, NBTTagCompound tag) {
-        RandomUtils.fireEvent(new EventSoulCorruption.EventCheckSoulCorruption(player));
-        return tag.getInteger(soulCorruptionTag);
+    public static void setCorruptionLevel(String ownerName, int level) {
+        SoulCorruption.getSoulCorruption().setCorruption(ownerName, level);
+        RandomUtils.fireEvent(new EventSoulCorruption.EventSetSoulCorruption(ownerName, level));
+        PacketHandler.INSTANCE.sendToAll(new PacketSyncCorruption(ownerName));
     }
 
-    public static boolean isCorruptionEqual(EntityPlayer player, NBTTagCompound tag, int level) {
-        return (getCorruptionLevel(player, tag) == level);
+    public static boolean isCorruptionEqual(String ownerName, int level) {
+        return getCorruptionLevel(ownerName) == level;
     }
 
-    public static boolean isCorruptionOver(EntityPlayer player, NBTTagCompound tag, int level) {
-        return (getCorruptionLevel(player, tag) >= level);
+    public static boolean isCorruptionOver(String ownerName, int level) {
+        return getCorruptionLevel(ownerName) >= level;
     }
 
-    public static boolean isCorruptionLower(EntityPlayer player, NBTTagCompound tag, int level) {
-        return (getCorruptionLevel(player, tag) <= level);
+    public static boolean isCorruptionLower(String ownerName, int level) {
+        return getCorruptionLevel(ownerName) <= level;
     }
 
-    public static void negateCorruption(EntityPlayer player, NBTTagCompound tag) {
-        tag.setInteger(soulCorruptionTag, 0);
-        if (!player.worldObj.isRemote) {
-            PacketHandler.INSTANCE.sendTo(new PacketSyncCorruption(player), (EntityPlayerMP) player);
-        }
-        RandomUtils.fireEvent(new EventSoulCorruption.EventSetSoulCorruption(player, 0));
+    public static void negateCorruption(String ownerName) {
+        setCorruptionLevel(ownerName, 0);
     }
 
-    public static void setCorruptionLevel(EntityPlayer player, NBTTagCompound tag, int amount) {
-        tag.setInteger(soulCorruptionTag, amount);
-        if (!player.worldObj.isRemote) {
-            PacketHandler.INSTANCE.sendTo(new PacketSyncCorruption(player), (EntityPlayerMP) player);
-        }
-        RandomUtils.fireEvent(new EventSoulCorruption.EventSetSoulCorruption(player, amount));
+    public static void addCorruption(String ownerName, int level) {
+        setCorruptionLevel(ownerName, getCorruptionLevel(ownerName) + level);
     }
 
-    public static void addCorruption(EntityPlayer player, NBTTagCompound tag, int amount) {
-        int initialAmount = getCorruptionLevel(player, tag);
-        tag.setInteger(soulCorruptionTag, initialAmount + amount);
-        if (!player.worldObj.isRemote) {
-            PacketHandler.INSTANCE.sendTo(new PacketSyncCorruption(player), (EntityPlayerMP) player);
-        }
-        RandomUtils.fireEvent(new EventSoulCorruption.EventAddSoulCorruption(player, amount));
+    public static void removeCorruption(String ownerName, int level) {
+        setCorruptionLevel(ownerName, getCorruptionLevel(ownerName) - level);
     }
 
-    public static void removeCorruption(EntityPlayer player, NBTTagCompound tag, int amount) {
-        int initialAmount = getCorruptionLevel(player, tag);
-        tag.setInteger(soulCorruptionTag, initialAmount - amount);
-        if (!player.worldObj.isRemote) {
-            PacketHandler.INSTANCE.sendTo(new PacketSyncCorruption(player), (EntityPlayerMP) player);
-        }
-        RandomUtils.fireEvent(new EventSoulCorruption.EventRemoveSoulCorruption(player, amount));
+    public static void incrementCorruption(String ownerName) {
+        addCorruption(ownerName, 1);
     }
 
-    public static void incrementCorruption(EntityPlayer player, NBTTagCompound tag) {
-        addCorruption(player, tag, 1);
+    public static void decrementCorruption(String ownerName) {
+        removeCorruption(ownerName, 1);
     }
 
-    public static void decrementCorruption(EntityPlayer player, NBTTagCompound tag) {
-        int amount = getCorruptionLevel(player, tag);
-        if (amount > 0) removeCorruption(player, tag, 1);
+    public static int getClientPlayerCorruption() {
+        EntityPlayer player = Minecraft.getMinecraft().thePlayer;
+        return player.getEntityData().getInteger(Sanguimancy.modid + ":SC");
     }
 
     public static void spawnChickenFollower(EntityPlayer player) {
@@ -117,7 +85,6 @@ public class SoulCorruptionHelper {
 
     public static void randomTeleport(EntityPlayer player) {
         if (player.worldObj.rand.nextInt(5000) == 0) {
-            NBTTagCompound tag = SoulCorruptionHelper.getModTag(player, Sanguimancy.modid);
             player.worldObj.addWeatherEffect(new EntityLightningBolt(player.worldObj, player.posX, player.posY, player.posZ));
             if (player.worldObj.rand.nextInt(10) == 0) {
                 player.addPotionEffect(new PotionEffect(Potion.blindness.id, 20, 0));
@@ -142,7 +109,7 @@ public class SoulCorruptionHelper {
             int k = (int) (player.posZ + player.worldObj.rand.nextInt(16) - player.worldObj.rand.nextInt(16));
             if (j <= 5) j = j + 10;
             player.setPositionAndUpdate(i, j, k);
-            decrementCorruption(player, tag);
+            decrementCorruption(player.getDisplayName());
         }
     }
 

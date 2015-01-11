@@ -13,17 +13,16 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.effect.EntityLightningBolt;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import tombenpotter.sanguimancy.Sanguimancy;
+import tombenpotter.sanguimancy.api.soulCorruption.SoulCorruptionHelper;
 import tombenpotter.sanguimancy.client.particle.EntityColoredFlameFX;
 import tombenpotter.sanguimancy.items.ItemPlayerSacrificer;
 import tombenpotter.sanguimancy.tile.TileSacrificeTransfer;
 import tombenpotter.sanguimancy.util.RandomUtils;
-import tombenpotter.sanguimancy.util.SoulCorruptionHelper;
 
 import java.util.Random;
 
@@ -90,8 +89,7 @@ public class BlockSacrificeTransfer extends BlockContainer {
                     SoulNetworkHandler.setCurrentEssence(owner, currentEssence + stack.stackTagCompound.getInteger("bloodStolen"));
                     player.setFire(1000);
                     tile.setInventorySlotContents(0, null);
-                    NBTTagCompound tag = SoulCorruptionHelper.getModTag(player, Sanguimancy.modid);
-                    SoulCorruptionHelper.addCorruption(player, tag, 2);
+                    SoulCorruptionHelper.addCorruption(player.getDisplayName(), 2);
                 } else if (stack.stackTagCompound.getString("ownerName").equals(player.getCommandSenderName())) {
                     String sacrificed = player.getCommandSenderName();
                     int sacrificedEssence = SoulNetworkHandler.getCurrentEssence(sacrificed);

@@ -9,12 +9,11 @@ import WayofTime.alchemicalWizardry.common.tileEntity.TEAltar;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.boss.IBossDisplayData;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
 import tombenpotter.sanguimancy.Sanguimancy;
-import tombenpotter.sanguimancy.util.SoulCorruptionHelper;
+import tombenpotter.sanguimancy.api.soulCorruption.SoulCorruptionHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,8 +25,7 @@ public class RitualEffectDrillOfTheDead extends RitualEffect {
 
     @Override
     public boolean startRitual(IMasterRitualStone ritualStone, EntityPlayer player) {
-        NBTTagCompound tag = SoulCorruptionHelper.getModTag(player, Sanguimancy.modid);
-        SoulCorruptionHelper.incrementCorruption(player, tag);
+        SoulCorruptionHelper.incrementCorruption(player.getDisplayName());
         return true;
     }
 

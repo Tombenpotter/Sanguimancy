@@ -8,14 +8,13 @@ import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import tombenpotter.sanguimancy.Sanguimancy;
+import tombenpotter.sanguimancy.api.soulCorruption.SoulCorruptionHelper;
 import tombenpotter.sanguimancy.tile.TileCorruptionCrystallizer;
-import tombenpotter.sanguimancy.util.SoulCorruptionHelper;
 
 public class BlockCorruptionCrystallizer extends BlockContainer {
 
@@ -60,9 +59,8 @@ public class BlockCorruptionCrystallizer extends BlockContainer {
     @Override
     public boolean removedByPlayer(World world, EntityPlayer player, int x, int y, int z, boolean willHarvest) {
         if (player != null) {
-            NBTTagCompound tag = SoulCorruptionHelper.getModTag(player, Sanguimancy.modid);
             TileCorruptionCrystallizer tile = (TileCorruptionCrystallizer) world.getTileEntity(x, y, z);
-            SoulCorruptionHelper.addCorruption(player, tag, tile.corruptionStored);
+            SoulCorruptionHelper.addCorruption(player.getDisplayName(), tile.corruptionStored);
         }
         world.removeTileEntity(x, y, y);
         return super.removedByPlayer(world, player, x, y, z);

@@ -1,7 +1,6 @@
 package tombenpotter.sanguimancy.items.corrupted;
 
 import WayofTime.alchemicalWizardry.common.items.EnergyItems;
-import WayofTime.alchemicalWizardry.common.spell.complex.effect.SpellHelper;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -17,16 +16,14 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemAxe;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
 import tombenpotter.sanguimancy.Sanguimancy;
 import tombenpotter.sanguimancy.api.objects.MapKey;
+import tombenpotter.sanguimancy.api.soulCorruption.SoulCorruptionHelper;
 import tombenpotter.sanguimancy.util.RandomUtils;
-import tombenpotter.sanguimancy.util.SoulCorruptionHelper;
 
 import java.util.List;
 
@@ -50,7 +47,7 @@ public class ItemCorruptedAxe extends ItemAxe {
 
     @Override
     public boolean onBlockDestroyed(ItemStack stack, World world, Block block, int x, int y, int z, EntityLivingBase entityLivingBase) {
-        if (block.getBlockHardness(world, x, y, z) >= 0 && !world.isRemote) {
+        if (block.getBlockHardness(world, x, y, z) >= 0) {
             RandomUtils.checkAndSetCompound(stack);
             int toolMode = getToolMode(stack);
             int metadata = world.getBlockMetadata(x, y, z);
@@ -92,12 +89,8 @@ public class ItemCorruptedAxe extends ItemAxe {
             if (entityLivingBase instanceof EntityPlayer) {
                 EntityPlayer player = (EntityPlayer) entityLivingBase;
                 EnergyItems.syphonBatteries(stack, player, lpConsumption);
-                if (player.getCommandSenderName().equals(RandomUtils.getItemOwner(stack)) && getToolMode(stack) != 0) {
-                    NBTTagCompound tag = SoulCorruptionHelper.getModTag(player, Sanguimancy.modid);
-                    SoulCorruptionHelper.incrementCorruption(player, tag);
-                } else if (!player.getCommandSenderName().equals(RandomUtils.getItemOwner(stack))) {
-                    player.setHealth(player.getMaxHealth() / 2);
-                    player.addChatComponentMessage(new ChatComponentText(StatCollector.translateToLocal("info.Sanguimancy.tooltip.wrong.player")));
+                if (getToolMode(stack) != 0) {
+                    SoulCorruptionHelper.incrementCorruption(RandomUtils.getItemOwner(stack));
                 }
             }
         }
@@ -177,13 +170,9 @@ public class ItemCorruptedAxe extends ItemAxe {
     @Override
     public float getDigSpeed(ItemStack stack, Block block, int meta) {
         RandomUtils.checkAndSetCompound(stack);
-        if (!stack.stackTagCompound.getString("ownerName").isEmpty() && SpellHelper.getPlayerForUsername(stack.stackTagCompound.getString("ownerName")) != null) {
-            EntityPlayer player = SpellHelper.getPlayerForUsername(stack.stackTagCompound.getString("ownerName"));
-            NBTTagCompound tag = SoulCorruptionHelper.getModTag(player, Sanguimancy.modid);
-            int playerCorruption = SoulCorruptionHelper.getCorruptionLevel(player, tag);
-            return super.getDigSpeed(stack, block, meta) * (playerCorruption / minimumCorruption);
-        }
-        return 1.0F;
+        int playerCorruption = SoulCorruptionHelper.getCorruptionLevel(RandomUtils.getItemOwner(stack));
+        return super.getDigSpeed(stack, block, meta) * (playerCorruption / minimumCorruption);
+
     }
 
     @Override
@@ -191,12 +180,8 @@ public class ItemCorruptedAxe extends ItemAxe {
         if (attacker instanceof EntityPlayer) {
             EntityPlayer player = (EntityPlayer) attacker;
             EnergyItems.syphonBatteries(stack, player, 100);
-            if (player.getCommandSenderName().equals(RandomUtils.getItemOwner(stack)) && getToolMode(stack) != 0) {
-                NBTTagCompound tag = SoulCorruptionHelper.getModTag(player, Sanguimancy.modid);
-                SoulCorruptionHelper.incrementCorruption(player, tag);
-            } else if (!player.getCommandSenderName().equals(RandomUtils.getItemOwner(stack))) {
-                player.setHealth(player.getMaxHealth() / 2);
-                player.addChatComponentMessage(new ChatComponentText(StatCollector.translateToLocal("info.Sanguimancy.tooltip.wrong.player")));
+            if (getToolMode(stack) != 0) {
+                SoulCorruptionHelper.incrementCorruption(RandomUtils.getItemOwner(stack));
             }
             return true;
         }
@@ -227,9 +212,8 @@ public class ItemCorruptedAxe extends ItemAxe {
     public void onEntityDrop(LivingDropsEvent event) {
         if (event.source.getEntity() instanceof EntityPlayer) {
             EntityPlayer player = (EntityPlayer) event.source.getEntity();
-            if (player.getHeldItem().getItem() instanceof ItemCorruptedAxe) {
-                NBTTagCompound tag = SoulCorruptionHelper.getModTag(player, Sanguimancy.modid);
-                int corruption = SoulCorruptionHelper.getCorruptionLevel(player, tag);
+            if (player.getHeldItem() != null && player.getHeldItem().getItem() instanceof ItemCorruptedAxe) {
+                int corruption = SoulCorruptionHelper.getCorruptionLevel(RandomUtils.getItemOwner(player.getHeldItem()));
                 if (player.worldObj.rand.nextInt(50 * (minimumCorruption / corruption)) == 0 && getSkullDrop(event.entityLiving) != null) {
                     RandomUtils.dropItemStackInWorld(event.entityLiving.worldObj, event.entityLiving.posX, event.entityLiving.posY, event.entityLiving.posZ, getSkullDrop(event.entityLiving).copy());
                 }

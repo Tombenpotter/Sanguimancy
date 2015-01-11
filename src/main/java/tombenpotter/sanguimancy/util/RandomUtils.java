@@ -69,17 +69,20 @@ public class RandomUtils {
     }
 
     public static EntityItem dropItemStackInWorld(World world, double x, double y, double z, ItemStack stack) {
-        float f = 0.7F;
-        float d0 = world.rand.nextFloat() * f + (1.0F - f) * 0.5F;
-        float d1 = world.rand.nextFloat() * f + (1.0F - f) * 0.5F;
-        float d2 = world.rand.nextFloat() * f + (1.0F - f) * 0.5F;
-        EntityItem entityitem = new EntityItem(world, x + d0, y + d1, z + d2, stack);
-        entityitem.delayBeforeCanPickup = 1;
-        if (stack.hasTagCompound()) {
-            entityitem.getEntityItem().setTagCompound((NBTTagCompound) stack.getTagCompound().copy());
+        if (!world.isRemote) {
+            float f = 0.7F;
+            float d0 = world.rand.nextFloat() * f + (1.0F - f) * 0.5F;
+            float d1 = world.rand.nextFloat() * f + (1.0F - f) * 0.5F;
+            float d2 = world.rand.nextFloat() * f + (1.0F - f) * 0.5F;
+            EntityItem entityitem = new EntityItem(world, x + d0, y + d1, z + d2, stack);
+            entityitem.delayBeforeCanPickup = 1;
+            if (stack.hasTagCompound()) {
+                entityitem.getEntityItem().setTagCompound((NBTTagCompound) stack.getTagCompound().copy());
+            }
+            world.spawnEntityInWorld(entityitem);
+            return entityitem;
         }
-        world.spawnEntityInWorld(entityitem);
-        return entityitem;
+        return null;
     }
 
     public static NBTTagCompound checkAndSetCompound(ItemStack stack) {
@@ -409,6 +412,25 @@ public class RandomUtils {
             }
         }
     }
+
+    public static NBTTagCompound getModTag(EntityPlayer player, String modName) {
+        NBTTagCompound tag = player.getEntityData();
+        NBTTagCompound persistTag;
+        if (tag.hasKey(EntityPlayer.PERSISTED_NBT_TAG)) persistTag = tag.getCompoundTag(EntityPlayer.PERSISTED_NBT_TAG);
+        else {
+            persistTag = new NBTTagCompound();
+            tag.setTag(EntityPlayer.PERSISTED_NBT_TAG, persistTag);
+        }
+        NBTTagCompound modTag;
+        if (persistTag.hasKey(modName)) {
+            modTag = persistTag.getCompoundTag(modName);
+        } else {
+            modTag = new NBTTagCompound();
+            persistTag.setTag(modName, modTag);
+        }
+        return modTag;
+    }
+
 
     public static class SanguimancyItemStacks {
 

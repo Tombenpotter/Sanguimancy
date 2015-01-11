@@ -7,13 +7,12 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import tombenpotter.sanguimancy.Sanguimancy;
-import tombenpotter.sanguimancy.util.SoulCorruptionHelper;
+import tombenpotter.sanguimancy.api.soulCorruption.SoulCorruptionHelper;
 
 import java.util.List;
 
@@ -79,26 +78,25 @@ public class ItemSoulCorruptionTest extends Item {
     @Override
     public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player) {
         if (!world.isRemote) {
-            NBTTagCompound tag = SoulCorruptionHelper.getModTag(player, Sanguimancy.modid);
             if (stack.getItemDamage() == 0) {
                 if (!player.isSneaking()) {
-                    SoulCorruptionHelper.incrementCorruption(player, tag);
+                    SoulCorruptionHelper.incrementCorruption(player.getDisplayName());
                 } else {
-                    SoulCorruptionHelper.addCorruption(player, tag, 100);
+                    SoulCorruptionHelper.addCorruption(player.getDisplayName(), 100);
                 }
             }
             if (stack.getItemDamage() == 1) {
                 if (!player.isSneaking()) {
-                    SoulCorruptionHelper.decrementCorruption(player, tag);
+                    SoulCorruptionHelper.decrementCorruption(player.getDisplayName());
                 } else {
-                    SoulCorruptionHelper.removeCorruption(player, tag, 100);
+                    SoulCorruptionHelper.removeCorruption(player.getDisplayName(), 100);
                 }
             }
             if (stack.getItemDamage() == 2) {
-                SoulCorruptionHelper.negateCorruption(player, tag);
+                SoulCorruptionHelper.negateCorruption(player.getDisplayName());
             }
             if (stack.getItemDamage() == 3) {
-                player.addChatComponentMessage(new ChatComponentText(StatCollector.translateToLocal("chat.Sanguimancy.soul.corruption") + ": " + String.valueOf(SoulCorruptionHelper.getCorruptionLevel(player, tag))));
+                player.addChatComponentMessage(new ChatComponentText(StatCollector.translateToLocal("chat.Sanguimancy.soul.corruption") + ": " + String.valueOf(SoulCorruptionHelper.getCorruptionLevel(player.getDisplayName()))));
             }
         }
         return stack;

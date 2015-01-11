@@ -2,7 +2,6 @@ package tombenpotter.sanguimancy.items.corrupted;
 
 import WayofTime.alchemicalWizardry.api.items.interfaces.IBindable;
 import WayofTime.alchemicalWizardry.common.items.EnergyItems;
-import WayofTime.alchemicalWizardry.common.spell.complex.effect.SpellHelper;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
@@ -13,13 +12,11 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemPickaxe;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import tombenpotter.sanguimancy.Sanguimancy;
+import tombenpotter.sanguimancy.api.soulCorruption.SoulCorruptionHelper;
 import tombenpotter.sanguimancy.util.RandomUtils;
-import tombenpotter.sanguimancy.util.SoulCorruptionHelper;
 
 import java.util.List;
 
@@ -43,7 +40,7 @@ public class ItemCorruptedPickaxe extends ItemPickaxe implements IBindable {
 
     @Override
     public boolean onBlockDestroyed(ItemStack stack, World world, Block block, int x, int y, int z, EntityLivingBase entityLivingBase) {
-        if (block.getBlockHardness(world, x, y, z) >= 0 && !world.isRemote) {
+        if (block.getBlockHardness(world, x, y, z) >= 0) {
             RandomUtils.checkAndSetCompound(stack);
             int toolMode = getToolMode(stack);
             int metadata = world.getBlockMetadata(x, y, z);
@@ -75,12 +72,8 @@ public class ItemCorruptedPickaxe extends ItemPickaxe implements IBindable {
             if (entityLivingBase instanceof EntityPlayer) {
                 EntityPlayer player = (EntityPlayer) entityLivingBase;
                 EnergyItems.syphonBatteries(stack, player, lpConsumption);
-                if (player.getCommandSenderName().equals(RandomUtils.getItemOwner(stack)) && getToolMode(stack) != 0) {
-                    NBTTagCompound tag = SoulCorruptionHelper.getModTag(player, Sanguimancy.modid);
-                    SoulCorruptionHelper.incrementCorruption(player, tag);
-                } else if (!player.getCommandSenderName().equals(RandomUtils.getItemOwner(stack))) {
-                    player.setHealth(player.getMaxHealth() / 2);
-                    player.addChatComponentMessage(new ChatComponentText(StatCollector.translateToLocal("info.Sanguimancy.tooltip.wrong.player")));
+                if (getToolMode(stack) != 0) {
+                    SoulCorruptionHelper.incrementCorruption(RandomUtils.getItemOwner(stack));
                 }
             }
         }
@@ -164,13 +157,9 @@ public class ItemCorruptedPickaxe extends ItemPickaxe implements IBindable {
     @Override
     public float getDigSpeed(ItemStack stack, Block block, int meta) {
         RandomUtils.checkAndSetCompound(stack);
-        if (!stack.stackTagCompound.getString("ownerName").isEmpty() && SpellHelper.getPlayerForUsername(stack.stackTagCompound.getString("ownerName")) != null) {
-            EntityPlayer player = SpellHelper.getPlayerForUsername(stack.stackTagCompound.getString("ownerName"));
-            NBTTagCompound tag = SoulCorruptionHelper.getModTag(player, Sanguimancy.modid);
-            int playerCorruption = SoulCorruptionHelper.getCorruptionLevel(player, tag);
-            return super.getDigSpeed(stack, block, meta) * (playerCorruption / minimumCorruption);
-        }
-        return 1.0F;
+        int playerCorruption = SoulCorruptionHelper.getCorruptionLevel(RandomUtils.getItemOwner(stack));
+        return super.getDigSpeed(stack, block, meta) * (playerCorruption / minimumCorruption);
+
     }
 
     @Override

@@ -37,6 +37,7 @@ import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import org.lwjgl.opengl.GL11;
 import tombenpotter.sanguimancy.Sanguimancy;
 import tombenpotter.sanguimancy.api.objects.BlockPostition;
+import tombenpotter.sanguimancy.api.soulCorruption.SoulCorruptionHelper;
 import tombenpotter.sanguimancy.network.PacketHandler;
 import tombenpotter.sanguimancy.network.events.EventCorruptedInfusion;
 import tombenpotter.sanguimancy.network.packets.PacketSyncCorruption;
@@ -78,8 +79,7 @@ public class EventHandler {
                         focusedStack.stackTagCompound.setString("thiefName", perpetrator.getCommandSenderName());
                         perpetrator.inventory.addItemStackToInventory(focusedStack);
                         SoulNetworkHandler.setCurrentEssence(owner, 0);
-                        NBTTagCompound tag = SoulCorruptionHelper.getModTag(player, Sanguimancy.modid);
-                        SoulCorruptionHelper.incrementCorruption(player, tag);
+                        SoulCorruptionHelper.incrementCorruption(player.getDisplayName());
                     }
                 }
             }
@@ -90,9 +90,10 @@ public class EventHandler {
     public void onPlayerJoinWorld(EntityJoinWorldEvent event) {
         if (!event.entity.worldObj.isRemote && event.entity != null && event.entity instanceof EntityPlayer) {
             EntityPlayerMP player = (EntityPlayerMP) event.entity;
-            NBTTagCompound tag = SoulCorruptionHelper.getModTag(player, Sanguimancy.modid);
-            if (SoulCorruptionHelper.getCorruptionLevel(player, tag) > 0) return;
-            else SoulCorruptionHelper.negateCorruption(player, tag);
+            if (SoulCorruptionHelper.getCorruptionLevel(player.getDisplayName()) > 0) return;
+            else SoulCorruptionHelper.negateCorruption(player.getDisplayName());
+
+            NBTTagCompound tag = RandomUtils.getModTag(player, Sanguimancy.modid);
             if (!tag.getBoolean("hasInitialChunkClaimer")) {
                 player.addChatComponentMessage(new ChatComponentText(StatCollector.translateToLocal("chat.Sanguimancy.intial.claimer")));
                 if (!player.inventory.addItemStackToInventory(RandomUtils.SanguimancyItemStacks.chunkClaimer.copy())) {
@@ -105,20 +106,20 @@ public class EventHandler {
 
     @SubscribeEvent
     public void onPlayerTick(TickEvent.PlayerTickEvent event) {
-        NBTTagCompound tag = SoulCorruptionHelper.getModTag(event.player, Sanguimancy.modid);
-        if (SoulCorruptionHelper.isCorruptionOver(event.player, tag, 10)) {
+        String playerName = event.player.getDisplayName();
+        if (SoulCorruptionHelper.isCorruptionOver(playerName, 10)) {
             SoulCorruptionHelper.spawnChickenFollower(event.player);
         }
-        if (SoulCorruptionHelper.isCorruptionOver(event.player, tag, 25)) {
+        if (SoulCorruptionHelper.isCorruptionOver(playerName, 25)) {
             SoulCorruptionHelper.killGrass(event.player);
         }
-        if (SoulCorruptionHelper.isCorruptionOver(event.player, tag, 40)) {
+        if (SoulCorruptionHelper.isCorruptionOver(playerName, 40)) {
             SoulCorruptionHelper.hurtAndHealAnimals(event.player);
         }
-        if (SoulCorruptionHelper.isCorruptionOver(event.player, tag, 50)) {
+        if (SoulCorruptionHelper.isCorruptionOver(playerName, 50)) {
             SoulCorruptionHelper.spawnIllusion(event.player);
         }
-        if (SoulCorruptionHelper.isCorruptionOver(event.player, tag, 70)) {
+        if (SoulCorruptionHelper.isCorruptionOver(playerName, 70)) {
             SoulCorruptionHelper.randomTeleport(event.player);
         }
 
@@ -130,9 +131,8 @@ public class EventHandler {
     @SubscribeEvent
     public void onPlayerAttack(AttackEntityEvent event) {
         if (event.entityPlayer != null && event.target != null && event.target instanceof EntityLivingBase) {
-            NBTTagCompound tag = SoulCorruptionHelper.getModTag(event.entityPlayer, Sanguimancy.modid);
             EntityLivingBase target = (EntityLivingBase) event.target;
-            if (SoulCorruptionHelper.isCorruptionOver(event.entityPlayer, tag, 30))
+            if (SoulCorruptionHelper.isCorruptionOver(event.entityPlayer.getDisplayName(), 30))
                 SoulCorruptionHelper.addWither(target);
         }
     }
@@ -140,8 +140,7 @@ public class EventHandler {
     @SubscribeEvent
     public void onRitualActivation(RitualActivatedEvent event) {
         if (event.player != null) {
-            NBTTagCompound tag = SoulCorruptionHelper.getModTag(event.player, Sanguimancy.modid);
-            if (SoulCorruptionHelper.isCorruptionOver(event.player, tag, 15) && event.player.worldObj.rand.nextInt(10) == 0) {
+            if (SoulCorruptionHelper.isCorruptionOver(event.player.getDisplayName(), 15) && event.player.worldObj.rand.nextInt(10) == 0) {
                 event.setResult(Event.Result.DENY);
             }
         }
@@ -313,7 +312,7 @@ public class EventHandler {
         }
 
         @SubscribeEvent
-        public void onRenderPlayerSpecialAntlers(RenderPlayerEvent.Specials.Post event) {
+        public void onRenderPlayerSpecialAntlers(RenderPlayerEvent.Pre event) {
             String names[] = {"Tombenpotter", "Speedynutty68", "WayofFlowingTime", "Jadedcat", "Kris1432", "Drullkus", "TheOrangeGenius", "Direwolf20", "Pahimar", "ValiarMarcus", "Alex_hawks", "StoneWaves", "DemoXin"};
             for (String name : names) {
                 if (event.entityPlayer.getCommandSenderName().equalsIgnoreCase(name)) {
@@ -323,6 +322,7 @@ public class EventHandler {
                     Minecraft.getMinecraft().renderEngine.bindTexture(new ResourceLocation(Sanguimancy.texturePath + ":textures/items/Wand.png"));
                     GL11.glTranslatef(0.0F, -0.95F, -0.125F);
                     Tessellator tesselator = Tessellator.instance;
+
                     GL11.glPushMatrix();
                     GL11.glRotatef(-20.0F, 0.0F, 1.0F, 0.0F);
                     GL11.glRotatef(-5.0F, 0.0F, 1.0F, 0.0F);
@@ -333,6 +333,7 @@ public class EventHandler {
                     tesselator.addVertexWithUV(1.0D, 0.0D, 0.0D, 1.0D, 0.0D);
                     tesselator.draw();
                     GL11.glPopMatrix();
+
                     GL11.glPushMatrix();
                     GL11.glRotatef(5.0F, 0.0F, 1.0F, 0.0F);
                     GL11.glRotatef(20.0F, 0.0F, 1.0F, 0.0F);
@@ -350,8 +351,7 @@ public class EventHandler {
 
         @SubscribeEvent
         public void prePlayerRender(RenderPlayerEvent.Pre event) {
-            NBTTagCompound tag = SoulCorruptionHelper.getModTag(Minecraft.getMinecraft().thePlayer, Sanguimancy.modid);
-            if (SoulCorruptionHelper.isCorruptionOver(Minecraft.getMinecraft().thePlayer, tag, 20)) {
+            if (SoulCorruptionHelper.getClientPlayerCorruption() >= 20) {
                 GL11.glPushMatrix();
                 GL11.glDisable(2929);
                 GL11.glColor3f(255, 0, 0);
@@ -361,8 +361,7 @@ public class EventHandler {
 
         @SubscribeEvent
         public void postPlayerRender(RenderPlayerEvent.Post event) {
-            NBTTagCompound tag = SoulCorruptionHelper.getModTag(Minecraft.getMinecraft().thePlayer, Sanguimancy.modid);
-            if (SoulCorruptionHelper.isCorruptionOver(Minecraft.getMinecraft().thePlayer, tag, 20)) {
+            if (SoulCorruptionHelper.getClientPlayerCorruption() >= 20) {
                 GL11.glPushMatrix();
                 GL11.glEnable(2929);
                 GL11.glPopMatrix();

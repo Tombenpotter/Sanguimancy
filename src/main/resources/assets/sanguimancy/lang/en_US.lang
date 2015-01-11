@@ -127,6 +127,7 @@ info.Sanguimancy.tooltip.shovel.mode.transmute=Transmuting
 info.Sanguimancy.tooltip.axe.mode.leaf.decay=Decaying
 info.Sanguimancy.tooltip.axe.mode.head.hunter=Head Hunter
 info.Sanguimancy.tooltip.axe.mode.refine=Refining
+info.Sanguimancy.tooltip.attack.damage=Attack Damage
 
 #Guide Entries
 guide.Sanguimancy.category.lore=Of Dark Magicks

@@ -8,14 +8,13 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import tombenpotter.sanguimancy.Sanguimancy;
+import tombenpotter.sanguimancy.api.soulCorruption.SoulCorruptionHelper;
 import tombenpotter.sanguimancy.network.events.EventCorruptedInfusion;
 import tombenpotter.sanguimancy.recipes.RecipeCorruptedInfusion;
 import tombenpotter.sanguimancy.util.RandomUtils;
-import tombenpotter.sanguimancy.util.SoulCorruptionHelper;
 
 import java.util.List;
 
@@ -39,10 +38,9 @@ public class ItemCorruptionCatalyst extends Item {
         } else if (stack.stackTagCompound.getBoolean("activated")) {
             if (entity != null && entity instanceof EntityPlayer) {
                 EntityPlayer player = (EntityPlayer) entity;
-                NBTTagCompound tag = SoulCorruptionHelper.getModTag(player, Sanguimancy.modid);
-                if (player.getHeldItem() != null && RecipeCorruptedInfusion.isRecipeValid(new ItemStack[]{player.getHeldItem()}, SoulCorruptionHelper.getCorruptionLevel(player, tag))) {
+                if (player.getHeldItem() != null && RecipeCorruptedInfusion.isRecipeValid(new ItemStack[]{player.getHeldItem()}, SoulCorruptionHelper.getCorruptionLevel(player.getDisplayName()))) {
                     ItemStack[] input = new ItemStack[]{player.getHeldItem().copy()};
-                    RecipeCorruptedInfusion recipe = RecipeCorruptedInfusion.getPossibleRecipes(input, SoulCorruptionHelper.getCorruptionLevel(player, tag)).get(0);
+                    RecipeCorruptedInfusion recipe = RecipeCorruptedInfusion.getPossibleRecipes(input, SoulCorruptionHelper.getCorruptionLevel(player.getDisplayName())).get(0);
                     ItemStack output = recipe.fOutput.copy();
                     for (ItemStack inputStack : recipe.fInput) {
                         if (world.getWorldTime() % recipe.fTime == 0) {
