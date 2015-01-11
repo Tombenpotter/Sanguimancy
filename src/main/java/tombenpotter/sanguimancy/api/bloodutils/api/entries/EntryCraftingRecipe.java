@@ -144,7 +144,7 @@ public class EntryCraftingRecipe extends EntryBase {
 
     public void drawIcon(int entry, int x, int y) {
         RenderItem ri = new RenderItem();
-        if (recipe != null && recipe.length > 0 && recipe[entry] != null) {
+        if (recipe != null && recipe.length > 0 && entry < recipe.length && recipe[entry] != null) {
             ri.renderItemAndEffectIntoGUI(Minecraft.getMinecraft().fontRenderer, Minecraft.getMinecraft().getTextureManager(), recipe[entry], x, y);
             ri.renderItemOverlayIntoGUI(Minecraft.getMinecraft().fontRenderer, Minecraft.getMinecraft().getTextureManager(), recipe[entry], x, y);
             icons.add(new ItemIcon(recipe[entry], x, y));
@@ -186,11 +186,16 @@ public class EntryCraftingRecipe extends EntryBase {
             int xSize = x + 16;
             int ySize = y + 16;
 
-
             if (mX > x && mX < xSize && mY > y && mY < ySize) {
                 GL11.glDisable(GL11.GL_DEPTH_TEST);
-                if (stack != null && stack.getDisplayName() != null)
-                    Minecraft.getMinecraft().fontRenderer.drawString(stack.getDisplayName(), mX + 6, mY, new Color(139, 137, 137).getRGB());
+                if (stack != null && stack.getDisplayName() != null && !stack.getTooltip(Minecraft.getMinecraft().thePlayer, false).isEmpty()) {
+                    Minecraft.getMinecraft().fontRenderer.drawString(stack.getDisplayName(), mX + 6, mY, new Color(100, 100, 100).getRGB());
+                    int addY = 10;
+                    for (int i = 1; i < stack.getTooltip(Minecraft.getMinecraft().thePlayer, false).size(); i++) {
+                        Minecraft.getMinecraft().fontRenderer.drawString(String.valueOf(stack.getTooltip(Minecraft.getMinecraft().thePlayer, false).get(i)), mX + 6, mY + addY, new Color(139, 137, 137).getRGB());
+                        addY = addY + 10;
+                    }
+                }
                 GL11.glEnable(GL11.GL_DEPTH_TEST);
             }
         }

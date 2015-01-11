@@ -1,6 +1,7 @@
 Version 1.1.9-Pre:
 Changed the Soul Corruption storing mechanic. It's fixing issues and unpracticalities ^-^.
 It also means that players' corruptions will be reset to 0.
+Fixing some stuff that would kick players when hitting mobs with an empty hand.
 
 Version 1.1.9-Alpha3:
 Finalized the Soul Network Manifestation system. I need now to give it a bit of fluff and couple of kicks in the butts, but it's close.

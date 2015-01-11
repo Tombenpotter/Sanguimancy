@@ -122,8 +122,14 @@ public class EntryCorruptionRecipe extends EntryBase {
 
             if (mX > x && mX < xSize && mY > y && mY < ySize) {
                 GL11.glDisable(GL11.GL_DEPTH_TEST);
-                if (stack != null && stack.getDisplayName() != null)
-                    Minecraft.getMinecraft().fontRenderer.drawString(stack.getDisplayName(), mX + 6, mY, new Color(139, 137, 137).getRGB());
+                if (stack != null && stack.getDisplayName() != null && !stack.getTooltip(Minecraft.getMinecraft().thePlayer, false).isEmpty()) {
+                    Minecraft.getMinecraft().fontRenderer.drawString(stack.getDisplayName(), mX + 6, mY, new Color(100, 100, 100).getRGB());
+                    int addY = 10;
+                    for (int i = 1; i < stack.getTooltip(Minecraft.getMinecraft().thePlayer, false).size(); i++) {
+                        Minecraft.getMinecraft().fontRenderer.drawString(String.valueOf(stack.getTooltip(Minecraft.getMinecraft().thePlayer, false).get(i)), mX + 6, mY + addY, new Color(139, 137, 137).getRGB());
+                        addY = addY + 10;
+                    }
+                }
                 GL11.glEnable(GL11.GL_DEPTH_TEST);
             }
         }

@@ -55,6 +55,7 @@ item.Sanguimancy.corruptedSword.name=Corrupted Blade
 item.Sanguimancy.corruptedPickaxe.name=Corrupted Pickaxe
 item.Sanguimancy.corruptedShovel.name=Corrupted Shovel
 item.Sanguimancy.corruptedAxe.name=Corrupted Axe
+item.Sanguimancy.playerGuide.name=Sanguimancy: A how-to guide by Tombenpotter
 
 #Entities
 entity.Sanguimancy.EntityChickenMinion.name=Chicken Minion
