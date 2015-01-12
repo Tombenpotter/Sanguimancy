@@ -130,7 +130,7 @@ public class EventHandler {
             SoulCorruptionHelper.randomTeleport(event.player);
         }
         if (SoulCorruptionHelper.isCorruptionOver(playerName, 200)) {
-            SoulCorruptionHelper.looseHeart(event.player);
+            SoulCorruptionHelper.loseHeart(event.player);
         }
 
         if (event.player.worldObj.getWorldTime() % 200 == 0 && !event.player.worldObj.isRemote) {

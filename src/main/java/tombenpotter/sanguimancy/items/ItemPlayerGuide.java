@@ -4,9 +4,13 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ChatComponentTranslation;
+import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import tombenpotter.sanguimancy.Sanguimancy;
 import tombenpotter.sanguimancy.util.RandomUtils;
+
+import java.util.List;
 
 public class ItemPlayerGuide extends Item {
 
@@ -14,6 +18,7 @@ public class ItemPlayerGuide extends Item {
     public ItemPlayerGuide() {
         setCreativeTab(Sanguimancy.tabSanguimancy);
         setUnlocalizedName(Sanguimancy.modid + ".playerGuide");
+        setTextureName(Sanguimancy.texturePath + ":PlayerGuide");
         setMaxStackSize(1);
     }
 
@@ -35,4 +40,8 @@ public class ItemPlayerGuide extends Item {
         RandomUtils.checkAndSetCompound(stack);
     }
 
+    @Override
+    public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean simulate) {
+        list.add(StatCollector.translateToLocal("info.Sanguimancy.tooltip.book.author"));
+    }
 }

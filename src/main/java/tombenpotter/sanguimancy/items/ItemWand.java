@@ -59,12 +59,12 @@ public class ItemWand extends Item {
         if (stack.stackTagCompound != null && stack.stackTagCompound.getCompoundTag("spell" + String.valueOf(stack.stackTagCompound.getInteger("currentSpell"))) != null) {
             NBTTagCompound itemTag = stack.stackTagCompound.getCompoundTag("spell" + String.valueOf(stack.stackTagCompound.getInteger("currentSpell")));
             if (!GuiScreen.isShiftKeyDown()) {
-                list.add("Current Spell: " + String.valueOf(stack.stackTagCompound.getInteger("currentSpell") + 1));
+                list.add(StatCollector.translateToLocal("info.Sanguimancy.tooltip.spell.current") + ": " + String.valueOf(stack.stackTagCompound.getInteger("currentSpell") + 1));
                 list.add(StatCollector.translateToLocal("info.Sanguimancy.tooltip.shift.info"));
             } else {
-                list.add("Current Spell: " + String.valueOf(stack.stackTagCompound.getInteger("currentSpell") + 1));
-                list.add("Coords: " + itemTag.getInteger("xCoord") + ", " + itemTag.getInteger("yCoord") + ", " + itemTag.getInteger("zCoord"));
-                list.add("Bound Dimension: " + getDimensionID(itemTag));
+                list.add(StatCollector.translateToLocal("info.Sanguimancy.tooltip.spell.current") + ": " + String.valueOf(stack.stackTagCompound.getInteger("currentSpell") + 1));
+                list.add(StatCollector.translateToLocal("info.Sanguimancy.tooltip.coordinates") + ": " + itemTag.getInteger("xCoord") + ", " + itemTag.getInteger("yCoord") + ", " + itemTag.getInteger("zCoord"));
+                list.add(StatCollector.translateToLocal("info.Sanguimancy.tooltip.bound.dimension") + ": " + getDimensionID(itemTag));
             }
         }
     }

@@ -55,7 +55,7 @@ item.Sanguimancy.corruptedSword.name=Corrupted Blade
 item.Sanguimancy.corruptedPickaxe.name=Corrupted Pickaxe
 item.Sanguimancy.corruptedShovel.name=Corrupted Shovel
 item.Sanguimancy.corruptedAxe.name=Corrupted Axe
-item.Sanguimancy.playerGuide.name=Sanguimancy: A how-to guide by Tombenpotter
+item.Sanguimancy.playerGuide.name=Sanguimancy: A How-To Guide
 item.Sanguimancy.corruptedMineral.name=Corrupted Mineral
 item.Sanguimancy.imbuedStick.name=Imbued Stick
 
@@ -92,9 +92,9 @@ chat.Sanguimancy.successfully.claimed=This chunk was successfully claimed.
 chat.Sanguimancy.unsuccessfully.claimed=This chunk is already claimed.
 chat.Sanguimancy.intial.claimer=This was dropped when your Soul formed.
 chat.Sanguimancy.not.sn.dim=You are not in the Soul Network Dimension.
-chat.Sanguimancy.chicken.minion=An evil Chicken Minion seems to have taken an unhealthy interest in
-chat.Sanguimancy.random.teleport=Higher forces seem to have taken to bouncing %player% around
-chat.Sanguimancy.loose.heart=seems to have misplaced a couple of hearts
+chat.Sanguimancy.chicken.minion=An evil Chicken Minion seems to have taken an unhealthy interest in %s.
+chat.Sanguimancy.random.teleport=Higher forces seem to have taken to bouncing %s around.
+chat.Sanguimancy.loose.heart=%s seems to have misplaced a couple of hearts.
 
 #Tooltips
 info.Sanguimancy.tooltip.shift.info=--Press Shift for info--
@@ -114,7 +114,7 @@ info.Sanguimancy.tooltip.amount=Amount
 info.Sanguimancy.tooltip.fluid=Fluid
 info.Sanguimancy.tooltip.none=None
 info.Sanguimancy.tooltip.any=Any Ore Lump
-info.Sanguimancy.toolitp.per.point=per half-heart
+info.Sanguimancy.tooltip.per.point=per half-heart //////
 info.Sanguimancy.tooltip.activated=Ability activated
 info.Sanguimancy.tooltip.owner=Current owner
 info.Sanguimancy.tooltip.minimum.corruption.1=Minimum corruption to reach the tool's
@@ -134,6 +134,10 @@ info.Sanguimancy.tooltip.axe.mode.leaf.decay=Decaying
 info.Sanguimancy.tooltip.axe.mode.head.hunter=Head Hunter
 info.Sanguimancy.tooltip.axe.mode.refine=Refining
 info.Sanguimancy.tooltip.attack.damage=Attack Damage
+info.Sanguimancy.tooltip.book.author=By Tombenpotter
+info.Sanguimancy.tooltip.spell.current=Current Spell
+info.Sanguimancy.tooltip.coordinates=Coordinates
+info.Sanguimancy.tooltip.bound.dimension=Bound Dimension
 
 #Guide Entries
 guide.Sanguimancy.category.lore=Of Dark Magicks
