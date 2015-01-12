@@ -131,8 +131,8 @@ public class EventHandler {
         if (SoulCorruptionHelper.isCorruptionOver(playerName, 200)) {
             SoulCorruptionHelper.loseHeart(event.player);
         }
-        if (event.player.worldObj.getWorldTime() % 200 == 0) {
-            PacketHandler.INSTANCE.sendToAll(new PacketSyncCorruption(playerName));
+        if (!event.player.worldObj.isRemote && event.player.worldObj.getWorldTime() % 200 == 0) {
+            PacketHandler.INSTANCE.sendToAll(new PacketSyncCorruption(event.player.getDisplayName()));
         }
     }
 
@@ -320,7 +320,7 @@ public class EventHandler {
         }
 
         @SubscribeEvent
-        public void onRenderPlayerSpecialAntlers(RenderPlayerEvent.Post event) {
+        public void onRenderPlayerSpecialAntlers(RenderPlayerEvent.Specials.Post event) {
             String names[] = {"Tombenpotter", "Speedynutty68", "WayofFlowingTime", "Jadedcat", "Kris1432", "Drullkus", "TheOrangeGenius", "Direwolf20", "Pahimar", "ValiarMarcus", "Alex_hawks", "StoneWaves", "DemoXin"};
             for (String name : names) {
                 if (event.entityPlayer.getCommandSenderName().equalsIgnoreCase(name)) {
