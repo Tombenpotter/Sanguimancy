@@ -1,9 +1,7 @@
-Sanguimancy
+Sanguimancy [![Build Status](http://tehnut.info/jenkins/job/Sanguimancy/badge/icon)](http://tehnut.info/jenkins/job/Sanguimancy/)
 =============
 
 ###Sanguimancy. A Blood Magic addon!
-
-http://tehnut.info/jenkins/job/Sanguimancy/badge/icon
 
 # Development Environment Setup
 To be able to setup your development environment and get it working you need:
