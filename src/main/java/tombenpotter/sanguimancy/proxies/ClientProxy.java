@@ -1,15 +1,22 @@
 package tombenpotter.sanguimancy.proxies;
 
+import cpw.mods.fml.client.FMLClientHandler;
 import cpw.mods.fml.client.registry.ClientRegistry;
 import cpw.mods.fml.client.registry.RenderingRegistry;
 import cpw.mods.fml.common.FMLCommonHandler;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelChicken;
+import net.minecraft.client.particle.EntityFX;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.world.World;
 import net.minecraftforge.client.MinecraftForgeClient;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.util.ForgeDirection;
+import tombenpotter.sanguimancy.api.snManifestation.ISNComponent;
+import tombenpotter.sanguimancy.client.particle.EntityColoredFlameFX;
 import tombenpotter.sanguimancy.client.render.*;
 import tombenpotter.sanguimancy.entity.EntityChickenMinion;
 import tombenpotter.sanguimancy.entity.EntityPlayerPointer;
@@ -54,7 +61,33 @@ public class ClientProxy extends CommonProxy {
     }
 
     @Override
+    @SideOnly(Side.CLIENT)
     public EntityPlayer getClientPlayer() {
         return Minecraft.getMinecraft().thePlayer;
+    }
+
+    @SideOnly(Side.CLIENT)
+    public void addLinkingEffects(ISNComponent component, World world, double x, double y, double z) {
+        if (!component.getSNKnots().isEmpty()) {
+            double dx = x + 0.5;
+            double dy = y + 0.5;
+            double dz = z + 0.5;
+            for (int i = 0; i < component.getAdjacentISNComponents().length; i++) {
+                if (component.getAdjacentISNComponents()[i] != null) {
+                    for (float j = 0; j <= ForgeDirection.VALID_DIRECTIONS[i].offsetX; j += 0.1) {
+                        EntityFX particle = new EntityColoredFlameFX(world, dx + j, dy, dz, 0, 0, 0, 160, 160, 160, 100);
+                        FMLClientHandler.instance().getClient().effectRenderer.addEffect(particle);
+                    }
+                    for (float j = 0; j <= ForgeDirection.VALID_DIRECTIONS[i].offsetY; j += 0.1) {
+                        EntityFX particle = new EntityColoredFlameFX(world, dx, dy + j, dz, 0, 0, 0, 160, 160, 160, 100);
+                        FMLClientHandler.instance().getClient().effectRenderer.addEffect(particle);
+                    }
+                    for (float j = 0; j <= ForgeDirection.VALID_DIRECTIONS[i].offsetZ; j += 0.1) {
+                        EntityFX particle = new EntityColoredFlameFX(world, dx, dy, dz + j, 0, 0, 0, 160, 160, 160, 100);
+                        FMLClientHandler.instance().getClient().effectRenderer.addEffect(particle);
+                    }
+                }
+            }
+        }
     }
 }

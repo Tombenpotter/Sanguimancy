@@ -1,8 +1,6 @@
 package tombenpotter.sanguimancy.tile;
 
 import WayofTime.alchemicalWizardry.ModItems;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import tombenpotter.sanguimancy.api.objects.BlockPostition;
@@ -71,7 +69,6 @@ public class TileSimpleSNKnot extends TileBaseSNKnot {
     }
 
     @Override
-    @SideOnly(Side.CLIENT)
     public void onNetworkUpdate(BlockPostition originalPosition) {
     }
 

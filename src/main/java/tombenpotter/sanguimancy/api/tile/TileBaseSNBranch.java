@@ -69,6 +69,7 @@ public abstract class TileBaseSNBranch extends TileEntity implements ISNBranch, 
         return adjacentBranches;
     }
 
+    @Override
     public ArrayList<BlockPostition> getSNKnots() {
         ArrayList<BlockPostition> list = new ArrayList<BlockPostition>();
         HashMap<BlockPostition, SNKNotBoolean> map = getComponentsInNetwork().hashMap;

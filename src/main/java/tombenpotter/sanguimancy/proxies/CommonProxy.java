@@ -10,6 +10,7 @@ import tombenpotter.sanguimancy.api.bloodutils.api.classes.guide.GuiEntry;
 import tombenpotter.sanguimancy.api.bloodutils.api.classes.guide.GuiIndex;
 import tombenpotter.sanguimancy.api.bloodutils.api.compact.Category;
 import tombenpotter.sanguimancy.api.bloodutils.api.registries.EntryRegistry;
+import tombenpotter.sanguimancy.api.snManifestation.ISNComponent;
 import tombenpotter.sanguimancy.container.ContainerLumpCleaner;
 import tombenpotter.sanguimancy.gui.GuiLumpCleaner;
 import tombenpotter.sanguimancy.tile.TileBloodCleaner;
@@ -79,5 +80,8 @@ public class CommonProxy implements IGuiHandler {
 
     public EntityPlayer getClientPlayer() {
         return null;
+    }
+
+    public void addLinkingEffects(ISNComponent component, World world, double x, double y, double z) {
     }
 }

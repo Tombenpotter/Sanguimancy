@@ -1,6 +1,7 @@
 package tombenpotter.sanguimancy.api.soulCorruption;
 
-import net.minecraft.client.Minecraft;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.effect.EntityLightningBolt;
 import net.minecraft.entity.passive.EntityAnimal;
@@ -71,9 +72,9 @@ public class SoulCorruptionHelper {
         removeCorruption(ownerName, 1);
     }
 
+    @SideOnly(Side.CLIENT)
     public static int getClientPlayerCorruption() {
-        EntityPlayer player = Minecraft.getMinecraft().thePlayer;
-        return player.getEntityData().getInteger(Sanguimancy.modid + ":SC");
+        return Sanguimancy.proxy.getClientPlayer().getEntityData().getInteger(Sanguimancy.modid + ":SC");
     }
 
     public static void spawnChickenFollower(EntityPlayer player) {
