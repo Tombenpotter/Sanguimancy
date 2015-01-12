@@ -46,7 +46,7 @@ public class TileSimpleSNBranch extends TileBaseSNBranch {
     @Override
     @SideOnly(Side.CLIENT)
     public void onNetworkUpdate(BlockPostition originalPosition) {
-        addLinkingEffects();
+        if (worldObj.isRemote) addLinkingEffects();
     }
 
     @Override

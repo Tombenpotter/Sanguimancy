@@ -94,7 +94,7 @@ public class RitualEffectFelling extends RitualEffect {
                             RitualUtils.placeInInventory(block, world, int3.xCoord, int3.yCoord, int3.zCoord, tileEntity);
                         }
                         world.setBlockToAir(int3.xCoord, int3.yCoord, int3.zCoord);
-                        addParticles(world, int3);
+                        if (world.isRemote) addParticles(world, int3);
                         SoulNetworkHandler.syphonFromNetwork(owner, getCostPerRefresh());
                     }
                 }
