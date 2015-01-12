@@ -1,5 +1,7 @@
 package tombenpotter.sanguimancy.items;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -40,6 +42,7 @@ public class ItemPlayerGuide extends Item {
         RandomUtils.checkAndSetCompound(stack);
     }
 
+    @SideOnly(Side.CLIENT)
     @Override
     public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean simulate) {
         list.add(StatCollector.translateToLocal("info.Sanguimancy.tooltip.book.author"));
