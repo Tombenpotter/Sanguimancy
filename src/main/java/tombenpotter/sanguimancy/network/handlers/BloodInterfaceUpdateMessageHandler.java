@@ -16,7 +16,7 @@ public class BloodInterfaceUpdateMessageHandler implements IMessageHandler<Packe
 
     @Override
     public IMessage onMessage(PacketBloodInterfaceUpdate message, MessageContext ctx) {
-        TileEntity tileEntity = Sanguimancy.proxy.getClientWorld().getTileEntity(message.posX, message.posY, message.posZ);
+        TileEntity tileEntity = Sanguimancy.proxy.getClientPlayer().worldObj.getTileEntity(message.posX, message.posY, message.posZ);
         if (tileEntity instanceof TileBloodInterface) {
             ItemStack stack = null;
             if (message.itemID != -1) {

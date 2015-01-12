@@ -12,7 +12,7 @@ public class SyncCorruptionMessageHandler implements IMessageHandler<PacketSyncC
 
     @Override
     public IMessage onMessage(PacketSyncCorruption message, MessageContext ctx) {
-        EntityPlayer clientPlayer = Minecraft.getMinecraft().thePlayer;
+        EntityPlayer clientPlayer = Sanguimancy.proxy.getClientPlayer();
         if (message.ownerName.equals(clientPlayer.getDisplayName())) {
             clientPlayer.getEntityData().setInteger(Sanguimancy.modid + ":SC", message.corruption);
         }

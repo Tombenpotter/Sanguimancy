@@ -77,7 +77,7 @@ public class CommonProxy implements IGuiHandler {
         }
     }
 
-    public World getClientWorld() {
+    public EntityPlayer getClientPlayer() {
         return null;
     }
 }
