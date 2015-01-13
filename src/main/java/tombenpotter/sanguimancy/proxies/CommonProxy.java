@@ -17,6 +17,9 @@ import tombenpotter.sanguimancy.tile.TileBloodCleaner;
 
 public class CommonProxy implements IGuiHandler {
 
+    public void preLoad() {
+    }
+
     public void load() {
         registerRenders();
     }
@@ -83,5 +86,8 @@ public class CommonProxy implements IGuiHandler {
     }
 
     public void addLinkingEffects(ISNComponent component, World world, double x, double y, double z) {
+    }
+
+    public void addColoredFlameEffects(World world, double x, double y, double z, double movX, double movY, double movZ, int red, int green, int blue) {
     }
 }

@@ -28,6 +28,10 @@ import tombenpotter.sanguimancy.util.EventHandler;
 public class ClientProxy extends CommonProxy {
 
     @Override
+    public void preLoad() {
+    }
+
+    @Override
     public void load() {
         registerRenders();
         FMLCommonHandler.instance().bus().register(new EventHandler.ClientEventHandler());
@@ -89,5 +93,11 @@ public class ClientProxy extends CommonProxy {
                 }
             }
         }
+    }
+
+    @SideOnly(Side.CLIENT)
+    public void addColoredFlameEffects(World world, double x, double y, double z, double movX, double movY, double movZ, int red, int green, int blue) {
+        EntityColoredFlameFX particle = new EntityColoredFlameFX(world, x, y, z, movX, movY, movZ, red, green, blue);
+        FMLClientHandler.instance().getClient().effectRenderer.addEffect(particle);
     }
 }
