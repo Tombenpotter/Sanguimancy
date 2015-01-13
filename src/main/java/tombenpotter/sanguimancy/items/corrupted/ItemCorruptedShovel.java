@@ -231,7 +231,6 @@ public class ItemCorruptedShovel extends ItemSpade {
         Block block = event.block;
         int metadata = event.blockMetadata;
         ItemStack stack = event.getPlayer().getHeldItem();
-        int toolMode = getToolMode(stack);
         EntityPlayer player = event.getPlayer();
         World world = event.world;
         int x = event.x;
@@ -239,6 +238,7 @@ public class ItemCorruptedShovel extends ItemSpade {
         int z = event.z;
         if (stack != null && stack.isItemEqual(RandomUtils.SanguimancyItemStacks.corruptedShovel)) {
             int lpConsumption = 10;
+            int toolMode = getToolMode(stack);
             if (toolMode == 1) {
                 lpConsumption = lpConsumption * 5;
                 if (breakdownBlocks.containsKey(new BlockAndMetadata(block, metadata))) {
