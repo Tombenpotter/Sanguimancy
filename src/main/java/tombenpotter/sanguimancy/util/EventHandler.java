@@ -108,6 +108,25 @@ public class EventHandler {
     }
 
     @SubscribeEvent
+    public void claimChunkPlayer(EntityJoinWorldEvent event) {
+        if (!event.entity.worldObj.isRemote && event.entity != null && event.entity instanceof EntityPlayer) {
+            EntityPlayer player = (EntityPlayer) event.entity;
+            if (ClaimedChunks.getClaimedChunks().getLinkedChunks(player.getCommandSenderName()).isEmpty() && ConfigHandler.firstClaimedChunkFree) {
+                int chunkX = 50 >> 4;
+                int chunkZ = 50 >> 4;
+                while (!ClaimedChunks.getClaimedChunks().addLocation(player.getCommandSenderName(), new ChunkIntPairSerializable(chunkX, chunkZ))) {
+                    chunkX = chunkX + 1;
+                    chunkZ = chunkZ + 1;
+                }
+                player.addChatComponentMessage(new ChatComponentText("\u00A7" + StatCollector.translateToLocal("chat.Sanguimancy.successfully.claimed")
+                        .replace("%x%", String.valueOf(chunkX << 4))
+                        .replace("%y%", String.valueOf(chunkZ << 4))
+                        .replace("%dim%", String.valueOf(ConfigHandler.snDimID))));
+            }
+        }
+    }
+
+    @SubscribeEvent
     public void onPlayerTick(TickEvent.PlayerTickEvent event) {
         String playerName;
         if (!event.player.worldObj.isRemote) playerName = event.player.getDisplayName();

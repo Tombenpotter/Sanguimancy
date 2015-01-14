@@ -12,6 +12,7 @@ import net.minecraft.world.World;
 import tombenpotter.sanguimancy.Sanguimancy;
 import tombenpotter.sanguimancy.util.ConfigHandler;
 import tombenpotter.sanguimancy.util.TeleportingUtils;
+import tombenpotter.sanguimancy.util.singletons.ClaimedChunks;
 
 public class ItemCorruptedDemonShard extends Item {
 
@@ -26,7 +27,7 @@ public class ItemCorruptedDemonShard extends Item {
     }
 
     @Override
-    //TODO: Remove that testing code and find a right way to change dimensions
+    //TODO: Remove that testing code
     public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player) {
         if (!world.isRemote) {
             if (player.worldObj.provider.dimensionId != 0) {
@@ -35,8 +36,9 @@ public class ItemCorruptedDemonShard extends Item {
                 TeleportingUtils.teleportEntityToDim(world, 0, chunkCoords.posX, chunkCoords.posY, chunkCoords.posZ, player, player.getCommandSenderName());
             } else {
                 int dimID = ConfigHandler.snDimID;
-                ChunkCoordinates chunkCoords = MinecraftServer.getServer().worldServerForDimension(dimID).getSpawnPoint();
-                TeleportingUtils.teleportEntityToDim(world, dimID, chunkCoords.posX, 6, chunkCoords.posZ, player, player.getCommandSenderName());
+                int x = ClaimedChunks.getClaimedChunks().getLinkedChunks(player.getCommandSenderName()).get(0).getCenterXPos();
+                int z = ClaimedChunks.getClaimedChunks().getLinkedChunks(player.getCommandSenderName()).get(0).getCenterZPos();
+                TeleportingUtils.teleportEntityToDim(world, dimID, x, 6, z, player, player.getCommandSenderName());
             }
         }
         return stack;

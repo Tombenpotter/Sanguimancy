@@ -103,6 +103,7 @@ public class ClaimedChunks {
     }
 
     public ArrayList<ChunkIntPairSerializable> getLinkedChunks(String name) {
+        if (chunks.get(name) == null) chunks.put(name, new ArrayList<ChunkIntPairSerializable>());
         return chunks.get(name);
     }
 }

@@ -28,6 +28,7 @@ public class ConfigHandler {
     public static int addHeartPotionID;
     public static int removeHeartPotionID;
     public static boolean messagesWhenCorruptionEffect;
+    public static boolean firstClaimedChunkFree;
 
     public static void init(File file) {
         config = new Configuration(file);
@@ -59,6 +60,9 @@ public class ConfigHandler {
         addHeartPotionID = config.get(features, "addHeartPotionID", 100).getInt(addHeartPotionID);
         removeHeartPotionID = config.get(features, "removeHeartPotionID", 101).getInt(removeHeartPotionID);
         messagesWhenCorruptionEffect = config.get(features, "messageWhenCorruptionEffect", true).getBoolean(messagesWhenCorruptionEffect);
+
+        //Balance
+        firstClaimedChunkFree = config.get(balancing, "firstClaimedChunkForFree", true).getBoolean(firstClaimedChunkFree);
 
         config.save();
     }

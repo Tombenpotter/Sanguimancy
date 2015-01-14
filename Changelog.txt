@@ -4,6 +4,7 @@ It also means that players' corruptions will be reset to 0.
 Fixing some stuff that would kick players when hitting mobs with an empty hand.
 Fixed it so much that the mods now runs again server side!
 Fixed an issue that would add an empty NBT tag to some items, causing issues with their stacking.
+You now get a free claimed chunk in the SN dimension, unless you turn the config for it off.
 
 Version 1.1.9-Alpha3:
 Finalized the Soul Network Manifestation system. I need now to give it a bit of fluff and couple of kicks in the butts, but it's close.
