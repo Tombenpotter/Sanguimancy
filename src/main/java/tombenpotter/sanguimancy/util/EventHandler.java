@@ -170,115 +170,108 @@ public class EventHandler {
 
     @SubscribeEvent
     public void onItemAddedToSN(ItemBindEvent event) {
-        if (ConfigHandler.enableSoulManifestationSystem) {
-            if (!event.player.worldObj.isRemote) {
-                int dimID = ConfigHandler.snDimID;
-                WorldServer dimWorld = MinecraftServer.getServer().worldServerForDimension(dimID);
-                if (ClaimedChunks.getClaimedChunks().getLinkedChunks(event.player.getCommandSenderName()) != null) {
-                    for (ChunkIntPairSerializable chunkInt : ClaimedChunks.getClaimedChunks().getLinkedChunks(event.player.getCommandSenderName())) {
-                        int baseX = (chunkInt.chunkXPos << 4) + (dimWorld.rand.nextInt(16));
-                        int baseZ = (chunkInt.chunkZPos << 4) + (dimWorld.rand.nextInt(16));
-                        int baseY = dimWorld.getTopSolidOrLiquidBlock(baseX, baseZ) + 2;
-                        if (baseY >= 128) {
-                            continue;
-                        }
-                        BoundItemState boundItemState = new BoundItemState(baseX, baseY, baseZ, dimID, true);
-                        String name = String.valueOf(dimID) + String.valueOf(baseX) + String.valueOf(baseY) + String.valueOf(baseZ) + event.itemStack.getUnlocalizedName() + event.itemStack.getDisplayName() + event.itemStack.getItemDamage() + event.player.getCommandSenderName();
-                        if (dimWorld.isAirBlock(baseX, baseY, baseZ)) {
-                            RandomUtils.checkAndSetCompound(event.itemStack);
-                            if (BoundItems.getBoundItems().addItem(name, boundItemState)) {
-                                dimWorld.setBlock(baseX, baseY, baseZ, BlocksRegistry.boundItem);
-                                event.itemStack.stackTagCompound.setString("SavedItemName", name);
-                                if (dimWorld.getTileEntity(baseX, baseY, baseZ) != null && dimWorld.getTileEntity(baseX, baseY, baseZ) instanceof TileItemSNPart) {
-                                    TileItemSNPart tile = (TileItemSNPart) dimWorld.getTileEntity(baseX, baseY, baseZ);
-                                    tile.setInventorySlotContents(0, event.itemStack.copy());
-                                    tile.getCustomNBTTag().setString("SavedItemName", name);
-                                    dimWorld.markBlockForUpdate(baseX, baseY, baseZ);
-                                }
+        if (!event.player.worldObj.isRemote) {
+            int dimID = ConfigHandler.snDimID;
+            WorldServer dimWorld = MinecraftServer.getServer().worldServerForDimension(dimID);
+            if (ClaimedChunks.getClaimedChunks().getLinkedChunks(event.player.getCommandSenderName()) != null) {
+                for (ChunkIntPairSerializable chunkInt : ClaimedChunks.getClaimedChunks().getLinkedChunks(event.player.getCommandSenderName())) {
+                    int baseX = (chunkInt.chunkXPos << 4) + (dimWorld.rand.nextInt(16));
+                    int baseZ = (chunkInt.chunkZPos << 4) + (dimWorld.rand.nextInt(16));
+                    int baseY = dimWorld.getTopSolidOrLiquidBlock(baseX, baseZ) + 2;
+                    if (baseY >= 128) {
+                        continue;
+                    }
+                    BoundItemState boundItemState = new BoundItemState(baseX, baseY, baseZ, dimID, true);
+                    String name = String.valueOf(dimID) + String.valueOf(baseX) + String.valueOf(baseY) + String.valueOf(baseZ) + event.itemStack.getUnlocalizedName() + event.itemStack.getDisplayName() + event.itemStack.getItemDamage() + event.player.getCommandSenderName();
+                    if (dimWorld.isAirBlock(baseX, baseY, baseZ)) {
+                        RandomUtils.checkAndSetCompound(event.itemStack);
+                        if (BoundItems.getBoundItems().addItem(name, boundItemState)) {
+                            dimWorld.setBlock(baseX, baseY, baseZ, BlocksRegistry.boundItem);
+                            event.itemStack.stackTagCompound.setString("SavedItemName", name);
+                            if (dimWorld.getTileEntity(baseX, baseY, baseZ) != null && dimWorld.getTileEntity(baseX, baseY, baseZ) instanceof TileItemSNPart) {
+                                TileItemSNPart tile = (TileItemSNPart) dimWorld.getTileEntity(baseX, baseY, baseZ);
+                                tile.setInventorySlotContents(0, event.itemStack.copy());
+                                tile.getCustomNBTTag().setString("SavedItemName", name);
+                                dimWorld.markBlockForUpdate(baseX, baseY, baseZ);
                             }
                         }
-                        event.player.addChatComponentMessage(new ChatComponentText(StatCollector.translateToLocal("chat.Sanguimancy.added.success")));
-                        break;
                     }
-                } else {
-                    event.player.addChatComponentMessage(new ChatComponentText(StatCollector.translateToLocal("chat.Sanguimancy.added.fail")));
-                    event.setResult(Event.Result.DENY);
+                    event.player.addChatComponentMessage(new ChatComponentText(StatCollector.translateToLocal("chat.Sanguimancy.added.success")));
+                    break;
                 }
+            } else {
+                event.player.addChatComponentMessage(new ChatComponentText(StatCollector.translateToLocal("chat.Sanguimancy.added.fail")));
+                event.setResult(Event.Result.DENY);
             }
+
         }
     }
 
     @SubscribeEvent
     public void onItemDrainNetwork(ItemDrainNetworkEvent event) {
-        if (ConfigHandler.enableSoulManifestationSystem) {
-            if (!event.player.worldObj.isRemote && event.itemStack != null) {
-                if (event.itemStack.stackTagCompound.hasKey("SavedItemName")) {
-                    String name = event.itemStack.stackTagCompound.getString("SavedItemName");
-                    if (!BoundItems.getBoundItems().hasKey(name)) {
-                        event.player.addChatComponentMessage(new ChatComponentText(StatCollector.translateToLocal("chat.Sanguimancy.removed")));
-                        RandomUtils.unbindItemStack(event.itemStack);
-                        event.setResult(Event.Result.DENY);
-                    } else if (!BoundItems.getBoundItems().getLinkedLocation(name).activated) {
-                        event.player.addChatComponentMessage(new ChatComponentText(StatCollector.translateToLocal("chat.Sanguimancy.deactivated")));
-                        event.setResult(Event.Result.DENY);
-                    }
-                } else {
+        if (!event.player.worldObj.isRemote && event.itemStack != null) {
+            if (event.itemStack.stackTagCompound.hasKey("SavedItemName")) {
+                String name = event.itemStack.stackTagCompound.getString("SavedItemName");
+                if (!BoundItems.getBoundItems().hasKey(name)) {
+                    event.player.addChatComponentMessage(new ChatComponentText(StatCollector.translateToLocal("chat.Sanguimancy.removed")));
+                    RandomUtils.unbindItemStack(event.itemStack);
+                    event.setResult(Event.Result.DENY);
+                } else if (!BoundItems.getBoundItems().getLinkedLocation(name).activated) {
+                    event.player.addChatComponentMessage(new ChatComponentText(StatCollector.translateToLocal("chat.Sanguimancy.deactivated")));
                     event.setResult(Event.Result.DENY);
                 }
+            } else {
+                event.setResult(Event.Result.DENY);
             }
         }
     }
 
     @SubscribeEvent
     public void onItemAddToNetwork(PlayerAddToNetworkEvent event) {
-        if (ConfigHandler.enableSoulManifestationSystem) {
-            if (!event.player.worldObj.isRemote && event.itemStack != null) {
-                if (event.itemStack.stackTagCompound.hasKey("SavedItemName")) {
-                    String name = event.itemStack.stackTagCompound.getString("SavedItemName");
-                    if (!BoundItems.getBoundItems().hasKey(name)) {
-                        event.player.addChatComponentMessage(new ChatComponentText(StatCollector.translateToLocal("chat.Sanguimancy.removed")));
-                        event.setResult(Event.Result.DENY);
-                    } else if (!BoundItems.getBoundItems().getLinkedLocation(name).activated) {
-                        event.player.addChatComponentMessage(new ChatComponentText(StatCollector.translateToLocal("chat.Sanguimancy.deactivated")));
-                        event.setResult(Event.Result.DENY);
-                    }
-                } else {
+        if (!event.player.worldObj.isRemote && event.itemStack != null) {
+            if (event.itemStack.stackTagCompound.hasKey("SavedItemName")) {
+                String name = event.itemStack.stackTagCompound.getString("SavedItemName");
+                if (!BoundItems.getBoundItems().hasKey(name)) {
+                    event.player.addChatComponentMessage(new ChatComponentText(StatCollector.translateToLocal("chat.Sanguimancy.removed")));
+                    event.setResult(Event.Result.DENY);
+                } else if (!BoundItems.getBoundItems().getLinkedLocation(name).activated) {
+                    event.player.addChatComponentMessage(new ChatComponentText(StatCollector.translateToLocal("chat.Sanguimancy.deactivated")));
                     event.setResult(Event.Result.DENY);
                 }
+            } else {
+                event.setResult(Event.Result.DENY);
             }
         }
     }
 
     @SubscribeEvent
     public void onRitualStart(RitualActivatedEvent event) {
-        if (ConfigHandler.enableSoulManifestationSystem) {
-            if (!event.player.worldObj.isRemote) {
-                int dimID = ConfigHandler.snDimID;
-                WorldServer dimWorld = MinecraftServer.getServer().worldServerForDimension(dimID);
-                if (ClaimedChunks.getClaimedChunks().getLinkedChunks(event.player.getCommandSenderName()) != null) {
-                    for (ChunkIntPairSerializable chunkInt : ClaimedChunks.getClaimedChunks().getLinkedChunks(event.player.getCommandSenderName())) {
-                        int baseX = (chunkInt.chunkXPos << 4) + (dimWorld.rand.nextInt(16));
-                        int baseZ = (chunkInt.chunkZPos << 4) + (dimWorld.rand.nextInt(16));
-                        int baseY = dimWorld.getTopSolidOrLiquidBlock(baseX, baseZ) + 2;
-                        if (baseY >= 128) {
-                            continue;
-                        }
-                        if (dimWorld.isAirBlock(baseX, baseY, baseZ)) {
-                            dimWorld.setBlock(baseX, baseY, baseZ, BlocksRegistry.ritualRepresentation);
-                            if (dimWorld.getTileEntity(baseX, baseY, baseZ) != null && dimWorld.getTileEntity(baseX, baseY, baseZ) instanceof TileRitualSNPart) {
-                                TileRitualSNPart part = (TileRitualSNPart) dimWorld.getTileEntity(baseX, baseY, baseZ);
-                                part.ritualPosition = new BlockPostition(event.mrs.getXCoord(), event.mrs.getYCoord(), event.mrs.getZCoord());
-                            }
-                        }
-                        event.player.addChatComponentMessage(new ChatComponentText(StatCollector.translateToLocal("chat.Sanguimancy.added.success")));
-                        break;
+        if (!event.player.worldObj.isRemote) {
+            int dimID = ConfigHandler.snDimID;
+            WorldServer dimWorld = MinecraftServer.getServer().worldServerForDimension(dimID);
+            if (ClaimedChunks.getClaimedChunks().getLinkedChunks(event.player.getCommandSenderName()) != null) {
+                for (ChunkIntPairSerializable chunkInt : ClaimedChunks.getClaimedChunks().getLinkedChunks(event.player.getCommandSenderName())) {
+                    int baseX = (chunkInt.chunkXPos << 4) + (dimWorld.rand.nextInt(16));
+                    int baseZ = (chunkInt.chunkZPos << 4) + (dimWorld.rand.nextInt(16));
+                    int baseY = dimWorld.getTopSolidOrLiquidBlock(baseX, baseZ) + 2;
+                    if (baseY >= 128) {
+                        continue;
                     }
-                } else {
-                    event.player.addChatComponentMessage(new ChatComponentText(StatCollector.translateToLocal("chat.Sanguimancy.added.fail")));
-                    event.setResult(Event.Result.DENY);
+                    if (dimWorld.isAirBlock(baseX, baseY, baseZ)) {
+                        dimWorld.setBlock(baseX, baseY, baseZ, BlocksRegistry.ritualRepresentation);
+                        if (dimWorld.getTileEntity(baseX, baseY, baseZ) != null && dimWorld.getTileEntity(baseX, baseY, baseZ) instanceof TileRitualSNPart) {
+                            TileRitualSNPart part = (TileRitualSNPart) dimWorld.getTileEntity(baseX, baseY, baseZ);
+                            part.ritualPosition = new BlockPostition(event.mrs.getXCoord(), event.mrs.getYCoord(), event.mrs.getZCoord());
+                        }
+                    }
+                    event.player.addChatComponentMessage(new ChatComponentText(StatCollector.translateToLocal("chat.Sanguimancy.added.success")));
+                    break;
                 }
-
+            } else {
+                event.player.addChatComponentMessage(new ChatComponentText(StatCollector.translateToLocal("chat.Sanguimancy.added.fail")));
+                event.setResult(Event.Result.DENY);
             }
+
         }
     }
 
