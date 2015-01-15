@@ -382,7 +382,11 @@ public class RandomUtils {
     }
 
     public static void setLogToPlank() {
-        ArrayList<ItemStack> arrayList = OreDictionary.getOres("plankWood");
+        getCraftingRecipeForOreDictItem("plankWood", logToPlank);
+    }
+
+    public static void getCraftingRecipeForOreDictItem(String ore, HashMap<MapKey, ItemStack> map) {
+        ArrayList<ItemStack> arrayList = OreDictionary.getOres(ore);
         for (Object o : CraftingManager.getInstance().getRecipeList()) {
             IRecipe recipe = (IRecipe) o;
             ItemStack output = recipe.getRecipeOutput();
@@ -406,7 +410,7 @@ public class RandomUtils {
                     ItemStack plank = output.copy();
                     plank.stackSize = 1;
                     if (log != null) {
-                        logToPlank.put(new MapKey(log.copy()), plank);
+                        map.put(new MapKey(log.copy()), plank);
                     }
                 }
             }
@@ -430,7 +434,6 @@ public class RandomUtils {
         }
         return modTag;
     }
-
 
     public static class SanguimancyItemStacks {
 

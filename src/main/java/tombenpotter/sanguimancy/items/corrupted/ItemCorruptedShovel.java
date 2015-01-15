@@ -26,6 +26,7 @@ import tombenpotter.sanguimancy.Sanguimancy;
 import tombenpotter.sanguimancy.api.objects.BlockAndMetadata;
 import tombenpotter.sanguimancy.api.soulCorruption.SoulCorruptionHelper;
 import tombenpotter.sanguimancy.registry.ItemsRegistry;
+import tombenpotter.sanguimancy.util.ConfigHandler;
 import tombenpotter.sanguimancy.util.RandomUtils;
 
 import java.util.ArrayList;
@@ -34,7 +35,7 @@ import java.util.List;
 
 public class ItemCorruptedShovel extends ItemSpade {
 
-    public int minimumCorruption = 200;
+    public int minimumCorruption = ConfigHandler.minimumToolCorruption;
     private HashMap<BlockAndMetadata, BlockAndMetadata> breakdownBlocks = new HashMap<BlockAndMetadata, BlockAndMetadata>();
     private HashMap<BlockAndMetadata, BlockAndMetadata> transmuteBlocks = new HashMap<BlockAndMetadata, BlockAndMetadata>();
 
@@ -82,7 +83,9 @@ public class ItemCorruptedShovel extends ItemSpade {
                 EntityPlayer player = (EntityPlayer) entityLivingBase;
                 EnergyItems.syphonBatteries(stack, player, lpConsumption);
                 if (getToolMode(stack) != 0) {
-                    SoulCorruptionHelper.incrementCorruption(RandomUtils.getItemOwner(stack));
+                    if (world.rand.nextInt(20) == 0) {
+                        SoulCorruptionHelper.incrementCorruption(RandomUtils.getItemOwner(stack));
+                    }
                 }
             }
         }
@@ -264,7 +267,9 @@ public class ItemCorruptedShovel extends ItemSpade {
             }
             EnergyItems.syphonBatteries(stack, player, lpConsumption);
             if (getToolMode(stack) != 0) {
-                SoulCorruptionHelper.incrementCorruption(RandomUtils.getItemOwner(stack));
+                if (world.rand.nextInt(20) == 0) {
+                    SoulCorruptionHelper.incrementCorruption(RandomUtils.getItemOwner(stack));
+                }
             }
         }
     }

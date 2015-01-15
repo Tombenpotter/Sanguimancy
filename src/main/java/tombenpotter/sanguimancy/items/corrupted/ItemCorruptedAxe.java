@@ -23,12 +23,13 @@ import net.minecraftforge.event.entity.living.LivingDropsEvent;
 import tombenpotter.sanguimancy.Sanguimancy;
 import tombenpotter.sanguimancy.api.objects.MapKey;
 import tombenpotter.sanguimancy.api.soulCorruption.SoulCorruptionHelper;
+import tombenpotter.sanguimancy.util.ConfigHandler;
 import tombenpotter.sanguimancy.util.RandomUtils;
 
 import java.util.List;
 
 public class ItemCorruptedAxe extends ItemAxe {
-    public int minimumCorruption = 200;
+    public int minimumCorruption = ConfigHandler.minimumToolCorruption;
 
     public ItemCorruptedAxe(ToolMaterial material) {
         super(material);
@@ -90,7 +91,9 @@ public class ItemCorruptedAxe extends ItemAxe {
                 EntityPlayer player = (EntityPlayer) entityLivingBase;
                 EnergyItems.syphonBatteries(stack, player, lpConsumption);
                 if (getToolMode(stack) != 0) {
-                    SoulCorruptionHelper.incrementCorruption(RandomUtils.getItemOwner(stack));
+                    if (world.rand.nextInt(20) == 0) {
+                        SoulCorruptionHelper.incrementCorruption(RandomUtils.getItemOwner(stack));
+                    }
                 }
             }
         }
@@ -180,8 +183,10 @@ public class ItemCorruptedAxe extends ItemAxe {
         if (attacker instanceof EntityPlayer) {
             EntityPlayer player = (EntityPlayer) attacker;
             EnergyItems.syphonBatteries(stack, player, 100);
-            if (getToolMode(stack) != 0) {
-                SoulCorruptionHelper.incrementCorruption(RandomUtils.getItemOwner(stack));
+            if (getToolMode(stack) == 2) {
+                if (player.worldObj.rand.nextInt(20) == 0) {
+                    SoulCorruptionHelper.incrementCorruption(RandomUtils.getItemOwner(stack));
+                }
             }
             return true;
         }
@@ -214,7 +219,9 @@ public class ItemCorruptedAxe extends ItemAxe {
             EntityPlayer player = (EntityPlayer) event.source.getEntity();
             if (player.getHeldItem() != null && player.getHeldItem().getItem() instanceof ItemCorruptedAxe) {
                 int corruption = SoulCorruptionHelper.getCorruptionLevel(RandomUtils.getItemOwner(player.getHeldItem()));
-                if (player.worldObj.rand.nextInt(50 * (minimumCorruption / corruption)) == 0 && getSkullDrop(event.entityLiving) != null) {
+                int chance = 100 * (minimumCorruption / corruption);
+                if (chance < 1) chance = 1;
+                if (player.worldObj.rand.nextInt(chance) == 0 && getSkullDrop(event.entityLiving) != null) {
                     RandomUtils.dropItemStackInWorld(event.entityLiving.worldObj, event.entityLiving.posX, event.entityLiving.posY, event.entityLiving.posZ, getSkullDrop(event.entityLiving).copy());
                 }
             }

@@ -24,11 +24,12 @@ public class ConfigHandler {
     public static boolean enablePump;
     public static boolean enableQuarry;
     public static boolean enablePortal;
+    public static boolean messagesWhenCorruptionEffect;
+    public static boolean firstClaimedChunkFree;
     public static int snDimID;
     public static int addHeartPotionID;
     public static int removeHeartPotionID;
-    public static boolean messagesWhenCorruptionEffect;
-    public static boolean firstClaimedChunkFree;
+    public static int minimumToolCorruption;
 
     public static void init(File file) {
         config = new Configuration(file);
@@ -63,6 +64,7 @@ public class ConfigHandler {
 
         //Balance
         firstClaimedChunkFree = config.get(balancing, "firstClaimedChunkForFree", true).getBoolean(firstClaimedChunkFree);
+        minimumToolCorruption = config.get(balancing, "minimumCorruptionForTools", 200).getInt(minimumToolCorruption);
 
         config.save();
     }

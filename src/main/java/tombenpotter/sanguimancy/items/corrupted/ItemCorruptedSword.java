@@ -22,6 +22,7 @@ import net.minecraft.world.World;
 import tombenpotter.sanguimancy.Sanguimancy;
 import tombenpotter.sanguimancy.api.soulCorruption.SoulCorruptionHelper;
 import tombenpotter.sanguimancy.registry.PotionsRegistry;
+import tombenpotter.sanguimancy.util.ConfigHandler;
 import tombenpotter.sanguimancy.util.RandomUtils;
 
 import java.util.List;
@@ -29,7 +30,7 @@ import java.util.List;
 public class ItemCorruptedSword extends Item {
 
     public float baseDamage;
-    public int minimumCorruption = 200;
+    public int minimumCorruption = ConfigHandler.minimumToolCorruption;
     public IIcon activated;
 
     public ItemCorruptedSword(int damage) {
@@ -88,7 +89,9 @@ public class ItemCorruptedSword extends Item {
                 if (amplifier > 15) amplifier = 15;
                 targetPlayer.addPotionEffect(new PotionEffect(PotionsRegistry.potionRemoveHeart.id, 1200, amplifier, false));
                 attackerPlayer.addPotionEffect(new PotionEffect(PotionsRegistry.potionAddHeart.id, 1200, amplifier, false));
-                SoulCorruptionHelper.incrementCorruption(RandomUtils.getItemOwner(stack));
+                if (attackerPlayer.worldObj.rand.nextInt(20) == 0) {
+                    SoulCorruptionHelper.incrementCorruption(RandomUtils.getItemOwner(stack));
+                }
                 EnergyItems.syphonBatteries(stack, attackerPlayer, 50 * amplifier);
             }
             EnergyItems.syphonBatteries(stack, attackerPlayer, 10);
