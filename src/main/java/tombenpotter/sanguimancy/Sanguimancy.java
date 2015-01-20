@@ -5,7 +5,6 @@ import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
-import cpw.mods.fml.common.event.FMLInterModComms;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkRegistry;
@@ -16,6 +15,7 @@ import net.minecraftforge.common.MinecraftForge;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import tombenpotter.sanguimancy.compat.computercraft.PeripheralProvider;
+import tombenpotter.sanguimancy.compat.waila.WailaCompatRegistry;
 import tombenpotter.sanguimancy.network.PacketHandler;
 import tombenpotter.sanguimancy.proxies.CommonProxy;
 import tombenpotter.sanguimancy.registry.*;
@@ -79,12 +79,7 @@ public class Sanguimancy {
         FMLCommonHandler.instance().bus().register(new EventHandler());
         MinecraftForge.EVENT_BUS.register(new EventHandler());
         PacketHandler.registerPackets();
-        if (Loader.isModLoaded("Waila")) {
-            FMLInterModComms.sendMessage("Waila", "register", "tombenpotter.sanguimancy.compat.waila.WailaCorruptionCrystallizer.register");
-            FMLInterModComms.sendMessage("Waila", "register", "tombenpotter.sanguimancy.compat.waila.WailaAltarDiviner.register");
-            FMLInterModComms.sendMessage("Waila", "register", "tombenpotter.sanguimancy.compat.waila.WailaAltarEmitter.register");
-            FMLInterModComms.sendMessage("Waila", "register", "tombenpotter.sanguimancy.compat.waila.WailaBloodTank.register");
-        }
+        if (Loader.isModLoaded("Waila")) WailaCompatRegistry.register();
         NetworkRegistry.INSTANCE.registerGuiHandler(this, proxy);
     }
 

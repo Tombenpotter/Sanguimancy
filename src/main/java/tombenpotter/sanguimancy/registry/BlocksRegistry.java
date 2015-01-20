@@ -26,12 +26,12 @@ public class BlocksRegistry {
     public static Block bloodstoneSlab;
     public static Block largeBloodstoneSlab;
     public static Block bloodInterface;
-
     public static Block simpleKnot;
     public static Block toggleKnot;
     public static Block simpleBranch;
     public static Block boundItem;
     public static Block ritualRepresentation;
+    public static Block etherealBlock;
 
     public static void registerBlocks() {
         altarDiviner = new BlockAltarDiviner(Material.iron);
@@ -87,5 +87,8 @@ public class BlocksRegistry {
 
         ritualRepresentation = new BlockRitualSNPart(Material.iron);
         GameRegistry.registerBlock(ritualRepresentation, "BlockRitualRepresentation").setBlockName(Sanguimancy.modid + ".ritualRepresentation");
+
+        etherealBlock = new BlockEthereal(Material.iron);
+        GameRegistry.registerBlock(etherealBlock, "BlockEthereal").setBlockName(Sanguimancy.modid + ".etherealBlock");
     }
 }
