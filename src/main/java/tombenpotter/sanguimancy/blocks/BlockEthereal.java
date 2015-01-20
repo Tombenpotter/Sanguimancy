@@ -8,6 +8,7 @@ import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import tombenpotter.sanguimancy.Sanguimancy;
 import tombenpotter.sanguimancy.entity.EntityChickenMinion;
@@ -30,9 +31,15 @@ public class BlockEthereal extends Block {
 
     @Override
     public void addCollisionBoxesToList(World world, int x, int y, int z, AxisAlignedBB mask, List list, Entity entity) {
-        if (entity != null && (entity instanceof EntityPlayer && !entity.isSneaking() || entity instanceof EntityChickenMinion)) {
+        if (entity != null && ((entity instanceof EntityPlayer && !entity.isSneaking()) || entity instanceof EntityChickenMinion)) {
+            return;
         } else {
             super.addCollisionBoxesToList(world, x, y, z, mask, list, entity);
         }
+    }
+
+    @Override
+    public boolean getBlocksMovement(IBlockAccess access, int x, int y, int z) {
+        return false;
     }
 }
