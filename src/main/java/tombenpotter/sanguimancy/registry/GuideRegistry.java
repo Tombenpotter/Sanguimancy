@@ -12,7 +12,7 @@ import tombenpotter.sanguimancy.api.bloodutils.api.entries.*;
 import tombenpotter.sanguimancy.api.bloodutils.api.registries.EntryRegistry;
 import tombenpotter.sanguimancy.recipes.RecipeBloodCleanser;
 import tombenpotter.sanguimancy.recipes.RecipeCorruptedInfusion;
-import tombenpotter.sanguimancy.util.RandomUtils;
+import tombenpotter.sanguimancy.util.SanguimancyItemStacks;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -32,11 +32,11 @@ public class GuideRegistry {
     public static Entry sacrificeMagic, soulCorruption, soulProtection, corruptionApplications;
 
     public static void createCategories() {
-        categorySanguimancyLore = new Category(StatCollector.translateToLocal("guide.Sanguimancy.category.lore"), RandomUtils.SanguimancyItemStacks.attunnedPlayerSacrificer);
+        categorySanguimancyLore = new Category(StatCollector.translateToLocal("guide.Sanguimancy.category.lore"), SanguimancyItemStacks.attunnedPlayerSacrificer);
         EntryRegistry.registerCategories(categorySanguimancyLore);
-        categorySanguimancyItems = new Category(StatCollector.translateToLocal("guide.Sanguimancy.category.items"), RandomUtils.SanguimancyItemStacks.corruptedSword);
+        categorySanguimancyItems = new Category(StatCollector.translateToLocal("guide.Sanguimancy.category.items"), SanguimancyItemStacks.corruptedSword);
         EntryRegistry.registerCategories(categorySanguimancyItems);
-        categorySanguimancyBlocks = new Category(StatCollector.translateToLocal("guide.Sanguimancy.category.blocks"), RandomUtils.SanguimancyItemStacks.lumpCleaner);
+        categorySanguimancyBlocks = new Category(StatCollector.translateToLocal("guide.Sanguimancy.category.blocks"), SanguimancyItemStacks.lumpCleaner);
         EntryRegistry.registerCategories(categorySanguimancyBlocks);
         categorySanguimancyRituals = new Category(StatCollector.translateToLocal("guide.Sanguimancy.category.rituals"), new ItemStack(ModBlocks.blockMasterStone));
         EntryRegistry.registerCategories(categorySanguimancyRituals);
@@ -51,13 +51,13 @@ public class GuideRegistry {
 
     public static void createItemEntries() {
         ArrayList<IEntry> bloodAmuletEntries = new ArrayList<IEntry>();
-        bloodAmuletEntries.addAll(entriesForLongText("guide.Sanguimancy.entry.bloodAmulet", RandomUtils.SanguimancyItemStacks.bloodAmulet));
+        bloodAmuletEntries.addAll(entriesForLongText("guide.Sanguimancy.entry.bloodAmulet", SanguimancyItemStacks.bloodAmulet));
         bloodAmuletEntries.add(new EntryCraftingRecipe(RecipesRegistry.bloodAmulet));
         bloodAmulet = new Entry(bloodAmuletEntries, "\u00A79" + StatCollector.translateToLocal("item.Sanguimancy.bloodAmulet.name"), 1);
         EntryRegistry.registerEntry(categorySanguimancyItems, items, bloodAmulet);
 
         ArrayList<IEntry> chunkClaimerEntries = new ArrayList<IEntry>();
-        chunkClaimerEntries.addAll(entriesForLongText("guide.Sanguimancy.entry.chunkClaimer", RandomUtils.SanguimancyItemStacks.chunkClaimer));
+        chunkClaimerEntries.addAll(entriesForLongText("guide.Sanguimancy.entry.chunkClaimer", SanguimancyItemStacks.chunkClaimer));
         chunkClaimerEntries.add(new EntryCraftingRecipe(RecipesRegistry.chunkClaimer));
         chunkClaimer = new Entry(chunkClaimerEntries, "\u00A79" + StatCollector.translateToLocal("item.Sanguimancy.chunkClaimer.name"), 1);
         EntryRegistry.registerEntry(categorySanguimancyItems, items, chunkClaimer);
@@ -65,13 +65,13 @@ public class GuideRegistry {
         ArrayList<IEntry> craftingItemsEntries = new ArrayList<IEntry>();
         craftingItemsEntries.addAll(entriesForLongText("guide.Sanguimancy.entry.craftingItems"));
         craftingItemsEntries.add(new EntryCorruptionRecipe(RecipesRegistry.corruptedDemonShard));
-        craftingItemsEntries.add(new EntryBloodCleanserRecipe(RecipesRegistry.imbuedStick));
+        craftingItemsEntries.add(new EntryAltarRecipe(RecipesRegistry.imbuedStick));
         craftingItemsEntries.add(new EntryCraftingRecipe(RecipesRegistry.corruptedMineral));
         craftingItems = new Entry(craftingItemsEntries, "\u00A79" + StatCollector.translateToLocal("guide.Sanguimancy.entryName.craftingItems"), 1);
         EntryRegistry.registerEntry(categorySanguimancyItems, items, craftingItems);
 
         ArrayList<IEntry> corruptionCatalystEntries = new ArrayList<IEntry>();
-        corruptionCatalystEntries.addAll(entriesForLongText("guide.Sanguimancy.entry.corruptionCatalyst.1", RandomUtils.SanguimancyItemStacks.corruptionCatalist));
+        corruptionCatalystEntries.addAll(entriesForLongText("guide.Sanguimancy.entry.corruptionCatalyst.1", SanguimancyItemStacks.corruptionCatalist));
         corruptionCatalystEntries.add(new EntryAltarRecipe(RecipesRegistry.corruptionCatalyst));
         corruptionCatalystEntries.addAll(entriesForLongText("guide.Sanguimancy.entry.corruptionCatalyst.2"));
         for (RecipeCorruptedInfusion r : RecipeCorruptedInfusion.getAllRecipes()) {
@@ -81,13 +81,13 @@ public class GuideRegistry {
         EntryRegistry.registerEntry(categorySanguimancyItems, items, corruptionCatalyst);
 
         ArrayList<IEntry> corruptionReaderEntries = new ArrayList<IEntry>();
-        corruptionReaderEntries.addAll(entriesForLongText("guide.Sanguimancy.entry.corruptionReader", RandomUtils.SanguimancyItemStacks.corruptionReader));
+        corruptionReaderEntries.addAll(entriesForLongText("guide.Sanguimancy.entry.corruptionReader", SanguimancyItemStacks.corruptionReader));
         corruptionReaderEntries.add(new EntryCraftingRecipe(RecipesRegistry.corruptionReader));
         soulCorruptionReader = new Entry(corruptionReaderEntries, "\u00A79" + StatCollector.translateToLocal("item.Sanguimancy.soulCorruption.reader.name"), 1);
         EntryRegistry.registerEntry(categorySanguimancyItems, items, soulCorruptionReader);
 
         ArrayList<IEntry> oreLumpEntries = new ArrayList<IEntry>();
-        oreLumpEntries.addAll(entriesForLongText("guide.Sanguimancy.entry.oreLump", RandomUtils.SanguimancyItemStacks.oreLump));
+        oreLumpEntries.addAll(entriesForLongText("guide.Sanguimancy.entry.oreLump", SanguimancyItemStacks.oreLump));
         for (RecipeCorruptedInfusion r : RecipesRegistry.oreLumpRecipes) {
             oreLumpEntries.add(new EntryCorruptionRecipe(r));
         }
@@ -98,40 +98,40 @@ public class GuideRegistry {
         EntryRegistry.registerEntry(categorySanguimancyItems, items, oreLump);
 
         ArrayList<IEntry> playerSacrificingStonesEntries = new ArrayList<IEntry>();
-        playerSacrificingStonesEntries.addAll(entriesForLongText("guide.Sanguimancy.entry.sacrificingStones.1", RandomUtils.SanguimancyItemStacks.unattunedPlayerSacrificer));
+        playerSacrificingStonesEntries.addAll(entriesForLongText("guide.Sanguimancy.entry.sacrificingStones.1", SanguimancyItemStacks.unattunedPlayerSacrificer));
         playerSacrificingStonesEntries.add(new EntryCraftingRecipe(RecipesRegistry.unattunedPlayerSacrificer));
-        playerSacrificingStonesEntries.addAll(entriesForLongText("guide.Sanguimancy.entry.sacrificingStones.2", RandomUtils.SanguimancyItemStacks.attunnedPlayerSacrificer));
+        playerSacrificingStonesEntries.addAll(entriesForLongText("guide.Sanguimancy.entry.sacrificingStones.2", SanguimancyItemStacks.attunnedPlayerSacrificer));
         playerSacrificingStonesEntries.add(new EntryAltarRecipe(RecipesRegistry.attunedPlayerSacrificer));
-        playerSacrificingStonesEntries.addAll(entriesForLongText("guide.Sanguimancy.entry.sacrificingStones.3", RandomUtils.SanguimancyItemStacks.focusedPlayerSacrificer));
+        playerSacrificingStonesEntries.addAll(entriesForLongText("guide.Sanguimancy.entry.sacrificingStones.3", SanguimancyItemStacks.focusedPlayerSacrificer));
         playerSacrificers = new Entry(playerSacrificingStonesEntries, "\u00A79" + StatCollector.translateToLocal("Player Sacrificing Stones"), 1);
         EntryRegistry.registerEntry(categorySanguimancyItems, items, playerSacrificers);
 
         ArrayList<IEntry> wandEntries = new ArrayList<IEntry>();
-        wandEntries.addAll(entriesForLongText("guide.Sanguimancy.entry.wand", RandomUtils.SanguimancyItemStacks.wand));
+        wandEntries.addAll(entriesForLongText("guide.Sanguimancy.entry.wand", SanguimancyItemStacks.wand));
         wandEntries.add(new EntryCraftingRecipe(RecipesRegistry.wand));
         wand = new Entry(wandEntries, "\u00A79" + StatCollector.translateToLocal("item.Sanguimancy.spellWand.name"), 1);
         EntryRegistry.registerEntry(categorySanguimancyItems, items, wand);
 
         ArrayList<IEntry> corruptedAxeEntries = new ArrayList<IEntry>();
-        corruptedAxeEntries.addAll(entriesForLongText("guide.Sanguimancy.entry.corruptedAxe", RandomUtils.SanguimancyItemStacks.corruptedAxe));
+        corruptedAxeEntries.addAll(entriesForLongText("guide.Sanguimancy.entry.corruptedAxe", SanguimancyItemStacks.corruptedAxe));
         corruptedAxeEntries.add(new EntryCraftingRecipe(RecipesRegistry.corruptedAxe));
         corruptedAxe = new Entry(corruptedAxeEntries, "\u00A79" + StatCollector.translateToLocal("item.Sanguimancy.corruptedAxe.name"), 1);
         EntryRegistry.registerEntry(categorySanguimancyItems, items, corruptedAxe);
 
         ArrayList<IEntry> corruptedPickaxeEntries = new ArrayList<IEntry>();
-        corruptedPickaxeEntries.addAll(entriesForLongText("guide.Sanguimancy.entry.corruptedPickaxe", RandomUtils.SanguimancyItemStacks.corruptedPickaxe));
+        corruptedPickaxeEntries.addAll(entriesForLongText("guide.Sanguimancy.entry.corruptedPickaxe", SanguimancyItemStacks.corruptedPickaxe));
         corruptedPickaxeEntries.add(new EntryCraftingRecipe(RecipesRegistry.corruptedPickaxe));
         corruptedPickaxe = new Entry(corruptedPickaxeEntries, "\u00A79" + StatCollector.translateToLocal("item.Sanguimancy.corruptedPickaxe.name"), 1);
         EntryRegistry.registerEntry(categorySanguimancyItems, items, corruptedPickaxe);
 
         ArrayList<IEntry> corruptedShovelEntries = new ArrayList<IEntry>();
-        corruptedShovelEntries.addAll(entriesForLongText("guide.Sanguimancy.entry.corruptedShovel", RandomUtils.SanguimancyItemStacks.corruptedShovel));
+        corruptedShovelEntries.addAll(entriesForLongText("guide.Sanguimancy.entry.corruptedShovel", SanguimancyItemStacks.corruptedShovel));
         corruptedShovelEntries.add(new EntryCraftingRecipe(RecipesRegistry.corruptedShovel));
         corruptedShovel = new Entry(corruptedShovelEntries, "\u00A79" + StatCollector.translateToLocal("item.Sanguimancy.corruptedShovel.name"), 1);
         EntryRegistry.registerEntry(categorySanguimancyItems, items, corruptedShovel);
 
         ArrayList<IEntry> corruptedSwordEntries = new ArrayList<IEntry>();
-        corruptedSwordEntries.addAll(entriesForLongText("guide.Sanguimancy.entry.corruptedSword", RandomUtils.SanguimancyItemStacks.corruptedSword));
+        corruptedSwordEntries.addAll(entriesForLongText("guide.Sanguimancy.entry.corruptedSword", SanguimancyItemStacks.corruptedSword));
         corruptedSwordEntries.add(new EntryCraftingRecipe(RecipesRegistry.corruptedSword));
         corruptedSword = new Entry(corruptedSwordEntries, "\u00A79" + StatCollector.translateToLocal("item.Sanguimancy.corruptedSword.name"), 1);
         EntryRegistry.registerEntry(categorySanguimancyItems, items, corruptedSword);
@@ -139,19 +139,19 @@ public class GuideRegistry {
 
     public static void createBlockEntries() {
         ArrayList<IEntry> altarDivinerEntries = new ArrayList<IEntry>();
-        altarDivinerEntries.addAll(entriesForLongText("guide.Sanguimancy.entry.altarDiviner", RandomUtils.SanguimancyItemStacks.altarDiviner));
+        altarDivinerEntries.addAll(entriesForLongText("guide.Sanguimancy.entry.altarDiviner", SanguimancyItemStacks.altarDiviner));
         altarDivinerEntries.add(new EntryAltarRecipe(RecipesRegistry.altarDiviner));
         altarDiviner = new Entry(altarDivinerEntries, "\u00A73" + StatCollector.translateToLocal("tile.Sanguimancy.altarDiviner.name"), 1);
         EntryRegistry.registerEntry(categorySanguimancyBlocks, blocks, altarDiviner);
 
         ArrayList<IEntry> altarEmitterEntries = new ArrayList<IEntry>();
-        altarEmitterEntries.addAll(entriesForLongText("guide.Sanguimancy.entry.altarEmitter", RandomUtils.SanguimancyItemStacks.altarEmitter));
+        altarEmitterEntries.addAll(entriesForLongText("guide.Sanguimancy.entry.altarEmitter", SanguimancyItemStacks.altarEmitter));
         altarEmitterEntries.add(new EntryCraftingRecipe(RecipesRegistry.altarEmitter));
         altarEmitter = new Entry(altarEmitterEntries, "\u00A73" + StatCollector.translateToLocal("tile.Sanguimancy.altarEmitter.name"), 1);
         EntryRegistry.registerEntry(categorySanguimancyBlocks, blocks, altarEmitter);
 
         ArrayList<IEntry> bloodInterfaceEntries = new ArrayList<IEntry>();
-        bloodInterfaceEntries.addAll(entriesForLongText("guide.Sanguimancy.entry.bloodInterface", RandomUtils.SanguimancyItemStacks.bloodInterface));
+        bloodInterfaceEntries.addAll(entriesForLongText("guide.Sanguimancy.entry.bloodInterface", SanguimancyItemStacks.bloodInterface));
         bloodInterfaceEntries.add(new EntryCraftingRecipe(RecipesRegistry.bloodInterface));
         bloodInterface = new Entry(bloodInterfaceEntries, "\u00A73" + StatCollector.translateToLocal("tile.Sanguimancy.interface.name"), 1);
         EntryRegistry.registerEntry(categorySanguimancyBlocks, blocks, bloodInterface);
@@ -165,31 +165,33 @@ public class GuideRegistry {
         EntryRegistry.registerEntry(categorySanguimancyBlocks, blocks, decorativeBlocks);
 
         ArrayList<IEntry> bloodTankEntries = new ArrayList<IEntry>();
-        bloodTankEntries.addAll(entriesForLongText("guide.Sanguimancy.entry.bloodTank", RandomUtils.SanguimancyItemStacks.bloodTank));
+        bloodTankEntries.addAll(entriesForLongText("guide.Sanguimancy.entry.bloodTank", SanguimancyItemStacks.bloodTank));
         bloodTankEntries.add(new EntryCraftingRecipe(RecipesRegistry.bloodTank));
         bloodTank = new Entry(bloodTankEntries, "\u00A73" + StatCollector.translateToLocal("tile.Sanguimancy.bloodTank.name"), 1);
         EntryRegistry.registerEntry(categorySanguimancyBlocks, blocks, bloodTank);
 
         ArrayList<IEntry> corruptionCrystallizerEntries = new ArrayList<IEntry>();
-        corruptionCrystallizerEntries.addAll(entriesForLongText("guide.Sanguimancy.entry.corruptionCrystallizer", RandomUtils.SanguimancyItemStacks.corruptionCrystallizer));
+        corruptionCrystallizerEntries.addAll(entriesForLongText("guide.Sanguimancy.entry.corruptionCrystallizer", SanguimancyItemStacks.corruptionCrystallizer));
         corruptionCrystallizerEntries.add(new EntryCraftingRecipe(RecipesRegistry.corruptionCrystallizer));
         corruptionCrystallizer = new Entry(corruptionCrystallizerEntries, "\u00A73" + StatCollector.translateToLocal("tile.Sanguimancy.corruptionCrystallizer.name"), 1);
         EntryRegistry.registerEntry(categorySanguimancyBlocks, blocks, corruptionCrystallizer);
 
         ArrayList<IEntry> manifestationsEntries = new ArrayList<IEntry>();
-        manifestationsEntries.addAll(entriesForLongText("guide.Sanguimancy.entry.itemManifestation", RandomUtils.SanguimancyItemStacks.boundItem));
-        manifestationsEntries.addAll(entriesForLongText("guide.Sanguimancy.entry.ritualManifestation", RandomUtils.SanguimancyItemStacks.ritualRepresentation));
-        manifestationsEntries.addAll(entriesForLongText("guide.Sanguimancy.entry.soulBranch", RandomUtils.SanguimancyItemStacks.simpleBranch));
+        manifestationsEntries.addAll(entriesForLongText("guide.Sanguimancy.entry.itemManifestation", SanguimancyItemStacks.boundItem));
+        manifestationsEntries.addAll(entriesForLongText("guide.Sanguimancy.entry.ritualManifestation", SanguimancyItemStacks.ritualRepresentation));
+        manifestationsEntries.addAll(entriesForLongText("guide.Sanguimancy.entry.etherealManifestation", SanguimancyItemStacks.etherealManifestation));
+        manifestationsEntries.add(new EntryAltarRecipe(RecipesRegistry.etherealManifestation));
+        manifestationsEntries.addAll(entriesForLongText("guide.Sanguimancy.entry.soulBranch", SanguimancyItemStacks.simpleBranch));
         manifestationsEntries.add(new EntryCraftingRecipe(RecipesRegistry.simpleBranch));
-        manifestationsEntries.addAll(entriesForLongText("guide.Sanguimancy.entry.simpleKnot", RandomUtils.SanguimancyItemStacks.simpleKnot));
+        manifestationsEntries.addAll(entriesForLongText("guide.Sanguimancy.entry.simpleKnot", SanguimancyItemStacks.simpleKnot));
         manifestationsEntries.add(new EntryCraftingRecipe(RecipesRegistry.simpleKnot));
-        manifestationsEntries.addAll(entriesForLongText("guide.Sanguimancy.entry.toggledKnot", RandomUtils.SanguimancyItemStacks.toggleKnot));
+        manifestationsEntries.addAll(entriesForLongText("guide.Sanguimancy.entry.toggledKnot", SanguimancyItemStacks.toggleKnot));
         manifestationsEntries.add(new EntryCraftingRecipe(RecipesRegistry.toggledKnot));
         manifestations = new Entry(manifestationsEntries, "\u00A73" + StatCollector.translateToLocal("guide.Sanguimancy.entryName.manifestations"), 1);
         EntryRegistry.registerEntry(categorySanguimancyBlocks, blocks, manifestations);
 
         ArrayList<IEntry> bloodCleanserEntries = new ArrayList<IEntry>();
-        bloodCleanserEntries.addAll(entriesForLongText("guide.Sanguimancy.entry.bloodCleanser", RandomUtils.SanguimancyItemStacks.lumpCleaner));
+        bloodCleanserEntries.addAll(entriesForLongText("guide.Sanguimancy.entry.bloodCleanser", SanguimancyItemStacks.lumpCleaner));
         bloodCleanserEntries.add(new EntryCraftingRecipe(RecipesRegistry.lumpCleaner));
         for (RecipeBloodCleanser r : RecipeBloodCleanser.getAllRecipes()) {
             bloodCleanserEntries.add(new EntryBloodCleanserRecipe(r));
@@ -198,7 +200,7 @@ public class GuideRegistry {
         EntryRegistry.registerEntry(categorySanguimancyBlocks, blocks, bloodCleanser);
 
         ArrayList<IEntry> soulTransferrerEntries = new ArrayList<IEntry>();
-        soulTransferrerEntries.addAll(entriesForLongText("guide.Sanguimancy.entry.soulTransferrer", RandomUtils.SanguimancyItemStacks.sacrificeTransferrer));
+        soulTransferrerEntries.addAll(entriesForLongText("guide.Sanguimancy.entry.soulTransferrer", SanguimancyItemStacks.sacrificeTransferrer));
         soulTransferrerEntries.add(new EntryCraftingRecipe(RecipesRegistry.sacrificeTransferrer));
         soulTransferrer = new Entry(soulTransferrerEntries, "\u00A73" + StatCollector.translateToLocal("tile.Sanguimancy.sacrificeTransfer.name"), 1);
         EntryRegistry.registerEntry(categorySanguimancyBlocks, blocks, soulTransferrer);

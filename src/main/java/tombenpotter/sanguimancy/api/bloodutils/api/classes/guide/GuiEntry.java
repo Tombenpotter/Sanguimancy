@@ -53,8 +53,7 @@ public class GuiEntry extends GuiScreen {
 
         Entry e = EntryRegistry.entries.get(this.category).get(this.key);
         IEntry entry = e.entry[this.currPage - 1];
-        if (entry != null)
-            entry.initGui(gwidth, gheight, left, top, player, this.buttonList);
+        if (entry != null) entry.initGui(gwidth, gheight, left, top, player, this.buttonList);
     }
 
     @Override
@@ -82,8 +81,7 @@ public class GuiEntry extends GuiScreen {
     public void mouseClicked(int mX, int mY, int type) {
         super.mouseClicked(mX, mY, type);
 
-        if (type == 1)
-            mc.displayGuiScreen(new GuiIndex(this.category, this.player));
+        if (type == 1) mc.displayGuiScreen(new GuiIndex(this.category, this.player));
     }
 
     @Override
@@ -93,7 +91,6 @@ public class GuiEntry extends GuiScreen {
         if (Keyboard.getEventKeyState()) {
             if (i == 14) {
                 mc.displayGuiScreen(new GuiIndex(this.category, this.player));
-
                 return;
             }
         }

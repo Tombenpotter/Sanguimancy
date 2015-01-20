@@ -13,7 +13,6 @@ public class ItemsRegistry {
 
     public static Item playerSacrificer;
     public static Item soulCorruptionTest;
-    public static Item corruptedDemonShard;
     public static Item corruptionCatalyst;
     public static Item oreLump;
     public static Item bloodAmulet;
@@ -24,8 +23,7 @@ public class ItemsRegistry {
     public static Item corruptedShovel;
     public static Item corruptedAxe;
     public static Item playerGuide;
-    public static Item corruptedMineral;
-    public static Item imbuedStick;
+    public static Item resource;
 
     public static void registerItems() {
         playerSacrificer = new ItemPlayerSacrificer();
@@ -33,9 +31,6 @@ public class ItemsRegistry {
 
         soulCorruptionTest = new ItemSoulCorruptionTest();
         GameRegistry.registerItem(soulCorruptionTest, "soulCorruptionTest");
-
-        corruptedDemonShard = new ItemCorruptedDemonShard();
-        GameRegistry.registerItem(corruptedDemonShard, "corruptedDemonShard");
 
         corruptionCatalyst = new ItemCorruptionCatalyst();
         GameRegistry.registerItem(corruptionCatalyst, "corruptionCatalist");
@@ -67,10 +62,7 @@ public class ItemsRegistry {
         playerGuide = new ItemPlayerGuide();
         GameRegistry.registerItem(playerGuide, "playerGuide");
 
-        corruptedMineral = new ItemCorruptedMineral();
-        GameRegistry.registerItem(corruptedMineral, "corruptedMineral");
-
-        imbuedStick = new ItemImbuedStick();
-        GameRegistry.registerItem(imbuedStick, "imbuedStick");
+        resource = new ItemResource();
+        GameRegistry.registerItem(resource, "resource");
     }
 }

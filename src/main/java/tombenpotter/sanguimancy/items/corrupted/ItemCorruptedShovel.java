@@ -28,6 +28,7 @@ import tombenpotter.sanguimancy.api.soulCorruption.SoulCorruptionHelper;
 import tombenpotter.sanguimancy.registry.ItemsRegistry;
 import tombenpotter.sanguimancy.util.ConfigHandler;
 import tombenpotter.sanguimancy.util.RandomUtils;
+import tombenpotter.sanguimancy.util.SanguimancyItemStacks;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -239,7 +240,7 @@ public class ItemCorruptedShovel extends ItemSpade {
         int x = event.x;
         int y = event.y;
         int z = event.z;
-        if (stack != null && stack.isItemEqual(RandomUtils.SanguimancyItemStacks.corruptedShovel)) {
+        if (stack != null && stack.isItemEqual(SanguimancyItemStacks.corruptedShovel)) {
             int lpConsumption = 10;
             int toolMode = getToolMode(stack);
             if (toolMode == 1) {

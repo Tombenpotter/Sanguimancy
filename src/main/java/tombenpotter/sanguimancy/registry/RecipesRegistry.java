@@ -16,6 +16,7 @@ import tombenpotter.sanguimancy.compat.computercraft.PeripheralProvider;
 import tombenpotter.sanguimancy.recipes.RecipeBloodCleanser;
 import tombenpotter.sanguimancy.recipes.RecipeCorruptedInfusion;
 import tombenpotter.sanguimancy.util.RandomUtils;
+import tombenpotter.sanguimancy.util.SanguimancyItemStacks;
 import tombenpotter.sanguimancy.util.enums.ModList;
 
 import java.util.ArrayList;
@@ -25,54 +26,57 @@ public class RecipesRegistry {
     public static IRecipe altarEmitter, sacrificeTransferrer, corruptionReader, unattunedPlayerSacrificer, corruptionCrystallizer, bloodTank, lumpCleaner,
             bloodAmulet, bloodstoneStairs, largeBloodstoneStairs, bloodstoneSlab, largeBloodstoneSlab, chunkClaimer, wand, bloodInterface, simpleBranch,
             simpleKnot, toggledKnot, corruptedMineral, corruptedSword, corruptedPickaxe, corruptedShovel, corruptedAxe;
-    public static AltarRecipe altarDiviner, attunedPlayerSacrificer, corruptionCatalyst;
+    public static AltarRecipe altarDiviner, attunedPlayerSacrificer, corruptionCatalyst, imbuedStick, etherealManifestation;
     public static RecipeCorruptedInfusion poisonousPotato, rottenFlesh, crackedStoneBricks, bonemeal, soulSand, corruptedDemonShard, cobblestone, gravel, sand, dirt;
-    public static RecipeBloodCleanser imbuedStick;
     public static ArrayList<RecipeCorruptedInfusion> oreLumpRecipes = new ArrayList<RecipeCorruptedInfusion>();
     public static ArrayList<RecipeBloodCleanser> oreLumpCleansing = new ArrayList<RecipeBloodCleanser>();
 
     public static void registerShapedRecipes() {
-        GameRegistry.addShapelessRecipe(RandomUtils.SanguimancyItemStacks.playerGuide, Items.book, ModItems.divinationSigil);
-        altarEmitter = GameRegistry.addShapedRecipe(RandomUtils.SanguimancyItemStacks.altarEmitter, "XYX", "XZX", "XXX", 'X', Blocks.redstone_block, 'Y', Blocks.lever, 'Z', ModBlocks.blockAltar);
-        sacrificeTransferrer = GameRegistry.addShapedRecipe(RandomUtils.SanguimancyItemStacks.sacrificeTransferrer, "XAX", "YZY", "XYX", 'X', new ItemStack(ModItems.demonicSlate), 'A', new ItemStack(ModItems.lavaCrystal), 'Y', new ItemStack(Items.diamond), 'Z', new ItemStack(Blocks.heavy_weighted_pressure_plate));
-        corruptionReader = GameRegistry.addShapedRecipe(RandomUtils.SanguimancyItemStacks.corruptionReader, "AXA", "ZYB", "AXA", 'X', Blocks.soul_sand, 'Y', new ItemStack(ModItems.divinationSigil), 'Z', new ItemStack(Items.skull, 1, 1), 'A', Blocks.nether_brick, 'B', Items.ender_eye);
-        bloodstoneStairs = GameRegistry.addShapedRecipe(RandomUtils.SanguimancyItemStacks.bloodstoneStairs, "X  ", "XX ", "XXX", 'X', ModBlocks.bloodStoneBrick);
-        largeBloodstoneStairs = GameRegistry.addShapedRecipe(RandomUtils.SanguimancyItemStacks.largeBloodstoneStairs, "X  ", "XX ", "XXX", 'X', ModBlocks.largeBloodStoneBrick);
-        bloodstoneSlab = GameRegistry.addShapedRecipe(RandomUtils.SanguimancyItemStacks.bloodstoneSlab, "XXX", 'X', ModBlocks.bloodStoneBrick);
-        largeBloodstoneSlab = GameRegistry.addShapedRecipe(RandomUtils.SanguimancyItemStacks.largeBloodstoneSlab, "XXX", 'X', ModBlocks.largeBloodStoneBrick);
-        GameRegistry.addShapedRecipe(new ItemStack(ModBlocks.bloodStoneBrick), "X", "X", 'X', RandomUtils.SanguimancyItemStacks.bloodstoneSlab);
-        GameRegistry.addShapedRecipe(new ItemStack(ModBlocks.largeBloodStoneBrick), "X", "X", 'X', RandomUtils.SanguimancyItemStacks.largeBloodstoneSlab);
-        chunkClaimer = GameRegistry.addShapedRecipe(RandomUtils.SanguimancyItemStacks.chunkClaimer, " X ", "XYX", " X ", 'X', ModItems.demonicSlate, 'Y', RandomUtils.SanguimancyItemStacks.corruptedDemonShard);
-        wand = GameRegistry.addShapedRecipe(RandomUtils.SanguimancyItemStacks.wand, "XYX", "XZX", "XZX", 'X', ModItems.reinforcedSlate, 'Y', ModItems.itemComplexSpellCrystal, 'Z', Items.stick);
+        GameRegistry.addShapelessRecipe(SanguimancyItemStacks.playerGuide, Items.book, ModItems.divinationSigil);
+        altarEmitter = GameRegistry.addShapedRecipe(SanguimancyItemStacks.altarEmitter, "XYX", "XZX", "XXX", 'X', Blocks.redstone_block, 'Y', Blocks.lever, 'Z', ModBlocks.blockAltar);
+        sacrificeTransferrer = GameRegistry.addShapedRecipe(SanguimancyItemStacks.sacrificeTransferrer, "XAX", "YZY", "XYX", 'X', new ItemStack(ModItems.demonicSlate), 'A', new ItemStack(ModItems.lavaCrystal), 'Y', new ItemStack(Items.diamond), 'Z', new ItemStack(Blocks.heavy_weighted_pressure_plate));
+        corruptionReader = GameRegistry.addShapedRecipe(SanguimancyItemStacks.corruptionReader, "AXA", "ZYB", "AXA", 'X', Blocks.soul_sand, 'Y', new ItemStack(ModItems.divinationSigil), 'Z', new ItemStack(Items.skull, 1, 1), 'A', Blocks.nether_brick, 'B', Items.ender_eye);
+        bloodstoneStairs = GameRegistry.addShapedRecipe(SanguimancyItemStacks.bloodstoneStairs, "X  ", "XX ", "XXX", 'X', ModBlocks.bloodStoneBrick);
+        largeBloodstoneStairs = GameRegistry.addShapedRecipe(SanguimancyItemStacks.largeBloodstoneStairs, "X  ", "XX ", "XXX", 'X', ModBlocks.largeBloodStoneBrick);
+        bloodstoneSlab = GameRegistry.addShapedRecipe(SanguimancyItemStacks.bloodstoneSlab, "XXX", 'X', ModBlocks.bloodStoneBrick);
+        largeBloodstoneSlab = GameRegistry.addShapedRecipe(SanguimancyItemStacks.largeBloodstoneSlab, "XXX", 'X', ModBlocks.largeBloodStoneBrick);
+        GameRegistry.addShapedRecipe(new ItemStack(ModBlocks.bloodStoneBrick), "X", "X", 'X', SanguimancyItemStacks.bloodstoneSlab);
+        GameRegistry.addShapedRecipe(new ItemStack(ModBlocks.largeBloodStoneBrick), "X", "X", 'X', SanguimancyItemStacks.largeBloodstoneSlab);
+        chunkClaimer = GameRegistry.addShapedRecipe(SanguimancyItemStacks.chunkClaimer, " X ", "XYX", " X ", 'X', ModItems.demonicSlate, 'Y', SanguimancyItemStacks.corruptedDemonShard);
+        wand = GameRegistry.addShapedRecipe(SanguimancyItemStacks.wand, "XYX", "XZX", "XZX", 'X', ModItems.reinforcedSlate, 'Y', ModItems.itemComplexSpellCrystal, 'Z', Items.stick);
         simpleBranch = GameRegistry.addShapedRecipe(new ItemStack(BlocksRegistry.simpleBranch, 8), "XYX", "Z Z", "XYX", 'X', ModItems.blankSlate, 'Y', ModItems.reinforcedSlate, 'Z', Blocks.glass);
-        simpleKnot = GameRegistry.addShapedRecipe(RandomUtils.SanguimancyItemStacks.simpleKnot, " X ", "XYX", " X ", 'X', RandomUtils.SanguimancyItemStacks.simpleBranch, 'Y', ModItems.demonicSlate);
-        toggledKnot = GameRegistry.addShapedRecipe(RandomUtils.SanguimancyItemStacks.toggleKnot, " X ", "XYX", " X ", 'X', Items.redstone, 'Y', RandomUtils.SanguimancyItemStacks.simpleKnot);
-        corruptedMineral = GameRegistry.addShapedRecipe(RandomUtils.SanguimancyItemStacks.corruptedMineral, " X ", " Y ", "ZYA", 'X', new ItemStack(Items.skull, 1, 1), 'Y', Blocks.stone, 'Z', Items.diamond, 'A', Items.gold_ingot);
-        corruptedSword = GameRegistry.addShapedRecipe(RandomUtils.SanguimancyItemStacks.corruptedSword, " X ", " X ", " Y ", 'X', RandomUtils.SanguimancyItemStacks.corruptedMineral, 'Y', RandomUtils.SanguimancyItemStacks.imbuedStick);
-        corruptedPickaxe = GameRegistry.addShapedRecipe(RandomUtils.SanguimancyItemStacks.corruptedPickaxe, "XXX", " Y ", " Y ", 'X', RandomUtils.SanguimancyItemStacks.corruptedMineral, 'Y', RandomUtils.SanguimancyItemStacks.imbuedStick);
-        corruptedShovel = GameRegistry.addShapedRecipe(RandomUtils.SanguimancyItemStacks.corruptedShovel, " X ", " Y ", " Y ", 'X', RandomUtils.SanguimancyItemStacks.corruptedMineral, 'Y', RandomUtils.SanguimancyItemStacks.imbuedStick);
-        corruptedAxe = GameRegistry.addShapedRecipe(RandomUtils.SanguimancyItemStacks.corruptedAxe, "XX ", "XY ", " Y ", 'X', RandomUtils.SanguimancyItemStacks.corruptedMineral, 'Y', RandomUtils.SanguimancyItemStacks.imbuedStick);
+        simpleKnot = GameRegistry.addShapedRecipe(SanguimancyItemStacks.simpleKnot, " X ", "XYX", " X ", 'X', SanguimancyItemStacks.simpleBranch, 'Y', ModItems.demonicSlate);
+        toggledKnot = GameRegistry.addShapedRecipe(SanguimancyItemStacks.toggleKnot, " X ", "XYX", " X ", 'X', Items.redstone, 'Y', SanguimancyItemStacks.simpleKnot);
+        corruptedMineral = GameRegistry.addShapedRecipe(SanguimancyItemStacks.corruptedMineral, " X ", " Y ", "ZYA", 'X', new ItemStack(Items.skull, 1, 1), 'Y', Blocks.stone, 'Z', Items.diamond, 'A', Items.gold_ingot);
+        corruptedSword = GameRegistry.addShapedRecipe(SanguimancyItemStacks.corruptedSword, " X ", " X ", " Y ", 'X', SanguimancyItemStacks.corruptedMineral, 'Y', SanguimancyItemStacks.imbuedStick);
+        corruptedPickaxe = GameRegistry.addShapedRecipe(SanguimancyItemStacks.corruptedPickaxe, "XXX", " Y ", " Y ", 'X', SanguimancyItemStacks.corruptedMineral, 'Y', SanguimancyItemStacks.imbuedStick);
+        corruptedShovel = GameRegistry.addShapedRecipe(SanguimancyItemStacks.corruptedShovel, " X ", " Y ", " Y ", 'X', SanguimancyItemStacks.corruptedMineral, 'Y', SanguimancyItemStacks.imbuedStick);
+        corruptedAxe = GameRegistry.addShapedRecipe(SanguimancyItemStacks.corruptedAxe, "XX ", "XY ", " Y ", 'X', SanguimancyItemStacks.corruptedMineral, 'Y', SanguimancyItemStacks.imbuedStick);
     }
 
     public static void registerAltarRecipes() {
-        AltarRecipeRegistry.registerAltarRecipe(RandomUtils.SanguimancyItemStacks.altarDiviner, new ItemStack(ModBlocks.blockAltar), 3, 3000, 10, 10, false);
+        AltarRecipeRegistry.registerAltarRecipe(SanguimancyItemStacks.altarDiviner, new ItemStack(ModBlocks.blockAltar), 3, 3000, 10, 10, false);
         altarDiviner = RecipeRegistry.getLatestAltarRecipe();
-        AltarRecipeRegistry.registerAltarRecipe(RandomUtils.SanguimancyItemStacks.attunnedPlayerSacrificer, RandomUtils.SanguimancyItemStacks.unattunedPlayerSacrificer, 5, 30000, 10, 10, false);
+        AltarRecipeRegistry.registerAltarRecipe(SanguimancyItemStacks.attunnedPlayerSacrificer, SanguimancyItemStacks.unattunedPlayerSacrificer, 5, 30000, 10, 10, false);
         attunedPlayerSacrificer = RecipeRegistry.getLatestAltarRecipe();
-        AltarRecipeRegistry.registerAltarRecipe(RandomUtils.SanguimancyItemStacks.corruptionCatalist, new ItemStack(Items.skull, 1, 1), 3, 3000, 10, 10, false);
+        AltarRecipeRegistry.registerAltarRecipe(SanguimancyItemStacks.corruptionCatalist, new ItemStack(Items.skull, 1, 1), 3, 3000, 10, 10, false);
         corruptionCatalyst = RecipeRegistry.getLatestAltarRecipe();
+        AltarRecipeRegistry.registerAltarRecipe(SanguimancyItemStacks.imbuedStick, new ItemStack(Items.stick), 2, 3000, 10, 10, false);
+        imbuedStick = RecipeRegistry.getLatestAltarRecipe();
+        AltarRecipeRegistry.registerAltarRecipe(SanguimancyItemStacks.etherealManifestation, SanguimancyItemStacks.corruptionCatalist, 4, 6000, 10, 10, false);
+        etherealManifestation = RecipeRegistry.getLatestAltarRecipe();
     }
 
     public static void registerOrbRecipes() {
-        GameRegistry.addRecipe(new ShapedBloodOrbRecipe(RandomUtils.SanguimancyItemStacks.unattunedPlayerSacrificer, "XYX", "YOY", "XYX", 'X', new ItemStack(ModItems.demonicSlate), 'Y', new ItemStack(ModBlocks.emptySocket), 'O', new ItemStack(ModItems.archmageBloodOrb)));
+        GameRegistry.addRecipe(new ShapedBloodOrbRecipe(SanguimancyItemStacks.unattunedPlayerSacrificer, "XYX", "YOY", "XYX", 'X', new ItemStack(ModItems.demonicSlate), 'Y', new ItemStack(ModBlocks.emptySocket), 'O', new ItemStack(ModItems.archmageBloodOrb)));
         unattunedPlayerSacrificer = RecipeRegistry.getLatestCraftingRecipe();
-        GameRegistry.addRecipe(new ShapedBloodOrbRecipe(RandomUtils.SanguimancyItemStacks.corruptionCrystallizer, "XYX", "ZAZ", "XBX", 'X', new ItemStack(Blocks.obsidian), 'Y', new ItemStack(ModBlocks.bloodSocket), 'Z', new ItemStack(Blocks.diamond_block), 'A', RandomUtils.SanguimancyItemStacks.corruptedDemonShard, 'B', new ItemStack(ModItems.archmageBloodOrb)));
+        GameRegistry.addRecipe(new ShapedBloodOrbRecipe(SanguimancyItemStacks.corruptionCrystallizer, "XYX", "ZAZ", "XBX", 'X', new ItemStack(Blocks.obsidian), 'Y', new ItemStack(ModBlocks.bloodSocket), 'Z', new ItemStack(Blocks.diamond_block), 'A', SanguimancyItemStacks.corruptedDemonShard, 'B', new ItemStack(ModItems.archmageBloodOrb)));
         corruptionCrystallizer = RecipeRegistry.getLatestCraftingRecipe();
-        GameRegistry.addRecipe(new ShapedBloodOrbRecipe(RandomUtils.SanguimancyItemStacks.bloodTank, "XZX", "AYA", "XZX", 'X', new ItemStack(Blocks.stained_glass, 1, 14), 'Y', new ItemStack(ModItems.apprenticeBloodOrb), 'Z', new ItemStack(Blocks.obsidian), 'A', new ItemStack(ModItems.blankSlate)));
+        GameRegistry.addRecipe(new ShapedBloodOrbRecipe(SanguimancyItemStacks.bloodTank, "XZX", "AYA", "XZX", 'X', new ItemStack(Blocks.stained_glass, 1, 14), 'Y', new ItemStack(ModItems.apprenticeBloodOrb), 'Z', new ItemStack(Blocks.obsidian), 'A', new ItemStack(ModItems.blankSlate)));
         bloodTank = RecipeRegistry.getLatestCraftingRecipe();
-        GameRegistry.addRecipe(new ShapedBloodOrbRecipe(RandomUtils.SanguimancyItemStacks.lumpCleaner, "XXX", "YZY", "ABA", 'X', RandomUtils.SanguimancyItemStacks.oreLump, 'Y', RandomUtils.SanguimancyItemStacks.bloodTank, 'Z', new ItemStack(ModItems.masterBloodOrb), 'A', new ItemStack(Blocks.iron_block), 'B', new ItemStack(Blocks.diamond_block)));
+        GameRegistry.addRecipe(new ShapedBloodOrbRecipe(SanguimancyItemStacks.lumpCleaner, "XXX", "YZY", "ABA", 'X', SanguimancyItemStacks.oreLump, 'Y', SanguimancyItemStacks.bloodTank, 'Z', new ItemStack(ModItems.masterBloodOrb), 'A', new ItemStack(Blocks.iron_block), 'B', new ItemStack(Blocks.diamond_block)));
         lumpCleaner = RecipeRegistry.getLatestCraftingRecipe();
-        GameRegistry.addRecipe(new ShapedBloodOrbRecipe(RandomUtils.SanguimancyItemStacks.bloodAmulet, "XYX", "ZAZ", "BCB", 'X', new ItemStack(Items.string), 'Y', new ItemStack(Items.bucket), 'Z', new ItemStack(ModItems.demonicSlate), 'A', new ItemStack(Items.clock), 'B', RandomUtils.SanguimancyItemStacks.bloodTank, 'C', new ItemStack(ModItems.magicianBloodOrb)));
+        GameRegistry.addRecipe(new ShapedBloodOrbRecipe(SanguimancyItemStacks.bloodAmulet, "XYX", "ZAZ", "BCB", 'X', new ItemStack(Items.string), 'Y', new ItemStack(Items.bucket), 'Z', new ItemStack(ModItems.demonicSlate), 'A', new ItemStack(Items.clock), 'B', SanguimancyItemStacks.bloodTank, 'C', new ItemStack(ModItems.magicianBloodOrb)));
         bloodAmulet = RecipeRegistry.getLatestCraftingRecipe();
     }
 
@@ -82,7 +86,7 @@ public class RecipesRegistry {
         crackedStoneBricks = RecipeCorruptedInfusion.addRecipe(new ItemStack(Blocks.stonebrick, 1, 2), new ItemStack(Blocks.stonebrick, 1, 0), 5, 50, false);
         bonemeal = RecipeCorruptedInfusion.addRecipe(new ItemStack(Items.dye, 6, 15), new ItemStack(Items.bone), 10, 70, false);
         soulSand = RecipeCorruptedInfusion.addRecipe(new ItemStack(Blocks.soul_sand), new ItemStack(Blocks.sand), 10, 100, false);
-        corruptedDemonShard = RecipeCorruptedInfusion.addRecipe(RandomUtils.SanguimancyItemStacks.corruptedDemonShard, new ItemStack(ModItems.demonBloodShard), 50, 500, false);
+        corruptedDemonShard = RecipeCorruptedInfusion.addRecipe(SanguimancyItemStacks.corruptedDemonShard, new ItemStack(ModItems.demonBloodShard), 50, 500, false);
         cobblestone = RecipeCorruptedInfusion.addRecipe(new ItemStack(Blocks.cobblestone), new ItemStack(Blocks.stone), 5, 50, false);
         gravel = RecipeCorruptedInfusion.addRecipe(new ItemStack(Blocks.gravel), new ItemStack(Blocks.cobblestone), 5, 50, false);
         sand = RecipeCorruptedInfusion.addRecipe(new ItemStack(Blocks.sand), new ItemStack(Blocks.gravel), 5, 50, false);
@@ -112,7 +116,6 @@ public class RecipesRegistry {
             }
         }
         RecipeBloodCleanser.addRecipe(new ItemStack(Blocks.cobblestone), new ItemStack(Blocks.netherrack));
-        imbuedStick = RecipeBloodCleanser.addRecipe(new ItemStack(Items.stick), RandomUtils.SanguimancyItemStacks.imbuedStick);
 
         ItemStack stackInterface = new ItemStack(BlocksRegistry.bloodInterface);
         ItemStack stackRune = new ItemStack(ModBlocks.bloodRune, 1, 0);

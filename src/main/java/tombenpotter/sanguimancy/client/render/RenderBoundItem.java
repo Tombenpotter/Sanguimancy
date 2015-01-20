@@ -20,7 +20,7 @@ import org.lwjgl.opengl.GL11;
 import tombenpotter.sanguimancy.Sanguimancy;
 import tombenpotter.sanguimancy.client.model.ModelCube;
 import tombenpotter.sanguimancy.tile.TileItemSNPart;
-import tombenpotter.sanguimancy.util.RandomUtils;
+import tombenpotter.sanguimancy.util.SanguimancyItemStacks;
 
 public class RenderBoundItem extends TileEntitySpecialRenderer implements IItemRenderer {
 
@@ -174,22 +174,22 @@ public class RenderBoundItem extends TileEntitySpecialRenderer implements IItemR
     public void renderItem(ItemRenderType type, ItemStack item, Object... data) {
         switch (type) {
             case ENTITY: { //item entity
-                if (item.getItem() == RandomUtils.SanguimancyItemStacks.boundItem.getItem())
+                if (item.getItem() == SanguimancyItemStacks.boundItem.getItem())
                     render(0.5F, 15F, -0.5F, 0.1F);
                 return;
             }
             case EQUIPPED: { //third person in hand
-                if (item.getItem() == RandomUtils.SanguimancyItemStacks.boundItem.getItem())
+                if (item.getItem() == SanguimancyItemStacks.boundItem.getItem())
                     render(2F, 15F, 5F, 0.1F);
                 return;
             }
             case EQUIPPED_FIRST_PERSON: { //first person in hand
-                if (item.getItem() == RandomUtils.SanguimancyItemStacks.boundItem.getItem())
+                if (item.getItem() == SanguimancyItemStacks.boundItem.getItem())
                     render(1F, 19F, 7F, 0.1F);
                 return;
             }
             case INVENTORY: { //the item in inventories
-                if (item.getItem() == RandomUtils.SanguimancyItemStacks.boundItem.getItem())
+                if (item.getItem() == SanguimancyItemStacks.boundItem.getItem())
                     render(-0.01F, 10F, 0.0F, 0.1F);
                 return;
             }

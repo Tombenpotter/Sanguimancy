@@ -92,15 +92,15 @@ public class EventHandler {
             NBTTagCompound tag = RandomUtils.getModTag(player, Sanguimancy.modid);
             if (!tag.getBoolean("hasInitialChunkClaimer")) {
                 player.addChatComponentMessage(new ChatComponentText(StatCollector.translateToLocal("chat.Sanguimancy.intial.claimer")));
-                if (!player.inventory.addItemStackToInventory(RandomUtils.SanguimancyItemStacks.chunkClaimer.copy())) {
-                    RandomUtils.dropItemStackInWorld(player.worldObj, player.posX, player.posY, player.posZ, RandomUtils.SanguimancyItemStacks.chunkClaimer.copy());
+                if (!player.inventory.addItemStackToInventory(SanguimancyItemStacks.chunkClaimer.copy())) {
+                    RandomUtils.dropItemStackInWorld(player.worldObj, player.posX, player.posY, player.posZ, SanguimancyItemStacks.chunkClaimer.copy());
                 }
                 tag.setBoolean("hasInitialChunkClaimer", true);
             }
 
             if (!tag.getBoolean("hasInitialGuide")) {
-                if (!player.inventory.addItemStackToInventory(RandomUtils.SanguimancyItemStacks.playerGuide.copy())) {
-                    RandomUtils.dropItemStackInWorld(player.worldObj, player.posX, player.posY, player.posZ, RandomUtils.SanguimancyItemStacks.playerGuide.copy());
+                if (!player.inventory.addItemStackToInventory(SanguimancyItemStacks.playerGuide.copy())) {
+                    RandomUtils.dropItemStackInWorld(player.worldObj, player.posX, player.posY, player.posZ, SanguimancyItemStacks.playerGuide.copy());
                 }
                 tag.setBoolean("hasInitialGuide", true);
             }
@@ -115,8 +115,8 @@ public class EventHandler {
                 int chunkX = 50 >> 4;
                 int chunkZ = 50 >> 4;
                 while (!ClaimedChunks.getClaimedChunks().addLocation(player.getCommandSenderName(), new ChunkIntPairSerializable(chunkX, chunkZ))) {
-                    chunkX = chunkX + 1;
-                    chunkZ = chunkZ + 1;
+                    chunkX = chunkX + event.world.rand.nextInt(3) + 1;
+                    chunkZ = chunkZ + event.world.rand.nextInt(3) + 1;
                 }
                 player.addChatComponentMessage(new ChatComponentText("\u00A7" + StatCollector.translateToLocal("chat.Sanguimancy.successfully.claimed")
                         .replace("%x%", String.valueOf(chunkX << 4))
@@ -167,7 +167,7 @@ public class EventHandler {
     @SubscribeEvent
     public void onRitualActivation(RitualActivatedEvent event) {
         if (event.player != null) {
-            if (SoulCorruptionHelper.isCorruptionOver(event.player.getDisplayName(), 15) && event.player.worldObj.rand.nextInt(10) == 0) {
+            if (SoulCorruptionHelper.isCorruptionOver(event.player.getDisplayName(), 50) && event.player.worldObj.rand.nextInt(10) == 0) {
                 event.setResult(Event.Result.DENY);
             }
         }
@@ -190,39 +190,38 @@ public class EventHandler {
     @SubscribeEvent
     public void onItemAddedToSN(ItemBindEvent event) {
         if (!event.player.worldObj.isRemote) {
-            int dimID = ConfigHandler.snDimID;
-            WorldServer dimWorld = MinecraftServer.getServer().worldServerForDimension(dimID);
-            if (ClaimedChunks.getClaimedChunks().getLinkedChunks(event.player.getCommandSenderName()) != null) {
-                for (ChunkIntPairSerializable chunkInt : ClaimedChunks.getClaimedChunks().getLinkedChunks(event.player.getCommandSenderName())) {
-                    int baseX = (chunkInt.chunkXPos << 4) + (dimWorld.rand.nextInt(16));
-                    int baseZ = (chunkInt.chunkZPos << 4) + (dimWorld.rand.nextInt(16));
-                    int baseY = dimWorld.getTopSolidOrLiquidBlock(baseX, baseZ) + 2;
-                    if (baseY >= 128) {
-                        continue;
-                    }
-                    BoundItemState boundItemState = new BoundItemState(baseX, baseY, baseZ, dimID, true);
-                    String name = String.valueOf(dimID) + String.valueOf(baseX) + String.valueOf(baseY) + String.valueOf(baseZ) + event.itemStack.getUnlocalizedName() + event.itemStack.getDisplayName() + event.itemStack.getItemDamage() + event.player.getCommandSenderName();
-                    if (dimWorld.isAirBlock(baseX, baseY, baseZ)) {
-                        RandomUtils.checkAndSetCompound(event.itemStack);
-                        if (BoundItems.getBoundItems().addItem(name, boundItemState)) {
-                            dimWorld.setBlock(baseX, baseY, baseZ, BlocksRegistry.boundItem);
-                            event.itemStack.stackTagCompound.setString("SavedItemName", name);
-                            if (dimWorld.getTileEntity(baseX, baseY, baseZ) != null && dimWorld.getTileEntity(baseX, baseY, baseZ) instanceof TileItemSNPart) {
-                                TileItemSNPart tile = (TileItemSNPart) dimWorld.getTileEntity(baseX, baseY, baseZ);
-                                tile.setInventorySlotContents(0, event.itemStack.copy());
-                                tile.getCustomNBTTag().setString("SavedItemName", name);
-                                dimWorld.markBlockForUpdate(baseX, baseY, baseZ);
+            if (event.player.inventory.hasItemStack(SanguimancyItemStacks.etherealManifestation)) {
+                int dimID = ConfigHandler.snDimID;
+                WorldServer dimWorld = MinecraftServer.getServer().worldServerForDimension(dimID);
+                if (ClaimedChunks.getClaimedChunks().getLinkedChunks(event.player.getCommandSenderName()) != null) {
+                    for (ChunkIntPairSerializable chunkInt : ClaimedChunks.getClaimedChunks().getLinkedChunks(event.player.getCommandSenderName())) {
+                        int baseX = (chunkInt.chunkXPos << 4) + (dimWorld.rand.nextInt(16));
+                        int baseZ = (chunkInt.chunkZPos << 4) + (dimWorld.rand.nextInt(16));
+                        int baseY = dimWorld.getTopSolidOrLiquidBlock(baseX, baseZ) + 2;
+                        if (baseY >= 128) {
+                            continue;
+                        }
+                        BoundItemState boundItemState = new BoundItemState(baseX, baseY, baseZ, dimID, true);
+                        String name = String.valueOf(dimID) + String.valueOf(baseX) + String.valueOf(baseY) + String.valueOf(baseZ) + event.itemStack.getUnlocalizedName() + event.itemStack.getDisplayName() + event.itemStack.getItemDamage() + event.player.getCommandSenderName();
+                        if (dimWorld.isAirBlock(baseX, baseY, baseZ)) {
+                            RandomUtils.checkAndSetCompound(event.itemStack);
+                            if (BoundItems.getBoundItems().addItem(name, boundItemState)) {
+                                dimWorld.setBlock(baseX, baseY, baseZ, BlocksRegistry.boundItem);
+                                event.itemStack.stackTagCompound.setString("SavedItemName", name);
+                                if (dimWorld.getTileEntity(baseX, baseY, baseZ) != null && dimWorld.getTileEntity(baseX, baseY, baseZ) instanceof TileItemSNPart) {
+                                    TileItemSNPart tile = (TileItemSNPart) dimWorld.getTileEntity(baseX, baseY, baseZ);
+                                    tile.setInventorySlotContents(0, event.itemStack.copy());
+                                    tile.getCustomNBTTag().setString("SavedItemName", name);
+                                    dimWorld.markBlockForUpdate(baseX, baseY, baseZ);
+                                }
                             }
                         }
+                        event.player.addChatComponentMessage(new ChatComponentText(StatCollector.translateToLocal("chat.Sanguimancy.added.success")));
+                        break;
                     }
-                    event.player.addChatComponentMessage(new ChatComponentText(StatCollector.translateToLocal("chat.Sanguimancy.added.success")));
-                    break;
                 }
-            } else {
-                event.player.addChatComponentMessage(new ChatComponentText(StatCollector.translateToLocal("chat.Sanguimancy.added.fail")));
-                event.setResult(Event.Result.DENY);
+                event.player.inventory.consumeInventoryItem(SanguimancyItemStacks.etherealManifestation.getItem());
             }
-
         }
     }
 
@@ -239,8 +238,6 @@ public class EventHandler {
                     event.player.addChatComponentMessage(new ChatComponentText(StatCollector.translateToLocal("chat.Sanguimancy.deactivated")));
                     event.setResult(Event.Result.DENY);
                 }
-            } else {
-                event.setResult(Event.Result.DENY);
             }
         }
     }
@@ -257,8 +254,6 @@ public class EventHandler {
                     event.player.addChatComponentMessage(new ChatComponentText(StatCollector.translateToLocal("chat.Sanguimancy.deactivated")));
                     event.setResult(Event.Result.DENY);
                 }
-            } else {
-                event.setResult(Event.Result.DENY);
             }
         }
     }
@@ -266,31 +261,30 @@ public class EventHandler {
     @SubscribeEvent
     public void onRitualStart(RitualActivatedEvent event) {
         if (!event.player.worldObj.isRemote) {
-            int dimID = ConfigHandler.snDimID;
-            WorldServer dimWorld = MinecraftServer.getServer().worldServerForDimension(dimID);
-            if (ClaimedChunks.getClaimedChunks().getLinkedChunks(event.player.getCommandSenderName()) != null) {
-                for (ChunkIntPairSerializable chunkInt : ClaimedChunks.getClaimedChunks().getLinkedChunks(event.player.getCommandSenderName())) {
-                    int baseX = (chunkInt.chunkXPos << 4) + (dimWorld.rand.nextInt(16));
-                    int baseZ = (chunkInt.chunkZPos << 4) + (dimWorld.rand.nextInt(16));
-                    int baseY = dimWorld.getTopSolidOrLiquidBlock(baseX, baseZ) + 2;
-                    if (baseY >= 128) {
-                        continue;
-                    }
-                    if (dimWorld.isAirBlock(baseX, baseY, baseZ)) {
-                        dimWorld.setBlock(baseX, baseY, baseZ, BlocksRegistry.ritualRepresentation);
-                        if (dimWorld.getTileEntity(baseX, baseY, baseZ) != null && dimWorld.getTileEntity(baseX, baseY, baseZ) instanceof TileRitualSNPart) {
-                            TileRitualSNPart part = (TileRitualSNPart) dimWorld.getTileEntity(baseX, baseY, baseZ);
-                            part.ritualPosition = new BlockPostition(event.mrs.getXCoord(), event.mrs.getYCoord(), event.mrs.getZCoord());
+            if (event.player.inventory.hasItemStack(SanguimancyItemStacks.etherealManifestation)) {
+                int dimID = ConfigHandler.snDimID;
+                WorldServer dimWorld = MinecraftServer.getServer().worldServerForDimension(dimID);
+                if (ClaimedChunks.getClaimedChunks().getLinkedChunks(event.player.getCommandSenderName()) != null) {
+                    for (ChunkIntPairSerializable chunkInt : ClaimedChunks.getClaimedChunks().getLinkedChunks(event.player.getCommandSenderName())) {
+                        int baseX = (chunkInt.chunkXPos << 4) + (dimWorld.rand.nextInt(16));
+                        int baseZ = (chunkInt.chunkZPos << 4) + (dimWorld.rand.nextInt(16));
+                        int baseY = dimWorld.getTopSolidOrLiquidBlock(baseX, baseZ) + 2;
+                        if (baseY >= 128) {
+                            continue;
                         }
+                        if (dimWorld.isAirBlock(baseX, baseY, baseZ)) {
+                            dimWorld.setBlock(baseX, baseY, baseZ, BlocksRegistry.ritualRepresentation);
+                            if (dimWorld.getTileEntity(baseX, baseY, baseZ) != null && dimWorld.getTileEntity(baseX, baseY, baseZ) instanceof TileRitualSNPart) {
+                                TileRitualSNPart part = (TileRitualSNPart) dimWorld.getTileEntity(baseX, baseY, baseZ);
+                                part.ritualPosition = new BlockPostition(event.mrs.getXCoord(), event.mrs.getYCoord(), event.mrs.getZCoord());
+                            }
+                        }
+                        event.player.addChatComponentMessage(new ChatComponentText(StatCollector.translateToLocal("chat.Sanguimancy.added.success")));
+                        break;
                     }
-                    event.player.addChatComponentMessage(new ChatComponentText(StatCollector.translateToLocal("chat.Sanguimancy.added.success")));
-                    break;
                 }
-            } else {
-                event.player.addChatComponentMessage(new ChatComponentText(StatCollector.translateToLocal("chat.Sanguimancy.added.fail")));
-                event.setResult(Event.Result.DENY);
+                event.player.inventory.consumeInventoryItem(SanguimancyItemStacks.etherealManifestation.getItem());
             }
-
         }
     }
 
