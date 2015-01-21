@@ -52,11 +52,11 @@ public class BlockCamouflage extends BlockContainer {
 
     @SideOnly(Side.CLIENT)
     @Override
-    public IIcon getIcon(IBlockAccess access, int x, int y, int z, int meta) {
+    public IIcon getIcon(IBlockAccess access, int x, int y, int z, int side) {
         TileCamouflage tile = (TileCamouflage) access.getTileEntity(x, y, z);
         if (Block.getBlockById(tile.block) != Blocks.air) {
-            return Block.getBlockById(tile.block).getIcon(access, x, y, z, tile.metadata);
-        } else return super.getIcon(access, x, y, z, meta);
+            return Block.getBlockById(tile.block).getIcon(side, tile.metadata);
+        } else return super.getIcon(access, x, y, z, side);
     }
 
     @Override
@@ -76,7 +76,7 @@ public class BlockCamouflage extends BlockContainer {
     public Item getItem(World world, int x, int y, int z) {
         TileCamouflage tile = (TileCamouflage) world.getTileEntity(x, y, z);
         if (Block.getBlockById(tile.block) != Blocks.air) {
-            return Block.getBlockById(tile.block).getItem(world, x, y, z);
+            return new ItemStack(Block.getBlockById(tile.block), 1, tile.metadata).getItem();
         } else return super.getItem(world, x, y, z);
     }
 
@@ -84,7 +84,14 @@ public class BlockCamouflage extends BlockContainer {
     public ItemStack getPickBlock(MovingObjectPosition target, World world, int x, int y, int z, EntityPlayer player) {
         TileCamouflage tile = (TileCamouflage) world.getTileEntity(x, y, z);
         if (Block.getBlockById(tile.block) != Blocks.air) {
-            return Block.getBlockById(tile.block).getPickBlock(target, world, x, y, z, player);
+            return new ItemStack(Block.getBlockById(tile.block), 1, tile.metadata);
         } else return super.getPickBlock(target, world, x, y, z, player);
+    }
+
+    @Override
+    public int getDamageValue(World world, int x, int y, int z) {
+        TileCamouflage tile = (TileCamouflage) world.getTileEntity(x, y, z);
+        if (Block.getBlockById(tile.block) != Blocks.air) return tile.metadata;
+        else return super.getDamageValue(world, x, y, z);
     }
 }
