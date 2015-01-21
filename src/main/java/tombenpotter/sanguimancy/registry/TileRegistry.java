@@ -20,6 +20,6 @@ public class TileRegistry {
         GameRegistry.registerTileEntity(TileSimpleSNBranch.class, "TileSimpleSNBranch");
         GameRegistry.registerTileEntity(TileToggleSNKnot.class, "TileToggleSNKnot");
         GameRegistry.registerTileEntity(TileRitualSNPart.class, "TileRitualSNPart");
-        GameRegistry.registerTileEntity(TileEthereal.class, "TileEthereal");
+        GameRegistry.registerTileEntity(TileCamouflage.class, "TileCamouflage");
     }
 }

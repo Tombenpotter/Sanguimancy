@@ -3,13 +3,18 @@ package tombenpotter.sanguimancy.tile;
 import net.minecraft.nbt.NBTTagCompound;
 import tombenpotter.sanguimancy.api.tile.TileBase;
 
-public class TileEthereal extends TileBase {
+public class TileCamouflage extends TileBase {
 
     public int block = 0;
     public int metadata = 0;
 
-    public TileEthereal() {
+    public TileCamouflage() {
         custoomNBTTag = new NBTTagCompound();
+    }
+
+    @Override
+    public boolean canUpdate() {
+        return false;
     }
 
     @Override
