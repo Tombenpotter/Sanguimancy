@@ -29,7 +29,7 @@ public class RecipesRegistry {
             simpleKnot, toggledKnot, corruptedMineral, corruptedSword, corruptedPickaxe, corruptedShovel, corruptedAxe;
     public static AltarRecipe altarDiviner, attunedPlayerSacrificer, corruptionCatalyst, imbuedStick, etherealManifestation;
     public static RecipeCorruptedInfusion poisonousPotato, rottenFlesh, crackedStoneBricks, bonemeal, soulSand, corruptedDemonShard, cobblestone, gravel,
-            sand, dirt, corruptedEtherealBlocks;
+            sand, dirt, corruptedEtherealBlock;
     public static ArrayList<RecipeCorruptedInfusion> oreLumpRecipes = new ArrayList<RecipeCorruptedInfusion>();
     public static ArrayList<RecipeBloodCleanser> oreLumpCleansing = new ArrayList<RecipeBloodCleanser>();
 
@@ -136,6 +136,6 @@ public class RecipesRegistry {
         if (!(ModList.opencomputers.isLoaded() || ModList.computercraft.isLoaded()))
             bloodInterface = GameRegistry.addShapedRecipe(stackInterface.copy(), "XYX", "XZX", "XXX", 'X', Blocks.stone, 'Y', stackRune, 'Z', new ItemStack(Blocks.unpowered_comparator));
 
-        corruptedEtherealBlocks = RecipeCorruptedInfusion.addRecipe(SanguimancyItemStacks.etherealCorruptedBlock, SanguimancyItemStacks.etherealBlock, 50, 100, false);
+        corruptedEtherealBlock = RecipeCorruptedInfusion.addRecipe(SanguimancyItemStacks.etherealCorruptedBlock, SanguimancyItemStacks.etherealBlock, 50, 100, false);
     }
 }

@@ -27,7 +27,7 @@ public class GuideRegistry {
     public static Category categorySanguimancyLore, categorySanguimancyItems, categorySanguimancyBlocks, categorySanguimancyRituals;
 
     public static Entry playerSacrificers, soulCorruptionReader, bloodAmulet, chunkClaimer, craftingItems, corruptionCatalyst, oreLump, wand, corruptedAxe, corruptedPickaxe, corruptedShovel, corruptedSword;
-    public static Entry altarEmitter, altarDiviner, soulTransferrer, corruptionCrystallizer, bloodInterface, decorativeBlocks, bloodTank, manifestations, bloodCleanser;
+    public static Entry altarEmitter, altarDiviner, soulTransferrer, corruptionCrystallizer, bloodInterface, decorativeBlocks, bloodTank, manifestations, bloodCleanser, etherealBlocks;
     public static Entry drillOfTheDead, vulcanosFrigius, greatDeletion, enlightenment, timberman, filler, portal, pump;
     public static Entry sacrificeMagic, soulCorruption, soulProtection, corruptionApplications;
 
@@ -204,6 +204,12 @@ public class GuideRegistry {
         soulTransferrerEntries.add(new EntryCraftingRecipe(RecipesRegistry.sacrificeTransferrer));
         soulTransferrer = new Entry(soulTransferrerEntries, "\u00A73" + StatCollector.translateToLocal("tile.Sanguimancy.sacrificeTransfer.name"), 1);
         EntryRegistry.registerEntry(categorySanguimancyBlocks, blocks, soulTransferrer);
+
+        ArrayList<IEntry> etherealBlocksEntries = new ArrayList<IEntry>();
+        etherealBlocksEntries.addAll(entriesForLongText("guide.Sanguimancy.entry.etherealBlock", SanguimancyItemStacks.etherealBlock));
+        etherealBlocksEntries.addAll(entriesForLongText("guide.Sanguimancy.entry.corruptedEtherealBlock", SanguimancyItemStacks.etherealCorruptedBlock));
+        etherealBlocksEntries.add(new EntryCorruptionRecipe(RecipesRegistry.corruptedEtherealBlock));
+        etherealBlocks = new Entry(etherealBlocksEntries, "\u00A73" + StatCollector.translateToLocal("guide.Sanguimancy.entryName.etherealBlocks"), 1);
     }
 
     public static void createRitualEntries() {
