@@ -1,6 +1,7 @@
 package tombenpotter.sanguimancy.registry;
 
 import cpw.mods.fml.common.registry.GameRegistry;
+import tombenpotter.sanguimancy.api.tile.TileCamouflage;
 import tombenpotter.sanguimancy.tile.*;
 
 public class TileRegistry {

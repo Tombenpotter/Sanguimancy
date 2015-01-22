@@ -37,6 +37,7 @@ tile.Sanguimancy.toggleSNKnot.name=Toggled Soul Knot
 tile.Sanguimancy.simpleSNBranch.name=Simple Soul Branch
 tile.Sanguimancy.ritualRepresentation.name=Ritual Representation
 tile.Sanguimancy.etherealBlock.name=Ethereal Block
+tile.Sanguimancy.etherealCorruptedBlock.name=Corrupted Ethereal Block
 
 #Items
 item.Sanguimancy.playerSacrificer.unattuned.name=Unattuned Player Sacrificing Stone

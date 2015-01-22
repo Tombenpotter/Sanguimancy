@@ -14,7 +14,7 @@ public class RitualRegistry {
         if (ConfigHandler.enableDrillOfTheDead)
             Rituals.registerRitual("drillOfTheDeadRitual", 2, 50000, new RitualEffectDrillOfTheDead(), StatCollector.translateToLocal("ritual.Sanguimancy.drill.dead"));
         if (ConfigHandler.enableVulcanosFrigius)
-            Rituals.registerRitual("vulcanosFrigiusRitual", 1, 250, new RitualEffectObsidian(), StatCollector.translateToLocal("ritual.Sanguimancy.vulcanos.frigius"));
+            Rituals.registerRitual("vulcanosFrigiusRitual", 1, 250, new RitualEffectCobble(), StatCollector.translateToLocal("ritual.Sanguimancy.vulcanos.frigius"));
         if (ConfigHandler.enableTrash)
             Rituals.registerRitual("trashRitual", 1, 50, new RitualEffectTrash(), StatCollector.translateToLocal("ritual.Sanguimancy.trash"));
         if (ConfigHandler.enableIllumination)

@@ -1,7 +1,6 @@
-package tombenpotter.sanguimancy.tile;
+package tombenpotter.sanguimancy.api.tile;
 
 import net.minecraft.nbt.NBTTagCompound;
-import tombenpotter.sanguimancy.api.tile.TileBase;
 
 public class TileCamouflage extends TileBase {
 

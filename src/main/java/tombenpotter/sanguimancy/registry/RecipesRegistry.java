@@ -2,6 +2,7 @@ package tombenpotter.sanguimancy.registry;
 
 import WayofTime.alchemicalWizardry.ModBlocks;
 import WayofTime.alchemicalWizardry.ModItems;
+import WayofTime.alchemicalWizardry.api.alchemy.AlchemyRecipeRegistry;
 import WayofTime.alchemicalWizardry.api.altarRecipeRegistry.AltarRecipe;
 import WayofTime.alchemicalWizardry.api.altarRecipeRegistry.AltarRecipeRegistry;
 import WayofTime.alchemicalWizardry.api.items.ShapedBloodOrbRecipe;
@@ -27,7 +28,8 @@ public class RecipesRegistry {
             bloodAmulet, bloodstoneStairs, largeBloodstoneStairs, bloodstoneSlab, largeBloodstoneSlab, chunkClaimer, wand, bloodInterface, simpleBranch,
             simpleKnot, toggledKnot, corruptedMineral, corruptedSword, corruptedPickaxe, corruptedShovel, corruptedAxe;
     public static AltarRecipe altarDiviner, attunedPlayerSacrificer, corruptionCatalyst, imbuedStick, etherealManifestation;
-    public static RecipeCorruptedInfusion poisonousPotato, rottenFlesh, crackedStoneBricks, bonemeal, soulSand, corruptedDemonShard, cobblestone, gravel, sand, dirt;
+    public static RecipeCorruptedInfusion poisonousPotato, rottenFlesh, crackedStoneBricks, bonemeal, soulSand, corruptedDemonShard, cobblestone, gravel,
+            sand, dirt, corruptedEtherealBlocks;
     public static ArrayList<RecipeCorruptedInfusion> oreLumpRecipes = new ArrayList<RecipeCorruptedInfusion>();
     public static ArrayList<RecipeBloodCleanser> oreLumpCleansing = new ArrayList<RecipeBloodCleanser>();
 
@@ -80,6 +82,10 @@ public class RecipesRegistry {
         bloodAmulet = RecipeRegistry.getLatestCraftingRecipe();
     }
 
+    public static void registerAlchemyRecipes() {
+        AlchemyRecipeRegistry.registerRecipe(new ItemStack(BlocksRegistry.etherealBlock, 32), 10, new ItemStack[]{new ItemStack(ModItems.baseAlchemyItems, 1, 3), new ItemStack(ModItems.aether), new ItemStack(ModItems.magicales), new ItemStack(ModItems.terrae), new ItemStack(ModItems.crystallos)}, 4);
+    }
+
     public static void registerCustomModRecipes() {
         poisonousPotato = RecipeCorruptedInfusion.addRecipe(new ItemStack(Items.poisonous_potato), new ItemStack(Items.potato), 5, 50, false);
         rottenFlesh = RecipeCorruptedInfusion.addRecipe(new ItemStack(Items.rotten_flesh), new ItemStack(Items.beef), 5, 50, false);
@@ -100,7 +106,7 @@ public class RecipesRegistry {
                         ItemStack oreLump = new ItemStack(ItemsRegistry.oreLump, 2, 0);
                         RandomUtils.checkAndSetCompound(oreLump);
                         oreLump.stackTagCompound.setString("ore", output);
-                        oreLumpRecipes.add(RecipeCorruptedInfusion.addRecipe(oreLump, OreDictionary.getOres(ore).get(i), 20, 200, false));
+                        oreLumpRecipes.add(RecipeCorruptedInfusion.addRecipe(oreLump, OreDictionary.getOres(ore).get(i), 20, 150, false));
                     }
                     ItemStack input = new ItemStack(ItemsRegistry.oreLump, 1, 0);
                     RandomUtils.checkAndSetCompound(input);
@@ -129,5 +135,7 @@ public class RecipesRegistry {
             bloodInterface = GameRegistry.addShapedRecipe(stackInterface.copy(), "XYX", "XZX", "XXX", 'X', Blocks.stone, 'Y', stackRune, 'Z', new ItemStack(GameRegistry.findBlock(ModList.Names.OPENCOMPUTERS, "adapter")));
         if (!(ModList.opencomputers.isLoaded() || ModList.computercraft.isLoaded()))
             bloodInterface = GameRegistry.addShapedRecipe(stackInterface.copy(), "XYX", "XZX", "XXX", 'X', Blocks.stone, 'Y', stackRune, 'Z', new ItemStack(Blocks.unpowered_comparator));
+
+        corruptedEtherealBlocks = RecipeCorruptedInfusion.addRecipe(SanguimancyItemStacks.etherealCorruptedBlock, SanguimancyItemStacks.etherealBlock, 50, 100, false);
     }
 }

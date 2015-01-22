@@ -75,6 +75,7 @@ public class Sanguimancy {
         proxy.load();
         RitualRegistry.registerRituals();
         RecipesRegistry.registerAltarRecipes();
+        RecipesRegistry.registerAlchemyRecipes();
         PotionsRegistry.registerPotions();
         FMLCommonHandler.instance().bus().register(new EventHandler());
         MinecraftForge.EVENT_BUS.register(new EventHandler());

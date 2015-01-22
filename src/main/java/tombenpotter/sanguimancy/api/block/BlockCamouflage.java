@@ -1,4 +1,4 @@
-package tombenpotter.sanguimancy.blocks;
+package tombenpotter.sanguimancy.api.block;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -7,6 +7,7 @@ import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
@@ -15,7 +16,7 @@ import net.minecraft.util.IIcon;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import tombenpotter.sanguimancy.tile.TileCamouflage;
+import tombenpotter.sanguimancy.api.tile.TileCamouflage;
 
 public class BlockCamouflage extends BlockContainer {
 
@@ -29,16 +30,19 @@ public class BlockCamouflage extends BlockContainer {
         if (player.getHeldItem() != null && player.getHeldItem().getItem() instanceof ItemBlock) {
             Block block = Block.getBlockFromItem(player.getHeldItem().getItem());
             if (block instanceof BlockCamouflage) return false;
+            if (!block.isNormalCube()) return false;
         }
-        if (player.isSneaking() && player.getHeldItem() == null) {
+        if (player.getHeldItem() != null && player.getHeldItem().getItem() == Items.water_bucket) {
             tile.block = Block.getIdFromBlock(Blocks.air);
             tile.metadata = 0;
+            world.setBlockMetadataWithNotify(x, y, z, 0, 3);
             world.markBlockForUpdate(x, y, z);
             return true;
         } else if (player.getHeldItem() != null && player.getHeldItem().getItem() instanceof ItemBlock) {
             ItemBlock itemBlock = (ItemBlock) player.getHeldItem().getItem();
             tile.block = Block.getIdFromBlock(Block.getBlockFromItem(itemBlock));
             tile.metadata = player.getHeldItem().getItemDamage();
+            world.setBlockMetadataWithNotify(x, y, z, player.getHeldItem().getItemDamage(), 3);
             world.markBlockForUpdate(x, y, z);
             return true;
         }
@@ -93,5 +97,13 @@ public class BlockCamouflage extends BlockContainer {
         TileCamouflage tile = (TileCamouflage) world.getTileEntity(x, y, z);
         if (Block.getBlockById(tile.block) != Blocks.air) return tile.metadata;
         else return super.getDamageValue(world, x, y, z);
+    }
+
+    @Override
+    public int getLightValue(IBlockAccess world, int x, int y, int z) {
+        TileCamouflage tile = (TileCamouflage) world.getTileEntity(x, y, z);
+        if (Block.getBlockById(tile.block) != Blocks.air) {
+            return Block.getBlockById(tile.block).getLightValue();
+        } else return super.getLightValue(world, x, y, z);
     }
 }

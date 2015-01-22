@@ -32,6 +32,7 @@ public class BlocksRegistry {
     public static Block boundItem;
     public static Block ritualRepresentation;
     public static Block etherealBlock;
+    public static Block etherealCorruptedBlock;
 
     public static void registerBlocks() {
         altarDiviner = new BlockAltarDiviner(Material.iron);
@@ -90,5 +91,8 @@ public class BlocksRegistry {
 
         etherealBlock = new BlockEthereal(Material.iron);
         GameRegistry.registerBlock(etherealBlock, "BlockEthereal").setBlockName(Sanguimancy.modid + ".etherealBlock");
+
+        etherealCorruptedBlock = new BlockEtherealCorrupted(Material.iron);
+        GameRegistry.registerBlock(etherealCorruptedBlock, "BlockEtherealCorrupted").setBlockName(Sanguimancy.modid + ".etherealCorruptedBlock");
     }
 }
