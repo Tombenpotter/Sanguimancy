@@ -30,7 +30,7 @@ public class BlockEtherealCorrupted extends BlockCamouflage {
     @SideOnly(Side.CLIENT)
     @Override
     public void registerBlockIcons(IIconRegister ir) {
-        this.blockIcon = ir.registerIcon(Sanguimancy.texturePath + ":EtherealBlock");
+        this.blockIcon = ir.registerIcon(Sanguimancy.texturePath + ":EtherealCorruptedBlock");
     }
 
 

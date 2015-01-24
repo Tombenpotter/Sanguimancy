@@ -38,6 +38,7 @@ tile.Sanguimancy.simpleSNBranch.name=Simple Soul Branch
 tile.Sanguimancy.ritualRepresentation.name=Ritual Representation
 tile.Sanguimancy.etherealBlock.name=Ethereal Block
 tile.Sanguimancy.etherealCorruptedBlock.name=Corrupted Ethereal Block
+tile.Sanguimancy.etherealToggledBlock.name=Toggled Ethereal Block
 
 #Items
 item.Sanguimancy.playerSacrificer.unattuned.name=Unattuned Player Sacrificing Stone
@@ -189,7 +190,7 @@ guide.Sanguimancy.entry.corruptedEtherealBlock=The Corrupted Ethereal Block has 
 
 #Rituals
 guide.Sanguimancy.entry.drillOfTheDead=The Drill of the Dead is, to put it simply, a Well of Suffering on steroids. Where the Well deals half a heart of damage to any mob in the area, the Drill of the Dead kills said mobs instantly. Each kill costs 75LP and gives 200LP per default. However, the Drill of the Dead has limitations. As it is such a powerful tool, it cannot kill Boss Mobs, Elementals and Demons. Activating this ritual will cause your §4 Soul Corruption §r to augment.
-guide.Sanguimancy.entry.vulcanosFrigius=The Vulcanos Frigius is a cooled down Serenade of the Nether. With no actual lava involved, this ritual creates 4 pieces of Obsidian, at the cost of 250LP per piece. Obisidan will keep resupplying as long as the ritual is active.
+guide.Sanguimancy.entry.vulcanosFrigius=The Vulcanos Frigius is a cooled down Serenade of the Nether. With no actual lava involved, this ritual creates 4 pieces of Cobblestone, at the cost of 10 per piece. Cobblestone will keep resupplying as long as the ritual is active. If the ritual has some of the Tenebrae reagent, it will create 4 pieces of obsidian, at the cost of 100LP and 5 reagent per obsidian.
 guide.Sanguimancy.entry.greatDeletion=The Great Deletion allows you to trash unwanted items, simply by throwing them in the vicinity of the Ritual Stone. Be careful with it though! There is no way to get said items back!
 guide.Sanguimancy.entry.enlightenment=The Enlightenment is a ritual that lights up an entire area around the Ritual Stone. It has a very low cost of 1LP per tick, but will keep checking around itself to make sure no area is left unlit.
 guide.Sanguimancy.entry.timberman=The timberman is a ritual that, as its name suggests cuts trees in a wide area. It can handle almost any tree, given that it’s not going to the world limit.

@@ -12,6 +12,7 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemPickaxe;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.IIcon;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import tombenpotter.sanguimancy.Sanguimancy;
@@ -24,6 +25,7 @@ import java.util.List;
 public class ItemCorruptedPickaxe extends ItemPickaxe implements IBindable {
 
     public int minimumCorruption = ConfigHandler.minimumToolCorruption;
+    public IIcon silkTouch, fortuneI, fortuneII, fortuneIII, autosmelt;
 
     public ItemCorruptedPickaxe(ToolMaterial material) {
         super(material);
@@ -35,8 +37,23 @@ public class ItemCorruptedPickaxe extends ItemPickaxe implements IBindable {
     @Override
     @SideOnly(Side.CLIENT)
     public void registerIcons(IIconRegister ir) {
-        super.registerIcons(ir);
-        //TODO: Add an icon and a different overlay for every mode.
+        this.itemIcon = ir.registerIcon(Sanguimancy.texturePath + ":CorruptedPickaxe");
+        this.silkTouch = ir.registerIcon(Sanguimancy.texturePath + ":CorruptedPickaxe_SilkTouch");
+        this.fortuneI = ir.registerIcon(Sanguimancy.texturePath + ":CorruptedPickaxe_FortuneI");
+        this.fortuneII = ir.registerIcon(Sanguimancy.texturePath + ":CorruptedPickaxe_FortuneII");
+        this.fortuneIII = ir.registerIcon(Sanguimancy.texturePath + ":CorruptedPickaxe_FortuneIII");
+        this.autosmelt = ir.registerIcon(Sanguimancy.texturePath + ":CorruptedPickaxe_AutoSmelt");
+    }
+
+    @Override
+    public IIcon getIcon(ItemStack stack, int pass) {
+        RandomUtils.checkAndSetCompound(stack);
+        if (getToolMode(stack) == 1) return silkTouch;
+        else if (getToolMode(stack) == 2) return fortuneI;
+        else if (getToolMode(stack) == 3) return fortuneII;
+        else if (getToolMode(stack) == 4) return fortuneIII;
+        else if (getToolMode(stack) == 5) return autosmelt;
+        else return this.itemIcon;
     }
 
     @Override
