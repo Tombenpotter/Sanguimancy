@@ -33,6 +33,7 @@ import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.player.AttackEntityEvent;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
+import net.minecraftforge.event.world.BlockEvent;
 import org.lwjgl.opengl.GL11;
 import tombenpotter.sanguimancy.Sanguimancy;
 import tombenpotter.sanguimancy.api.objects.BlockPostition;
@@ -42,10 +43,13 @@ import tombenpotter.sanguimancy.network.events.EventCorruptedInfusion;
 import tombenpotter.sanguimancy.network.packets.PacketSyncCorruption;
 import tombenpotter.sanguimancy.registry.BlocksRegistry;
 import tombenpotter.sanguimancy.registry.ItemsRegistry;
+import tombenpotter.sanguimancy.tile.TileCamouflageBound;
 import tombenpotter.sanguimancy.tile.TileItemSNPart;
 import tombenpotter.sanguimancy.tile.TileRitualSNPart;
 import tombenpotter.sanguimancy.util.singletons.BoundItems;
 import tombenpotter.sanguimancy.util.singletons.ClaimedChunks;
+
+import java.util.ArrayList;
 
 public class EventHandler {
 
@@ -294,6 +298,18 @@ public class EventHandler {
         }
     }
 
+    @SubscribeEvent
+    public void onBreakBoundTile(BlockEvent.BreakEvent event) {
+        if (event.world.getTileEntity(event.x, event.y, event.z) != null && event.world.getTileEntity(event.x, event.y, event.z) instanceof TileCamouflageBound) {
+            TileCamouflageBound tile = (TileCamouflageBound) event.world.getTileEntity(event.x, event.y, event.z);
+            if (tile.getOwnersList() == null) tile.setOwnersList(new ArrayList<String>());
+            if (!tile.getOwnersList().isEmpty() && !tile.getOwnersList().contains(event.getPlayer().getCommandSenderName())) {
+                event.getPlayer().addChatComponentMessage(new ChatComponentText(StatCollector.translateToLocal("info.Sanguimancy.tooltip.wrong.player")));
+                event.setCanceled(true);
+            }
+        }
+    }
+
     public static class ClientEventHandler {
         /*
         public static KeyBinding keySearchPlayer = new KeyBinding(StatCollector.translateToLocal("key.Sanguimancy.search"), Keyboard.KEY_F, Sanguimancy.modid);
@@ -315,7 +331,7 @@ public class EventHandler {
 
         @SubscribeEvent
         public void onRenderPlayerSpecialAntlers(RenderPlayerEvent.Specials.Post event) {
-            String names[] = {"Tombenpotter", "Speedynutty68", "WayofFlowingTime", "Jadedcat", "Kris1432", "Drullkus", "TheOrangeGenius", "Direwolf20", "Pahimar", "ValiarMarcus", "Alex_hawks", "StoneWaves", "DemoXin"};
+            String names[] = {"Tombenpotter", "Speedynutty68", "WayofFlowingTime", "Jadedcat", "Kris1432", "Drullkus", "TheOrangeGenius", "Direwolf20", "Pahimar", "ValiarMarcus", "Alex_hawks", "StoneWaves", "DemoXin", "insaneau"};
             for (String name : names) {
                 if (event.entityPlayer.getCommandSenderName().equalsIgnoreCase(name)) {
                     GL11.glPushMatrix();

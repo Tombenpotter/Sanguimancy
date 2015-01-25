@@ -209,7 +209,13 @@ public class GuideRegistry {
         etherealBlocksEntries.addAll(entriesForLongText("guide.Sanguimancy.entry.etherealBlock", SanguimancyItemStacks.etherealBlock));
         etherealBlocksEntries.addAll(entriesForLongText("guide.Sanguimancy.entry.corruptedEtherealBlock", SanguimancyItemStacks.etherealCorruptedBlock));
         etherealBlocksEntries.add(new EntryCorruptionRecipe(RecipesRegistry.corruptedEtherealBlock));
+        etherealBlocksEntries.addAll(entriesForLongText("guide.Sanguimancy.entry.toggledEtherealBlock", SanguimancyItemStacks.etherealToggledBlock));
+        etherealBlocksEntries.add(new EntryCraftingRecipe(RecipesRegistry.toggledEtherealBlock));
+        etherealBlocksEntries.addAll(entriesForLongText("guide.Sanguimancy.entry.boundEtherealBlocks"));
+        etherealBlocksEntries.addAll(entriesForLongText("guide.Sanguimancy.entry.personalEtherealBlock", SanguimancyItemStacks.personalEtherealBlock));
+        etherealBlocksEntries.add(new EntryCraftingRecipe(RecipesRegistry.personalEtherealBlock));
         etherealBlocks = new Entry(etherealBlocksEntries, "\u00A73" + StatCollector.translateToLocal("guide.Sanguimancy.entryName.etherealBlocks"), 1);
+        EntryRegistry.registerEntry(categorySanguimancyBlocks, blocks, etherealBlocks);
     }
 
     public static void createRitualEntries() {

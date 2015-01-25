@@ -65,4 +65,9 @@ public class SanguimancyItemStacks {
     public static ItemStack ritualRepresentation = new ItemStack(BlocksRegistry.ritualRepresentation);
     public static ItemStack etherealBlock = new ItemStack(BlocksRegistry.etherealBlock);
     public static ItemStack etherealCorruptedBlock = new ItemStack(BlocksRegistry.etherealCorruptedBlock);
+    public static ItemStack etherealToggledBlock = new ItemStack(BlocksRegistry.etherealToggledBlock);
+    public static ItemStack etherealBoundBlock = new ItemStack(BlocksRegistry.etherealBoundBlock);
+    public static ItemStack etherealBoundCorruptedBlock = new ItemStack(BlocksRegistry.etherealBoundCorruptedBlock);
+    public static ItemStack etherealBoundToggledBlock = new ItemStack(BlocksRegistry.etherealBoundToggledBlock);
+    public static ItemStack personalEtherealBlock = new ItemStack(BlocksRegistry.etherealPersonalBlock);
 }

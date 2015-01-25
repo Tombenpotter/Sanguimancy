@@ -34,6 +34,10 @@ public class BlocksRegistry {
     public static Block etherealBlock;
     public static Block etherealCorruptedBlock;
     public static Block etherealToggledBlock;
+    public static Block etherealBoundBlock;
+    public static Block etherealBoundCorruptedBlock;
+    public static Block etherealBoundToggledBlock;
+    public static Block etherealPersonalBlock;
 
     public static void registerBlocks() {
         altarDiviner = new BlockAltarDiviner(Material.iron);
@@ -98,5 +102,17 @@ public class BlocksRegistry {
 
         etherealToggledBlock = new BlockEtherealToggled(Material.iron);
         GameRegistry.registerBlock(etherealToggledBlock, "BlockEtehrealToggled").setBlockName(Sanguimancy.modid + ".etherealToggledBlock");
+
+        etherealBoundBlock = new BlockEtherealBound(Material.iron);
+        GameRegistry.registerBlock(etherealBoundBlock, "BlockEtherealBound").setBlockName(Sanguimancy.modid + ".etherealBoundBlock");
+
+        etherealBoundCorruptedBlock = new BlockEtherealBoundCorrupted(Material.iron);
+        GameRegistry.registerBlock(etherealBoundCorruptedBlock, "BlockEtherealBoundCorrupted").setBlockName(Sanguimancy.modid + ".etherealBoundCorruptedBlock");
+
+        etherealBoundToggledBlock = new BlockEtherealBoundToggled(Material.iron);
+        GameRegistry.registerBlock(etherealBoundToggledBlock, "BlockEtherealBoundToggled").setBlockName(Sanguimancy.modid + ".etherealBoundToggledBlock");
+
+        etherealPersonalBlock = new BlockEtherealPersonal(Material.iron);
+        GameRegistry.registerBlock(etherealPersonalBlock, "BlockEtherealPersonal").setBlockName(Sanguimancy.modid + ".etherealPersonalBlock");
     }
 }

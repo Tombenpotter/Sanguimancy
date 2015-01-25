@@ -5,15 +5,15 @@ import net.minecraft.nbt.NBTTagList;
 import net.minecraft.nbt.NBTTagString;
 import net.minecraftforge.common.util.Constants;
 import tombenpotter.sanguimancy.api.tile.IBoundTile;
-import tombenpotter.sanguimancy.api.tile.TileBase;
+import tombenpotter.sanguimancy.api.tile.TileCamouflage;
 
 import java.util.ArrayList;
 
-public class TileBound extends TileBase implements IBoundTile {
+public class TileCamouflageBound extends TileCamouflage implements IBoundTile {
 
     ArrayList<String> ownerList;
 
-    public TileBound() {
+    public TileCamouflageBound() {
         custoomNBTTag = new NBTTagCompound();
         this.ownerList = new ArrayList<String>();
     }

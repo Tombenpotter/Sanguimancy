@@ -39,6 +39,10 @@ tile.Sanguimancy.ritualRepresentation.name=Ritual Representation
 tile.Sanguimancy.etherealBlock.name=Ethereal Block
 tile.Sanguimancy.etherealCorruptedBlock.name=Corrupted Ethereal Block
 tile.Sanguimancy.etherealToggledBlock.name=Toggled Ethereal Block
+tile.Sanguimancy.etherealBoundBlock.name=Bound Ethereal Block
+tile.Sanguimancy.etherealBoundCorruptedBlock.name=Bound Corrupted Ethereal Block
+tile.Sanguimancy.etherealBoundToggledBlock.name=Bound Toggled Ethereal Block
+tile.Sanguimancy.etherealPersonalBlock.name=Personal Ethereal Block
 
 #Items
 item.Sanguimancy.playerSacrificer.unattuned.name=Unattuned Player Sacrificing Stone
@@ -124,7 +128,7 @@ info.Sanguimancy.tooltip.activated=Ability Activated
 info.Sanguimancy.tooltip.owner=Current Owner
 info.Sanguimancy.tooltip.minimum.corruption.1=Minimum corruption to reach the tool's
 info.Sanguimancy.tooltip.minimum.corruption.2=default capabilities
-info.Sanguimancy.tooltip.wrong.player=This is not yours to use.
+info.Sanguimancy.tooltip.wrong.player=This is not yours to break.
 info.Sanguimancy.tooltip.mode=Mode
 info.Sanguimancy.tooltip.mode.regular=Normal
 info.Sanguimancy.tooltip.pickaxe.mode.silk.touch=Silk Touch
@@ -187,6 +191,9 @@ guide.Sanguimancy.entry.toggledKnot=The Toggled Soul Knot acts exactly like a Si
 guide.Sanguimancy.entryName.etherealBlocks=Ethereal Blocks
 guide.Sanguimancy.entry.etherealBlock=The Ethereal Block is a block solid to all entities but players. Right clicking on it with any solid block will give the Ehtereal Block its texture, but will also trick other mods (**cough**Waila**cough**) into believing that the block is the one it seems to be. Right clicking the block with a bucket of water will remove the texture.
 guide.Sanguimancy.entry.corruptedEtherealBlock=The Corrupted Ethereal Block has all the proprieties of the Ethereal Block, plus one: the player needs to have reached a certain level of corruption to be able to pass through it. Right clicking it will raise the level of corruption, shift-right clicking will lower it.
+guide.Sanguimancy.entry.toggledEtherealBlock=The Toggled Ethereal Block is a block that can be camouflaged like the Ethereal Block, but acts a bit different: if no redstone signal is supplied, any entity can go through it. When a redstone signal is supplied, it becomes solid once more. Sneaking makes it solid.
+guide.Sanguimancy.entry.boundEtherealBlocks=The Bound Ethereal Blocks are Ethereal, Corrupted or Toggled Ethereal Blocks with one more feature: only the one who placed them can break them. To craft them, drop between 1 and 64 of them in a ritual of binding and activate it.
+guide.Sanguimancy.entry.personalEtherealBlock=The Personal Ethereal Block acts like a Bound Ethereal Block, but only the one who placed it can go through it. It is solid for anything else.
 
 #Rituals
 guide.Sanguimancy.entry.drillOfTheDead=The Drill of the Dead is, to put it simply, a Well of Suffering on steroids. Where the Well deals half a heart of damage to any mob in the area, the Drill of the Dead kills said mobs instantly. Each kill costs 75LP and gives 200LP per default. However, the Drill of the Dead has limitations. As it is such a powerful tool, it cannot kill Boss Mobs, Elementals and Demons. Activating this ritual will cause your §4 Soul Corruption §r to augment.

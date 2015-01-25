@@ -5,6 +5,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
+import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -105,5 +106,19 @@ public class BlockCamouflage extends BlockContainer {
         if (Block.getBlockById(tile.block) != Blocks.air) {
             return Block.getBlockById(tile.block).getLightValue();
         } else return super.getLightValue(world, x, y, z);
+    }
+
+    @SideOnly(Side.CLIENT)
+    @Override
+    public int colorMultiplier(IBlockAccess access, int x, int y, int z) {
+        TileCamouflage tile = (TileCamouflage) access.getTileEntity(x, y, z);
+        if (Block.getBlockById(tile.block) != Blocks.air) {
+            return Block.getBlockById(tile.block).colorMultiplier(access, x, y, z);
+        } else return super.colorMultiplier(access, x, y, z);
+    }
+
+    @Override
+    public boolean canCreatureSpawn(EnumCreatureType type, IBlockAccess access, int x, int y, int z) {
+        return false;
     }
 }

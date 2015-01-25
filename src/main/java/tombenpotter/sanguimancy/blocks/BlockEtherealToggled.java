@@ -29,7 +29,7 @@ public class BlockEtherealToggled extends BlockCamouflage {
 
     @Override
     public void addCollisionBoxesToList(World world, int x, int y, int z, AxisAlignedBB mask, List list, Entity entity) {
-        if (world.getStrongestIndirectPower(x, y, z) > 0 || world.getBlockPowerInput(x, y, z) > 0) {
+        if (world.getStrongestIndirectPower(x, y, z) > 0 || world.getBlockPowerInput(x, y, z) > 0 || entity.isSneaking()) {
             super.addCollisionBoxesToList(world, x, y, z, mask, list, entity);
         } else {
             return;

@@ -22,5 +22,6 @@ public class TileRegistry {
         GameRegistry.registerTileEntity(TileToggleSNKnot.class, "TileToggleSNKnot");
         GameRegistry.registerTileEntity(TileRitualSNPart.class, "TileRitualSNPart");
         GameRegistry.registerTileEntity(TileCamouflage.class, "TileCamouflage");
+        GameRegistry.registerTileEntity(TileCamouflageBound.class, "TileCamouflageBound");
     }
 }

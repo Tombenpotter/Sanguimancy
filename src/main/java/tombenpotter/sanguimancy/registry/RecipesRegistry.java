@@ -5,6 +5,7 @@ import WayofTime.alchemicalWizardry.ModItems;
 import WayofTime.alchemicalWizardry.api.alchemy.AlchemyRecipeRegistry;
 import WayofTime.alchemicalWizardry.api.altarRecipeRegistry.AltarRecipe;
 import WayofTime.alchemicalWizardry.api.altarRecipeRegistry.AltarRecipeRegistry;
+import WayofTime.alchemicalWizardry.api.bindingRegistry.BindingRegistry;
 import WayofTime.alchemicalWizardry.api.items.ShapedBloodOrbRecipe;
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.init.Blocks;
@@ -26,7 +27,7 @@ public class RecipesRegistry {
 
     public static IRecipe altarEmitter, sacrificeTransferrer, corruptionReader, unattunedPlayerSacrificer, corruptionCrystallizer, bloodTank, lumpCleaner,
             bloodAmulet, bloodstoneStairs, largeBloodstoneStairs, bloodstoneSlab, largeBloodstoneSlab, chunkClaimer, wand, bloodInterface, simpleBranch,
-            simpleKnot, toggledKnot, corruptedMineral, corruptedSword, corruptedPickaxe, corruptedShovel, corruptedAxe;
+            simpleKnot, toggledKnot, corruptedMineral, corruptedSword, corruptedPickaxe, corruptedShovel, corruptedAxe, toggledEtherealBlock, personalEtherealBlock;
     public static AltarRecipe altarDiviner, attunedPlayerSacrificer, corruptionCatalyst, imbuedStick, etherealManifestation;
     public static RecipeCorruptedInfusion poisonousPotato, rottenFlesh, crackedStoneBricks, bonemeal, soulSand, corruptedDemonShard, cobblestone, gravel,
             sand, dirt, corruptedEtherealBlock;
@@ -54,6 +55,8 @@ public class RecipesRegistry {
         corruptedPickaxe = GameRegistry.addShapedRecipe(SanguimancyItemStacks.corruptedPickaxe, "XXX", " Y ", " Y ", 'X', SanguimancyItemStacks.corruptedMineral, 'Y', SanguimancyItemStacks.imbuedStick);
         corruptedShovel = GameRegistry.addShapedRecipe(SanguimancyItemStacks.corruptedShovel, " X ", " Y ", " Y ", 'X', SanguimancyItemStacks.corruptedMineral, 'Y', SanguimancyItemStacks.imbuedStick);
         corruptedAxe = GameRegistry.addShapedRecipe(SanguimancyItemStacks.corruptedAxe, "XX ", "XY ", " Y ", 'X', SanguimancyItemStacks.corruptedMineral, 'Y', SanguimancyItemStacks.imbuedStick);
+        toggledEtherealBlock = GameRegistry.addShapedRecipe(new ItemStack(BlocksRegistry.etherealBoundBlock, 8), "XXX", "XYX", "XXX", 'Y', Blocks.redstone_block, 'X', SanguimancyItemStacks.etherealBlock);
+        personalEtherealBlock = GameRegistry.addShapedRecipe(new ItemStack(BlocksRegistry.etherealPersonalBlock, 8), "XXX", "XYX", "XXX", 'X', SanguimancyItemStacks.etherealBoundBlock, 'Y', Items.name_tag);
     }
 
     public static void registerAltarRecipes() {
@@ -84,6 +87,12 @@ public class RecipesRegistry {
 
     public static void registerAlchemyRecipes() {
         AlchemyRecipeRegistry.registerRecipe(new ItemStack(BlocksRegistry.etherealBlock, 32), 10, new ItemStack[]{new ItemStack(ModItems.baseAlchemyItems, 1, 3), new ItemStack(ModItems.aether), new ItemStack(ModItems.magicales), new ItemStack(ModItems.terrae), new ItemStack(ModItems.crystallos)}, 4);
+    }
+
+    public static void registerBindingRecipes() {
+        BindingRegistry.registerRecipe(SanguimancyItemStacks.etherealBoundBlock, SanguimancyItemStacks.etherealBlock);
+        BindingRegistry.registerRecipe(SanguimancyItemStacks.etherealBoundCorruptedBlock, SanguimancyItemStacks.etherealCorruptedBlock);
+        BindingRegistry.registerRecipe(SanguimancyItemStacks.etherealBoundToggledBlock, SanguimancyItemStacks.etherealToggledBlock);
     }
 
     public static void registerCustomModRecipes() {

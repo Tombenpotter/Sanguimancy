@@ -43,7 +43,7 @@ public class BlockEtherealCorrupted extends BlockCamouflage {
             } else if (player.isSneaking() && tile.getCustomNBTTag().getInteger("MinimumCorruption") - 1 >= 0) {
                 tile.getCustomNBTTag().setInteger("MinimumCorruption", tile.getCustomNBTTag().getInteger("MinimumCorruption") - 1);
             }
-            player.addChatMessage(new ChatComponentText(StatCollector.translateToLocal("chat.Sanguimancy.blood.required") + ": " + String.valueOf(tile.getCustomNBTTag().getInteger("MinimumCorruption"))));
+            player.addChatMessage(new ChatComponentText(StatCollector.translateToLocal("compat.nei.corrupted.infusion.minimum.corruption") + ": " + String.valueOf(tile.getCustomNBTTag().getInteger("MinimumCorruption"))));
         }
         return super.onBlockActivated(world, x, y, z, player, p_149727_6_, p_149727_7_, p_149727_8_, p_149727_9_);
     }
