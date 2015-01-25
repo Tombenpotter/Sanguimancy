@@ -64,8 +64,12 @@ public class GuiEntry extends GuiScreen {
         Entry e = EntryRegistry.entries.get(this.category).get(this.key);
 
         /** Title */
-        String str = e.name;
-        this.drawCenteredString(fontRendererObj, str, this.left + gwidth / 2, top - 15, 0x336666);
+        String str = "Categories";
+        this.drawCenteredString(fontRendererObj, str, this.left + gwidth / 2, top - 10, 0x336666);
+
+        /**Credit ;D**/
+        String cre = "Powered by wasliebob";
+        this.drawCenteredString(fontRendererObj, cre, this.left + gwidth / 2, top - 20, 0x336666);
 
         /** Current Page */
         this.drawCenteredString(fontRendererObj, (currPage) + "/" + (e.entry.length), this.left + gwidth / 2, top + 160, 0x336666);

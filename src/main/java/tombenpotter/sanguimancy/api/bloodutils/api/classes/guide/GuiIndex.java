@@ -104,8 +104,12 @@ public class GuiIndex extends GuiScreen {
         drawTexturedModalRect(left, top, 0, 0, gwidth, gheight);
 
         /** Title */
-        String str = category.name;
-        this.drawCenteredString(fontRendererObj, str, this.left + gwidth / 2, top - 15, 0x336666);
+        String str = "Categories";
+        this.drawCenteredString(fontRendererObj, str, this.left + gwidth / 2, top - 10, 0x336666);
+
+        /**Credit ;D**/
+        String cre = "Powered by wasliebob";
+        this.drawCenteredString(fontRendererObj, cre, this.left + gwidth / 2, top - 20, 0x336666);
 
         /** Current Page */
         if (this.category != null && EntryRegistry.maxEntries.containsKey(this.category)) {

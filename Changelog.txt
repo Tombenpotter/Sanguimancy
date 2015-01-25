@@ -8,6 +8,7 @@ You now get a free claimed chunk in the SN dimension, unless you turn the config
 You now need to have an Ethereal Manifestation in your inventory if you want the item/ritual to have its representation in the SN Dim.
 Abandonned trying to make my own book system. I'll just try and fix Waslie's.
 Fixed a bug with the free chunk assignment. -- Removed the automatic chunk assignment. It's not useful anymore.
+Added 7 different types of Ethereal Blocks. Fuun!
 
 Version 1.1.9-Alpha3:
 Finalized the Soul Network Manifestation system. I need now to give it a bit of fluff and couple of kicks in the butts, but it's close.

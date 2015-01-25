@@ -59,11 +59,10 @@ public class GuiCategories extends GuiScreen {
 
         for (int i = 0; i < EntryRegistry.categories.size(); i++) {
             ElementCategory category = this.categories[i];
-            category.drawElement();
-
             if (category.isMouseInElement(mX, mY)) {
                 category.onMouseEnter(mX, mY);
             }
+            category.drawElement();
         }
     }
 
