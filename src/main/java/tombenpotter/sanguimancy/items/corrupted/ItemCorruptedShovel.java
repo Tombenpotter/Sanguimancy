@@ -15,6 +15,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemSpade;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.IIcon;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
@@ -39,6 +40,7 @@ public class ItemCorruptedShovel extends ItemSpade {
     public int minimumCorruption = ConfigHandler.minimumToolCorruption;
     private HashMap<BlockAndMetadata, BlockAndMetadata> breakdownBlocks = new HashMap<BlockAndMetadata, BlockAndMetadata>();
     private HashMap<BlockAndMetadata, BlockAndMetadata> transmuteBlocks = new HashMap<BlockAndMetadata, BlockAndMetadata>();
+    public IIcon breakingDown, goldDigger, transmutation;
 
     public ItemCorruptedShovel(ToolMaterial material) {
         super(material);
@@ -53,8 +55,18 @@ public class ItemCorruptedShovel extends ItemSpade {
     @Override
     @SideOnly(Side.CLIENT)
     public void registerIcons(IIconRegister ir) {
-        super.registerIcons(ir);
-        //TODO: Add an icon and a different overlay for every mode.
+        this.itemIcon = ir.registerIcon(Sanguimancy.texturePath + ":CorruptedShovel");
+        this.breakingDown = ir.registerIcon(Sanguimancy.texturePath + ":CorruptedShovel_BreakDown");
+        this.goldDigger = ir.registerIcon(Sanguimancy.texturePath + ":CorruptedShovel_GoldDigger");
+        this.transmutation = ir.registerIcon(Sanguimancy.texturePath + ":CorruptedShovel_Transmute");
+    }
+
+    @Override
+    public IIcon getIcon(ItemStack stack, int pass) {
+        if (getToolMode(stack) == 1) return breakingDown;
+        else if (getToolMode(stack) == 2) return goldDigger;
+        else if (getToolMode(stack) == 3) return transmutation;
+        else return this.itemIcon;
     }
 
     @Override

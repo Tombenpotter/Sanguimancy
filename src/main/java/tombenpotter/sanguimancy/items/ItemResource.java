@@ -33,7 +33,7 @@ public class ItemResource extends Item {
         this.icon[0] = ri.registerIcon(Sanguimancy.texturePath + ":CorruptedDemonShard");
         this.icon[1] = ri.registerIcon(Sanguimancy.texturePath + ":CorruptedMineral");
         this.icon[2] = ri.registerIcon(Sanguimancy.texturePath + ":ImbuedStick");
-        this.icon[3] = ri.registerIcon(Sanguimancy.texturePath + ":etherealManifestation");
+        this.icon[3] = ri.registerIcon(Sanguimancy.texturePath + ":EtherealManifestation");
     }
 
     @Override
