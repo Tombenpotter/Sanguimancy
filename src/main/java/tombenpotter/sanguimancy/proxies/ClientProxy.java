@@ -51,6 +51,7 @@ public class ClientProxy extends CommonProxy {
         ClientRegistry.bindTileEntitySpecialRenderer(TileItemSNPart.class, new RenderBoundItem());
         ClientRegistry.bindTileEntitySpecialRenderer(TileBloodInterface.class, new RenderBloodInterface());
         ClientRegistry.bindTileEntitySpecialRenderer(TileSimpleSNBranch.class, new RenderSoulBranch());
+        ClientRegistry.bindTileEntitySpecialRenderer(TileRitualSNPart.class, new RenderRitualRepresentation());
 
         MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(BlocksRegistry.altarDiviner), new RenderAltarDiviner());
         MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(BlocksRegistry.corruptionCrystallizer), new RenderCorruptionCrystallizer());
@@ -58,6 +59,7 @@ public class ClientProxy extends CommonProxy {
         MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(BlocksRegistry.boundItem), new RenderBoundItem());
         MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(BlocksRegistry.bloodInterface), new RenderBloodInterface());
         MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(BlocksRegistry.simpleBranch), new RenderSoulBranch());
+        MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(BlocksRegistry.ritualRepresentation), new RenderRitualRepresentation());
 
         RenderingRegistry.registerEntityRenderingHandler(EntityChickenMinion.class, new RenderChickenMinion(new ModelChicken(), 1.0F));
         RenderingRegistry.registerEntityRenderingHandler(EntityPlayerPointer.class, new RenderPlayerPointer());

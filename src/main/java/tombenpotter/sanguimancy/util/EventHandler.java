@@ -202,6 +202,7 @@ public class EventHandler {
                             }
                         }
                         event.player.addChatComponentMessage(new ChatComponentText(StatCollector.translateToLocal("chat.Sanguimancy.added.success")));
+                        dimWorld.markBlockForUpdate(baseX, baseY, baseZ);
                         break;
                     }
                 }
@@ -262,6 +263,7 @@ public class EventHandler {
                             if (dimWorld.getTileEntity(baseX, baseY, baseZ) != null && dimWorld.getTileEntity(baseX, baseY, baseZ) instanceof TileRitualSNPart) {
                                 TileRitualSNPart part = (TileRitualSNPart) dimWorld.getTileEntity(baseX, baseY, baseZ);
                                 part.ritualPosition = new BlockPostition(event.mrs.getXCoord(), event.mrs.getYCoord(), event.mrs.getZCoord());
+                                dimWorld.markBlockForUpdate(baseX, baseY, baseZ);
                             }
                         }
                         event.player.addChatComponentMessage(new ChatComponentText(StatCollector.translateToLocal("chat.Sanguimancy.added.success")));
