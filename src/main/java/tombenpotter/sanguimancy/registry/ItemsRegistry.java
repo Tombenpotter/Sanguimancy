@@ -24,6 +24,7 @@ public class ItemsRegistry {
     public static Item corruptedAxe;
     public static Item playerGuide;
     public static Item resource;
+    public static Item soulTransporter;
 
     public static void registerItems() {
         playerSacrificer = new ItemPlayerSacrificer();
@@ -64,5 +65,8 @@ public class ItemsRegistry {
 
         resource = new ItemResource();
         GameRegistry.registerItem(resource, "resource");
+
+        soulTransporter = new ItemSoulTransporter();
+        GameRegistry.registerItem(soulTransporter, "soulTransporter");
     }
 }

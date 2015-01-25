@@ -24,6 +24,7 @@ import net.minecraftforge.fluids.IFluidHandler;
 import net.minecraftforge.oredict.OreDictionary;
 import tombenpotter.sanguimancy.Sanguimancy;
 import tombenpotter.sanguimancy.api.objects.MapKey;
+import tombenpotter.sanguimancy.registry.ItemsRegistry;
 import tombenpotter.sanguimancy.world.WorldProviderSoulNetworkDimension;
 
 import java.awt.*;
@@ -40,6 +41,7 @@ public class RandomUtils {
     public static HashMap<String, Integer> oreDictColor = new HashMap<String, Integer>();
     public static Item.ToolMaterial corruptedMaterial = EnumHelper.addToolMaterial("corruptedToolMaterial", Integer.MAX_VALUE, 9000, 32, 10, 32);
     public static HashMap<MapKey, ItemStack> logToPlank = new HashMap<MapKey, ItemStack>();
+    public static ArrayList<ItemStack> oreLumpList = new ArrayList<ItemStack>();
 
     public static void dropItems(World world, int x, int y, int z) {
         Random rand = new Random();
@@ -431,5 +433,19 @@ public class RandomUtils {
             persistTag.setTag(modName, modTag);
         }
         return modTag;
+    }
+
+    public static void setOreLumpList() {
+        for (String ore : OreDictionary.getOreNames()) {
+            if (ore.startsWith("ore")) {
+                String output = ore.substring(3);
+                if (!OreDictionary.getOres(ore).isEmpty() && !OreDictionary.getOres("ingot" + output).isEmpty()) {
+                    ItemStack stack = new ItemStack(ItemsRegistry.oreLump);
+                    checkAndSetCompound(stack);
+                    stack.stackTagCompound.setString("ore", output);
+                    oreLumpList.add(stack);
+                }
+            }
+        }
     }
 }

@@ -29,6 +29,7 @@ public class SanguimancyItemStacks {
     public static ItemStack imbuedStick = new ItemStack(ItemsRegistry.resource, 1, 2);
     public static ItemStack playerGuide = new ItemStack(ItemsRegistry.playerGuide);
     public static ItemStack etherealManifestation = new ItemStack(ItemsRegistry.resource, 1, 4);
+    public static ItemStack soulTransporter = new ItemStack(ItemsRegistry.soulTransporter);
 
     // Blocks
     public static ItemStack altarEmitter = new ItemStack(BlocksRegistry.altarEmitter);

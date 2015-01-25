@@ -10,7 +10,6 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.StatCollector;
-import net.minecraftforge.oredict.OreDictionary;
 import tombenpotter.sanguimancy.Sanguimancy;
 import tombenpotter.sanguimancy.util.RandomUtils;
 
@@ -48,17 +47,7 @@ public class ItemOreLump extends Item {
     @SideOnly(Side.CLIENT)
     @Override
     public void getSubItems(Item item, CreativeTabs par2CreativeTabs, List list) {
-        for (String ore : OreDictionary.getOreNames()) {
-            if (ore.startsWith("ore")) {
-                String output = ore.substring(3);
-                if (!OreDictionary.getOres(ore).isEmpty() && !OreDictionary.getOres("ingot" + output).isEmpty()) {
-                    ItemStack stack = new ItemStack(this);
-                    RandomUtils.checkAndSetCompound(stack);
-                    stack.stackTagCompound.setString("ore", output);
-                    list.add(stack);
-                }
-            }
-        }
+        for (ItemStack stack : RandomUtils.oreLumpList) list.add(stack);
     }
 
     @Override

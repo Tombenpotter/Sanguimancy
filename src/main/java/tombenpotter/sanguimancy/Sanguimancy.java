@@ -92,5 +92,6 @@ public class Sanguimancy {
         proxy.postLoad();
         isTTLoaded = Loader.isModLoaded("ThaumicTinkerer");
         RandomUtils.setLogToPlank();
+        RandomUtils.setOreLumpList();
     }
 }

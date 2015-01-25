@@ -27,7 +27,8 @@ public class RecipesRegistry {
 
     public static IRecipe altarEmitter, sacrificeTransferrer, corruptionReader, unattunedPlayerSacrificer, corruptionCrystallizer, bloodTank, lumpCleaner,
             bloodAmulet, bloodstoneStairs, largeBloodstoneStairs, bloodstoneSlab, largeBloodstoneSlab, chunkClaimer, wand, bloodInterface, simpleBranch,
-            simpleKnot, toggledKnot, corruptedMineral, corruptedSword, corruptedPickaxe, corruptedShovel, corruptedAxe, toggledEtherealBlock, personalEtherealBlock;
+            simpleKnot, toggledKnot, corruptedMineral, corruptedSword, corruptedPickaxe, corruptedShovel, corruptedAxe, toggledEtherealBlock,
+            personalEtherealBlock, soulTransporter;
     public static AltarRecipe altarDiviner, attunedPlayerSacrificer, corruptionCatalyst, imbuedStick, etherealManifestation;
     public static RecipeCorruptedInfusion poisonousPotato, rottenFlesh, crackedStoneBricks, bonemeal, soulSand, corruptedDemonShard, cobblestone, gravel,
             sand, dirt, corruptedEtherealBlock;
@@ -83,6 +84,8 @@ public class RecipesRegistry {
         lumpCleaner = RecipeRegistry.getLatestCraftingRecipe();
         GameRegistry.addRecipe(new ShapedBloodOrbRecipe(SanguimancyItemStacks.bloodAmulet, "XYX", "ZAZ", "BCB", 'X', new ItemStack(Items.string), 'Y', new ItemStack(Items.bucket), 'Z', new ItemStack(ModItems.demonicSlate), 'A', new ItemStack(Items.clock), 'B', SanguimancyItemStacks.bloodTank, 'C', new ItemStack(ModItems.magicianBloodOrb)));
         bloodAmulet = RecipeRegistry.getLatestCraftingRecipe();
+        GameRegistry.addRecipe(new ShapedBloodOrbRecipe(SanguimancyItemStacks.soulTransporter, "XYZ", "COC", "ACA", 'X', ModItems.divinationSigil, 'Y', ModItems.demonicSlate, 'Z', ModItems.itemSigilOfEnderSeverance, 'C', Blocks.soul_sand, 'A', ModBlocks.bloodSocket, 'O', new ItemStack(ModItems.apprenticeBloodOrb)));
+        soulTransporter = RecipeRegistry.getLatestCraftingRecipe();
     }
 
     public static void registerAlchemyRecipes() {

@@ -26,8 +26,10 @@ public class GuideRegistry {
 
     public static Category categorySanguimancyLore, categorySanguimancyItems, categorySanguimancyBlocks, categorySanguimancyRituals;
 
-    public static Entry playerSacrificers, soulCorruptionReader, bloodAmulet, chunkClaimer, craftingItems, corruptionCatalyst, oreLump, wand, corruptedAxe, corruptedPickaxe, corruptedShovel, corruptedSword;
-    public static Entry altarEmitter, altarDiviner, soulTransferrer, corruptionCrystallizer, bloodInterface, decorativeBlocks, bloodTank, manifestations, bloodCleanser, etherealBlocks;
+    public static Entry playerSacrificers, soulCorruptionReader, bloodAmulet, chunkClaimer, craftingItems, corruptionCatalyst, oreLump, wand, corruptedAxe,
+            corruptedPickaxe, corruptedShovel, corruptedSword, soulTransporter;
+    public static Entry altarEmitter, altarDiviner, soulTransferrer, corruptionCrystallizer, bloodInterface, decorativeBlocks, bloodTank, manifestations,
+            bloodCleanser, etherealBlocks;
     public static Entry drillOfTheDead, vulcanosFrigius, greatDeletion, enlightenment, timberman, filler, portal, pump;
     public static Entry sacrificeMagic, soulCorruption, soulProtection, corruptionApplications;
 
@@ -135,6 +137,12 @@ public class GuideRegistry {
         corruptedSwordEntries.add(new EntryCraftingRecipe(RecipesRegistry.corruptedSword));
         corruptedSword = new Entry(corruptedSwordEntries, "\u00A79" + StatCollector.translateToLocal("item.Sanguimancy.corruptedSword.name"), 1);
         EntryRegistry.registerEntry(categorySanguimancyItems, items, corruptedSword);
+
+        ArrayList<IEntry> soulTranporterEntries = new ArrayList<IEntry>();
+        soulTranporterEntries.addAll(entriesForLongText("guide.Sanguimancy.entry.soulTransporter", SanguimancyItemStacks.soulTransporter));
+        soulTranporterEntries.add(new EntryCraftingRecipe(RecipesRegistry.soulTransporter));
+        soulTransporter = new Entry(soulTranporterEntries, "\u00A79" + StatCollector.translateToLocal("item.Sanguimancy.soulTransporter.name"), 1);
+        EntryRegistry.registerEntry(categorySanguimancyItems, items, soulTransporter);
     }
 
     public static void createBlockEntries() {

@@ -14,20 +14,19 @@ import tombenpotter.sanguimancy.util.ConfigHandler;
 import tombenpotter.sanguimancy.util.TeleportingUtils;
 import tombenpotter.sanguimancy.util.singletons.ClaimedChunks;
 
-public class ItemCorruptedDemonShard extends Item {
+public class ItemSoulTransporter extends Item {
 
-    public ItemCorruptedDemonShard() {
+    public ItemSoulTransporter() {
         setCreativeTab(Sanguimancy.tabSanguimancy);
-        setUnlocalizedName(Sanguimancy.modid + ".corruptedDemonShard");
+        setUnlocalizedName(Sanguimancy.modid + ".soulTransporter");
     }
 
     @SideOnly(Side.CLIENT)
     public void registerIcons(IIconRegister ri) {
-        this.itemIcon = ri.registerIcon(Sanguimancy.texturePath + ":CorruptedDemonShard");
+        this.itemIcon = ri.registerIcon(Sanguimancy.texturePath + ":SoulTransporter");
     }
 
     @Override
-    //TODO: Remove that testing code
     public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player) {
         if (!world.isRemote) {
             if (player.worldObj.provider.dimensionId != 0) {
@@ -36,10 +35,19 @@ public class ItemCorruptedDemonShard extends Item {
                 TeleportingUtils.teleportEntityToDim(world, 0, chunkCoords.posX, chunkCoords.posY, chunkCoords.posZ, player, player.getCommandSenderName());
             } else {
                 int dimID = ConfigHandler.snDimID;
-                int x = ClaimedChunks.getClaimedChunks().getLinkedChunks(player.getCommandSenderName()).get(0).getCenterXPos();
-                int z = ClaimedChunks.getClaimedChunks().getLinkedChunks(player.getCommandSenderName()).get(0).getCenterZPos();
+                int x;
+                int z;
+                if (ClaimedChunks.getClaimedChunks().getLinkedChunks(player.getCommandSenderName()).get(0) != null) {
+                    x = ClaimedChunks.getClaimedChunks().getLinkedChunks(player.getCommandSenderName()).get(0).getCenterXPos();
+                    z = ClaimedChunks.getClaimedChunks().getLinkedChunks(player.getCommandSenderName()).get(0).getCenterZPos();
+                } else {
+                    ChunkCoordinates chunkCoords = MinecraftServer.getServer().worldServerForDimension(dimID).getSpawnPoint();
+                    x = chunkCoords.posX;
+                    z = chunkCoords.posZ;
+                }
                 TeleportingUtils.teleportEntityToDim(world, dimID, x, 6, z, player, player.getCommandSenderName());
             }
+            player.inventory.consumeInventoryItem(this);
         }
         return stack;
     }
