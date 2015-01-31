@@ -8,6 +8,7 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.world.World;
+import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 
@@ -19,7 +20,7 @@ public class RitualUtils {
         if (block.getDrops(world, x, y, z, world.getBlockMetadata(x, y, z), 0) != null) {
             for (ItemStack stack : block.getDrops(world, x, y, z, world.getBlockMetadata(x, y, z), 0)) {
                 ItemStack copyStack = stack.copy();
-                SpellHelper.insertStackIntoInventory(copyStack, tile);
+                SpellHelper.insertStackIntoInventory(copyStack, tile, ForgeDirection.UNKNOWN);
                 if (copyStack.stackSize > 0) {
                     world.spawnEntityInWorld(new EntityItem(world, x + 0.4, y + 2, z + 0.5, copyStack));
                 }
@@ -30,7 +31,7 @@ public class RitualUtils {
     public static void silkPlaceInInventory(Block block, World world, int x, int y, int z, IInventory tile) {
         if (block.canSilkHarvest(world, null, x, y, z, world.getBlockMetadata(x, y, z))) {
             ItemStack copyStack = new ItemStack(block, 1, world.getBlockMetadata(x, y, z)).copy();
-            SpellHelper.insertStackIntoInventory(copyStack, tile);
+            SpellHelper.insertStackIntoInventory(copyStack, tile, ForgeDirection.UNKNOWN);
             if (copyStack.stackSize > 0) {
                 world.spawnEntityInWorld(new EntityItem(world, x + 0.4, y + 2, z + 0.5, copyStack));
             }
@@ -42,13 +43,13 @@ public class RitualUtils {
             for (ItemStack stack : block.getDrops(world, x, y, z, world.getBlockMetadata(x, y, z), 0)) {
                 ItemStack copyStack = stack.copy();
                 if (FurnaceRecipes.smelting().getSmeltingResult(copyStack) == null) {
-                    SpellHelper.insertStackIntoInventory(copyStack, tile);
+                    SpellHelper.insertStackIntoInventory(copyStack, tile, ForgeDirection.UNKNOWN);
                     if (copyStack.stackSize > 0) {
                         world.spawnEntityInWorld(new EntityItem(world, x + 0.4, y + 2, z + 0.5, copyStack));
                     }
                 } else {
                     ItemStack output = FurnaceRecipes.smelting().getSmeltingResult(stack).copy();
-                    SpellHelper.insertStackIntoInventory(output, tile);
+                    SpellHelper.insertStackIntoInventory(output, tile, ForgeDirection.UNKNOWN);
                     if (output.stackSize > 0) {
                         world.spawnEntityInWorld(new EntityItem(world, x + 0.4, y + 2, z + 0.5, output));
                     }
