@@ -8,6 +8,8 @@ import tombenpotter.sanguimancy.entity.EntityPlayerPointer;
 import tombenpotter.sanguimancy.rituals.*;
 import tombenpotter.sanguimancy.util.ConfigHandler;
 
+import java.util.ArrayList;
+
 public class RitualRegistry {
 
     public static void registerRituals() {
@@ -31,6 +33,7 @@ public class RitualRegistry {
     }
 
     public static void addToWoSBlacklist() {
+        if (AlchemicalWizardry.wellBlacklist == null) AlchemicalWizardry.wellBlacklist = new ArrayList<Class>();
         AlchemicalWizardry.wellBlacklist.add(EntityPlayerPointer.class);
         AlchemicalWizardry.wellBlacklist.add(EntityChickenMinion.class);
     }
