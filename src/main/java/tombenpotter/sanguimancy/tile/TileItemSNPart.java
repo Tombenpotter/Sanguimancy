@@ -11,8 +11,8 @@ import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.StatCollector;
-import tombenpotter.sanguimancy.api.objects.BlockPostition;
 import tombenpotter.sanguimancy.api.EnumSNType;
+import tombenpotter.sanguimancy.api.objects.BlockPostition;
 import tombenpotter.sanguimancy.api.objects.SNKNotBoolean;
 import tombenpotter.sanguimancy.api.snManifestation.ISNKnot;
 import tombenpotter.sanguimancy.api.tile.TileBaseSNPart;
@@ -223,7 +223,7 @@ public class TileItemSNPart extends TileBaseSNPart implements IInventory {
         if (worldObj.getWorldTime() % 200 == 0) {
             HashMap<BlockPostition, SNKNotBoolean> map = getComponentsInNetwork().hashMap;
             for (BlockPostition postition : map.keySet()) {
-                if (map.get(postition).isSNKnot && map.get(postition).isSNKnotActive && worldObj.getBlockPowerInput(xCoord, yCoord, zCoord) > 0) {
+                if (map.get(postition).isSNKnot && map.get(postition).isSNKnotActive && (worldObj.getBlockPowerInput(xCoord, yCoord, zCoord) > 0 || worldObj.getStrongestIndirectPower(xCoord, yCoord, zCoord) > 0)) {
                     disablePart(false);
                 } else if (map.get(postition).isSNKnot && !map.get(postition).isSNKnotActive) {
                     disablePart(false);

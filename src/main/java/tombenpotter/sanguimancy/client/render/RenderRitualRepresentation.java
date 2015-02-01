@@ -30,7 +30,7 @@ public class RenderRitualRepresentation extends TileEntitySpecialRenderer implem
         if (tileEntity instanceof TileRitualSNPart) {
             TileRitualSNPart tile = (TileRitualSNPart) tileEntity;
             EntityPlayer player = Minecraft.getMinecraft().thePlayer;
-            if (tile.ritualPosition != null && player.getHeldItem() != null && player.getHeldItem().isItemEqual(new ItemStack(ModItems.itemSeerSigil))) {
+            if (player.getHeldItem() != null && player.getHeldItem().isItemEqual(new ItemStack(ModItems.itemSeerSigil))) {
                 renderNameTag(tile, x, y, z);
             }
         }
@@ -98,7 +98,7 @@ public class RenderRitualRepresentation extends TileEntitySpecialRenderer implem
     public void renderNameTag(TileRitualSNPart tile, double x, double y, double z) {
         float f = 1.6F;
         float f1 = 0.016666668F * f;
-        String s = tile.ritualPosition.toString();
+        String s = "x: " + String.valueOf(tile.xRitual) + " y: " + String.valueOf(tile.yRitual) + " z: " + String.valueOf(tile.zRitual);
         RenderManager manager = RenderManager.instance;
         FontRenderer fontrenderer = manager.getFontRenderer();
         GL11.glPushMatrix();

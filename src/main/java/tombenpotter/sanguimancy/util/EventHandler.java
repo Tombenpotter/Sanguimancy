@@ -36,7 +36,6 @@ import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.event.world.BlockEvent;
 import org.lwjgl.opengl.GL11;
 import tombenpotter.sanguimancy.Sanguimancy;
-import tombenpotter.sanguimancy.api.objects.BlockPostition;
 import tombenpotter.sanguimancy.api.soulCorruption.SoulCorruptionHelper;
 import tombenpotter.sanguimancy.network.PacketHandler;
 import tombenpotter.sanguimancy.network.events.EventCorruptedInfusion;
@@ -262,7 +261,9 @@ public class EventHandler {
                             dimWorld.setBlock(baseX, baseY, baseZ, BlocksRegistry.ritualRepresentation);
                             if (dimWorld.getTileEntity(baseX, baseY, baseZ) != null && dimWorld.getTileEntity(baseX, baseY, baseZ) instanceof TileRitualSNPart) {
                                 TileRitualSNPart part = (TileRitualSNPart) dimWorld.getTileEntity(baseX, baseY, baseZ);
-                                part.ritualPosition = new BlockPostition(event.mrs.getXCoord(), event.mrs.getYCoord(), event.mrs.getZCoord());
+                                part.xRitual = event.mrs.getXCoord();
+                                part.yRitual = event.mrs.getYCoord();
+                                part.zRitual = event.mrs.getZCoord();
                                 dimWorld.markBlockForUpdate(baseX, baseY, baseZ);
                             }
                         }

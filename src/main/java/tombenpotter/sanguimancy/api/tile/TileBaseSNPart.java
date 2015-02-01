@@ -2,9 +2,9 @@ package tombenpotter.sanguimancy.api.tile;
 
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.util.ForgeDirection;
+import tombenpotter.sanguimancy.api.ICustomNBTTag;
 import tombenpotter.sanguimancy.api.objects.BlockPostition;
 import tombenpotter.sanguimancy.api.objects.BoolAndBlockPosList;
-import tombenpotter.sanguimancy.api.ICustomNBTTag;
 import tombenpotter.sanguimancy.api.objects.SNKNotBoolean;
 import tombenpotter.sanguimancy.api.snManifestation.ISNComponent;
 import tombenpotter.sanguimancy.api.snManifestation.ISNKnot;
@@ -28,8 +28,8 @@ public abstract class TileBaseSNPart extends TileEntity implements ISNPart, ICus
     @Override
     public BoolAndBlockPosList getComponentsInNetwork() {
         BoolAndBlockPosList blockPosList = new BoolAndBlockPosList();
-        for (BlockPostition postition : getAdjacentISNComponents()) {
-            if (postition != null) {
+        if (getAdjacentISNComponents() != null) {
+            for (BlockPostition postition : getAdjacentISNComponents()) {
                 if (postition != null) {
                     if (!blockPosList.hashMap.containsKey(postition) && postition.getTile(worldObj) != null && postition.getTile(worldObj) instanceof ISNKnot) {
                         ISNKnot knot = (ISNKnot) postition.getTile(worldObj);
