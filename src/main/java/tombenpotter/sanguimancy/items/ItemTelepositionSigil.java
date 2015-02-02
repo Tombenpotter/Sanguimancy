@@ -1,6 +1,7 @@
 package tombenpotter.sanguimancy.items;
 
 import WayofTime.alchemicalWizardry.common.items.EnergyItems;
+import WayofTime.alchemicalWizardry.common.tileEntity.TETeleposer;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.gui.GuiScreen;
@@ -34,8 +35,10 @@ public class ItemTelepositionSigil extends Item {
     public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean par4) {
         if (stack.stackTagCompound != null) {
             if (!GuiScreen.isShiftKeyDown()) {
+                list.add(StatCollector.translateToLocal("info.Sanguimancy.tooltip.shift.teleposition.sigil.pun"));
                 list.add(StatCollector.translateToLocal("info.Sanguimancy.tooltip.shift.info"));
             } else {
+                list.add(StatCollector.translateToLocal("info.Sanguimancy.tooltip.shift.teleposition.sigil.pun"));
                 list.add(StatCollector.translateToLocal("info.Sanguimancy.tooltip.coordinates") + ": " + stack.stackTagCompound.getInteger("blockX") + ", " + stack.stackTagCompound.getInteger("blockZ") + ", " + stack.stackTagCompound.getInteger("blockZ"));
                 list.add(StatCollector.translateToLocal("info.Sanguimancy.tooltip.bound.dimension") + ": " + getDimensionID(stack.stackTagCompound));
             }
@@ -64,12 +67,15 @@ public class ItemTelepositionSigil extends Item {
         if (!world.isRemote && player.isSneaking()) {
             RandomUtils.checkAndSetCompound(stack);
             EnergyItems.checkAndSetItemOwner(stack, player);
-            stack.stackTagCompound.setInteger("blockX", x);
-            stack.stackTagCompound.setInteger("blockY", y);
-            stack.stackTagCompound.setInteger("blockZ", z);
-            stack.stackTagCompound.setInteger("dimensionId", world.provider.dimensionId);
+            if (world.getTileEntity(x, y, z) != null && world.getTileEntity(x, y, z) instanceof TETeleposer) {
+                stack.stackTagCompound.setInteger("blockX", x);
+                stack.stackTagCompound.setInteger("blockY", y);
+                stack.stackTagCompound.setInteger("blockZ", z);
+                stack.stackTagCompound.setInteger("dimensionId", world.provider.dimensionId);
+                return true;
+            }
         }
-        return true;
+        return false;
     }
 
     public int getDimensionID(NBTTagCompound tag) {
