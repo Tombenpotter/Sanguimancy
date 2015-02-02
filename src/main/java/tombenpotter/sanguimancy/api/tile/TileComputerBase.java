@@ -1,4 +1,4 @@
-package tombenpotter.sanguimancy.tile;
+package tombenpotter.sanguimancy.api.tile;
 
 import cpw.mods.fml.common.Optional;
 import dan200.computercraft.api.lua.ILuaContext;

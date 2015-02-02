@@ -25,6 +25,7 @@ public class ItemsRegistry {
     public static Item playerGuide;
     public static Item resource;
     public static Item soulTransporter;
+    public static Item telepositionSigil;
 
     public static void registerItems() {
         playerSacrificer = new ItemPlayerSacrificer();
@@ -68,5 +69,8 @@ public class ItemsRegistry {
 
         soulTransporter = new ItemSoulTransporter();
         GameRegistry.registerItem(soulTransporter, "soulTransporter");
+
+        telepositionSigil = new ItemTelepositionSigil();
+        GameRegistry.registerItem(telepositionSigil, "telepositionSigil");
     }
 }

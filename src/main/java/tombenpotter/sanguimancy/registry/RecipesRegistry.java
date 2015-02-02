@@ -28,7 +28,7 @@ public class RecipesRegistry {
     public static IRecipe altarEmitter, sacrificeTransferrer, corruptionReader, unattunedPlayerSacrificer, corruptionCrystallizer, bloodTank, lumpCleaner,
             bloodAmulet, bloodstoneStairs, largeBloodstoneStairs, bloodstoneSlab, largeBloodstoneSlab, chunkClaimer, wand, bloodInterface, simpleBranch,
             simpleKnot, toggledKnot, corruptedMineral, corruptedSword, corruptedPickaxe, corruptedShovel, corruptedAxe, toggledEtherealBlock,
-            personalEtherealBlock, soulTransporter;
+            personalEtherealBlock, soulTransporter, telepositionSigil;
     public static AltarRecipe altarDiviner, attunedPlayerSacrificer, corruptionCatalyst, imbuedStick, etherealManifestation;
     public static RecipeCorruptedInfusion poisonousPotato, rottenFlesh, crackedStoneBricks, bonemeal, soulSand, corruptedDemonShard, cobblestone, gravel,
             sand, dirt, corruptedEtherealBlock;
@@ -86,6 +86,8 @@ public class RecipesRegistry {
         bloodAmulet = RecipeRegistry.getLatestCraftingRecipe();
         GameRegistry.addRecipe(new ShapedBloodOrbRecipe(SanguimancyItemStacks.soulTransporter, "XYZ", "COC", "ACA", 'X', ModItems.divinationSigil, 'Y', ModItems.demonicSlate, 'Z', ModItems.itemSigilOfEnderSeverance, 'C', Blocks.soul_sand, 'A', ModBlocks.bloodSocket, 'O', new ItemStack(ModItems.apprenticeBloodOrb)));
         soulTransporter = RecipeRegistry.getLatestCraftingRecipe();
+        GameRegistry.addRecipe(new ShapedBloodOrbRecipe(SanguimancyItemStacks.telepositionSigil, "XSX", "YOY", "ZAZ", 'X', Items.ender_eye, 'S', ModItems.itemSigilOfEnderSeverance, 'Y', Items.ender_pearl, 'O', ModItems.magicianBloodOrb, 'Z', Blocks.end_stone, 'A', Blocks.obsidian));
+        telepositionSigil = RecipeRegistry.getLatestCraftingRecipe();
     }
 
     public static void registerAlchemyRecipes() {
