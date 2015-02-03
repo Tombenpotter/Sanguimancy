@@ -37,6 +37,7 @@ import net.minecraftforge.event.world.BlockEvent;
 import org.lwjgl.opengl.GL11;
 import tombenpotter.sanguimancy.Sanguimancy;
 import tombenpotter.sanguimancy.api.soulCorruption.SoulCorruptionHelper;
+import tombenpotter.sanguimancy.items.ItemOreLump;
 import tombenpotter.sanguimancy.network.PacketHandler;
 import tombenpotter.sanguimancy.network.events.EventCorruptedInfusion;
 import tombenpotter.sanguimancy.network.packets.PacketSyncCorruption;
@@ -288,12 +289,14 @@ public class EventHandler {
     @SubscribeEvent(priority = EventPriority.HIGHEST)
     //This code is very much inspired by the one in ProfMobius' Waila mod
     public void onSanguimancyItemTooltip(ItemTooltipEvent event) {
+        ItemStack stack = event.itemStack;
+
         try {
-            ModContainer mod = GameData.findModOwner(GameData.itemRegistry.getNameForObject(event.itemStack.getItem()));
+            ModContainer mod = GameData.findModOwner(GameData.itemRegistry.getNameForObject(stack.getItem()));
             String modname = mod == null ? "Minecraft" : mod.getName();
-            if (modname.equals(Sanguimancy.name) && event.itemStack.stackTagCompound != null && event.itemStack.stackTagCompound.hasKey("ownerName")) {
+            if (modname.equals(Sanguimancy.name) && stack.stackTagCompound != null && stack.stackTagCompound.hasKey("ownerName")) {
                 if (GuiScreen.isShiftKeyDown()) {
-                    event.toolTip.add((StatCollector.translateToLocal("info.Sanguimancy.tooltip.owner") + ": " + RandomUtils.getItemOwner(event.itemStack)));
+                    event.toolTip.add((StatCollector.translateToLocal("info.Sanguimancy.tooltip.owner") + ": " + RandomUtils.getItemOwner(stack)));
                 }
             }
         } catch (NullPointerException e) {

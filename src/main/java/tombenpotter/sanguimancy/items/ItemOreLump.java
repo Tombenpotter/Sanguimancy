@@ -8,6 +8,7 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.StatCollector;
 import tombenpotter.sanguimancy.Sanguimancy;
@@ -32,29 +33,43 @@ public class ItemOreLump extends Item {
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean par4) {
-        if (!GuiScreen.isShiftKeyDown()) {
-            list.add(StatCollector.translateToLocal("info.Sanguimancy.tooltip.shift.info"));
-        } else {
-            if (stack.hasTagCompound()) {
-                list.add(StatCollector.translateToLocal("info.Sanguimancy.tooltip.ore") + ": " + stack.stackTagCompound.getString("ore"));
-            } else {
-                list.add(StatCollector.translateToLocal("info.Sanguimancy.tooltip.any"));
-            }
+        NBTTagCompound tag = stack.stackTagCompound;
+
+        if (tag == null)
+            stack.setTagCompound(new NBTTagCompound());
+
+        String oreName = stack.stackTagCompound.getString("ore");
+
+        if (!oreName.equals("")) {
+            if (!GuiScreen.isShiftKeyDown())
+                list.add(StatCollector.translateToLocal("info.Sanguimancy.tooltip.shift.info"));
+            else
+                list.add(String.format(StatCollector.translateToLocal("info.Sanguimancy.tooltip.ore"), RandomUtils.capitalizeFirstLetter(oreName)));
         }
     }
 
     @SideOnly(Side.CLIENT)
     @Override
+    @SuppressWarnings("unchecked")
     public void getSubItems(Item item, CreativeTabs par2CreativeTabs, List list) {
         for (ItemStack stack : RandomUtils.oreLumpList) list.add(stack);
     }
 
     @Override
     public String getItemStackDisplayName(ItemStack stack) {
-        if (stack.hasTagCompound()) {
-            return RandomUtils.capitalizeFirstLetter(stack.stackTagCompound.getString("ore")) + " " + super.getItemStackDisplayName(stack);
-        } else return super.getItemStackDisplayName(stack);
+        NBTTagCompound tag = stack.stackTagCompound;
+
+        if (tag == null)
+            stack.setTagCompound(new NBTTagCompound());
+
+        String oreName = stack.stackTagCompound.getString("ore");
+
+        if (!oreName.equals(""))
+            return String.format(StatCollector.translateToLocal("item.Sanguimancy.oreLump.name"), RandomUtils.capitalizeFirstLetter(oreName));
+        else
+            return StatCollector.translateToLocal("info.Sanguimancy.tooltip.any");
     }
 
     @SideOnly(Side.CLIENT)
