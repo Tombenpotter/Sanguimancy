@@ -6,10 +6,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import tombenpotter.sanguimancy.Sanguimancy;
 import tombenpotter.sanguimancy.blocks.*;
-import tombenpotter.sanguimancy.blocks.items.ItemBlockAltarDiviner;
-import tombenpotter.sanguimancy.blocks.items.ItemBlockAltarEmitter;
-import tombenpotter.sanguimancy.blocks.items.ItemBlockBloodTank;
-import tombenpotter.sanguimancy.blocks.items.ItemBlockIllusion;
+import tombenpotter.sanguimancy.blocks.items.*;
 
 public class BlocksRegistry {
 
@@ -56,7 +53,7 @@ public class BlocksRegistry {
         GameRegistry.registerBlock(corruptionCrystallizer, "BlockCorruptionCrystallizer").setBlockName(Sanguimancy.modid + ".corruptionCrystallizer");
 
         lumpCleaner = new BlockLumpCleaner(Material.iron);
-        GameRegistry.registerBlock(lumpCleaner, "BlockLumpCleaner").setBlockName(Sanguimancy.modid + ".lumpCleaner");
+        GameRegistry.registerBlock(lumpCleaner, ItemBlockBloodCleanser.class, "BlockLumpCleaner").setBlockName(Sanguimancy.modid + ".lumpCleaner");
 
         bloodTank = new BlockBloodTank(Material.iron);
         GameRegistry.registerBlock(bloodTank, ItemBlockBloodTank.class, "BlockBloodTank").setBlockName(Sanguimancy.modid + ".bloodTank");

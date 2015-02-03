@@ -38,7 +38,7 @@ public class ItemTelepositionSigil extends Item {
                 list.add(StatCollector.translateToLocal("info.Sanguimancy.tooltip.shift.teleposition.sigil.pun"));
                 list.add(StatCollector.translateToLocal("info.Sanguimancy.tooltip.shift.info"));
             } else {
-                list.add(StatCollector.translateToLocal("info.Sanguimancy.tooltip.shift.teleposition.sigil.pun"));
+                list.add(StatCollector.translateToLocal("info.Sanguimancy.tooltip.teleposition.sigil.pun"));
                 list.add(StatCollector.translateToLocal("info.Sanguimancy.tooltip.coordinates") + ": " + stack.stackTagCompound.getInteger("blockX") + ", " + stack.stackTagCompound.getInteger("blockZ") + ", " + stack.stackTagCompound.getInteger("blockZ"));
                 list.add(StatCollector.translateToLocal("info.Sanguimancy.tooltip.bound.dimension") + ": " + getDimensionID(stack.stackTagCompound));
             }

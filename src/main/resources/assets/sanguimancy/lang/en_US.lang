@@ -150,7 +150,8 @@ info.Sanguimancy.tooltip.book.author=By Tombenpotter
 info.Sanguimancy.tooltip.spell.current=Current Spell
 info.Sanguimancy.tooltip.coordinates=Coordinates
 info.Sanguimancy.tooltip.bound.dimension=Bound Dimension
-info.Sanguimancy.tooltip.shift.teleposition.sigil.pun=I am very close to being moved by this.
+info.Sanguimancy.tooltip.teleposition.sigil.pun=I am very close to being moved by this.
+info.Sanguimancy.tooltip.evil.toaster=Evil Toaster since 1996
 
 #Guide Entries
 guide.Sanguimancy.category.lore=Of Dark Magicks
