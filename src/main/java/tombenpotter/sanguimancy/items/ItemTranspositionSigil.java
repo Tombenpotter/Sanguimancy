@@ -11,9 +11,11 @@ import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.tileentity.TileEntityMobSpawner;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import tombenpotter.sanguimancy.Sanguimancy;
+import tombenpotter.sanguimancy.util.ConfigHandler;
 import tombenpotter.sanguimancy.util.RandomUtils;
 
 import java.util.List;
@@ -38,7 +40,10 @@ public class ItemTranspositionSigil extends EnergyItems {
                 list.add(StatCollector.translateToLocal("info.Sanguimancy.tooltip.shift.transposition.sigil.pun"));
                 list.add(StatCollector.translateToLocal("info.Sanguimancy.tooltip.shift.info"));
             } else {
-                list.add(StatCollector.translateToLocal("info.Sanguimancy.tooltip.shift.transposition.sigil.pun"));
+                if (stack.stackTagCompound.getInteger("blockId") != 0) {
+                    String name = new ItemStack(Block.getBlockById(stack.stackTagCompound.getInteger("blockId")), 1, stack.stackTagCompound.getInteger("metadata")).getDisplayName();
+                    list.add(StatCollector.translateToLocal("compat.waila.content") + ": " + name);
+                }
             }
         }
     }
@@ -49,6 +54,7 @@ public class ItemTranspositionSigil extends EnergyItems {
         EnergyItems.checkAndSetItemOwner(stack, player);
         if (!world.isRemote) {
             if (player.isSneaking() && stack.stackTagCompound.getInteger("blockId") == 0) {
+                int cost = ConfigHandler.transpositionSigilCost;
                 if (world.getBlock(x, y, z).getPlayerRelativeBlockHardness(player, world, x, y, z) >= 0 && world.getBlock(x, y, z).getBlockHardness(world, x, y, z) >= 0) {
                     NBTTagCompound tileNBTTag = new NBTTagCompound();
                     int blockId = Block.getIdFromBlock(world.getBlock(x, y, z));
@@ -58,11 +64,14 @@ public class ItemTranspositionSigil extends EnergyItems {
                     if (world.getTileEntity(x, y, z) != null) {
                         TileEntity tile = world.getTileEntity(x, y, z);
                         tile.writeToNBT(tileNBTTag);
+                        cost = cost * 5;
+                        if (world.getTileEntity(x, y, z) instanceof TileEntityMobSpawner) cost = cost * 4;
                     }
                     stack.stackTagCompound.setTag("TileNBTTag", tileNBTTag);
                     world.removeTileEntity(x, y, z);
                     world.setBlockToAir(x, y, z);
-                    EnergyItems.syphonBatteries(stack, player, 750);
+                    EnergyItems.syphonBatteries(stack, player, cost);
+                    Sanguimancy.proxy.addColoredFlameEffects(world, x + 0.5, y + 0.5, z + 0.5, 0, 0, 0, 255, 72, 0);
                     return true;
                 }
             } else {

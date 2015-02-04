@@ -66,7 +66,7 @@ public class ConfigHandler {
         //Balance
         firstClaimedChunkFree = config.get(balancing, "firstClaimedChunkForFree", true).getBoolean(firstClaimedChunkFree);
         minimumToolCorruption = config.get(balancing, "minimumCorruptionForTools", 200).getInt(minimumToolCorruption);
-        transpositionSigilCost = config.get(balancing, "transpositionSigilCost", 1000).getInt(transpositionSigilCost);
+        transpositionSigilCost = config.get(balancing, "transpositionSigilCost", 7500).getInt(transpositionSigilCost);
 
         config.save();
     }
