@@ -6,6 +6,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.entity.effect.EntityLightningBolt;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
@@ -52,6 +53,11 @@ public class ItemTranspositionSigil extends EnergyItems {
     public boolean onItemUse(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ) {
         RandomUtils.checkAndSetCompound(stack);
         EnergyItems.checkAndSetItemOwner(stack, player);
+        if (player.isSneaking() && stack.stackTagCompound.getInteger("blockId") == 0) {
+            EntityLightningBolt lightningBolt = new EntityLightningBolt(world, x, y, z);
+            lightningBolt.getEntityData().setBoolean("isTranspositionSigilBolt", true);
+            world.spawnEntityInWorld(lightningBolt);
+        }
         if (!world.isRemote) {
             if (player.isSneaking() && stack.stackTagCompound.getInteger("blockId") == 0) {
                 int cost = ConfigHandler.transpositionSigilCost;
@@ -91,6 +97,9 @@ public class ItemTranspositionSigil extends EnergyItems {
                         if (side == 5) ++x;
                     }
                     if (block.canPlaceBlockOnSide(world, x, y, z, side)) {
+                        EntityLightningBolt lightningBolt = new EntityLightningBolt(world, x, y, z);
+                        lightningBolt.getEntityData().setBoolean("isTranspositionSigilBolt", true);
+                        world.spawnEntityInWorld(lightningBolt);
                         if (!world.isRemote) {
                             world.setBlock(x, y, z, blockToPlace, metadata, 3);
                             if (stack.stackTagCompound.getCompoundTag("TileNBTTag") != null && blockToPlace.hasTileEntity(metadata)) {

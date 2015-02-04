@@ -27,7 +27,7 @@ public class GuideRegistry {
     public static Category categorySanguimancyLore, categorySanguimancyItems, categorySanguimancyBlocks, categorySanguimancyRituals;
 
     public static Entry playerSacrificers, soulCorruptionReader, bloodAmulet, chunkClaimer, craftingItems, corruptionCatalyst, oreLump, wand, corruptedAxe,
-            corruptedPickaxe, corruptedShovel, corruptedSword, soulTransporter, telepositionSigil;
+            corruptedPickaxe, corruptedShovel, corruptedSword, soulTransporter, telepositionSigil, transpositionSigil;
     public static Entry altarEmitter, altarDiviner, soulTransferrer, corruptionCrystallizer, bloodInterface, decorativeBlocks, bloodTank, manifestations,
             bloodCleanser, etherealBlocks;
     public static Entry drillOfTheDead, vulcanosFrigius, greatDeletion, enlightenment, timberman, filler, portal, pump;
@@ -149,6 +149,12 @@ public class GuideRegistry {
         telepositionSigilIEntries.add(new EntryCraftingRecipe(RecipesRegistry.telepositionSigil));
         telepositionSigil = new Entry(telepositionSigilIEntries, "\u00A79" + StatCollector.translateToLocal("item.Sanguimancy.telepositionSigil.name"), 1);
         EntryRegistry.registerEntry(categorySanguimancyItems, items, telepositionSigil);
+
+        ArrayList<IEntry> transpositionSigilEntries = new ArrayList<IEntry>();
+        transpositionSigilEntries.addAll(entriesForLongText("guide.Sanguimancy.entry.transpositionSigil", SanguimancyItemStacks.transpositionSigil));
+        transpositionSigilEntries.add(new EntryCraftingRecipe(RecipesRegistry.transpositionSigil));
+        transpositionSigil = new Entry(transpositionSigilEntries, "\u00A79" + StatCollector.translateToLocal("item.Sanguimancy.transpositionSigil.name"), 1);
+        EntryRegistry.registerEntry(categorySanguimancyItems, items, transpositionSigil);
     }
 
     public static void createBlockEntries() {

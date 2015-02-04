@@ -180,6 +180,7 @@ guide.Sanguimancy.entry.corruptedSword=The Corrupted Sword is part of the Corrup
 guide.Sanguimancy.entry.etherealManifestation=You must have an Ethereal Manifestation in your inventory while binding an item or activating a ritual if you want it to have its representation in the Soul Network Dimension.
 guide.Sanguimancy.entry.soulTransporter=The Soul Transporter is an item that allows you to teleport to the Soul Network Dimension. Do not forget to bring two, as there is no other way in and out of the dimension!
 guide.Sanguimancy.entry.telepositionSigil=The Teleposition Sigil is an item that will teleport you to a location previously set. To set that location, simply shift-right click on a teleposer with the Sigil in hand. Right click the Sigil to teleport back to that location. Teleporting in the same dimension costs 1000LP, while teleporting across dimensions costs 10000LP.
+guide.Sanguimancy.entry.transpositionSigil=The Transposition Sigil allows the player to move any block he can break without actually doing so. Indeed, shift-right clicking on a block with the sigil will store it inside the item if the sigil is empty. Right clicking again will set the block back in the exact state it was picked up.
 
 #Blocks
 guide.Sanguimancy.entry.soulTransferrer=The Soul Transferrer is the block the allows you to actually transfer the stolen LP to yourself via the LP stealing mechanic. See the Sacrifice Magic Entry in 'Of Dark Magic'

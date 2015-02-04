@@ -30,6 +30,7 @@ import net.minecraft.world.WorldServer;
 import net.minecraftforge.client.event.RenderPlayerEvent;
 import net.minecraftforge.common.ForgeChunkManager;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
+import net.minecraftforge.event.entity.EntityStruckByLightningEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.player.AttackEntityEvent;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
@@ -37,7 +38,6 @@ import net.minecraftforge.event.world.BlockEvent;
 import org.lwjgl.opengl.GL11;
 import tombenpotter.sanguimancy.Sanguimancy;
 import tombenpotter.sanguimancy.api.soulCorruption.SoulCorruptionHelper;
-import tombenpotter.sanguimancy.items.ItemOreLump;
 import tombenpotter.sanguimancy.network.PacketHandler;
 import tombenpotter.sanguimancy.network.events.EventCorruptedInfusion;
 import tombenpotter.sanguimancy.network.packets.PacketSyncCorruption;
@@ -313,6 +313,13 @@ public class EventHandler {
                 event.getPlayer().addChatComponentMessage(new ChatComponentText(StatCollector.translateToLocal("info.Sanguimancy.tooltip.wrong.player")));
                 event.setCanceled(true);
             }
+        }
+    }
+
+    @SubscribeEvent
+    public void onTranspositionSigilLightning(EntityStruckByLightningEvent event) {
+        if (event.lightning.getEntityData() != null && event.lightning.getEntityData().getBoolean("isTranspositionSigilBolt")) {
+            event.setCanceled(true);
         }
     }
 

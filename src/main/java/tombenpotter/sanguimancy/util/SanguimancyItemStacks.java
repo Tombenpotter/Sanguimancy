@@ -31,6 +31,7 @@ public class SanguimancyItemStacks {
     public static ItemStack etherealManifestation = new ItemStack(ItemsRegistry.resource, 1, 3);
     public static ItemStack soulTransporter = new ItemStack(ItemsRegistry.soulTransporter);
     public static ItemStack telepositionSigil = new ItemStack(ItemsRegistry.telepositionSigil);
+    public static ItemStack transpositionSigil = new ItemStack(ItemsRegistry.transpositionSigil);
 
     // Blocks
     public static ItemStack altarEmitter = new ItemStack(BlocksRegistry.altarEmitter);
