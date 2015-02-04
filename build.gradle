@@ -33,6 +33,9 @@ if (new File(projectDir, '.git').exists()) {
 minecraft {
     version = "${mc_version}-${forge_version}"
     runDir = "run"
+	
+	replace "@VERSION@", project.version
+    replaceIn "Sanguimancy.java"
 
     if (project.hasProperty('mappings_version'))
         mappings = project.mappings_version
