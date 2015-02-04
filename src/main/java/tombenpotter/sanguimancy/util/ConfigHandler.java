@@ -30,6 +30,7 @@ public class ConfigHandler {
     public static int addHeartPotionID;
     public static int removeHeartPotionID;
     public static int minimumToolCorruption;
+    public static int transpositionSigilCost;
 
     public static void init(File file) {
         config = new Configuration(file);
@@ -65,6 +66,7 @@ public class ConfigHandler {
         //Balance
         firstClaimedChunkFree = config.get(balancing, "firstClaimedChunkForFree", true).getBoolean(firstClaimedChunkFree);
         minimumToolCorruption = config.get(balancing, "minimumCorruptionForTools", 200).getInt(minimumToolCorruption);
+        transpositionSigilCost = config.get(balancing, "transpositionSigilCost", 1000).getInt(transpositionSigilCost);
 
         config.save();
     }

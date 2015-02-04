@@ -49,20 +49,22 @@ public class ItemTranspositionSigil extends EnergyItems {
         EnergyItems.checkAndSetItemOwner(stack, player);
         if (!world.isRemote) {
             if (player.isSneaking() && stack.stackTagCompound.getInteger("blockId") == 0) {
-                NBTTagCompound tileNBTTag = new NBTTagCompound();
-                int blockId = Block.getIdFromBlock(world.getBlock(x, y, z));
-                stack.stackTagCompound.setInteger("blockId", blockId);
-                int metadata = world.getBlockMetadata(x, y, z);
-                stack.stackTagCompound.setInteger("metadata", metadata);
-                if (world.getTileEntity(x, y, z) != null) {
-                    TileEntity tile = world.getTileEntity(x, y, z);
-                    tile.writeToNBT(tileNBTTag);
+                if (world.getBlock(x, y, z).getPlayerRelativeBlockHardness(player, world, x, y, z) >= 0 && world.getBlock(x, y, z).getBlockHardness(world, x, y, z) >= 0) {
+                    NBTTagCompound tileNBTTag = new NBTTagCompound();
+                    int blockId = Block.getIdFromBlock(world.getBlock(x, y, z));
+                    stack.stackTagCompound.setInteger("blockId", blockId);
+                    int metadata = world.getBlockMetadata(x, y, z);
+                    stack.stackTagCompound.setInteger("metadata", metadata);
+                    if (world.getTileEntity(x, y, z) != null) {
+                        TileEntity tile = world.getTileEntity(x, y, z);
+                        tile.writeToNBT(tileNBTTag);
+                    }
+                    stack.stackTagCompound.setTag("TileNBTTag", tileNBTTag);
+                    world.removeTileEntity(x, y, z);
+                    world.setBlockToAir(x, y, z);
+                    EnergyItems.syphonBatteries(stack, player, 750);
+                    return true;
                 }
-                stack.stackTagCompound.setTag("TileNBTTag", tileNBTTag);
-                world.removeTileEntity(x, y, z);
-                world.setBlockToAir(x, y, z);
-                EnergyItems.syphonBatteries(stack, player, 750);
-                return true;
             } else {
                 Block block = world.getBlock(x, y, z);
                 Block blockToPlace = Block.getBlockById(stack.stackTagCompound.getInteger("blockId"));
@@ -82,7 +84,6 @@ public class ItemTranspositionSigil extends EnergyItems {
                     if (block.canPlaceBlockOnSide(world, x, y, z, side)) {
                         if (!world.isRemote) {
                             world.setBlock(x, y, z, blockToPlace, metadata, 3);
-                            blockToPlace.onBlockPlacedBy(world, x, y, z, player, new ItemStack(blockToPlace));
                             if (stack.stackTagCompound.getCompoundTag("TileNBTTag") != null && blockToPlace.hasTileEntity(metadata)) {
                                 TileEntity tile = TileEntity.createAndLoadEntity(stack.stackTagCompound.getCompoundTag("TileNBTTag"));
                                 tile.xCoord = x;
@@ -94,6 +95,9 @@ public class ItemTranspositionSigil extends EnergyItems {
                             }
                             stack.stackTagCompound.setInteger("blockId", 0);
                             stack.stackTagCompound.setInteger("metadata", 0);
+                            blockToPlace.onBlockPlacedBy(world, x, y, z, player, new ItemStack(blockToPlace));
+                            blockToPlace.onPostBlockPlaced(world, x, y, z, metadata);
+                            world.markBlockForUpdate(x, y, z);
                         }
                     }
                 }
