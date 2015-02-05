@@ -14,7 +14,7 @@ Fixed the Ritual Representations. Now they work perfectly!
 Fixed the Altar Diviner algorithm.
 Added a Teleposition Sigil!
 Fixed a derp with one of the API tiles.
-Added a Transposition Sigil!
+Added a Transposition Sigil, with its very own blacklist!
 
 Version 1.1.9-Alpha3:
 Finalized the Soul Network Manifestation system. I need now to give it a bit of fluff and couple of kicks in the butts, but it's close.
