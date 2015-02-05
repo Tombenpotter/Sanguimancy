@@ -4,10 +4,7 @@ import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.SidedProxy;
-import cpw.mods.fml.common.event.FMLInitializationEvent;
-import cpw.mods.fml.common.event.FMLPostInitializationEvent;
-import cpw.mods.fml.common.event.FMLPreInitializationEvent;
-import cpw.mods.fml.common.event.FMLServerStartingEvent;
+import cpw.mods.fml.common.event.*;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
@@ -84,6 +81,15 @@ public class Sanguimancy {
         PacketHandler.registerPackets();
         if (Loader.isModLoaded("Waila")) WailaCompatRegistry.register();
         NetworkRegistry.INSTANCE.registerGuiHandler(this, proxy);
+    }
+
+    @Mod.EventHandler
+    public void imcCallback(FMLInterModComms.IMCEvent event)
+    {
+        for (final FMLInterModComms.IMCMessage imcMessage : event.getMessages())
+        {
+            MessageRegistry.registerMessage(imcMessage.key, imcMessage);
+        }
     }
 
     @Mod.EventHandler
