@@ -30,7 +30,7 @@ public class BlockRitualSNPart extends BlockContainer {
     @SideOnly(Side.CLIENT)
     @Override
     public void registerBlockIcons(IIconRegister ir) {
-        this.blockIcon = ir.registerIcon(Sanguimancy.texturePath + ":SNRitualPart");
+        this.blockIcon = ir.registerIcon(Sanguimancy.texturePath + ":RitualRepresentation");
     }
 
     @Override

@@ -22,7 +22,7 @@ import tombenpotter.sanguimancy.util.SanguimancyItemStacks;
 public class RenderRitualRepresentation extends TileEntitySpecialRenderer implements IItemRenderer {
 
     public ModelCube model = new ModelCube();
-    public ResourceLocation texture = new ResourceLocation(Sanguimancy.texturePath + ":textures/blocks/BoundItem.png");
+    public ResourceLocation texture = new ResourceLocation(Sanguimancy.texturePath + ":textures/blocks/RitualRepresentation.png");
 
     @Override
     public void renderTileEntityAt(TileEntity tileEntity, double x, double y, double z, float scale) {
@@ -102,7 +102,7 @@ public class RenderRitualRepresentation extends TileEntitySpecialRenderer implem
         RenderManager manager = RenderManager.instance;
         FontRenderer fontrenderer = manager.getFontRenderer();
         GL11.glPushMatrix();
-        GL11.glTranslatef((float) x + 0.5F, (float) y + 0.5F, (float) z + 0.5F);
+        GL11.glTranslatef((float) x + 0.5F, (float) y + 1.5F, (float) z + 0.5F);
         GL11.glNormal3f(0.0F, 1.0F, 0.0F);
         GL11.glRotatef(-manager.playerViewY, 0.0F, 1.0F, 0.0F);
         GL11.glRotatef(manager.playerViewX, 1.0F, 0.0F, 0.0F);
