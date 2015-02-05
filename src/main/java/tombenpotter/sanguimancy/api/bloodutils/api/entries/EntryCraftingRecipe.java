@@ -161,7 +161,7 @@ public class EntryCraftingRecipe extends EntryBase {
 
     public void renderOverlay(GuiEntry entry, int width, int height, int left, int top) {
         TextureManager tm = Minecraft.getMinecraft().getTextureManager();
-        tm.bindTexture(new ResourceLocation(Sanguimancy.texturePath +":textures/gui/guide/crafting.png"));
+        tm.bindTexture(new ResourceLocation(Sanguimancy.texturePath + ":textures/gui/guide/crafting.png"));
         entry.drawTexturedModalRect(left, (height / 2 - 18) + (18 * 0) - 17, 0, 0, width, height);
     }
 

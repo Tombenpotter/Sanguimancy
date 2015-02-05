@@ -14,8 +14,8 @@ import tombenpotter.sanguimancy.compat.lua.events.LuaOrbMaxed;
 import tombenpotter.sanguimancy.compat.lua.methods.LuaGetLifeEssence;
 import tombenpotter.sanguimancy.compat.lua.methods.LuaGetOrbMax;
 import tombenpotter.sanguimancy.compat.lua.methods.LuaGetOwner;
-import tombenpotter.sanguimancy.network.packets.PacketBloodInterfaceUpdate;
 import tombenpotter.sanguimancy.network.PacketHandler;
+import tombenpotter.sanguimancy.network.packets.PacketBloodInterfaceUpdate;
 import tombenpotter.sanguimancy.registry.BlocksRegistry;
 
 public class TileBloodInterface extends TileComputerBase implements IInventory {

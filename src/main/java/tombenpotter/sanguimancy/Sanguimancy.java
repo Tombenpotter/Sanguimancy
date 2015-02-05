@@ -84,10 +84,8 @@ public class Sanguimancy {
     }
 
     @Mod.EventHandler
-    public void imcCallback(FMLInterModComms.IMCEvent event)
-    {
-        for (final FMLInterModComms.IMCMessage imcMessage : event.getMessages())
-        {
+    public void imcCallback(FMLInterModComms.IMCEvent event) {
+        for (final FMLInterModComms.IMCMessage imcMessage : event.getMessages()) {
             MessageRegistry.registerMessage(imcMessage.key, imcMessage);
         }
     }

@@ -2,9 +2,9 @@ package tombenpotter.sanguimancy.api.tile;
 
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.util.ForgeDirection;
+import tombenpotter.sanguimancy.api.ICustomNBTTag;
 import tombenpotter.sanguimancy.api.objects.BlockPostition;
 import tombenpotter.sanguimancy.api.objects.BoolAndBlockPosList;
-import tombenpotter.sanguimancy.api.ICustomNBTTag;
 import tombenpotter.sanguimancy.api.objects.SNKNotBoolean;
 import tombenpotter.sanguimancy.api.snManifestation.ISNBranch;
 import tombenpotter.sanguimancy.api.snManifestation.ISNComponent;

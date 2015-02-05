@@ -8,8 +8,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import tombenpotter.sanguimancy.Sanguimancy;
-import tombenpotter.sanguimancy.network.packets.PacketBloodInterfaceUpdate;
 import tombenpotter.sanguimancy.network.MessageHelper;
+import tombenpotter.sanguimancy.network.packets.PacketBloodInterfaceUpdate;
 import tombenpotter.sanguimancy.tile.TileBloodInterface;
 
 public class BloodInterfaceUpdateMessageHandler implements IMessageHandler<PacketBloodInterfaceUpdate, IMessage> {
