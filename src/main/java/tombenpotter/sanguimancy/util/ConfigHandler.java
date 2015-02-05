@@ -3,6 +3,8 @@ package tombenpotter.sanguimancy.util;
 import net.minecraftforge.common.config.Configuration;
 
 import java.io.File;
+import java.util.Arrays;
+import java.util.List;
 
 public class ConfigHandler {
 
@@ -31,6 +33,7 @@ public class ConfigHandler {
     public static int removeHeartPotionID;
     public static int minimumToolCorruption;
     public static int transpositionSigilCost;
+    public static List<String> transpositionSigilBlacklist;
 
     public static void init(File file) {
         config = new Configuration(file);
@@ -67,6 +70,8 @@ public class ConfigHandler {
         firstClaimedChunkFree = config.get(balancing, "firstClaimedChunkForFree", true).getBoolean(firstClaimedChunkFree);
         minimumToolCorruption = config.get(balancing, "minimumCorruptionForTools", 200).getInt(minimumToolCorruption);
         transpositionSigilCost = config.get(balancing, "transpositionSigilCost", 7500).getInt(transpositionSigilCost);
+        String[] defaultBlacklist = {"minecraft:bedrock"};
+        transpositionSigilBlacklist = Arrays.asList(config.get(balancing, "transpositionSigilBlacklist", defaultBlacklist).getStringList());
 
         config.save();
     }

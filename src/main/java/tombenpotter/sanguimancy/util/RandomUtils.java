@@ -42,6 +42,7 @@ public class RandomUtils {
     public static Item.ToolMaterial corruptedMaterial = EnumHelper.addToolMaterial("corruptedToolMaterial", Integer.MAX_VALUE, 9000, 32, 10, 32);
     public static HashMap<MapKey, ItemStack> logToPlank = new HashMap<MapKey, ItemStack>();
     public static ArrayList<ItemStack> oreLumpList = new ArrayList<ItemStack>();
+    public static ArrayList<Block> transpositionBlockBlacklist = new ArrayList<Block>();
 
     public static void dropItems(World world, int x, int y, int z) {
         Random rand = new Random();
@@ -445,6 +446,16 @@ public class RandomUtils {
                     stack.stackTagCompound.setString("ore", output);
                     oreLumpList.add(stack);
                 }
+            }
+        }
+    }
+
+    public static void setTranspositionBlockBlacklist() {
+        for (String s : ConfigHandler.transpositionSigilBlacklist) {
+            if (Block.getBlockFromName(s) != null) {
+                transpositionBlockBlacklist.add(Block.getBlockFromName(s));
+            } else {
+                Sanguimancy.logger.error(s + " is not a correct block name.");
             }
         }
     }

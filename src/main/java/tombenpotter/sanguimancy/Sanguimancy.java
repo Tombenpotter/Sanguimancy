@@ -93,5 +93,6 @@ public class Sanguimancy {
         isTTLoaded = Loader.isModLoaded("ThaumicTinkerer");
         RandomUtils.setLogToPlank();
         RandomUtils.setOreLumpList();
+        RandomUtils.setTranspositionBlockBlacklist();
     }
 }

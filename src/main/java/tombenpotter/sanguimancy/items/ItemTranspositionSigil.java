@@ -59,7 +59,7 @@ public class ItemTranspositionSigil extends EnergyItems {
             world.spawnEntityInWorld(lightningBolt);
         }
         if (!world.isRemote) {
-            if (player.isSneaking() && stack.stackTagCompound.getInteger("blockId") == 0) {
+            if (player.isSneaking() && stack.stackTagCompound.getInteger("blockId") == 0 && !RandomUtils.transpositionBlockBlacklist.contains(world.getBlock(x, y, z))) {
                 int cost = ConfigHandler.transpositionSigilCost;
                 if (world.getBlock(x, y, z).getPlayerRelativeBlockHardness(player, world, x, y, z) >= 0 && world.getBlock(x, y, z).getBlockHardness(world, x, y, z) >= 0) {
                     NBTTagCompound tileNBTTag = new NBTTagCompound();
