@@ -12,6 +12,7 @@ import tombenpotter.sanguimancy.api.bloodutils.api.entries.*;
 import tombenpotter.sanguimancy.api.bloodutils.api.registries.EntryRegistry;
 import tombenpotter.sanguimancy.recipes.RecipeBloodCleanser;
 import tombenpotter.sanguimancy.recipes.RecipeCorruptedInfusion;
+import tombenpotter.sanguimancy.util.ConfigHandler;
 import tombenpotter.sanguimancy.util.SanguimancyItemStacks;
 
 import java.util.ArrayList;
@@ -239,43 +240,56 @@ public class GuideRegistry {
     }
 
     public static void createRitualEntries() {
+        if (ConfigHandler.enableDrillOfTheDead) {
+            ArrayList<IEntry> drillOfTheDeadEntries = new ArrayList<IEntry>();
+            drillOfTheDeadEntries.addAll(entriesForLongText(StatCollector.translateToLocal("guide.Sanguimancy.entry.drillOfTheDead")));
+            drillOfTheDead = new Entry(drillOfTheDeadEntries, "\u00A71Ritual: " + StatCollector.translateToLocal("ritual.Sanguimancy.drill.dead"), 1);
+            EntryRegistry.registerEntry(categorySanguimancyRituals, rituals, drillOfTheDead);
+        }
 
-        ArrayList<IEntry> drillOfTheDeadEntries = new ArrayList<IEntry>();
-        drillOfTheDeadEntries.addAll(entriesForLongText(StatCollector.translateToLocal("guide.Sanguimancy.entry.drillOfTheDead")));
-        drillOfTheDead = new Entry(drillOfTheDeadEntries, "\u00A71Ritual: " + StatCollector.translateToLocal("ritual.Sanguimancy.drill.dead"), 1);
-        EntryRegistry.registerEntry(categorySanguimancyRituals, rituals, drillOfTheDead);
+        if (ConfigHandler.enableFelling) {
+            ArrayList<IEntry> timbermanEntries = new ArrayList<IEntry>();
+            timbermanEntries.addAll(entriesForLongText("guide.Sanguimancy.entry.timberman"));
+            timberman = new Entry(timbermanEntries, "\u00A71Ritual: " + StatCollector.translateToLocal("ritual.Sanguimancy.feller"), 1);
+            EntryRegistry.registerEntry(categorySanguimancyRituals, rituals, timberman);
+        }
 
-        ArrayList<IEntry> timbermanEntries = new ArrayList<IEntry>();
-        timbermanEntries.addAll(entriesForLongText("guide.Sanguimancy.entry.timberman"));
-        timberman = new Entry(timbermanEntries, "\u00A71Ritual: " + StatCollector.translateToLocal("ritual.Sanguimancy.feller"), 1);
-        EntryRegistry.registerEntry(categorySanguimancyRituals, rituals, timberman);
+        if (ConfigHandler.enableIllumination) {
+            ArrayList<IEntry> enlightenmentEntries = new ArrayList<IEntry>();
+            enlightenmentEntries.addAll(entriesForLongText("guide.Sanguimancy.entry.enlightenment"));
+            enlightenment = new Entry(enlightenmentEntries, "\u00A71Ritual: " + StatCollector.translateToLocal("ritual.Sanguimancy.illumination"), 1);
+            EntryRegistry.registerEntry(categorySanguimancyRituals, rituals, enlightenment);
+        }
 
-        ArrayList<IEntry> enlightenmentEntries = new ArrayList<IEntry>();
-        enlightenmentEntries.addAll(entriesForLongText("guide.Sanguimancy.entry.enlightenment"));
-        enlightenment = new Entry(enlightenmentEntries, "\u00A71Ritual: " + StatCollector.translateToLocal("ritual.Sanguimancy.illumination"), 1);
-        EntryRegistry.registerEntry(categorySanguimancyRituals, rituals, enlightenment);
+        if (ConfigHandler.enableVulcanosFrigius) {
+            ArrayList<IEntry> vulcanosFrigiusEntries = new ArrayList<IEntry>();
+            vulcanosFrigiusEntries.addAll(entriesForLongText("guide.Sanguimancy.entry.vulcanosFrigius"));
+            vulcanosFrigius = new Entry(vulcanosFrigiusEntries, "\u00A71Ritual: " + StatCollector.translateToLocal("ritual.Sanguimancy.vulcanos.frigius"), 1);
+            EntryRegistry.registerEntry(categorySanguimancyRituals, rituals, vulcanosFrigius);
+        }
 
-        ArrayList<IEntry> vulcanosFrigiusEntries = new ArrayList<IEntry>();
-        vulcanosFrigiusEntries.addAll(entriesForLongText("guide.Sanguimancy.entry.vulcanosFrigius"));
-        vulcanosFrigius = new Entry(vulcanosFrigiusEntries, "\u00A71Ritual: " + StatCollector.translateToLocal("ritual.Sanguimancy.vulcanos.frigius"), 1);
-        EntryRegistry.registerEntry(categorySanguimancyRituals, rituals, vulcanosFrigius);
+        if (ConfigHandler.enablePlacer) {
+            ArrayList<IEntry> fillerEntries = new ArrayList<IEntry>();
+            fillerEntries.addAll(entriesForLongText("guide.Sanguimancy.entry.filler"));
+            filler = new Entry(fillerEntries, "\u00A71Ritual: " + StatCollector.translateToLocal("ritual.Sanguimancy.placer"), 1);
+            EntryRegistry.registerEntry(categorySanguimancyRituals, rituals, filler);
+        }
 
-        ArrayList<IEntry> fillerEntries = new ArrayList<IEntry>();
-        fillerEntries.addAll(entriesForLongText("guide.Sanguimancy.entry.filler"));
-        filler = new Entry(fillerEntries, "\u00A71Ritual: " + StatCollector.translateToLocal("ritual.Sanguimancy.placer"), 1);
-        EntryRegistry.registerEntry(categorySanguimancyRituals, rituals, filler);
+        if (ConfigHandler.enablePortal) {
+            ArrayList<IEntry> portalEntries = new ArrayList<IEntry>();
+            portalEntries.addAll(entriesForLongText("guide.Sanguimancy.entry.portal.1"));
+            portalEntries.add(new EntryImage(Sanguimancy.texturePath + ":textures/screenshots/PortalExample.png", 854, 480, "portal.picture"));
+            portalEntries.addAll(entriesForLongText("guide.Sanguimancy.entry.portal.2"));
+            portal = new Entry(portalEntries, "\u00A71Ritual: " + StatCollector.translateToLocal("ritual.Sanguimancy.portal"), 1);
+            EntryRegistry.registerEntry(categorySanguimancyRituals, rituals, portal);
+        }
 
-        ArrayList<IEntry> portalEntries = new ArrayList<IEntry>();
-        portalEntries.addAll(entriesForLongText("guide.Sanguimancy.entry.portal.1"));
-        portalEntries.add(new EntryImage(Sanguimancy.texturePath + ":textures/screenshots/PortalExample.png", 854, 480, "portal.picture"));
-        portalEntries.addAll(entriesForLongText("guide.Sanguimancy.entry.portal.2"));
-        portal = new Entry(portalEntries, "\u00A71Ritual: " + StatCollector.translateToLocal("ritual.Sanguimancy.portal"), 1);
-        EntryRegistry.registerEntry(categorySanguimancyRituals, rituals, portal);
-
-        ArrayList<IEntry> greatDeletionEntries = new ArrayList<IEntry>();
-        greatDeletionEntries.addAll(entriesForLongText("guide.Sanguimancy.entry.greatDeletion"));
-        greatDeletion = new Entry(greatDeletionEntries, "\u00A71Ritual: " + StatCollector.translateToLocal("ritual.Sanguimancy.trash"), 1);
-        EntryRegistry.registerEntry(categorySanguimancyRituals, rituals, greatDeletion);
+        if (ConfigHandler.enableTrash) {
+            ArrayList<IEntry> greatDeletionEntries = new ArrayList<IEntry>();
+            greatDeletionEntries.addAll(entriesForLongText("guide.Sanguimancy.entry.greatDeletion"));
+            greatDeletion = new Entry(greatDeletionEntries, "\u00A71Ritual: " + StatCollector.translateToLocal("ritual.Sanguimancy.trash"), 1);
+            EntryRegistry.registerEntry(categorySanguimancyRituals, rituals, greatDeletion);
+        }
     }
 
     public static void createLoreEntries() {
