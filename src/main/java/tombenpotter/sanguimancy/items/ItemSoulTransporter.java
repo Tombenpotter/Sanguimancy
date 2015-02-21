@@ -37,6 +37,9 @@ public class ItemSoulTransporter extends Item {
                 int dimID = ConfigHandler.snDimID;
                 int x;
                 int z;
+                if (ClaimedChunks.getClaimedChunks().getLinkedChunks(player.getCommandSenderName()) == null || ClaimedChunks.getClaimedChunks().getLinkedChunks(player.getCommandSenderName()).isEmpty()) {
+                    return stack;
+                }
                 if (ClaimedChunks.getClaimedChunks().getLinkedChunks(player.getCommandSenderName()).get(0) != null) {
                     x = ClaimedChunks.getClaimedChunks().getLinkedChunks(player.getCommandSenderName()).get(0).getCenterXPos();
                     z = ClaimedChunks.getClaimedChunks().getLinkedChunks(player.getCommandSenderName()).get(0).getCenterZPos();
