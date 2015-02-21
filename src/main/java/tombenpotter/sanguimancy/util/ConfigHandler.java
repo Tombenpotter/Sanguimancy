@@ -27,13 +27,13 @@ public class ConfigHandler {
     public static boolean enableQuarry;
     public static boolean enablePortal;
     public static boolean messagesWhenCorruptionEffect;
-    public static boolean firstClaimedChunkFree;
     public static int snDimID;
     public static int addHeartPotionID;
     public static int removeHeartPotionID;
     public static int minimumToolCorruption;
     public static int transpositionSigilCost;
     public static List<String> transpositionSigilBlacklist;
+    public static boolean addItemsOnFirstLogin;
 
     public static void init(File file) {
         config = new Configuration(file);
@@ -65,9 +65,9 @@ public class ConfigHandler {
         addHeartPotionID = config.get(features, "addHeartPotionID", 100).getInt(addHeartPotionID);
         removeHeartPotionID = config.get(features, "removeHeartPotionID", 101).getInt(removeHeartPotionID);
         messagesWhenCorruptionEffect = config.get(features, "messageWhenCorruptionEffect", true).getBoolean(messagesWhenCorruptionEffect);
+        addItemsOnFirstLogin = config.get(features, "addItemsOnFirstLogin", true).getBoolean(addItemsOnFirstLogin);
 
         //Balance
-        firstClaimedChunkFree = config.get(balancing, "firstClaimedChunkForFree", true).getBoolean(firstClaimedChunkFree);
         minimumToolCorruption = config.get(balancing, "minimumCorruptionForTools", 200).getInt(minimumToolCorruption);
         transpositionSigilCost = config.get(balancing, "transpositionSigilCost", 7500).getInt(transpositionSigilCost);
         String[] defaultBlacklist = {"minecraft:bedrock"};

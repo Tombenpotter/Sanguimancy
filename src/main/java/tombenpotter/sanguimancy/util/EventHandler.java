@@ -94,7 +94,7 @@ public class EventHandler {
         if (!event.entity.worldObj.isRemote && event.entity != null && event.entity instanceof EntityPlayer) {
             EntityPlayer player = (EntityPlayer) event.entity;
             NBTTagCompound tag = RandomUtils.getModTag(player, Sanguimancy.modid);
-            if (!tag.getBoolean("hasInitialChunkClaimer")) {
+            if (!tag.getBoolean("hasInitialChunkClaimer") && ConfigHandler.addItemsOnFirstLogin) {
                 player.addChatComponentMessage(new ChatComponentText(StatCollector.translateToLocal("chat.Sanguimancy.intial.claimer")));
                 if (!player.inventory.addItemStackToInventory(SanguimancyItemStacks.chunkClaimer.copy())) {
                     RandomUtils.dropItemStackInWorld(player.worldObj, player.posX, player.posY, player.posZ, SanguimancyItemStacks.chunkClaimer.copy());
@@ -102,7 +102,7 @@ public class EventHandler {
                 tag.setBoolean("hasInitialChunkClaimer", true);
             }
 
-            if (!tag.getBoolean("hasInitialGuide")) {
+            if (!tag.getBoolean("hasInitialGuide") && ConfigHandler.addItemsOnFirstLogin) {
                 if (!player.inventory.addItemStackToInventory(SanguimancyItemStacks.playerGuide.copy())) {
                     RandomUtils.dropItemStackInWorld(player.worldObj, player.posX, player.posY, player.posZ, SanguimancyItemStacks.playerGuide.copy());
                 }
