@@ -8,7 +8,7 @@ public class TileCamouflage extends TileBase {
     public int metadata = 0;
 
     public TileCamouflage() {
-        custoomNBTTag = new NBTTagCompound();
+        customNBTTag = new NBTTagCompound();
     }
 
     @Override

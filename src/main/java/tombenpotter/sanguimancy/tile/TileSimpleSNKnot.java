@@ -10,10 +10,10 @@ public class TileSimpleSNKnot extends TileBaseSNKnot {
 
     public String knotOwner;
     public boolean knotActive;
-    private NBTTagCompound custoomNBTTag;
+    private NBTTagCompound customNBTTag;
 
     public TileSimpleSNKnot() {
-        custoomNBTTag = new NBTTagCompound();
+        customNBTTag = new NBTTagCompound();
         knotActive = true;
     }
 
@@ -42,7 +42,7 @@ public class TileSimpleSNKnot extends TileBaseSNKnot {
         super.readFromNBT(tagCompound);
         knotOwner = tagCompound.getString("knotOwner");
         knotActive = tagCompound.getBoolean("knotActive");
-        custoomNBTTag = tagCompound.getCompoundTag("customNBTTag");
+        customNBTTag = tagCompound.getCompoundTag("customNBTTag");
     }
 
     @Override
@@ -50,17 +50,17 @@ public class TileSimpleSNKnot extends TileBaseSNKnot {
         super.writeToNBT(tagCompound);
         tagCompound.setString("knotOwner", knotOwner);
         tagCompound.setBoolean("knotActive", knotActive);
-        tagCompound.setTag("customNBTTag", custoomNBTTag);
+        tagCompound.setTag("customNBTTag", customNBTTag);
     }
 
     @Override
     public NBTTagCompound getCustomNBTTag() {
-        return custoomNBTTag;
+        return customNBTTag;
     }
 
     @Override
     public void setCustomNBTTag(NBTTagCompound tag) {
-        custoomNBTTag = tag;
+        customNBTTag = tag;
     }
 
     @Override

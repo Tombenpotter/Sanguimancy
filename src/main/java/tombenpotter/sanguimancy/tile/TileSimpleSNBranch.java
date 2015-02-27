@@ -7,30 +7,30 @@ import tombenpotter.sanguimancy.api.tile.TileBaseSNBranch;
 
 public class TileSimpleSNBranch extends TileBaseSNBranch {
 
-    private NBTTagCompound custoomNBTTag;
+    private NBTTagCompound customNBTTag;
 
     public TileSimpleSNBranch() {
-        custoomNBTTag = new NBTTagCompound();
+        customNBTTag = new NBTTagCompound();
     }
 
     public void readFromNBT(NBTTagCompound tagCompound) {
         super.readFromNBT(tagCompound);
-        custoomNBTTag = tagCompound.getCompoundTag("customNBTTag");
+        customNBTTag = tagCompound.getCompoundTag("customNBTTag");
     }
 
     public void writeToNBT(NBTTagCompound tagCompound) {
         super.writeToNBT(tagCompound);
-        tagCompound.setTag("customNBTTag", custoomNBTTag);
+        tagCompound.setTag("customNBTTag", customNBTTag);
     }
 
     @Override
     public NBTTagCompound getCustomNBTTag() {
-        return custoomNBTTag;
+        return customNBTTag;
     }
 
     @Override
     public void setCustomNBTTag(NBTTagCompound tag) {
-        custoomNBTTag = tag;
+        customNBTTag = tag;
     }
 
     @Override

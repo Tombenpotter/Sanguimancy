@@ -35,6 +35,7 @@ public class BlocksRegistry {
     public static Block etherealBoundCorruptedBlock;
     public static Block etherealBoundToggledBlock;
     public static Block etherealPersonalBlock;
+    public static Block altarManipulator;
 
     public static void registerBlocks() {
         altarDiviner = new BlockAltarDiviner(Material.iron);
@@ -111,5 +112,8 @@ public class BlocksRegistry {
 
         etherealPersonalBlock = new BlockEtherealPersonal(Material.iron);
         GameRegistry.registerBlock(etherealPersonalBlock, "BlockEtherealPersonal").setBlockName(Sanguimancy.modid + ".etherealPersonalBlock");
+
+        altarManipulator = new BlockAltarManipulator(Material.iron);
+        GameRegistry.registerBlock(altarManipulator, "BlockAltarManipulator").setBlockName(Sanguimancy.modid + ".altarManipulator");
     }
 }

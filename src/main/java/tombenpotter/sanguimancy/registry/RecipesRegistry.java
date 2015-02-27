@@ -128,6 +128,8 @@ public class RecipesRegistry {
                     RandomUtils.checkAndSetCompound(input);
                     input.stackTagCompound.setString("ore", output);
                     oreLumpCleansing.add(RecipeBloodCleanser.addRecipe(input, OreDictionary.getOres("ingot" + output).get(0)));
+                    //That doesn't work
+                    //AltarRecipeRegistry.registerNBTAltarRecipe(OreDictionary.getOres("ingot" + output).get(0), input, 2, 1000, 10, 10, false);
                 }
             }
         }

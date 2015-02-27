@@ -23,5 +23,6 @@ public class TileRegistry {
         GameRegistry.registerTileEntity(TileRitualSNPart.class, "TileRitualSNPart");
         GameRegistry.registerTileEntity(TileCamouflage.class, "TileCamouflage");
         GameRegistry.registerTileEntity(TileCamouflageBound.class, "TileCamouflageBound");
+        GameRegistry.registerTileEntity(TileAltarManipulator.class, "TileAltarManipulator");
     }
 }

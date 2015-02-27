@@ -9,28 +9,28 @@ import tombenpotter.sanguimancy.api.ICustomNBTTag;
 
 public class TileBase extends TileEntity implements ICustomNBTTag {
 
-    public NBTTagCompound custoomNBTTag;
+    public NBTTagCompound customNBTTag;
 
     @Override
     public void readFromNBT(NBTTagCompound tagCompound) {
         super.readFromNBT(tagCompound);
-        custoomNBTTag = tagCompound.getCompoundTag("customNBTTag");
+        customNBTTag = tagCompound.getCompoundTag("customNBTTag");
     }
 
     @Override
     public void writeToNBT(NBTTagCompound tagCompound) {
         super.writeToNBT(tagCompound);
-        tagCompound.setTag("customNBTTag", custoomNBTTag);
+        tagCompound.setTag("customNBTTag", customNBTTag);
     }
 
     @Override
     public NBTTagCompound getCustomNBTTag() {
-        return custoomNBTTag;
+        return customNBTTag;
     }
 
     @Override
     public void setCustomNBTTag(NBTTagCompound tag) {
-        custoomNBTTag = tag;
+        customNBTTag = tag;
     }
 
 

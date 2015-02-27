@@ -10,10 +10,10 @@ public class TileDimensionalPortal extends TileEntity implements ICustomNBTTag {
     public int masterStoneX;
     public int masterStoneY;
     public int masterStoneZ;
-    private NBTTagCompound custoomNBTTag;
+    private NBTTagCompound customNBTTag;
 
     public TileDimensionalPortal() {
-        custoomNBTTag = new NBTTagCompound();
+        customNBTTag = new NBTTagCompound();
     }
 
     public void readFromNBT(NBTTagCompound tagCompound) {
@@ -22,7 +22,7 @@ public class TileDimensionalPortal extends TileEntity implements ICustomNBTTag {
         masterStoneX = tagCompound.getInteger("masterStoneX");
         masterStoneY = tagCompound.getInteger("masterStoneY");
         masterStoneZ = tagCompound.getInteger("masterStoneZ");
-        custoomNBTTag = tagCompound.getCompoundTag("customNBTTag");
+        customNBTTag = tagCompound.getCompoundTag("customNBTTag");
     }
 
     public void writeToNBT(NBTTagCompound tagCompound) {
@@ -31,16 +31,16 @@ public class TileDimensionalPortal extends TileEntity implements ICustomNBTTag {
         tagCompound.setInteger("masterStoneX", masterStoneX);
         tagCompound.setInteger("masterStoneY", masterStoneY);
         tagCompound.setInteger("masterStoneZ", masterStoneZ);
-        tagCompound.setTag("customNBTTag", custoomNBTTag);
+        tagCompound.setTag("customNBTTag", customNBTTag);
     }
 
     @Override
     public NBTTagCompound getCustomNBTTag() {
-        return custoomNBTTag;
+        return customNBTTag;
     }
 
     @Override
     public void setCustomNBTTag(NBTTagCompound tag) {
-        custoomNBTTag = tag;
+        customNBTTag = tag;
     }
 }

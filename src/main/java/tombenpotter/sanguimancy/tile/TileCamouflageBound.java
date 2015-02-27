@@ -14,7 +14,7 @@ public class TileCamouflageBound extends TileCamouflage implements IBoundTile {
     ArrayList<String> ownerList;
 
     public TileCamouflageBound() {
-        custoomNBTTag = new NBTTagCompound();
+        customNBTTag = new NBTTagCompound();
         this.ownerList = new ArrayList<String>();
     }
 

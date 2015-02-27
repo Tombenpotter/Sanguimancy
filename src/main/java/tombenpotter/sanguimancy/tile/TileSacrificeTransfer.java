@@ -8,7 +8,7 @@ import tombenpotter.sanguimancy.api.tile.TileBaseInventory;
 public class TileSacrificeTransfer extends TileBaseInventory {
 
     public TileSacrificeTransfer() {
-        custoomNBTTag = new NBTTagCompound();
+        customNBTTag = new NBTTagCompound();
         slots = new ItemStack[1];
     }
 

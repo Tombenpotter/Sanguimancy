@@ -22,14 +22,14 @@ import java.util.HashMap;
 
 public class TileRitualSNPart extends TileBaseSNPart implements ICustomNBTTag {
 
-    public NBTTagCompound custoomNBTTag;
+    public NBTTagCompound customNBTTag;
     public int xRitual;
     public int yRitual;
     public int zRitual;
 
     public TileRitualSNPart() {
         MinecraftForge.EVENT_BUS.register(this);
-        custoomNBTTag = new NBTTagCompound();
+        customNBTTag = new NBTTagCompound();
     }
 
     @Override
@@ -49,7 +49,7 @@ public class TileRitualSNPart extends TileBaseSNPart implements ICustomNBTTag {
     @Override
     public void readFromNBT(NBTTagCompound tagCompound) {
         super.readFromNBT(tagCompound);
-        custoomNBTTag = tagCompound.getCompoundTag("customNBTTag");
+        customNBTTag = tagCompound.getCompoundTag("customNBTTag");
         this.xRitual = tagCompound.getInteger("xRitual");
         this.yRitual = tagCompound.getInteger("yRitual");
         this.zRitual = tagCompound.getInteger("zRitual");
@@ -58,7 +58,7 @@ public class TileRitualSNPart extends TileBaseSNPart implements ICustomNBTTag {
     @Override
     public void writeToNBT(NBTTagCompound tagCompound) {
         super.writeToNBT(tagCompound);
-        tagCompound.setTag("customNBTTag", custoomNBTTag);
+        tagCompound.setTag("customNBTTag", customNBTTag);
         tagCompound.setInteger("xRitual", xRitual);
         tagCompound.setInteger("yRitual", yRitual);
         tagCompound.setInteger("zRitual", zRitual);
@@ -66,12 +66,12 @@ public class TileRitualSNPart extends TileBaseSNPart implements ICustomNBTTag {
 
     @Override
     public NBTTagCompound getCustomNBTTag() {
-        return custoomNBTTag;
+        return customNBTTag;
     }
 
     @Override
     public void setCustomNBTTag(NBTTagCompound tag) {
-        custoomNBTTag = tag;
+        customNBTTag = tag;
     }
 
 

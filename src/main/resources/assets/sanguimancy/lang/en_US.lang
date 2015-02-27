@@ -43,6 +43,7 @@ tile.Sanguimancy.etherealBoundBlock.name=Bound Ethereal Block
 tile.Sanguimancy.etherealBoundCorruptedBlock.name=Bound Corrupted Ethereal Block
 tile.Sanguimancy.etherealBoundToggledBlock.name=Bound Toggled Ethereal Block
 tile.Sanguimancy.etherealPersonalBlock.name=Personal Ethereal Block
+tile.Sanguimancy.altarManipulator.name=Altar Manipulator
 
 #Items
 item.Sanguimancy.playerSacrificer.unattuned.name=Unattuned Player Sacrificing Stone

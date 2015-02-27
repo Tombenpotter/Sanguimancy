@@ -24,11 +24,11 @@ import java.util.HashMap;
 public class TileItemSNPart extends TileBaseSNPart implements IInventory {
 
     public ItemStack[] slots;
-    private NBTTagCompound custoomNBTTag;
+    private NBTTagCompound customNBTTag;
 
     public TileItemSNPart() {
         slots = new ItemStack[1];
-        custoomNBTTag = new NBTTagCompound();
+        customNBTTag = new NBTTagCompound();
     }
 
     public int getSizeInventory() {
@@ -102,7 +102,7 @@ public class TileItemSNPart extends TileBaseSNPart implements IInventory {
                 this.slots[b0] = ItemStack.loadItemStackFromNBT(nbttagcompound1);
             }
         }
-        custoomNBTTag = tagCompound.getCompoundTag("customNBTTag");
+        customNBTTag = tagCompound.getCompoundTag("customNBTTag");
     }
 
     @Override
@@ -119,7 +119,7 @@ public class TileItemSNPart extends TileBaseSNPart implements IInventory {
             }
         }
         tagCompound.setTag("Items", nbttaglist);
-        tagCompound.setTag("customNBTTag", custoomNBTTag);
+        tagCompound.setTag("customNBTTag", customNBTTag);
     }
 
     public boolean onBlockRightClicked(EntityPlayer player, ItemStack stack) {
@@ -210,12 +210,12 @@ public class TileItemSNPart extends TileBaseSNPart implements IInventory {
 
     @Override
     public NBTTagCompound getCustomNBTTag() {
-        return custoomNBTTag;
+        return customNBTTag;
     }
 
     @Override
     public void setCustomNBTTag(NBTTagCompound tag) {
-        custoomNBTTag = tag;
+        customNBTTag = tag;
     }
 
     @Override

@@ -13,7 +13,7 @@ public class TileAltarDiviner extends TileBaseInventory {
 
     public TileAltarDiviner() {
         slots = new ItemStack[1];
-        custoomNBTTag = new NBTTagCompound();
+        customNBTTag = new NBTTagCompound();
     }
 
     @Override
