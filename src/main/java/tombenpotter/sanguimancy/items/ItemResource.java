@@ -26,6 +26,7 @@ public class ItemResource extends Item {
         namesList.add(1, "corruptedMineral");
         namesList.add(2, "imbuedStick");
         namesList.add(3, "etherealManifestation");
+        namesList.add(4, "manipulatorUpgrade");
     }
 
     @SideOnly(Side.CLIENT)
@@ -34,6 +35,7 @@ public class ItemResource extends Item {
         this.icon[1] = ri.registerIcon(Sanguimancy.texturePath + ":CorruptedMineral");
         this.icon[2] = ri.registerIcon(Sanguimancy.texturePath + ":ImbuedStick");
         this.icon[3] = ri.registerIcon(Sanguimancy.texturePath + ":EtherealManifestation");
+        this.icon[4] = ri.registerIcon(Sanguimancy.texturePath + ":ManipulatorUpgrade");
     }
 
     @Override

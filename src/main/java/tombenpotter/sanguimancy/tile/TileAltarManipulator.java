@@ -2,17 +2,22 @@ package tombenpotter.sanguimancy.tile;
 
 import WayofTime.alchemicalWizardry.api.altarRecipeRegistry.AltarRecipe;
 import WayofTime.alchemicalWizardry.api.altarRecipeRegistry.AltarRecipeRegistry;
+import WayofTime.alchemicalWizardry.common.spell.complex.effect.SpellHelper;
 import WayofTime.alchemicalWizardry.common.tileEntity.TEAltar;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.tileentity.TileEntityHopper;
 import net.minecraftforge.common.util.ForgeDirection;
 import tombenpotter.sanguimancy.api.tile.TileBaseSidedInventory;
+import tombenpotter.sanguimancy.util.SanguimancyItemStacks;
 
 public class TileAltarManipulator extends TileBaseSidedInventory {
 
     public TileAltarManipulator() {
-        slots = new ItemStack[2];
+        slots = new ItemStack[3];
         customNBTTag = new NBTTagCompound();
     }
 
@@ -35,9 +40,9 @@ public class TileAltarManipulator extends TileBaseSidedInventory {
     public void updateEntity() {
         if (worldObj.getTileEntity(xCoord, yCoord - 1, zCoord) != null && worldObj.getTileEntity(xCoord, yCoord - 1, zCoord) instanceof TEAltar) {
             TEAltar altar = (TEAltar) worldObj.getTileEntity(xCoord, yCoord - 1, zCoord);
-            ItemStack stack = getStackInSlot(0);
+            if (getStackInSlot(1) != null) outputToAdjacentInventory();
             if (altar.getStackInSlot(0) != null) moveItemsFromAltar(altar);
-            if (getStackInSlot(0) != null) insertItemInAltar(altar, stack);
+            if (getStackInSlot(0) != null) insertItemInAltar(altar);
         }
     }
 
@@ -75,7 +80,8 @@ public class TileAltarManipulator extends TileBaseSidedInventory {
         return false;
     }
 
-    public void insertItemInAltar(TEAltar altar, ItemStack stack) {
+    public void insertItemInAltar(TEAltar altar) {
+        ItemStack stack = getStackInSlot(0).copy();
         int tier = altar.getTier();
         if (AltarRecipeRegistry.isRequiredItemValid(stack, tier)) {
             int containedBlood = altar.getCurrentBlood();
@@ -115,6 +121,21 @@ public class TileAltarManipulator extends TileBaseSidedInventory {
                 altar.setInventorySlotContents(0, null);
                 worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
                 worldObj.markBlockForUpdate(altar.xCoord, altar.yCoord, altar.zCoord);
+            }
+        }
+    }
+
+    public void outputToAdjacentInventory() {
+        if (getStackInSlot(2) != null && getStackInSlot(2).isItemEqual(SanguimancyItemStacks.sanguineShifter)) {
+            ItemStack stack = getStackInSlot(1).copy();
+            for (ForgeDirection dir : ForgeDirection.VALID_DIRECTIONS) {
+                TileEntity tile = worldObj.getTileEntity(xCoord + dir.offsetX, yCoord + dir.offsetY, zCoord + dir.offsetZ);
+                if (tile != null && tile instanceof IInventory && !(tile instanceof TEAltar) && !(tile instanceof TileEntityHopper)) {
+                    IInventory inventory = (IInventory) tile;
+                    if (inventory.getSizeInventory() <= 0) return;
+                    SpellHelper.insertStackIntoInventory(stack, inventory, ForgeDirection.UNKNOWN);
+                    setInventorySlotContents(1, null);
+                }
             }
         }
     }

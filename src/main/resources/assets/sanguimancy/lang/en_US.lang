@@ -71,6 +71,7 @@ item.Sanguimancy.resource.etherealManifestation.name=Ethereal Manifestation
 item.Sanguimancy.soulTransporter.name=Soul Transposer
 item.Sanguimancy.telepositionSigil.name=Teleposition Sigil
 item.Sanguimancy.transpositionSigil.name=Sigil of Transposition
+item.Sanguimancy.resource.manipulatorUpgrade.name=Sanguine Shifter
 
 #Entities
 entity.Sanguimancy.EntityChickenMinion.name=Chicken Minion

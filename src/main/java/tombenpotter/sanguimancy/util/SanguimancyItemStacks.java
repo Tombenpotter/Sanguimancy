@@ -32,6 +32,7 @@ public class SanguimancyItemStacks {
     public static ItemStack soulTransporter = new ItemStack(ItemsRegistry.soulTransporter);
     public static ItemStack telepositionSigil = new ItemStack(ItemsRegistry.telepositionSigil);
     public static ItemStack transpositionSigil = new ItemStack(ItemsRegistry.transpositionSigil);
+    public static ItemStack sanguineShifter = new ItemStack(ItemsRegistry.resource, 1, 4);
 
     // Blocks
     public static ItemStack altarEmitter = new ItemStack(BlocksRegistry.altarEmitter);
@@ -73,4 +74,5 @@ public class SanguimancyItemStacks {
     public static ItemStack etherealBoundCorruptedBlock = new ItemStack(BlocksRegistry.etherealBoundCorruptedBlock);
     public static ItemStack etherealBoundToggledBlock = new ItemStack(BlocksRegistry.etherealBoundToggledBlock);
     public static ItemStack personalEtherealBlock = new ItemStack(BlocksRegistry.etherealPersonalBlock);
+    public static ItemStack altarManipulator = new ItemStack(BlocksRegistry.altarManipulator);
 }
