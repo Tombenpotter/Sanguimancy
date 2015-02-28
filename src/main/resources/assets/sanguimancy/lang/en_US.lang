@@ -126,6 +126,7 @@ info.Sanguimancy.tooltip.corrupted.infusion.2=Corrupted Infusion can start.
 info.Sanguimancy.tooltip.ore=%s Ore
 info.Sanguimancy.tooltip.amount=Amount
 info.Sanguimancy.tooltip.fluid=Fluid
+info.Sanguimancy.tooltip.capacity=Capacity
 info.Sanguimancy.tooltip.none=None
 info.Sanguimancy.tooltip.any=Any Ore Lump
 info.Sanguimancy.tooltip.per.point=per half-heart

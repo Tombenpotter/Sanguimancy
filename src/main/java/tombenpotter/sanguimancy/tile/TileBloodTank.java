@@ -16,9 +16,15 @@ public class TileBloodTank extends TileBase implements IFluidHandler {
         customNBTTag = new NBTTagCompound();
     }
 
+    public TileBloodTank(int capacity) {
+        capacity = capacity * FluidContainerRegistry.BUCKET_VOLUME;
+        tank = new FluidTank(capacity);
+        customNBTTag = new NBTTagCompound();
+    }
+
     @Override
     public void updateEntity() {
-        if (worldObj.getWorldTime() % 50 == 0) worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+        if (worldObj.getWorldTime() % 60 == 0) worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
     }
 
     @Override

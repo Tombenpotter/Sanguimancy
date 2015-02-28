@@ -12,6 +12,7 @@ import net.minecraft.util.StatCollector;
 import net.minecraftforge.fluids.FluidContainerRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.IFluidContainerItem;
+import tombenpotter.sanguimancy.blocks.BlockBloodTank;
 import tombenpotter.sanguimancy.util.RandomUtils;
 
 import java.util.List;
@@ -20,16 +21,18 @@ public class ItemBlockBloodTank extends ItemBlock implements IFluidContainerItem
 
     public ItemBlockBloodTank(Block block) {
         super(block);
+        setHasSubtypes(true);
     }
 
     @SideOnly(Side.CLIENT)
     public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean p_77624_4_) {
-        if (stack.hasTagCompound()) {
-            if (!GuiScreen.isShiftKeyDown())
-                list.add(StatCollector.translateToLocal("info.Sanguimancy.tooltip.shift.info"));
-            else {
+        if (!GuiScreen.isShiftKeyDown())
+            list.add(StatCollector.translateToLocal("info.Sanguimancy.tooltip.shift.info"));
+        else {
+            list.add(StatCollector.translateToLocal("info.Sanguimancy.tooltip.capacity") + ": " + String.valueOf(getCapacity(stack)) + "mB");
+            if (stack.hasTagCompound()) {
                 NBTTagCompound tag = stack.stackTagCompound.getCompoundTag("tank");
-                if (stack.hasTagCompound() && tag.getString("FluidName") != "") {
+                if (tag.getString("FluidName") != "") {
                     list.add(StatCollector.translateToLocal("info.Sanguimancy.tooltip.fluid") + ": " + RandomUtils.capitalizeFirstLetter(tag.getString("FluidName")));
                     list.add(StatCollector.translateToLocal("info.Sanguimancy.tooltip.amount") + ": " + tag.getInteger("Amount") + "/" + getCapacity(stack) + "mB");
                 }
@@ -57,10 +60,7 @@ public class ItemBlockBloodTank extends ItemBlock implements IFluidContainerItem
 
     @Override
     public int getCapacity(ItemStack container) {
-        if (container.hasTagCompound() && container.stackTagCompound.hasKey("capacity")) {
-            return container.stackTagCompound.getInteger("capacity");
-        }
-        return 16 * FluidContainerRegistry.BUCKET_VOLUME;
+        return BlockBloodTank.capacities[container.getItemDamage()] * FluidContainerRegistry.BUCKET_VOLUME;
     }
 
     @Override
@@ -108,5 +108,10 @@ public class ItemBlockBloodTank extends ItemBlock implements IFluidContainerItem
         }
         fluid.amount = drainAmount;
         return fluid;
+    }
+
+    @Override
+    public int getMetadata(int meta) {
+        return meta;
     }
 }

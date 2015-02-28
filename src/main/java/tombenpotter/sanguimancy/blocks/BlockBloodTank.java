@@ -5,8 +5,10 @@ import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
@@ -20,10 +22,12 @@ import tombenpotter.sanguimancy.tile.TileBloodTank;
 import tombenpotter.sanguimancy.util.RandomUtils;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class BlockBloodTank extends BlockContainer {
 
     public static int renderId = 10000;
+    public static int[] capacities = {16, 32, 64, 128, 256, 512, 1024, 2048, 4096, 8192, 16384, 32768, 65336, 131072, 262144, 524288};
 
     public BlockBloodTank(Material material) {
         super(material);
@@ -32,8 +36,8 @@ public class BlockBloodTank extends BlockContainer {
     }
 
     @Override
-    public TileEntity createNewTileEntity(World p_149915_1_, int p_149915_2_) {
-        return new TileBloodTank();
+    public TileEntity createNewTileEntity(World world, int metadata) {
+        return new TileBloodTank(capacities[metadata]);
     }
 
     @SideOnly(Side.CLIENT)
@@ -71,7 +75,7 @@ public class BlockBloodTank extends BlockContainer {
         ArrayList<ItemStack> list = new ArrayList();
         if (world.getTileEntity(x, y, z) instanceof TileBloodTank) {
             TileBloodTank tile = (TileBloodTank) world.getTileEntity(x, y, z);
-            ItemStack drop = new ItemStack(this);
+            ItemStack drop = new ItemStack(this, 1, metadata);
             NBTTagCompound tag = new NBTTagCompound();
             tile.writeToNBT(tag);
             drop.stackTagCompound = tag;
@@ -148,5 +152,12 @@ public class BlockBloodTank extends BlockContainer {
             }
         }
         return getIcon(side, meta);
+    }
+
+    @SideOnly(Side.CLIENT)
+    public void getSubBlocks(Item id, CreativeTabs tab, List list) {
+        for (int i = 0; i <= 15; i++) {
+            list.add(new ItemStack(id, 1, i));
+        }
     }
 }
