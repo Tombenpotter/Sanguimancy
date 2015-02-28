@@ -9,16 +9,17 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.tileentity.TileEntityHopper;
 import net.minecraftforge.common.util.ForgeDirection;
 import tombenpotter.sanguimancy.api.tile.TileBaseSidedInventory;
-import tombenpotter.sanguimancy.util.SanguimancyItemStacks;
 
 public class TileAltarManipulator extends TileBaseSidedInventory {
+
+    public int sideToOutput;
 
     public TileAltarManipulator() {
         slots = new ItemStack[3];
         customNBTTag = new NBTTagCompound();
+        sideToOutput = 0;
     }
 
     @Override
@@ -126,18 +127,29 @@ public class TileAltarManipulator extends TileBaseSidedInventory {
     }
 
     public void outputToAdjacentInventory() {
-        if (getStackInSlot(2) != null && getStackInSlot(2).isItemEqual(SanguimancyItemStacks.sanguineShifter)) {
-            ItemStack stack = getStackInSlot(1).copy();
-            for (ForgeDirection dir : ForgeDirection.VALID_DIRECTIONS) {
-                TileEntity tile = worldObj.getTileEntity(xCoord + dir.offsetX, yCoord + dir.offsetY, zCoord + dir.offsetZ);
-                if (tile != null && tile instanceof IInventory && !(tile instanceof TEAltar) && !(tile instanceof TileEntityHopper)) {
-                    IInventory inventory = (IInventory) tile;
-                    if (inventory.getSizeInventory() <= 0) return;
-                    SpellHelper.insertStackIntoInventory(stack, inventory, ForgeDirection.UNKNOWN);
-                    setInventorySlotContents(1, null);
-                }
+        ItemStack stack = getStackInSlot(1).copy();
+        ForgeDirection dir = ForgeDirection.getOrientation(sideToOutput);
+        if (dir != ForgeDirection.DOWN) {
+            TileEntity tile = worldObj.getTileEntity(xCoord + dir.offsetX, yCoord + dir.offsetY, zCoord + dir.offsetZ);
+            if (tile != null && tile instanceof IInventory) {
+                IInventory inventory = (IInventory) tile;
+                if (inventory.getSizeInventory() <= 0) return;
+                SpellHelper.insertStackIntoInventory(stack, inventory, ForgeDirection.UNKNOWN);
+                setInventorySlotContents(1, null);
             }
         }
+    }
+
+    @Override
+    public void readFromNBT(NBTTagCompound tagCompound) {
+        super.readFromNBT(tagCompound);
+        sideToOutput = tagCompound.getInteger("sideToOutput");
+    }
+
+    @Override
+    public void writeToNBT(NBTTagCompound tagCompound) {
+        super.writeToNBT(tagCompound);
+        tagCompound.setInteger("sideToOutput", sideToOutput);
     }
 
     @Override

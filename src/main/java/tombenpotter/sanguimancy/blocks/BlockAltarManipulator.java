@@ -45,6 +45,7 @@ public class BlockAltarManipulator extends BlockContainer {
             ItemStack stack = player.getHeldItem().copy();
             stack.stackSize = 1;
             tile.setInventorySlotContents(2, stack);
+            tile.sideToOutput = side;
             if (!player.capabilities.isCreativeMode) player.inventory.consumeInventoryItem(stack.getItem());
             world.markBlockForUpdate(x, y, z);
             return true;
