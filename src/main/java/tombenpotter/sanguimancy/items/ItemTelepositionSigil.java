@@ -14,7 +14,7 @@ import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import tombenpotter.sanguimancy.Sanguimancy;
 import tombenpotter.sanguimancy.util.RandomUtils;
-import tombenpotter.sanguimancy.util.TeleportingUtils;
+import tombenpotter.sanguimancy.util.teleporting.TeleportingQueue;
 
 import java.util.List;
 
@@ -54,9 +54,9 @@ public class ItemTelepositionSigil extends Item {
         int z = stack.stackTagCompound.getInteger("blockZ");
         if (!world.isRemote) {
             if (world.provider.dimensionId == getDimensionID(stack.stackTagCompound)) {
-                TeleportingUtils.teleportEntitySameDim(x, y + 1, z, player, RandomUtils.getItemOwner(stack));
+                TeleportingQueue.getInstance().teleportSameDim(x, y + 1, z, player, RandomUtils.getItemOwner(stack));
             } else {
-                TeleportingUtils.teleportEntityToDim(world, getDimensionID(stack.stackTagCompound), x, y + 1, z, player, RandomUtils.getItemOwner(stack));
+                TeleportingQueue.getInstance().teleportToDim(world, getDimensionID(stack.stackTagCompound), x, y + 1, z, player, RandomUtils.getItemOwner(stack));
             }
         }
         return stack;

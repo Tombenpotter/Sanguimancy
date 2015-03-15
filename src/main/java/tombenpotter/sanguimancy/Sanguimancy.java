@@ -21,6 +21,7 @@ import tombenpotter.sanguimancy.util.ConfigHandler;
 import tombenpotter.sanguimancy.util.EventHandler;
 import tombenpotter.sanguimancy.util.RandomUtils;
 import tombenpotter.sanguimancy.util.enums.ModList;
+import tombenpotter.sanguimancy.util.teleporting.TeleportingQueue;
 
 @Mod(modid = Sanguimancy.modid, name = Sanguimancy.name, version = Sanguimancy.version, dependencies = Sanguimancy.depend, guiFactory = "tombenpotter.sanguimancy.client.gui.ConfigGuiFactory")
 public class Sanguimancy {
@@ -78,6 +79,7 @@ public class Sanguimancy {
         PotionsRegistry.registerPotions();
         FMLCommonHandler.instance().bus().register(new EventHandler());
         MinecraftForge.EVENT_BUS.register(new EventHandler());
+        FMLCommonHandler.instance().bus().register(TeleportingQueue.getInstance());
         PacketHandler.registerPackets();
         if (Loader.isModLoaded("Waila")) WailaCompatRegistry.register();
         NetworkRegistry.INSTANCE.registerGuiHandler(this, proxy);

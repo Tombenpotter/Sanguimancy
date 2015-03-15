@@ -9,7 +9,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
 import tombenpotter.sanguimancy.registry.BlocksRegistry;
 import tombenpotter.sanguimancy.tile.TileDimensionalPortal;
-import tombenpotter.sanguimancy.util.PortalLocation;
+import tombenpotter.sanguimancy.util.teleporting.PortalLocation;
 import tombenpotter.sanguimancy.util.RandomUtils;
 import tombenpotter.sanguimancy.util.singletons.LocationsHandler;
 

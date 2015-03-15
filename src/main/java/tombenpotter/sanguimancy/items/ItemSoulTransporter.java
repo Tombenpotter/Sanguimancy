@@ -11,8 +11,8 @@ import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.world.World;
 import tombenpotter.sanguimancy.Sanguimancy;
 import tombenpotter.sanguimancy.util.ConfigHandler;
-import tombenpotter.sanguimancy.util.TeleportingUtils;
 import tombenpotter.sanguimancy.util.singletons.ClaimedChunks;
+import tombenpotter.sanguimancy.util.teleporting.TeleportingQueue;
 
 public class ItemSoulTransporter extends Item {
 
@@ -32,7 +32,7 @@ public class ItemSoulTransporter extends Item {
             if (player.worldObj.provider.dimensionId != 0) {
                 ChunkCoordinates chunkCoords = MinecraftServer.getServer().worldServerForDimension(0).getSpawnPoint();
                 chunkCoords.posY = MinecraftServer.getServer().worldServerForDimension(0).getTopSolidOrLiquidBlock(chunkCoords.posX, chunkCoords.posZ);
-                TeleportingUtils.teleportEntityToDim(world, 0, chunkCoords.posX, chunkCoords.posY, chunkCoords.posZ, player, player.getCommandSenderName());
+                TeleportingQueue.getInstance().teleportToDim(world, 0, chunkCoords.posX, chunkCoords.posY, chunkCoords.posZ, player, player.getCommandSenderName());
             } else {
                 int dimID = ConfigHandler.snDimID;
                 int x;
@@ -48,7 +48,7 @@ public class ItemSoulTransporter extends Item {
                     x = chunkCoords.posX;
                     z = chunkCoords.posZ;
                 }
-                TeleportingUtils.teleportEntityToDim(world, dimID, x, 6, z, player, player.getCommandSenderName());
+                TeleportingQueue.getInstance().teleportToDim(world, dimID, x, 6, z, player, player.getCommandSenderName());
             }
             player.inventory.consumeInventoryItem(this);
         }

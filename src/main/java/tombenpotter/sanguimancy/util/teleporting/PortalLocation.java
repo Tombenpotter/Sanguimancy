@@ -1,4 +1,4 @@
-package tombenpotter.sanguimancy.util;
+package tombenpotter.sanguimancy.util.teleporting;
 
 import net.minecraft.nbt.NBTTagCompound;
 

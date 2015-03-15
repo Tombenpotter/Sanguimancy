@@ -2,7 +2,7 @@ package tombenpotter.sanguimancy.util.singletons;
 
 import net.minecraftforge.common.DimensionManager;
 import tombenpotter.sanguimancy.Sanguimancy;
-import tombenpotter.sanguimancy.util.PortalLocation;
+import tombenpotter.sanguimancy.util.teleporting.PortalLocation;
 
 import java.io.*;
 import java.util.ArrayList;
