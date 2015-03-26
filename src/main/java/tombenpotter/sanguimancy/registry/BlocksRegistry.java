@@ -114,6 +114,6 @@ public class BlocksRegistry {
         GameRegistry.registerBlock(etherealPersonalBlock, "BlockEtherealPersonal").setBlockName(Sanguimancy.modid + ".etherealPersonalBlock");
 
         altarManipulator = new BlockAltarManipulator(Material.iron);
-        GameRegistry.registerBlock(altarManipulator, "BlockAltarManipulator").setBlockName(Sanguimancy.modid + ".altarManipulator");
+        GameRegistry.registerBlock(altarManipulator, ItemBlockAltarManipulator.class, "BlockAltarManipulator").setBlockName(Sanguimancy.modid + ".altarManipulator");
     }
 }

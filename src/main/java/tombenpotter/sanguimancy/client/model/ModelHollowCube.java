@@ -4,7 +4,7 @@ import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
 
-public class ModelInterface extends ModelBase {
+public class ModelHollowCube extends ModelBase {
 
     //fields
     ModelRenderer topBarA;
@@ -20,7 +20,7 @@ public class ModelInterface extends ModelBase {
     ModelRenderer bottomBarC;
     ModelRenderer bottomBarD;
 
-    public ModelInterface() {
+    public ModelHollowCube() {
         textureWidth = 64;
         textureHeight = 32;
 

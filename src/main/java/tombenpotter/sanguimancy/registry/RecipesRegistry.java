@@ -28,7 +28,7 @@ public class RecipesRegistry {
     public static IRecipe altarEmitter, sacrificeTransferrer, corruptionReader, unattunedPlayerSacrificer, corruptionCrystallizer, bloodTank, lumpCleaner,
             bloodAmulet, bloodstoneStairs, largeBloodstoneStairs, bloodstoneSlab, largeBloodstoneSlab, chunkClaimer, wand, bloodInterface, simpleBranch,
             simpleKnot, toggledKnot, corruptedMineral, corruptedSword, corruptedPickaxe, corruptedShovel, corruptedAxe, toggledEtherealBlock,
-            personalEtherealBlock, soulTransporter, telepositionSigil, transpositionSigil;
+            personalEtherealBlock, soulTransporter, telepositionSigil, transpositionSigil, sanguineShifter, altarManipulator;
     public static AltarRecipe altarDiviner, attunedPlayerSacrificer, corruptionCatalyst, imbuedStick, etherealManifestation;
     public static RecipeCorruptedInfusion poisonousPotato, rottenFlesh, crackedStoneBricks, bonemeal, soulSand, corruptedDemonShard, cobblestone, gravel,
             sand, dirt, corruptedEtherealBlock;
@@ -90,6 +90,10 @@ public class RecipesRegistry {
         telepositionSigil = RecipeRegistry.getLatestCraftingRecipe();
         GameRegistry.addRecipe(new ShapedBloodOrbRecipe(SanguimancyItemStacks.transpositionSigil, "DAD", "MOM", "BOB", 'O', ModItems.masterBloodOrb, 'D', ModItems.aether, 'A', Items.diamond, 'M', SanguimancyItemStacks.corruptedMineral, 'B', ModItems.magicales));
         transpositionSigil = RecipeRegistry.getLatestCraftingRecipe();
+        GameRegistry.addRecipe(new ShapedBloodOrbRecipe(SanguimancyItemStacks.sanguineShifter, "A", "O", "L", 'A', SanguimancyItemStacks.altarManipulator, 'O', ModItems.masterBloodOrb, 'L', Blocks.hopper));
+        sanguineShifter = RecipeRegistry.getLatestCraftingRecipe();
+        GameRegistry.addRecipe(new ShapedBloodOrbRecipe(SanguimancyItemStacks.altarManipulator, "DED", "EOE", "DED", 'D', SanguimancyItemStacks.altarDiviner, 'E', SanguimancyItemStacks.altarEmitter, 'O', ModItems.magicianBloodOrb));
+        altarManipulator = RecipeRegistry.getLatestCraftingRecipe();
     }
 
     public static void registerAlchemyRecipes() {

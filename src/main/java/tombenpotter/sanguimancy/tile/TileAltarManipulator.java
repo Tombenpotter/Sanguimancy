@@ -154,17 +154,6 @@ public class TileAltarManipulator extends TileBaseSidedInventory {
 
     @Override
     public int[] getAccessibleSlotsFromSide(int var1) {
-        ForgeDirection dir = ForgeDirection.getOrientation(var1);
-        switch (dir) {
-            case DOWN:
-            case UP:
-            case NORTH:
-            case SOUTH:
-            case EAST:
-            case WEST:
-                return new int[]{0, 1};
-            default:
-                return new int[]{};
-        }
+        return new int[]{0, 1};
     }
 }

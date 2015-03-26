@@ -14,15 +14,15 @@ import net.minecraftforge.client.IItemRenderer;
 import org.lwjgl.opengl.GL11;
 import tombenpotter.sanguimancy.Sanguimancy;
 import tombenpotter.sanguimancy.client.model.ModelHollowCube;
-import tombenpotter.sanguimancy.tile.TileBloodInterface;
+import tombenpotter.sanguimancy.tile.TileAltarManipulator;
 
-public class RenderBloodInterface extends TileEntitySpecialRenderer implements IItemRenderer {
+public class RenderAltarManipulator extends TileEntitySpecialRenderer implements IItemRenderer {
 
-    public static final ResourceLocation texture = new ResourceLocation(Sanguimancy.texturePath + ":textures/blocks/BloodInterface.png");
+    public static final ResourceLocation texture = new ResourceLocation(Sanguimancy.texturePath + ":textures/blocks/AltarManipulator.png");
     private final RenderItem customRenderItem;
-    private ModelHollowCube model = new ModelHollowCube();
+    public ModelHollowCube model = new ModelHollowCube();
 
-    public RenderBloodInterface() {
+    public RenderAltarManipulator() {
         customRenderItem = new RenderItem() {
             @Override
             public boolean shouldBob() {
@@ -33,17 +33,17 @@ public class RenderBloodInterface extends TileEntitySpecialRenderer implements I
     }
 
     @Override
-    public void renderTileEntityAt(TileEntity tileEntity, double x, double y, double z, float f) {
-        renderModel((TileBloodInterface) tileEntity, x, y, z);
-        if (tileEntity instanceof TileBloodInterface) {
-            TileBloodInterface tile = (TileBloodInterface) tileEntity;
+    public void renderTileEntityAt(TileEntity tileEntity, double x, double y, double z, float scale) {
+        renderModel((TileAltarManipulator) tileEntity, x, y, z);
+        if (tileEntity instanceof TileAltarManipulator) {
+            TileAltarManipulator tile = (TileAltarManipulator) tileEntity;
             GL11.glPushMatrix();
-            if (tile.getStackInSlot(0) != null) {
-                float scaleFactor = getGhostItemScaleFactor(tile.getStackInSlot(0));
+            if (tile.getStackInSlot(1) != null) {
+                float scaleFactor = getGhostItemScaleFactor(tile.getStackInSlot(1));
                 float rotationAngle = (float) (720.0 * (System.currentTimeMillis() & 0x3FFFL) / 0x3FFFL);
                 EntityItem ghostEntityItem = new EntityItem(tile.getWorldObj());
                 ghostEntityItem.hoverStart = 0.0F;
-                ghostEntityItem.setEntityItemStack(tile.getStackInSlot(0));
+                ghostEntityItem.setEntityItemStack(tile.getStackInSlot(1));
                 if (ghostEntityItem.getEntityItem().getItem() instanceof ItemBlock) {
                     GL11.glTranslatef((float) x + 0.5F, (float) y + 0.5F, (float) z + 0.5F);
                 } else {
@@ -57,7 +57,8 @@ public class RenderBloodInterface extends TileEntitySpecialRenderer implements I
         }
     }
 
-    public void renderModel(TileBloodInterface tile, double x, double y, double z) {
+
+    public void renderModel(TileAltarManipulator tile, double x, double y, double z) {
         float scale = 0.1F;
         GL11.glPushMatrix();
         GL11.glTranslatef((float) x + 0.5F, (float) y + 1.0F, (float) z + 0.5F);
@@ -69,12 +70,54 @@ public class RenderBloodInterface extends TileEntitySpecialRenderer implements I
     }
 
     private float getGhostItemScaleFactor(ItemStack itemStack) {
-        float scaleFactor = 0.7F;
+        float scaleFactor = 1.0F;
+
+        if (itemStack != null) {
+            if (itemStack.getItem() instanceof ItemBlock) {
+                switch (customRenderItem.getMiniBlockCount(itemStack, (byte) 1)) {
+                    case 1:
+                        return 0.90F;
+
+                    case 2:
+                        return 0.90F;
+
+                    case 3:
+                        return 0.90F;
+
+                    case 4:
+                        return 0.90F;
+
+                    case 5:
+                        return 0.80F;
+
+                    default:
+                        return 0.90F;
+                }
+            } else {
+                switch (customRenderItem.getMiniItemCount(itemStack, (byte) 1)) {
+                    case 1:
+                        return 0.65F;
+
+                    case 2:
+                        return 0.65F;
+
+                    case 3:
+                        return 0.65F;
+
+                    case 4:
+                        return 0.65F;
+
+                    default:
+                        return 0.65F;
+                }
+            }
+        }
         return scaleFactor;
     }
 
     @Override
     public boolean handleRenderType(ItemStack item, ItemRenderType type) {
+
         return true;
     }
 

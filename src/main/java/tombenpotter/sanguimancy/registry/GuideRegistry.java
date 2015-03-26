@@ -30,7 +30,7 @@ public class GuideRegistry {
     public static Entry playerSacrificers, soulCorruptionReader, bloodAmulet, chunkClaimer, craftingItems, corruptionCatalyst, oreLump, wand, corruptedAxe,
             corruptedPickaxe, corruptedShovel, corruptedSword, soulTransporter, telepositionSigil, transpositionSigil;
     public static Entry altarEmitter, altarDiviner, soulTransferrer, corruptionCrystallizer, bloodInterface, decorativeBlocks, bloodTank, manifestations,
-            bloodCleanser, etherealBlocks;
+            bloodCleanser, etherealBlocks, altarManipulator;
     public static Entry drillOfTheDead, vulcanosFrigius, greatDeletion, enlightenment, timberman, filler, portal, pump;
     public static Entry sacrificeMagic, soulCorruption, soulProtection, corruptionApplications;
 
@@ -159,17 +159,25 @@ public class GuideRegistry {
     }
 
     public static void createBlockEntries() {
+        ArrayList<IEntry> altarEmitterEntries = new ArrayList<IEntry>();
+        altarEmitterEntries.addAll(entriesForLongText("guide.Sanguimancy.entry.altarEmitter", SanguimancyItemStacks.altarEmitter));
+        altarEmitterEntries.add(new EntryCraftingRecipe(RecipesRegistry.altarEmitter));
+        altarEmitter = new Entry(altarEmitterEntries, "\u00A73" + StatCollector.translateToLocal("tile.Sanguimancy.altarEmitter.name"), 1);
+        EntryRegistry.registerEntry(categorySanguimancyBlocks, blocks, altarEmitter);
+
         ArrayList<IEntry> altarDivinerEntries = new ArrayList<IEntry>();
         altarDivinerEntries.addAll(entriesForLongText("guide.Sanguimancy.entry.altarDiviner", SanguimancyItemStacks.altarDiviner));
         altarDivinerEntries.add(new EntryAltarRecipe(RecipesRegistry.altarDiviner));
         altarDiviner = new Entry(altarDivinerEntries, "\u00A73" + StatCollector.translateToLocal("tile.Sanguimancy.altarDiviner.name"), 1);
         EntryRegistry.registerEntry(categorySanguimancyBlocks, blocks, altarDiviner);
 
-        ArrayList<IEntry> altarEmitterEntries = new ArrayList<IEntry>();
-        altarEmitterEntries.addAll(entriesForLongText("guide.Sanguimancy.entry.altarEmitter", SanguimancyItemStacks.altarEmitter));
-        altarEmitterEntries.add(new EntryCraftingRecipe(RecipesRegistry.altarEmitter));
-        altarEmitter = new Entry(altarEmitterEntries, "\u00A73" + StatCollector.translateToLocal("tile.Sanguimancy.altarEmitter.name"), 1);
-        EntryRegistry.registerEntry(categorySanguimancyBlocks, blocks, altarEmitter);
+        ArrayList<IEntry> altarManipulatorEntries = new ArrayList<IEntry>();
+        altarManipulatorEntries.addAll(entriesForLongText("guide.Sanguimancy.entry.altarManipulator", SanguimancyItemStacks.altarManipulator));
+        altarManipulatorEntries.add(new EntryCraftingRecipe(RecipesRegistry.altarManipulator));
+        altarManipulatorEntries.addAll(entriesForLongText("guide.Sanguimancy.entry.sanguineShifter", SanguimancyItemStacks.sanguineShifter));
+        altarManipulatorEntries.add(new EntryCraftingRecipe(RecipesRegistry.sanguineShifter));
+        altarManipulator = new Entry(altarManipulatorEntries, "\u00A73" + StatCollector.translateToLocal("tile.Sanguimancy.altarManipulator.name"), 1);
+        EntryRegistry.registerEntry(categorySanguimancyBlocks, blocks, altarManipulator);
 
         ArrayList<IEntry> bloodInterfaceEntries = new ArrayList<IEntry>();
         bloodInterfaceEntries.addAll(entriesForLongText("guide.Sanguimancy.entry.bloodInterface", SanguimancyItemStacks.bloodInterface));

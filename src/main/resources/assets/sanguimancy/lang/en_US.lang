@@ -156,6 +156,7 @@ info.Sanguimancy.tooltip.bound.dimension=Bound Dimension
 info.Sanguimancy.tooltip.teleposition.sigil.pun=I am very close to being moved by this.
 info.Sanguimancy.tooltip.evil.toaster=Evil Toaster since 1996
 info.Sanguimancy.tooltip.shift.transposition.sigil.pun=Trans.... position of course!
+info.Sanguimancy.tooltip.place.top=Place on top of Altar
 
 #Guide Entries
 guide.Sanguimancy.category.lore=Of Dark Magicks
@@ -206,6 +207,8 @@ guide.Sanguimancy.entry.corruptedEtherealBlock=The Corrupted Ethereal Block has 
 guide.Sanguimancy.entry.toggledEtherealBlock=The Toggled Ethereal Block is a block that can be camouflaged like the Ethereal Block, but acts a bit different: if no redstone signal is supplied, any entity can go through it. When a redstone signal is supplied, it becomes solid once more. Sneaking makes it solid.
 guide.Sanguimancy.entry.boundEtherealBlocks=The Bound Ethereal Blocks are Ethereal, Corrupted or Toggled Ethereal Blocks with one more feature: only the one who placed them can break them. To craft them, drop between 1 and 64 of them in a ritual of binding and activate it.
 guide.Sanguimancy.entry.personalEtherealBlock=The Personal Ethereal Block acts like a Bound Ethereal Block, but only the one who placed it can go through it. It is solid for anything else.
+guide.Sanguimancy.entry.altarManipulator=The Altar Manipulator is the third stage of Blood Altar automation. Like its predecessors, it is a GUI-less machine. It is however much more complex than the others. Where the Altar Emitter and the Altar Diviner were somehow limited, the Altar Manipulator has no such qualms. Indeed, any item inserted into or taken from the block cannot be done by human hands. Phantom, however... The Altar Manipulator will only accept items in its input slot if there's a Blood Altar directly under it, with enough Life Essence and the required tier to craft the item to its upgrade. It will then pick up the item once the crafting is done, and hold onto it until it is taken out. This makes sure the item inserted is processed only once, and not until it has reached its maximum.
+guide.Sanguimancy.entry.sanguineShifter=The Sanguine Shifter is a way to upgrade the Altar Manipulator. While items can be inserted via hoppers, there is no Way to take them out. Do not fear! The Sanguine Shifter is here! Right clicking this item to any side of the Altar Manipulator but its bottom, and placing an inventory on this side will make the Altar Manipulator output its items to this inventory. Hooray!
 
 #Rituals
 guide.Sanguimancy.entry.drillOfTheDead=The Drill of the Dead is, to put it simply, a Well of Suffering on steroids. Where the Well deals half a heart of damage to any mob in the area, the Drill of the Dead kills said mobs instantly. Each kill costs 75LP and gives 200LP per default. However, the Drill of the Dead has limitations. As it is such a powerful tool, it cannot kill Boss Mobs, Elementals and Demons. Activating this ritual will cause your §4 Soul Corruption §r to augment.
