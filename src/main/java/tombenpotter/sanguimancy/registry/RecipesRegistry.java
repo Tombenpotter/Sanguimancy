@@ -14,12 +14,10 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraftforge.oredict.OreDictionary;
 import tombenpotter.sanguimancy.api.bloodutils.api.registries.RecipeRegistry;
-import tombenpotter.sanguimancy.compat.computercraft.PeripheralProvider;
 import tombenpotter.sanguimancy.recipes.RecipeBloodCleanser;
 import tombenpotter.sanguimancy.recipes.RecipeCorruptedInfusion;
 import tombenpotter.sanguimancy.util.RandomUtils;
 import tombenpotter.sanguimancy.util.SanguimancyItemStacks;
-import tombenpotter.sanguimancy.util.enums.ModList;
 
 import java.util.ArrayList;
 
@@ -58,6 +56,7 @@ public class RecipesRegistry {
         corruptedAxe = GameRegistry.addShapedRecipe(SanguimancyItemStacks.corruptedAxe, "XX ", "XY ", " Y ", 'X', SanguimancyItemStacks.corruptedMineral, 'Y', SanguimancyItemStacks.imbuedStick);
         toggledEtherealBlock = GameRegistry.addShapedRecipe(new ItemStack(BlocksRegistry.etherealBoundBlock, 8), "XXX", "XYX", "XXX", 'Y', Blocks.redstone_block, 'X', SanguimancyItemStacks.etherealBlock);
         personalEtherealBlock = GameRegistry.addShapedRecipe(new ItemStack(BlocksRegistry.etherealPersonalBlock, 8), "XXX", "XYX", "XXX", 'X', SanguimancyItemStacks.etherealBoundBlock, 'Y', Items.name_tag);
+        bloodInterface = GameRegistry.addShapedRecipe(SanguimancyItemStacks.bloodInterface, "XYX", "XZX", "XXX", 'X', Blocks.stone, 'Y', new ItemStack(ModBlocks.bloodRune, 1, 0), 'Z', new ItemStack(Blocks.unpowered_comparator));
     }
 
     public static void registerAltarRecipes() {
@@ -144,19 +143,6 @@ public class RecipesRegistry {
             }
         }
         RecipeBloodCleanser.addRecipe(new ItemStack(Blocks.cobblestone), new ItemStack(Blocks.netherrack));
-
-        ItemStack stackInterface = new ItemStack(BlocksRegistry.bloodInterface);
-        ItemStack stackRune = new ItemStack(ModBlocks.bloodRune, 1, 0);
-        if (ModList.computercraft.isLoaded()) {
-            PeripheralProvider.register();
-            ItemStack modem = GameRegistry.findItemStack(ModList.Names.COMPUTERCRAFT, "CC-Cable", 1);
-            modem.setItemDamage(1);
-            bloodInterface = GameRegistry.addShapedRecipe(stackInterface.copy(), "XYX", "XZX", "XXX", 'X', Blocks.stone, 'Y', stackRune, 'Z', modem);
-        }
-        if (ModList.opencomputers.isLoaded())
-            bloodInterface = GameRegistry.addShapedRecipe(stackInterface.copy(), "XYX", "XZX", "XXX", 'X', Blocks.stone, 'Y', stackRune, 'Z', new ItemStack(GameRegistry.findBlock(ModList.Names.OPENCOMPUTERS, "adapter")));
-        if (!(ModList.opencomputers.isLoaded() || ModList.computercraft.isLoaded()))
-            bloodInterface = GameRegistry.addShapedRecipe(stackInterface.copy(), "XYX", "XZX", "XXX", 'X', Blocks.stone, 'Y', stackRune, 'Z', new ItemStack(Blocks.unpowered_comparator));
 
         corruptedEtherealBlock = RecipeCorruptedInfusion.addRecipe(SanguimancyItemStacks.etherealCorruptedBlock, SanguimancyItemStacks.etherealBlock, 50, 100, false);
     }

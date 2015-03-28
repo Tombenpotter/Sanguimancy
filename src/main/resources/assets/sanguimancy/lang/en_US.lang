@@ -64,7 +64,6 @@ item.Sanguimancy.corruptedSword.name=Corrupted Blade
 item.Sanguimancy.corruptedPickaxe.name=Corrupted Pickaxe
 item.Sanguimancy.corruptedShovel.name=Corrupted Shovel
 item.Sanguimancy.corruptedAxe.name=Corrupted Axe
-item.Sanguimancy.playerGuide.name=Sanguimancy: A How-To Guide
 item.Sanguimancy.resource.corruptedMineral.name=Corrupted Mineral
 item.Sanguimancy.resource.imbuedStick.name=Imbued Stick
 item.Sanguimancy.resource.etherealManifestation.name=Ethereal Manifestation
@@ -159,6 +158,10 @@ info.Sanguimancy.tooltip.shift.transposition.sigil.pun=Trans.... position of cou
 info.Sanguimancy.tooltip.place.top=Place on top of Altar
 
 #Guide Entries
+guide.Sanguimancy.book.name=Sanguimancy: A How-To Guide
+guide.Sanguimancy.book.title=A Journey through the Magicks
+guide.Sanguimancy.welcomeMessage=Welcome, Blood Magicker, to your journey through the Dark paths in Blood Magic. Strange and dangerous things will happen should you follow this path. Thou hast been warned.
+
 guide.Sanguimancy.category.lore=Of Dark Magicks
 guide.Sanguimancy.category.items=Items
 guide.Sanguimancy.category.blocks=Blocks

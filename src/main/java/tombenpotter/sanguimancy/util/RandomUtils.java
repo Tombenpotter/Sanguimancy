@@ -1,5 +1,6 @@
 package tombenpotter.sanguimancy.util;
 
+import WayofTime.alchemicalWizardry.ModItems;
 import cpw.mods.fml.common.eventhandler.Event;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
@@ -457,6 +458,25 @@ public class RandomUtils {
             } else {
                 Sanguimancy.logger.error(s + " is not a correct block name.");
             }
+        }
+    }
+
+    public static ItemStack getOrbForLevel(int orbLevel) {
+        switch (orbLevel) {
+            default:
+                return new ItemStack(ModItems.weakBloodOrb);
+            case 1:
+                return new ItemStack(ModItems.weakBloodOrb);
+            case 2:
+                return new ItemStack(ModItems.apprenticeBloodOrb);
+            case 3:
+                return new ItemStack(ModItems.magicianBloodOrb);
+            case 4:
+                return new ItemStack(ModItems.masterBloodOrb);
+            case 5:
+                return new ItemStack(ModItems.archmageBloodOrb);
+            case 6:
+                return new ItemStack(ModItems.transcendentBloodOrb);
         }
     }
 }
