@@ -2,12 +2,12 @@ package tombenpotter.sanguimancy.api.guide;
 
 import WayofTime.alchemicalWizardry.api.items.ShapedBloodOrbRecipe;
 import amerifrance.guideapi.ModInformation;
+import amerifrance.guideapi.api.abstraction.CategoryAbstract;
+import amerifrance.guideapi.api.abstraction.EntryAbstract;
+import amerifrance.guideapi.api.base.Book;
+import amerifrance.guideapi.api.util.GuiHelper;
 import amerifrance.guideapi.gui.GuiBase;
-import amerifrance.guideapi.objects.Book;
-import amerifrance.guideapi.objects.abstraction.CategoryAbstract;
-import amerifrance.guideapi.objects.abstraction.EntryAbstract;
 import amerifrance.guideapi.pages.PageIRecipe;
-import amerifrance.guideapi.util.GuiHelper;
 import cpw.mods.fml.relauncher.ReflectionHelper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;

@@ -5,11 +5,6 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
-import tombenpotter.sanguimancy.api.bloodutils.api.classes.guide.GuiCategories;
-import tombenpotter.sanguimancy.api.bloodutils.api.classes.guide.GuiEntry;
-import tombenpotter.sanguimancy.api.bloodutils.api.classes.guide.GuiIndex;
-import tombenpotter.sanguimancy.api.bloodutils.api.compact.Category;
-import tombenpotter.sanguimancy.api.bloodutils.api.registries.EntryRegistry;
 import tombenpotter.sanguimancy.api.snManifestation.ISNComponent;
 import tombenpotter.sanguimancy.container.ContainerLumpCleaner;
 import tombenpotter.sanguimancy.gui.GuiLumpCleaner;
@@ -54,6 +49,7 @@ public class CommonProxy implements IGuiHandler {
                 if (tile != null && tile instanceof TileBloodCleaner) {
                     return new GuiLumpCleaner(player, (TileBloodCleaner) tile);
                 }
+                /*
             case 1:
                 if (stack.hasTagCompound() && stack.getTagCompound().getString("CATEGORY") != null) {
                     if (stack.hasTagCompound() && stack.getTagCompound().getString("KEY") != null && stack.getTagCompound().getString("KEY") != "0") {
@@ -76,6 +72,7 @@ public class CommonProxy implements IGuiHandler {
                     }
                 }
                 return new GuiCategories(player);
+                */
             default:
                 return null;
         }

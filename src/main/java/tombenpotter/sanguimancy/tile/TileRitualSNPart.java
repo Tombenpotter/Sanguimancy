@@ -12,10 +12,10 @@ import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.util.ChatComponentText;
 import net.minecraftforge.common.MinecraftForge;
-import tombenpotter.sanguimancy.api.EnumSNType;
-import tombenpotter.sanguimancy.api.ICustomNBTTag;
 import tombenpotter.sanguimancy.api.objects.BlockPostition;
+import tombenpotter.sanguimancy.api.objects.ICustomNBTTag;
 import tombenpotter.sanguimancy.api.objects.SNKNotBoolean;
+import tombenpotter.sanguimancy.api.snManifestation.EnumSNType;
 import tombenpotter.sanguimancy.api.tile.TileBaseSNPart;
 
 import java.util.HashMap;

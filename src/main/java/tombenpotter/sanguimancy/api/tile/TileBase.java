@@ -5,7 +5,7 @@ import net.minecraft.network.NetworkManager;
 import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
-import tombenpotter.sanguimancy.api.ICustomNBTTag;
+import tombenpotter.sanguimancy.api.objects.ICustomNBTTag;
 
 public class TileBase extends TileEntity implements ICustomNBTTag {
 

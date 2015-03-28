@@ -1,22 +1,23 @@
 package tombenpotter.sanguimancy.registry;
 
+
 import WayofTime.alchemicalWizardry.ModBlocks;
-import amerifrance.guideapi.GuideRegistry;
+import amerifrance.guideapi.api.GuideRegistry;
+import amerifrance.guideapi.api.abstraction.CategoryAbstract;
+import amerifrance.guideapi.api.abstraction.EntryAbstract;
+import amerifrance.guideapi.api.abstraction.IPage;
+import amerifrance.guideapi.api.base.Book;
+import amerifrance.guideapi.api.util.PageHelper;
 import amerifrance.guideapi.categories.CategoryItemStack;
-import amerifrance.guideapi.objects.Book;
-import amerifrance.guideapi.objects.abstraction.CategoryAbstract;
-import amerifrance.guideapi.objects.abstraction.EntryAbstract;
-import amerifrance.guideapi.objects.abstraction.IPage;
+import amerifrance.guideapi.entries.EntryUniText;
 import amerifrance.guideapi.pages.PageIRecipe;
 import amerifrance.guideapi.pages.PageUnlocImage;
-import amerifrance.guideapi.util.PageHelper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
 import tombenpotter.sanguimancy.Sanguimancy;
-import tombenpotter.sanguimancy.api.guide.EntryUniText;
 import tombenpotter.sanguimancy.api.guide.PageAltarRecipe;
 import tombenpotter.sanguimancy.api.guide.PageCorruptionRecipe;
 import tombenpotter.sanguimancy.api.guide.PageOrbRecipe;

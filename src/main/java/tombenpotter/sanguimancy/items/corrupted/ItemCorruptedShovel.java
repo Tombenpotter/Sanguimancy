@@ -38,9 +38,9 @@ import java.util.List;
 public class ItemCorruptedShovel extends ItemSpade {
 
     public int minimumCorruption = ConfigHandler.minimumToolCorruption;
+    public IIcon breakingDown, goldDigger, transmutation;
     private HashMap<BlockAndMetadata, BlockAndMetadata> breakdownBlocks = new HashMap<BlockAndMetadata, BlockAndMetadata>();
     private HashMap<BlockAndMetadata, BlockAndMetadata> transmuteBlocks = new HashMap<BlockAndMetadata, BlockAndMetadata>();
-    public IIcon breakingDown, goldDigger, transmutation;
 
     public ItemCorruptedShovel(ToolMaterial material) {
         super(material);

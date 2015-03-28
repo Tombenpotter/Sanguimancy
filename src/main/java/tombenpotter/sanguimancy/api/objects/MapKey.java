@@ -16,6 +16,16 @@ public class MapKey {
         hashcode = stack.getFluid().hashCode();
     }
 
+    public static MapKey getKey(ItemStack stack) {
+        if (stack == null || stack.getItem() == null) return null;
+        return new MapKey(stack);
+    }
+
+    public static MapKey getKey(FluidStack stack) {
+        if (stack == null) return null;
+        return new MapKey(stack);
+    }
+
     @Override
     public boolean equals(Object o) {
         if (o instanceof MapKey)
@@ -26,15 +36,5 @@ public class MapKey {
     @Override
     public int hashCode() {
         return hashcode;
-    }
-
-    public static MapKey getKey(ItemStack stack) {
-        if (stack == null || stack.getItem() == null) return null;
-        return new MapKey(stack);
-    }
-
-    public static MapKey getKey(FluidStack stack) {
-        if (stack == null) return null;
-        return new MapKey(stack);
     }
 }

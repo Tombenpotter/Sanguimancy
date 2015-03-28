@@ -14,8 +14,8 @@ import java.util.List;
 
 public class ItemResource extends Item {
 
-    ArrayList<String> namesList = new ArrayList<String>();
     public IIcon[] icon = new IIcon[50];
+    ArrayList<String> namesList = new ArrayList<String>();
 
     public ItemResource() {
         setCreativeTab(Sanguimancy.tabSanguimancy);
