@@ -41,9 +41,11 @@ public class PageCorruptionRecipe extends PageBase {
         int inputX = (1 + 1) * 20 + (guiLeft + guiBase.xSize / 7);
         int inputY = (1 + 1) * 20 + (guiTop + guiBase.ySize / 5);
         for (int i = 0; i < input.length; i++) {
-            GuiHelper.drawItemStack(input[i], inputX, inputY + 7 * i);
-            if (GuiHelper.isMouseBetween(mouseX, mouseY, inputX, inputY + 7 * i, 15, 15)) {
-                guiBase.renderToolTip(input[i], mouseX, mouseY);
+            if (input[i] != null) {
+                GuiHelper.drawItemStack(input[i], inputX, inputY + 7 * i);
+                if (GuiHelper.isMouseBetween(mouseX, mouseY, inputX, inputY + 7 * i, 15, 15)) {
+                    guiBase.renderToolTip(input[i], mouseX, mouseY);
+                }
             }
         }
 
