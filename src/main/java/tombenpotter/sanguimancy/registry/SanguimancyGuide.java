@@ -114,7 +114,7 @@ public class SanguimancyGuide {
         //for (RecipeBloodCleanser r : RecipesRegistry.oreLumpCleansing) {
         //    oreLumpPages.add(new EntryBloodCleanserRecipe(r));
         // }
-        entries.add(new EntryUniText(oreLumpPages, "item.Sanguimancy.oreLump.name"));
+        entries.add(new EntryUniText(oreLumpPages, "info.Sanguimancy.tooltip.any"));
 
         ArrayList<IPage> playerSacrificingStonesPages = new ArrayList<IPage>();
         playerSacrificingStonesPages.addAll(PageHelper.pagesForLongText(StatCollector.translateToLocal("guide.Sanguimancy.entry.sacrificingStones.1"), fontRenderer, SanguimancyItemStacks.unattunedPlayerSacrificer));

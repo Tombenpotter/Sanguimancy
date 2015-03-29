@@ -167,6 +167,17 @@ guide.Sanguimancy.category.items=Items
 guide.Sanguimancy.category.blocks=Blocks
 guide.Sanguimancy.category.rituals=Rituals
 
+#Page Info
+text.recipe.shapedOrb=Shaped Orb Recipe
+
+text.recipe.altar=Blood Altar
+text.recipe.altar.tier=Tier: %s
+text.recipe.altar.bloodRequired=LP: %s
+
+text.recipe.corrupted=Corruption
+text.recipe.corruption.minCorruption=Minimum Corruption: %s
+text.recipe.corruption.duration=Duration: %s
+
 #Items
 guide.Sanguimancy.entry.corruptionReader=The Reader allows you to keep an eye on your Soul Corruption. Right clicking the reader will tell you how corrupted your Soul is.
 guide.Sanguimancy.entry.sacrificingStones.1=The Unattuned Player Sacrificing Stone is the base of a mechanic in Sanguimancy, LP transfer.

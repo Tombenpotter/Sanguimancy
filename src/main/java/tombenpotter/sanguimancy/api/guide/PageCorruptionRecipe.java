@@ -36,7 +36,7 @@ public class PageCorruptionRecipe extends PageBase {
         Minecraft.getMinecraft().getTextureManager().bindTexture(new ResourceLocation(ModInformation.GUITEXLOC + "recipe_elements.png"));
         guiBase.drawTexturedModalRect(guiLeft + 42, guiTop + 53, 0, 65, 105, 65);
 
-        guiBase.drawCenteredString(fontRenderer, StatCollector.translateToLocal("text.furnace.smelting"), guiLeft + guiBase.xSize / 2, guiTop + 12, 0);
+        guiBase.drawCenteredString(fontRenderer, StatCollector.translateToLocal("text.recipe.corrupted"), guiLeft + guiBase.xSize / 2, guiTop + 12, 0);
 
         int inputX = (1 + 1) * 20 + (guiLeft + guiBase.xSize / 7);
         int inputY = (1 + 1) * 20 + (guiTop + guiBase.ySize / 5);
@@ -64,7 +64,7 @@ public class PageCorruptionRecipe extends PageBase {
             guiBase.drawCenteredString(fontRenderer, String.valueOf(minimumCorruption), guiLeft + guiBase.xSize / 2, guiTop + 4 * guiBase.ySize / 6 + 15, 0);
             guiBase.drawCenteredString(fontRenderer, String.valueOf(duration), guiLeft + guiBase.xSize / 2, guiTop + 4 * guiBase.ySize / 6 + 30, 0);
         }
-        guiBase.drawCenteredString(fontRenderer, String.valueOf(minimumCorruption), guiLeft + guiBase.xSize / 2, guiTop + 4 * guiBase.ySize / 6, 0);
-        guiBase.drawCenteredString(fontRenderer, String.valueOf(duration), guiLeft + guiBase.xSize / 2, guiTop + 4 * guiBase.ySize / 6 + 15, 0);
+        guiBase.drawCenteredString(fontRenderer, String.format(StatCollector.translateToLocal("text.recipe.corruption.minCorruption"), String.valueOf(minimumCorruption)), guiLeft + guiBase.xSize / 2, guiTop + 4 * guiBase.ySize / 6, 0);
+        guiBase.drawCenteredString(fontRenderer, String.format(StatCollector.translateToLocal("text.recipe.corruption.duration"), String.valueOf(duration)), guiLeft + guiBase.xSize / 2, guiTop + 4 * guiBase.ySize / 6 + 15, 0);
     }
 }

@@ -34,15 +34,15 @@ public class PageOrbRecipe extends PageIRecipe {
         Minecraft.getMinecraft().getTextureManager().bindTexture(new ResourceLocation(ModInformation.GUITEXLOC + "recipe_elements.png"));
         guiBase.drawTexturedModalRect(guiLeft + 42, guiTop + 53, 0, 0, 105, 65);
 
-        guiBase.drawCenteredString(fontRenderer, StatCollector.translateToLocal("text.shaped.crafting"), guiLeft + guiBase.xSize / 2, guiTop + 12, 0);
-        ShapedBloodOrbRecipe shapedRecipes = (ShapedBloodOrbRecipe) recipe;
-        int width = ReflectionHelper.getPrivateValue(ShapedBloodOrbRecipe.class, shapedRecipes, 4);
-        int height = ReflectionHelper.getPrivateValue(ShapedBloodOrbRecipe.class, shapedRecipes, 5);
+        guiBase.drawCenteredString(fontRenderer, StatCollector.translateToLocal("text.recipe.shapedOrb"), guiLeft + guiBase.xSize / 2, guiTop + 12, 0);
+        ShapedBloodOrbRecipe shapedBloodOrbRecipe = (ShapedBloodOrbRecipe) recipe;
+        int width = ReflectionHelper.getPrivateValue(ShapedBloodOrbRecipe.class, shapedBloodOrbRecipe, 4);
+        int height = ReflectionHelper.getPrivateValue(ShapedBloodOrbRecipe.class, shapedBloodOrbRecipe, 5);
         for (int y = 0; y < height; y++) {
             for (int x = 0; x < width; x++) {
                 int stackX = (x + 1) * 20 + (guiLeft + guiBase.xSize / 7);
                 int stackY = (y + 1) * 20 + (guiTop + guiBase.ySize / 5);
-                Object component = shapedRecipes.getInput()[y * width + x];
+                Object component = shapedBloodOrbRecipe.getInput()[y * width + x];
                 if (component != null) {
                     if (component instanceof ItemStack) {
                         GuiHelper.drawItemStack((ItemStack) component, stackX, stackY);
@@ -66,9 +66,9 @@ public class PageOrbRecipe extends PageIRecipe {
         }
         int outputX = (5 * 20) + (guiLeft + guiBase.xSize / 7);
         int outputY = (2 * 20) + (guiTop + guiBase.xSize / 5);
-        GuiHelper.drawItemStack(shapedRecipes.getRecipeOutput(), outputX, outputY);
+        GuiHelper.drawItemStack(shapedBloodOrbRecipe.getRecipeOutput(), outputX, outputY);
         if (GuiHelper.isMouseBetween(mouseX, mouseY, outputX, outputY, 15, 15)) {
-            guiBase.renderToolTip(shapedRecipes.getRecipeOutput(), outputX, outputY);
+            guiBase.renderToolTip(shapedBloodOrbRecipe.getRecipeOutput(), outputX, outputY);
         }
     }
 }
