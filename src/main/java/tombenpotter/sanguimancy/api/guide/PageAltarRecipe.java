@@ -2,7 +2,6 @@ package tombenpotter.sanguimancy.api.guide;
 
 
 import WayofTime.alchemicalWizardry.api.altarRecipeRegistry.AltarRecipe;
-import amerifrance.guideapi.ModInformation;
 import amerifrance.guideapi.api.abstraction.CategoryAbstract;
 import amerifrance.guideapi.api.abstraction.EntryAbstract;
 import amerifrance.guideapi.api.base.Book;
@@ -18,6 +17,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
+import tombenpotter.sanguimancy.Sanguimancy;
 
 public class PageAltarRecipe extends PageBase {
 
@@ -37,13 +37,13 @@ public class PageAltarRecipe extends PageBase {
     @SideOnly(Side.CLIENT)
     public void draw(Book book, CategoryAbstract category, EntryAbstract entry, int guiLeft, int guiTop, int mouseX, int mouseY, GuiBase guiBase, FontRenderer fontRenderer) {
 
-        Minecraft.getMinecraft().getTextureManager().bindTexture(new ResourceLocation(ModInformation.GUITEXLOC + "recipe_elements.png"));
-        guiBase.drawTexturedModalRect(guiLeft + 42, guiTop + 53, 0, 65, 105, 65);
+        Minecraft.getMinecraft().getTextureManager().bindTexture(new ResourceLocation(Sanguimancy.texturePath + ":textures/gui/guide/altar.png"));
+        guiBase.drawTexturedModalRect(guiLeft + 42, guiTop + 53, 0, 87, 146, 104);
 
         guiBase.drawCenteredString(fontRenderer, StatCollector.translateToLocal("text.recipe.altar"), guiLeft + guiBase.xSize / 2, guiTop + 12, 0);
 
         int inputX = (1 + 1) * 20 + (guiLeft + guiBase.xSize / 7);
-        int inputY = (1 + 1) * 20 + (guiTop + guiBase.ySize / 5);
+        int inputY = (1 * 20) + (guiTop + guiBase.ySize / 5);
         GuiHelper.drawItemStack(input, inputX, inputY);
         if (GuiHelper.isMouseBetween(mouseX, mouseY, inputX, inputY, 15, 15)) {
             guiBase.renderToolTip(input, mouseX, mouseY);
@@ -53,7 +53,7 @@ public class PageAltarRecipe extends PageBase {
             output = new ItemStack(Blocks.fire);
         }
         int outputX = (5 * 20) + (guiLeft + guiBase.xSize / 7);
-        int outputY = (2 * 20) + (guiTop + guiBase.xSize / 5);
+        int outputY = (1 * 20) + (guiTop + guiBase.xSize / 5);
         GuiHelper.drawItemStack(output, outputX, outputY);
         if (GuiHelper.isMouseBetween(mouseX, mouseY, outputX, outputY, 15, 15)) {
             guiBase.renderToolTip(output, outputX, outputY);
