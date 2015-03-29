@@ -21,7 +21,6 @@ import tombenpotter.sanguimancy.client.render.*;
 import tombenpotter.sanguimancy.entity.EntityChickenMinion;
 import tombenpotter.sanguimancy.entity.EntityPlayerPointer;
 import tombenpotter.sanguimancy.registry.BlocksRegistry;
-import tombenpotter.sanguimancy.registry.SanguimancyGuide;
 import tombenpotter.sanguimancy.tile.*;
 import tombenpotter.sanguimancy.util.EventHandler;
 
@@ -40,7 +39,6 @@ public class ClientProxy extends CommonProxy {
 
     @Override
     public void postLoad() {
-        SanguimancyGuide.registerGuide();
     }
 
     @Override

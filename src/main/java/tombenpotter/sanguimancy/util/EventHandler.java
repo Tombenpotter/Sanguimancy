@@ -7,6 +7,7 @@ import WayofTime.alchemicalWizardry.api.event.RitualActivatedEvent;
 import WayofTime.alchemicalWizardry.api.soulNetwork.SoulNetworkHandler;
 import WayofTime.alchemicalWizardry.common.items.EnergyItems;
 import WayofTime.alchemicalWizardry.common.spell.complex.effect.SpellHelper;
+import amerifrance.guideapi.api.GuideRegistry;
 import cpw.mods.fml.client.event.ConfigChangedEvent;
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.ModContainer;
@@ -43,6 +44,7 @@ import tombenpotter.sanguimancy.network.events.EventCorruptedInfusion;
 import tombenpotter.sanguimancy.network.packets.PacketSyncCorruption;
 import tombenpotter.sanguimancy.registry.BlocksRegistry;
 import tombenpotter.sanguimancy.registry.ItemsRegistry;
+import tombenpotter.sanguimancy.registry.SanguimancyGuide;
 import tombenpotter.sanguimancy.tile.TileCamouflageBound;
 import tombenpotter.sanguimancy.tile.TileItemSNPart;
 import tombenpotter.sanguimancy.tile.TileRitualSNPart;
@@ -103,8 +105,8 @@ public class EventHandler {
             }
 
             if (!tag.getBoolean("hasInitialGuide") && ConfigHandler.addItemsOnFirstLogin) {
-                if (!player.inventory.addItemStackToInventory(SanguimancyItemStacks.playerGuide.copy())) {
-                    RandomUtils.dropItemStackInWorld(player.worldObj, player.posX, player.posY, player.posZ, SanguimancyItemStacks.playerGuide.copy());
+                if (!player.inventory.addItemStackToInventory(GuideRegistry.getItemStackForBook(SanguimancyGuide.sanguimancyGuide).copy())) {
+                    RandomUtils.dropItemStackInWorld(player.worldObj, player.posX, player.posY, player.posZ, (GuideRegistry.getItemStackForBook(SanguimancyGuide.sanguimancyGuide).copy()));
                 }
                 tag.setBoolean("hasInitialGuide", true);
             }

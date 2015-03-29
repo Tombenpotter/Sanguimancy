@@ -22,7 +22,6 @@ public class ItemsRegistry {
     public static Item corruptedPickaxe;
     public static Item corruptedShovel;
     public static Item corruptedAxe;
-    public static Item playerGuide;
     public static Item resource;
     public static Item soulTransporter;
     public static Item telepositionSigil;
@@ -61,9 +60,6 @@ public class ItemsRegistry {
 
         corruptedAxe = new ItemCorruptedAxe(RandomUtils.corruptedMaterial);
         GameRegistry.registerItem(corruptedAxe, "corruptedAxe");
-
-        playerGuide = new ItemPlayerGuide();
-        GameRegistry.registerItem(playerGuide, "playerGuide");
 
         resource = new ItemResource();
         GameRegistry.registerItem(resource, "resource");

@@ -27,7 +27,6 @@ public class SanguimancyItemStacks {
     public static ItemStack corruptedAxe = new ItemStack(ItemsRegistry.corruptedAxe);
     public static ItemStack corruptedMineral = new ItemStack(ItemsRegistry.resource, 1, 1);
     public static ItemStack imbuedStick = new ItemStack(ItemsRegistry.resource, 1, 2);
-    public static ItemStack playerGuide = new ItemStack(ItemsRegistry.playerGuide);
     public static ItemStack etherealManifestation = new ItemStack(ItemsRegistry.resource, 1, 3);
     public static ItemStack soulTransporter = new ItemStack(ItemsRegistry.soulTransporter);
     public static ItemStack telepositionSigil = new ItemStack(ItemsRegistry.telepositionSigil);
