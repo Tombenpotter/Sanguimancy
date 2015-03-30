@@ -44,6 +44,7 @@ public class RandomUtils {
     public static HashMap<MapKey, ItemStack> logToPlank = new HashMap<MapKey, ItemStack>();
     public static ArrayList<ItemStack> oreLumpList = new ArrayList<ItemStack>();
     public static ArrayList<Block> transpositionBlockBlacklist = new ArrayList<Block>();
+    public static ArrayList<Block> teleposerBlacklist = new ArrayList<Block>();
 
     public static void dropItems(World world, int x, int y, int z) {
         Random rand = new Random();
@@ -453,11 +454,8 @@ public class RandomUtils {
 
     public static void setTranspositionBlockBlacklist() {
         for (String s : ConfigHandler.transpositionSigilBlacklist) {
-            if (Block.getBlockFromName(s) != null) {
-                transpositionBlockBlacklist.add(Block.getBlockFromName(s));
-            } else {
-                Sanguimancy.logger.error(s + " is not a correct block name.");
-            }
+            if (Block.getBlockFromName(s) != null) transpositionBlockBlacklist.add(Block.getBlockFromName(s));
+            else Sanguimancy.logger.error(s + " is not a correct block name.");
         }
     }
 
@@ -477,6 +475,13 @@ public class RandomUtils {
                 return new ItemStack(ModItems.archmageBloodOrb);
             case 6:
                 return new ItemStack(ModItems.transcendentBloodOrb);
+        }
+    }
+
+    public static void setTeleposerBlacklist() {
+        for (String s : ConfigHandler.teleposerBlacklist) {
+            if (Block.getBlockFromName(s) != null) teleposerBlacklist.add(Block.getBlockFromName(s));
+            else Sanguimancy.logger.error(s + " is not a correct block name.");
         }
     }
 }

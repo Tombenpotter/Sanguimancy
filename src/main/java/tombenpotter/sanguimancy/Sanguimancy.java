@@ -105,5 +105,6 @@ public class Sanguimancy {
         RandomUtils.setLogToPlank();
         RandomUtils.setOreLumpList();
         RandomUtils.setTranspositionBlockBlacklist();
+        RandomUtils.setTeleposerBlacklist();
     }
 }

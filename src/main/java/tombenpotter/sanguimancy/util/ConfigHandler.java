@@ -3,8 +3,6 @@ package tombenpotter.sanguimancy.util;
 import net.minecraftforge.common.config.Configuration;
 
 import java.io.File;
-import java.util.Arrays;
-import java.util.List;
 
 public class ConfigHandler {
 
@@ -33,8 +31,9 @@ public class ConfigHandler {
     public static int removeHeartPotionID;
     public static int minimumToolCorruption;
     public static int transpositionSigilCost;
-    public static List<String> transpositionSigilBlacklist;
+    public static String[] transpositionSigilBlacklist;
     public static boolean addItemsOnFirstLogin;
+    public static String[] teleposerBlacklist;
 
     public static void init(File file) {
         config = new Configuration(file);
@@ -72,8 +71,8 @@ public class ConfigHandler {
         //Balance
         minimumToolCorruption = config.get(balancing, "minimumCorruptionForTools", 200).getInt(minimumToolCorruption);
         transpositionSigilCost = config.get(balancing, "transpositionSigilCost", 7500).getInt(transpositionSigilCost);
-        String[] defaultBlacklist = {"minecraft:bedrock"};
-        transpositionSigilBlacklist = Arrays.asList(config.get(balancing, "transpositionSigilBlacklist", defaultBlacklist).getStringList());
+        transpositionSigilBlacklist = config.get(balancing, "transpositionSigilBlacklist", new String[]{"minecraft:bedrock"}).getStringList();
+        teleposerBlacklist = config.get(balancing, "teleposerBlacklist", new String[]{"Sanguimancy:BlockItemSNPart", "Sanguimancy:BlockRitualRepresentation"}).getStringList();
 
         config.save();
     }
