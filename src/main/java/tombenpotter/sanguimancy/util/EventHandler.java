@@ -337,9 +337,8 @@ public class EventHandler {
         public void onKeyInput(InputEvent.KeyInputEvent event) {if (keySearchPlayer.isPressed()) {PacketHandler.INSTANCE.sendToServer(new PacketPlayerSearch());}
         */
 
-        public ClientEventHandler() {
-        }
-
+        private static float renderTicks;
+        private static long tickTime = 0L;
 
         public void onRenderPlayerSpecialAntlers(RenderPlayerEvent.Specials.Post event) {
             String names[] = {"Tombenpotter", "TehNut", "WayofFlowingTime", "Jadedcat", "Kris1432", "Drullkus", "TheOrangeGenius", "Direwolf20", "Pahimar", "ValiarMarcus", "Alex_hawks", "StoneWaves", "DemoXin", "insaneau"};
@@ -378,16 +377,32 @@ public class EventHandler {
         }
 
         @SubscribeEvent
+        public void onRenderTick(TickEvent.RenderTickEvent event) {
+            renderTicks = event.renderTickTime;
+        }
+
+        @SubscribeEvent
+        public void onClientTick(TickEvent.ClientTickEvent event) {
+            tickTime += 1L;
+        }
+
+        private float render() {
+            return (float) tickTime + renderTicks;
+        }
+
+        @SubscribeEvent
         public void onRenderPlayerFish(RenderPlayerEvent.Specials.Post event) {
             GL11.glPushMatrix();
             GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
             Minecraft.getMinecraft().renderEngine.bindTexture(new ResourceLocation(Sanguimancy.texturePath + ":textures/items/AprilFish.png"));
-            GL11.glTranslatef(0.0F, -0.95F, -0.125F);
+            GL11.glTranslatef(0F, -0.95F, 0F);
             Tessellator tesselator = Tessellator.instance;
+
+            float flap = (1.0F + (float) Math.cos(render() / 4.0F)) * 13.0F;
 
             GL11.glPushMatrix();
             GL11.glRotatef(-20.0F, 0.0F, 1.0F, 0.0F);
-            GL11.glRotatef(-5.0F, 0.0F, 1.0F, 0.0F);
+            GL11.glRotatef(-flap, 0.0F, 1.0F, 0.0F);
             tesselator.startDrawingQuads();
             tesselator.addVertexWithUV(0.0D, 0.0D, 0.0D, 0.0D, 0.0D);
             tesselator.addVertexWithUV(0.0D, 1.0D, 0.0D, 0.0D, 1.0D);
@@ -397,7 +412,7 @@ public class EventHandler {
             GL11.glPopMatrix();
 
             GL11.glPushMatrix();
-            GL11.glRotatef(5.0F, 0.0F, 1.0F, 0.0F);
+            GL11.glRotatef(flap, 0.0F, 1.0F, 0.0F);
             GL11.glRotatef(20.0F, 0.0F, 1.0F, 0.0F);
             tesselator.startDrawingQuads();
             tesselator.addVertexWithUV(0.0D, 0.0D, 0.0D, 0.0D, 0.0D);
