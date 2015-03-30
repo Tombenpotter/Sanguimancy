@@ -1,9 +1,6 @@
 package tombenpotter.sanguimancy.util;
 
-import WayofTime.alchemicalWizardry.api.event.ItemBindEvent;
-import WayofTime.alchemicalWizardry.api.event.ItemDrainNetworkEvent;
-import WayofTime.alchemicalWizardry.api.event.PlayerAddToNetworkEvent;
-import WayofTime.alchemicalWizardry.api.event.RitualActivatedEvent;
+import WayofTime.alchemicalWizardry.api.event.*;
 import WayofTime.alchemicalWizardry.api.soulNetwork.SoulNetworkHandler;
 import WayofTime.alchemicalWizardry.common.items.EnergyItems;
 import WayofTime.alchemicalWizardry.common.spell.complex.effect.SpellHelper;
@@ -325,20 +322,23 @@ public class EventHandler {
         }
     }
 
+    @SubscribeEvent
+    public void onTeleposeBlock(TeleposeEvent event) {
+        if (!ConfigHandler.canTeleposeManifestations) {
+            if (event.finalBlock == BlocksRegistry.ritualRepresentation || event.initialBlock == BlocksRegistry.ritualRepresentation)
+                event.setCanceled(true);
+
+            if (event.finalBlock == BlocksRegistry.boundItem || event.initialBlock == BlocksRegistry.boundItem)
+                event.setCanceled(true);
+        }
+    }
+
     public static class ClientEventHandler {
         /*
         public static KeyBinding keySearchPlayer = new KeyBinding(StatCollector.translateToLocal("key.Sanguimancy.search"), Keyboard.KEY_F, Sanguimancy.modid);
-
-        public ClientEventHandler() {
-            ClientRegistry.registerKeyBinding(keySearchPlayer);
-        }
-
+        public ClientEventHandler() {ClientRegistry.registerKeyBinding(keySearchPlayer);}
         @SubscribeEvent
-        public void onKeyInput(InputEvent.KeyInputEvent event) {
-            if (keySearchPlayer.isPressed()) {
-                PacketHandler.INSTANCE.sendToServer(new PacketPlayerSearch());
-            }
-        }
+        public void onKeyInput(InputEvent.KeyInputEvent event) {if (keySearchPlayer.isPressed()) {PacketHandler.INSTANCE.sendToServer(new PacketPlayerSearch());}
         */
 
         public ClientEventHandler() {

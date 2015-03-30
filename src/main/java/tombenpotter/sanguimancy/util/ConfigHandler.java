@@ -27,6 +27,7 @@ public class ConfigHandler {
     public static boolean enableQuarry;
     public static boolean enablePortal;
     public static boolean messagesWhenCorruptionEffect;
+    public static boolean canTeleposeManifestations;
     public static int snDimID;
     public static int addHeartPotionID;
     public static int removeHeartPotionID;
@@ -62,10 +63,11 @@ public class ConfigHandler {
 
         //Features
         snDimID = config.get(features, "soulNetworkDimensionID", 42).getInt(snDimID);
-        addHeartPotionID = config.get(features, "addHeartPotionID", 100).getInt(addHeartPotionID);
-        removeHeartPotionID = config.get(features, "removeHeartPotionID", 101).getInt(removeHeartPotionID);
+        addHeartPotionID = config.get(features, "addHeartPotionID", 150).getInt(addHeartPotionID);
+        removeHeartPotionID = config.get(features, "removeHeartPotionID", 151).getInt(removeHeartPotionID);
         messagesWhenCorruptionEffect = config.get(features, "messageWhenCorruptionEffect", true).getBoolean(messagesWhenCorruptionEffect);
         addItemsOnFirstLogin = config.get(features, "addItemsOnFirstLogin", true).getBoolean(addItemsOnFirstLogin);
+        canTeleposeManifestations = config.get(features, "canTeleposeManifestations", true).getBoolean(canTeleposeManifestations);
 
         //Balance
         minimumToolCorruption = config.get(balancing, "minimumCorruptionForTools", 200).getInt(minimumToolCorruption);
