@@ -324,10 +324,8 @@ public class EventHandler {
 
     @SubscribeEvent
     public void onTeleposeBlock(TeleposeEvent event) {
-        if (ConfigHandler.canTeleposeManifestations) {
-            if (RandomUtils.teleposerBlacklist.contains(event.finalBlock) || RandomUtils.teleposerBlacklist.contains(event.initialBlock)) {
-                event.setCanceled(true);
-            }
+        if (!ConfigHandler.enableTelepositionBlacklist && (RandomUtils.teleposerBlacklist.contains(event.finalBlock) || RandomUtils.teleposerBlacklist.contains(event.initialBlock))) {
+            event.setCanceled(true);
         }
     }
 
