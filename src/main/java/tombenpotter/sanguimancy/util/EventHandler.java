@@ -340,14 +340,13 @@ public class EventHandler {
         public ClientEventHandler() {
         }
 
-        @SubscribeEvent
+
         public void onRenderPlayerSpecialAntlers(RenderPlayerEvent.Specials.Post event) {
-            String names[] = {"Tombenpotter", "Speedynutty68", "WayofFlowingTime", "Jadedcat", "Kris1432", "Drullkus", "TheOrangeGenius", "Direwolf20", "Pahimar", "ValiarMarcus", "Alex_hawks", "StoneWaves", "DemoXin", "insaneau"};
+            String names[] = {"Tombenpotter", "TehNut", "WayofFlowingTime", "Jadedcat", "Kris1432", "Drullkus", "TheOrangeGenius", "Direwolf20", "Pahimar", "ValiarMarcus", "Alex_hawks", "StoneWaves", "DemoXin", "insaneau"};
             for (String name : names) {
                 if (event.entityPlayer.getCommandSenderName().equalsIgnoreCase(name)) {
                     GL11.glPushMatrix();
                     GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-                    event.renderer.modelBipedMain.bipedBody.render(0.1F);
                     Minecraft.getMinecraft().renderEngine.bindTexture(new ResourceLocation(Sanguimancy.texturePath + ":textures/items/Wand.png"));
                     GL11.glTranslatef(0.0F, -0.95F, -0.125F);
                     Tessellator tesselator = Tessellator.instance;
@@ -376,6 +375,38 @@ public class EventHandler {
                     GL11.glPopMatrix();
                 }
             }
+        }
+
+        @SubscribeEvent
+        public void onRenderPlayerFish(RenderPlayerEvent.Specials.Post event) {
+            GL11.glPushMatrix();
+            GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
+            Minecraft.getMinecraft().renderEngine.bindTexture(new ResourceLocation(Sanguimancy.texturePath + ":textures/items/AprilFish.png"));
+            GL11.glTranslatef(0.0F, -0.95F, -0.125F);
+            Tessellator tesselator = Tessellator.instance;
+
+            GL11.glPushMatrix();
+            GL11.glRotatef(-20.0F, 0.0F, 1.0F, 0.0F);
+            GL11.glRotatef(-5.0F, 0.0F, 1.0F, 0.0F);
+            tesselator.startDrawingQuads();
+            tesselator.addVertexWithUV(0.0D, 0.0D, 0.0D, 0.0D, 0.0D);
+            tesselator.addVertexWithUV(0.0D, 1.0D, 0.0D, 0.0D, 1.0D);
+            tesselator.addVertexWithUV(1.0D, 1.0D, 0.0D, 1.0D, 1.0D);
+            tesselator.addVertexWithUV(1.0D, 0.0D, 0.0D, 1.0D, 0.0D);
+            tesselator.draw();
+            GL11.glPopMatrix();
+
+            GL11.glPushMatrix();
+            GL11.glRotatef(5.0F, 0.0F, 1.0F, 0.0F);
+            GL11.glRotatef(20.0F, 0.0F, 1.0F, 0.0F);
+            tesselator.startDrawingQuads();
+            tesselator.addVertexWithUV(0.0D, 0.0D, 0.0D, 0.0D, 0.0D);
+            tesselator.addVertexWithUV(0.0D, 1.0D, 0.0D, 0.0D, 1.0D);
+            tesselator.addVertexWithUV(-1.0D, 1.0D, 0.0D, 1.0D, 1.0D);
+            tesselator.addVertexWithUV(-1.0D, 0.0D, 0.0D, 1.0D, 0.0D);
+            tesselator.draw();
+            GL11.glPopMatrix();
+            GL11.glPopMatrix();
         }
 
         @SubscribeEvent
