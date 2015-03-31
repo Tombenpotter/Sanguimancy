@@ -18,6 +18,7 @@ import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
+import net.minecraftforge.oredict.ShapedOreRecipe;
 import tombenpotter.sanguimancy.Sanguimancy;
 import tombenpotter.sanguimancy.api.guide.PageAltarRecipe;
 import tombenpotter.sanguimancy.api.guide.PageCorruptionRecipe;
@@ -42,7 +43,7 @@ public class SanguimancyGuide {
         createBlockEntries();
         sanguimancyGuide = new Book(categories, "guide.Sanguimancy.book.title", "guide.Sanguimancy.welcomeMessage", "guide.Sanguimancy.book.name", new Color(190, 10, 0));
         GuideRegistry.registerBook(sanguimancyGuide);
-        GameRegistry.addShapelessRecipe(GuideRegistry.getItemStackForBook(sanguimancyGuide), Items.book, ModItems.weakBloodOrb);
+        GameRegistry.addRecipe(new ShapedOreRecipe(GuideRegistry.getItemStackForBook(sanguimancyGuide), "X", "Y", "O", 'X', "dyeBlack", 'O', ModItems.weakBloodOrb, 'Y', Items.writable_book));
     }
 
     public static void createLoreEntries() {
