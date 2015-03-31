@@ -5,16 +5,15 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
-import tombenpotter.sanguimancy.api.bloodutils.api.classes.guide.GuiCategories;
-import tombenpotter.sanguimancy.api.bloodutils.api.classes.guide.GuiEntry;
-import tombenpotter.sanguimancy.api.bloodutils.api.classes.guide.GuiIndex;
-import tombenpotter.sanguimancy.api.bloodutils.api.compact.Category;
-import tombenpotter.sanguimancy.api.bloodutils.api.registries.EntryRegistry;
+import tombenpotter.sanguimancy.api.snManifestation.ISNComponent;
 import tombenpotter.sanguimancy.container.ContainerLumpCleaner;
 import tombenpotter.sanguimancy.gui.GuiLumpCleaner;
 import tombenpotter.sanguimancy.tile.TileBloodCleaner;
 
 public class CommonProxy implements IGuiHandler {
+
+    public void preLoad() {
+    }
 
     public void load() {
         registerRenders();
@@ -50,6 +49,7 @@ public class CommonProxy implements IGuiHandler {
                 if (tile != null && tile instanceof TileBloodCleaner) {
                     return new GuiLumpCleaner(player, (TileBloodCleaner) tile);
                 }
+                /*
             case 1:
                 if (stack.hasTagCompound() && stack.getTagCompound().getString("CATEGORY") != null) {
                     if (stack.hasTagCompound() && stack.getTagCompound().getString("KEY") != null && stack.getTagCompound().getString("KEY") != "0") {
@@ -72,8 +72,19 @@ public class CommonProxy implements IGuiHandler {
                     }
                 }
                 return new GuiCategories(player);
+                */
             default:
                 return null;
         }
+    }
+
+    public EntityPlayer getClientPlayer() {
+        return null;
+    }
+
+    public void addLinkingEffects(ISNComponent component, World world, double x, double y, double z) {
+    }
+
+    public void addColoredFlameEffects(World world, double x, double y, double z, double movX, double movY, double movZ, int red, int green, int blue) {
     }
 }

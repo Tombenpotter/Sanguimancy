@@ -5,6 +5,7 @@ import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockLeavesBase;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.Entity;
@@ -16,6 +17,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemAxe;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.IIcon;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
@@ -23,12 +25,14 @@ import net.minecraftforge.event.entity.living.LivingDropsEvent;
 import tombenpotter.sanguimancy.Sanguimancy;
 import tombenpotter.sanguimancy.api.objects.MapKey;
 import tombenpotter.sanguimancy.api.soulCorruption.SoulCorruptionHelper;
+import tombenpotter.sanguimancy.util.ConfigHandler;
 import tombenpotter.sanguimancy.util.RandomUtils;
 
 import java.util.List;
 
 public class ItemCorruptedAxe extends ItemAxe {
-    public int minimumCorruption = 200;
+    public int minimumCorruption = ConfigHandler.minimumToolCorruption;
+    public IIcon leafDecay, headHunter, refine;
 
     public ItemCorruptedAxe(ToolMaterial material) {
         super(material);
@@ -41,8 +45,18 @@ public class ItemCorruptedAxe extends ItemAxe {
     @Override
     @SideOnly(Side.CLIENT)
     public void registerIcons(IIconRegister ir) {
-        super.registerIcons(ir);
-        //TODO: Add an icon and a different overlay for every mode.
+        this.itemIcon = ir.registerIcon(Sanguimancy.texturePath + ":CorruptedAxe");
+        this.leafDecay = ir.registerIcon(Sanguimancy.texturePath + ":CorruptedAxe_LeafDecay");
+        this.headHunter = ir.registerIcon(Sanguimancy.texturePath + ":CorruptedAxe_HeadHunter");
+        this.refine = ir.registerIcon(Sanguimancy.texturePath + ":CorruptedAxe_Refine");
+    }
+
+    @Override
+    public IIcon getIcon(ItemStack stack, int pass) {
+        if (getToolMode(stack) == 1) return leafDecay;
+        else if (getToolMode(stack) == 2) return headHunter;
+        else if (getToolMode(stack) == 3) return refine;
+        else return this.itemIcon;
     }
 
     @Override
@@ -60,7 +74,7 @@ public class ItemCorruptedAxe extends ItemAxe {
                 for (int i = -5; i <= 5; i++) {
                     for (int j = -5; j <= 5; j++) {
                         for (int k = -5; k <= 5; k++) {
-                            if (world.getBlock(i, j, k).isLeaves(world, i, j, k)) {
+                            if (world.getBlock(i, j, k) instanceof BlockLeavesBase) {
                                 RandomUtils.dropBlockDropsWithFortune(world, block, i, j, k, metadata, 0);
                                 world.setBlockToAir(i, j, k);
                             }
@@ -90,7 +104,9 @@ public class ItemCorruptedAxe extends ItemAxe {
                 EntityPlayer player = (EntityPlayer) entityLivingBase;
                 EnergyItems.syphonBatteries(stack, player, lpConsumption);
                 if (getToolMode(stack) != 0) {
-                    SoulCorruptionHelper.incrementCorruption(RandomUtils.getItemOwner(stack));
+                    if (world.rand.nextInt(20) == 0) {
+                        SoulCorruptionHelper.incrementCorruption(RandomUtils.getItemOwner(stack));
+                    }
                 }
             }
         }
@@ -180,8 +196,10 @@ public class ItemCorruptedAxe extends ItemAxe {
         if (attacker instanceof EntityPlayer) {
             EntityPlayer player = (EntityPlayer) attacker;
             EnergyItems.syphonBatteries(stack, player, 100);
-            if (getToolMode(stack) != 0) {
-                SoulCorruptionHelper.incrementCorruption(RandomUtils.getItemOwner(stack));
+            if (getToolMode(stack) == 2) {
+                if (player.worldObj.rand.nextInt(20) == 0) {
+                    SoulCorruptionHelper.incrementCorruption(RandomUtils.getItemOwner(stack));
+                }
             }
             return true;
         }
@@ -214,7 +232,9 @@ public class ItemCorruptedAxe extends ItemAxe {
             EntityPlayer player = (EntityPlayer) event.source.getEntity();
             if (player.getHeldItem() != null && player.getHeldItem().getItem() instanceof ItemCorruptedAxe) {
                 int corruption = SoulCorruptionHelper.getCorruptionLevel(RandomUtils.getItemOwner(player.getHeldItem()));
-                if (player.worldObj.rand.nextInt(50 * (minimumCorruption / corruption)) == 0 && getSkullDrop(event.entityLiving) != null) {
+                int chance = 100 * (minimumCorruption / corruption);
+                if (chance < 1) chance = 1;
+                if (player.worldObj.rand.nextInt(chance) == 0 && getSkullDrop(event.entityLiving) != null) {
                     RandomUtils.dropItemStackInWorld(event.entityLiving.worldObj, event.entityLiving.posX, event.entityLiving.posY, event.entityLiving.posZ, getSkullDrop(event.entityLiving).copy());
                 }
             }

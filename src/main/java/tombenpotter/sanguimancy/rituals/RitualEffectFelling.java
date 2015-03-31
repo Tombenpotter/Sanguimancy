@@ -7,15 +7,11 @@ import WayofTime.alchemicalWizardry.api.rituals.RitualEffect;
 import WayofTime.alchemicalWizardry.api.soulNetwork.SoulNetworkHandler;
 import WayofTime.alchemicalWizardry.common.Int3;
 import WayofTime.alchemicalWizardry.common.spell.complex.effect.SpellHelper;
-import cpw.mods.fml.client.FMLClientHandler;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
-import tombenpotter.sanguimancy.client.particle.EntityColoredFlameFX;
 import tombenpotter.sanguimancy.util.RitualUtils;
 
 import java.util.ArrayList;
@@ -94,19 +90,12 @@ public class RitualEffectFelling extends RitualEffect {
                             RitualUtils.placeInInventory(block, world, int3.xCoord, int3.yCoord, int3.zCoord, tileEntity);
                         }
                         world.setBlockToAir(int3.xCoord, int3.yCoord, int3.zCoord);
-                        addParticles(world, int3);
                         SoulNetworkHandler.syphonFromNetwork(owner, getCostPerRefresh());
                     }
                 }
             }
             harvestables.clear();
         }
-    }
-
-    @SideOnly(Side.CLIENT)
-    public static void addParticles(World world, Int3 int3) {
-        EntityColoredFlameFX particle = new EntityColoredFlameFX(world, int3.xCoord, int3.yCoord, int3.zCoord, 0, 0, 0, 159, 70, 18);
-        FMLClientHandler.instance().getClient().effectRenderer.addEffect(particle);
     }
 
     @Override

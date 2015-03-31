@@ -18,6 +18,7 @@ tile.Sanguimancy.illusion.snow.name=Snow
 tile.Sanguimancy.illusion.melon.name=Melon
 tile.Sanguimancy.illusion.gold.block.name=Gold Block
 tile.Sanguimancy.illusion.clay.name=Clay
+tile.Sanguimancy.illusion.nether.brick.name=Nether Brick
 tile.Sanguimancy.corruptionCrystallizer.name=Soul Corruption Crystallizer
 tile.Sanguimancy.lumpCleaner.name=Blood Cleanser
 tile.Sanguimancy.bloodTank.name=Blood Tank
@@ -35,6 +36,14 @@ tile.Sanguimancy.simpleSNKnot.name=Simple Soul Knot
 tile.Sanguimancy.toggleSNKnot.name=Toggled Soul Knot
 tile.Sanguimancy.simpleSNBranch.name=Simple Soul Branch
 tile.Sanguimancy.ritualRepresentation.name=Ritual Representation
+tile.Sanguimancy.etherealBlock.name=Ethereal Block
+tile.Sanguimancy.etherealCorruptedBlock.name=Corrupted Ethereal Block
+tile.Sanguimancy.etherealToggledBlock.name=Toggled Ethereal Block
+tile.Sanguimancy.etherealBoundBlock.name=Bound Ethereal Block
+tile.Sanguimancy.etherealBoundCorruptedBlock.name=Bound Corrupted Ethereal Block
+tile.Sanguimancy.etherealBoundToggledBlock.name=Bound Toggled Ethereal Block
+tile.Sanguimancy.etherealPersonalBlock.name=Personal Ethereal Block
+tile.Sanguimancy.altarManipulator.name=Altar Manipulator
 
 #Items
 item.Sanguimancy.playerSacrificer.unattuned.name=Unattuned Player Sacrificing Stone
@@ -45,9 +54,9 @@ item.Sanguimancy.soulCorruption.add.name=Add Soul Corruption
 item.Sanguimancy.soulCorruption.remove.name=Remove Soul Corruption
 item.Sanguimancy.soulCorruption.negate.name=Negate Soul Corruption
 item.Sanguimancy.soulCorruption.reader.name=Soul Corruption Reader
-item.Sanguimancy.corruptedDemonShard.name=Corrupted Demon Shard
+item.Sanguimancy.resource.corruptedDemonShard.name=Corrupted Demon Shard
 item.Sanguimancy.corruptionCatalist.name=Corruption Catalyst
-item.Sanguimancy.oreLump.name=Ore Lump
+item.Sanguimancy.oreLump.name=%s Ore Lump
 item.Sanguimancy.bloodAmulet.name=Blood Amulet
 item.Sanguimancy.spellWand.name=Wand
 item.Sanguimancy.chunkClaimer.name=Soul Chunk Claimer
@@ -55,9 +64,13 @@ item.Sanguimancy.corruptedSword.name=Corrupted Blade
 item.Sanguimancy.corruptedPickaxe.name=Corrupted Pickaxe
 item.Sanguimancy.corruptedShovel.name=Corrupted Shovel
 item.Sanguimancy.corruptedAxe.name=Corrupted Axe
-item.Sanguimancy.playerGuide.name=Sanguimancy: A How-To Guide
-item.Sanguimancy.corruptedMineral.name=Corrupted Mineral
-item.Sanguimancy.imbuedStick.name=Imbued Stick
+item.Sanguimancy.resource.corruptedMineral.name=Corrupted Mineral
+item.Sanguimancy.resource.imbuedStick.name=Imbued Stick
+item.Sanguimancy.resource.etherealManifestation.name=Ethereal Manifestation
+item.Sanguimancy.soulTransporter.name=Soul Transposer
+item.Sanguimancy.telepositionSigil.name=Teleposition Sigil
+item.Sanguimancy.transpositionSigil.name=Sigil of Transposition
+item.Sanguimancy.resource.manipulatorUpgrade.name=Sanguine Shifter
 
 #Entities
 entity.Sanguimancy.EntityChickenMinion.name=Chicken Minion
@@ -88,7 +101,7 @@ chat.Sanguimancy.deactivated=The item's ties to your Soul seem to be weakened to
 chat.Sanguimancy.removed=The item's ties to your Soul seem to be severed.
 chat.Sanguimancy.added.success=You feel something creating ties to your Soul.
 chat.Sanguimancy.added.fail=You feel something failing to create ties to your Soul...
-chat.Sanguimancy.successfully.claimed=This chunk was successfully claimed.
+chat.Sanguimancy.successfully.claimed=The chunk at x: %x%, y: %y% in dimension %dim% was successfully claimed.
 chat.Sanguimancy.unsuccessfully.claimed=This chunk is already claimed.
 chat.Sanguimancy.intial.claimer=This was dropped when your Soul formed.
 chat.Sanguimancy.not.sn.dim=You are not in the Soul Network Dimension.
@@ -109,9 +122,10 @@ info.Sanguimancy.tooltip.creative.only=Creative Only
 info.Sanguimancy.tooltip.illusion=The block is a lie.
 info.Sanguimancy.tooltip.corrupted.infusion.1=With this item in your inventory,
 info.Sanguimancy.tooltip.corrupted.infusion.2=Corrupted Infusion can start.
-info.Sanguimancy.tooltip.ore=Ore
+info.Sanguimancy.tooltip.ore=%s Ore
 info.Sanguimancy.tooltip.amount=Amount
 info.Sanguimancy.tooltip.fluid=Fluid
+info.Sanguimancy.tooltip.capacity=Capacity
 info.Sanguimancy.tooltip.none=None
 info.Sanguimancy.tooltip.any=Any Ore Lump
 info.Sanguimancy.tooltip.per.point=per half-heart
@@ -119,7 +133,7 @@ info.Sanguimancy.tooltip.activated=Ability Activated
 info.Sanguimancy.tooltip.owner=Current Owner
 info.Sanguimancy.tooltip.minimum.corruption.1=Minimum corruption to reach the tool's
 info.Sanguimancy.tooltip.minimum.corruption.2=default capabilities
-info.Sanguimancy.tooltip.wrong.player=This is not yours to use.
+info.Sanguimancy.tooltip.wrong.player=This is not yours to break.
 info.Sanguimancy.tooltip.mode=Mode
 info.Sanguimancy.tooltip.mode.regular=Normal
 info.Sanguimancy.tooltip.pickaxe.mode.silk.touch=Silk Touch
@@ -138,12 +152,31 @@ info.Sanguimancy.tooltip.book.author=By Tombenpotter
 info.Sanguimancy.tooltip.spell.current=Current Spell
 info.Sanguimancy.tooltip.coordinates=Coordinates
 info.Sanguimancy.tooltip.bound.dimension=Bound Dimension
+info.Sanguimancy.tooltip.teleposition.sigil.pun=I am very close to being moved by this.
+info.Sanguimancy.tooltip.evil.toaster=Evil Toaster since 1996
+info.Sanguimancy.tooltip.shift.transposition.sigil.pun=Trans.... position of course!
+info.Sanguimancy.tooltip.place.top=Place on top of Altar
 
 #Guide Entries
+guide.Sanguimancy.book.name=Delving into the Darkness
+guide.Sanguimancy.book.title=A Journey through the Magicks
+guide.Sanguimancy.welcomeMessage=Welcome, Blood Magicker, to your journey through the Dark paths in Blood Magic. Strange and dangerous things will happen should you follow this path. Thou hast been warned.
+
 guide.Sanguimancy.category.lore=Of Dark Magicks
 guide.Sanguimancy.category.items=Items
 guide.Sanguimancy.category.blocks=Blocks
 guide.Sanguimancy.category.rituals=Rituals
+
+#Page Info
+text.recipe.shapedOrb=Shaped Orb Recipe
+
+text.recipe.altar=Blood Altar
+text.recipe.altar.tier=Tier: %s
+text.recipe.altar.bloodRequired=LP: %s
+
+text.recipe.corrupted=Corruption
+text.recipe.corruption.minCorruption=Minimum Corruption: %s
+text.recipe.corruption.duration=Duration: %s
 
 #Items
 guide.Sanguimancy.entry.corruptionReader=The Reader allows you to keep an eye on your Soul Corruption. Right clicking the reader will tell you how corrupted your Soul is.
@@ -162,6 +195,10 @@ guide.Sanguimancy.entry.corruptedAxe=The Corrupted Axe is part of the Corrupted 
 guide.Sanguimancy.entry.corruptedPickaxe=The Corrupted Pickaxe is part of the Corrupted Tool set. While its primary function is to break blocks, the corruption imbued in it developed other abilities. The particularity of this tool is the fact that the speed at which the blocks are broken entirely depends on how corrupted the owner's Soul is. To reach the tool's base capabilities, the owner needs to have reached a certain level of corruption, precised in the tooltip. Before, the capabilities are lowered, and after they are augmented. There are 5 different modes, plus the regular mode. Every time a block is broken or an entity hit, some Life Essence from your Soul Network is consumed. If the tool isn't in the base mode, the owner gains Soul Corruption for each use. The first mode of the Corrupted Pickaxe is the Silk Touch mode. The second, third and fourth modes are the fortune modes, each adding a level of fortune to the tool. The fifth mode is the Auto-Smelting mode. If the block broken can be smelted, the result of the smelting will be dropped. If not, the block will simply be dropped.
 guide.Sanguimancy.entry.corruptedShovel=The Corrupted Shovel is part of the Corrupted Tool set. While its primary function is to break blocks, the corruption imbued in it developed other abilities. The particularity of this tool is the fact that the speed at which the blocks are broken entirely depends on how corrupted the owner's Soul is. To reach the tool's base capabilities, the owner needs to have reached a certain level of corruption, precised in the tooltip. Before, the capabilities are lowered, and after they are augmented. There are 3 different modes, plus the regular mode. Every time a block is broken or an entity hit, some Life Essence from your Soul Network is consumed. If the tool isn't in the base mode, the owner gains Soul Corruption for each use. The first mode of the Corrupted Shovel is the Breaking Down mode. If the block mined is amongst a list of blocks, a ghost image of another block will be displayed on one of the 6 sides of the block. When the block is broken it will be replaced by the block the ghost image was showing. The second mode is the Gold Digging mode. When breaking gravel with the shovel in that mode, the gravel block will not be dropped. Instead, there is a chance for a diamond, a gold nugget and an emerald to be dropped. The third mode is the Transmutation mode. If the block mined is amongst a list of blocks, a ghost image of another block will be displayed on one of the 6 sides of the block. When the block is broken it will be replaced by the block the ghost image was showing.
 guide.Sanguimancy.entry.corruptedSword=The Corrupted Sword is part of the Corrupted Tool set. While its primary function is to hit mobs, the corruption imbued in it developed other abilities. The particularity of this tool is the fact that the damage it does entirely depends on how corrupted the owner's Soul is. To reach the tool's base capabilities, the owner needs to have reached a certain level of corruption, precised in the tooltip. Before, the capabilities are lowered, and after they are augmented. There is one main ability. Every time a block is broken or an entity hit, some Life Essence from your Soul Network is consumed. If the tool isn't in the base mode, the owner gains Soul Corruption for each use. The tool's ability is the Heart Stealing ability. When a player is hit by this sword, and the ability is activated, some hearts are taken from the player who has hit, and added to the life of the player who holds the sword. The maximum number of hearts that can be stolen is 7,5. Which means a player can be down to 2,5 hearts for a full minute, while another can go up to 17,5 for one minute.
+guide.Sanguimancy.entry.etherealManifestation=You must have an Ethereal Manifestation in your inventory while binding an item or activating a ritual if you want it to have its representation in the Soul Network Dimension.
+guide.Sanguimancy.entry.soulTransporter=The Soul Transporter is an item that allows you to teleport to the Soul Network Dimension. Do not forget to bring two, as there is no other way in and out of the dimension!
+guide.Sanguimancy.entry.telepositionSigil=The Teleposition Sigil is an item that will teleport you to a location previously set. To set that location, simply shift-right click on a teleposer with the Sigil in hand. Right click the Sigil to teleport back to that location. Teleporting in the same dimension costs 1000LP, while teleporting across dimensions costs 10000LP.
+guide.Sanguimancy.entry.transpositionSigil=The Transposition Sigil allows the player to move any block he can break without actually doing so. Indeed, shift-right clicking on a block with the sigil will store it inside the item if the sigil is empty. Right clicking again will set the block back in the exact state it was picked up.
 
 #Blocks
 guide.Sanguimancy.entry.soulTransferrer=The Soul Transferrer is the block the allows you to actually transfer the stolen LP to yourself via the LP stealing mechanic. See the Sacrifice Magic Entry in 'Of Dark Magic'
@@ -178,10 +215,18 @@ guide.Sanguimancy.entry.ritualManifestation=This block appears inside the chunks
 guide.Sanguimancy.entry.soulBranch=The Soul Branch is used to link different Soul Representations to a Soul Knot. Once they are connected to a Soul Knot, flames appear to show the link.
 guide.Sanguimancy.entry.simpleKnot=The Simple Soul Knot is the very core of the controlling of different Soul Representations. If a Representation is linked to a Soul Knot, directly or via Soul Branches, you are able to gain some control over your network. When the Soul Knot is right clicked with a divination sigil, any Soul Representation linked to it is disabled. This overrides any redstone power disabling. Right click it again to re-enable the Soul Knot.
 guide.Sanguimancy.entry.toggledKnot=The Toggled Soul Knot acts exactly like a Simple Soul Knot, except for one fact: if the Toggled Knot is powered with redstone, it stops acting like a Soul Knot and is instead considered as a simple Soul Branch, conducting but not able to disable any Representation.
+guide.Sanguimancy.entryName.etherealBlocks=Ethereal Blocks
+guide.Sanguimancy.entry.etherealBlock=The Ethereal Block is a block solid to all entities but players. Right clicking on it with any solid block will give the Ehtereal Block its texture, but will also trick other mods (**cough**Waila**cough**) into believing that the block is the one it seems to be. Right clicking the block with a bucket of water will remove the texture.
+guide.Sanguimancy.entry.corruptedEtherealBlock=The Corrupted Ethereal Block has all the proprieties of the Ethereal Block, plus one: the player needs to have reached a certain level of corruption to be able to pass through it. Right clicking it will raise the level of corruption, shift-right clicking will lower it.
+guide.Sanguimancy.entry.toggledEtherealBlock=The Toggled Ethereal Block is a block that can be camouflaged like the Ethereal Block, but acts a bit different: if no redstone signal is supplied, any entity can go through it. When a redstone signal is supplied, it becomes solid once more. Sneaking makes it solid.
+guide.Sanguimancy.entry.boundEtherealBlocks=The Bound Ethereal Blocks are Ethereal, Corrupted or Toggled Ethereal Blocks with one more feature: only the one who placed them can break them. To craft them, drop between 1 and 64 of them in a ritual of binding and activate it.
+guide.Sanguimancy.entry.personalEtherealBlock=The Personal Ethereal Block acts like a Bound Ethereal Block, but only the one who placed it can go through it. It is solid for anything else.
+guide.Sanguimancy.entry.altarManipulator=The Altar Manipulator is the third stage of Blood Altar automation. Like its predecessors, it is a GUI-less machine. It is however much more complex than the others. Where the Altar Emitter and the Altar Diviner were somehow limited, the Altar Manipulator has no such qualms. Indeed, any item inserted into or taken from the block cannot be done by human hands. Phantom, however... The Altar Manipulator will only accept items in its input slot if there's a Blood Altar directly under it, with enough Life Essence and the required tier to craft the item to its upgrade. It will then pick up the item once the crafting is done, and hold onto it until it is taken out. This makes sure the item inserted is processed only once, and not until it has reached its maximum.
+guide.Sanguimancy.entry.sanguineShifter=The Sanguine Shifter is a way to upgrade the Altar Manipulator. While items can be inserted via hoppers, there is no Way to take them out. Do not fear! The Sanguine Shifter is here! Right clicking this item to any side of the Altar Manipulator but its bottom, and placing an inventory on this side will make the Altar Manipulator output its items to this inventory. Hooray!
 
 #Rituals
 guide.Sanguimancy.entry.drillOfTheDead=The Drill of the Dead is, to put it simply, a Well of Suffering on steroids. Where the Well deals half a heart of damage to any mob in the area, the Drill of the Dead kills said mobs instantly. Each kill costs 75LP and gives 200LP per default. However, the Drill of the Dead has limitations. As it is such a powerful tool, it cannot kill Boss Mobs, Elementals and Demons. Activating this ritual will cause your §4 Soul Corruption §r to augment.
-guide.Sanguimancy.entry.vulcanosFrigius=The Vulcanos Frigius is a cooled down Serenade of the Nether. With no actual lava involved, this ritual creates 4 pieces of Obsidian, at the cost of 250LP per piece. Obisidan will keep resupplying as long as the ritual is active.
+guide.Sanguimancy.entry.vulcanosFrigius=The Vulcanos Frigius is a cooled down Serenade of the Nether. With no actual lava involved, this ritual creates 4 pieces of Cobblestone, at the cost of 10 per piece. Cobblestone will keep resupplying as long as the ritual is active. If the ritual has some of the Tenebrae reagent, it will create 4 pieces of obsidian, at the cost of 100LP and 5 reagent per obsidian.
 guide.Sanguimancy.entry.greatDeletion=The Great Deletion allows you to trash unwanted items, simply by throwing them in the vicinity of the Ritual Stone. Be careful with it though! There is no way to get said items back!
 guide.Sanguimancy.entry.enlightenment=The Enlightenment is a ritual that lights up an entire area around the Ritual Stone. It has a very low cost of 1LP per tick, but will keep checking around itself to make sure no area is left unlit.
 guide.Sanguimancy.entry.timberman=The timberman is a ritual that, as its name suggests cuts trees in a wide area. It can handle almost any tree, given that it’s not going to the world limit.

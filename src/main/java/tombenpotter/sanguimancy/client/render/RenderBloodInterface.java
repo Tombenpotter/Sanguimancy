@@ -13,14 +13,14 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.IItemRenderer;
 import org.lwjgl.opengl.GL11;
 import tombenpotter.sanguimancy.Sanguimancy;
-import tombenpotter.sanguimancy.client.model.ModelInterface;
+import tombenpotter.sanguimancy.client.model.ModelHollowCube;
 import tombenpotter.sanguimancy.tile.TileBloodInterface;
 
 public class RenderBloodInterface extends TileEntitySpecialRenderer implements IItemRenderer {
 
     public static final ResourceLocation texture = new ResourceLocation(Sanguimancy.texturePath + ":textures/blocks/BloodInterface.png");
     private final RenderItem customRenderItem;
-    private ModelInterface model = new ModelInterface();
+    private ModelHollowCube model = new ModelHollowCube();
 
     public RenderBloodInterface() {
         customRenderItem = new RenderItem() {

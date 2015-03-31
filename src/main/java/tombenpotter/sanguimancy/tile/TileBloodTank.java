@@ -1,29 +1,30 @@
 package tombenpotter.sanguimancy.tile;
 
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.network.NetworkManager;
-import net.minecraft.network.Packet;
-import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.fluids.*;
-import tombenpotter.sanguimancy.api.ICustomNBTTag;
+import tombenpotter.sanguimancy.api.tile.TileBase;
 
-public class TileBloodTank extends TileEntity implements IFluidHandler, ICustomNBTTag {
+public class TileBloodTank extends TileBase implements IFluidHandler {
 
     public int capacity;
     public FluidTank tank;
-    private NBTTagCompound custoomNBTTag;
 
     public TileBloodTank() {
         capacity = 16 * FluidContainerRegistry.BUCKET_VOLUME;
         tank = new FluidTank(capacity);
-        custoomNBTTag = new NBTTagCompound();
+        customNBTTag = new NBTTagCompound();
+    }
+
+    public TileBloodTank(int capacity) {
+        capacity = capacity * FluidContainerRegistry.BUCKET_VOLUME;
+        tank = new FluidTank(capacity);
+        customNBTTag = new NBTTagCompound();
     }
 
     @Override
     public void updateEntity() {
-        if (worldObj.getWorldTime() % 50 == 0) worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+        if (worldObj.getWorldTime() % 60 == 0) worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
     }
 
     @Override
@@ -61,7 +62,6 @@ public class TileBloodTank extends TileEntity implements IFluidHandler, ICustomN
         super.readFromNBT(tagCompound);
         tank.readFromNBT(tagCompound.getCompoundTag("tank"));
         capacity = tagCompound.getInteger("capacity");
-        custoomNBTTag = tagCompound.getCompoundTag("customNBTTag");
     }
 
     @Override
@@ -69,30 +69,5 @@ public class TileBloodTank extends TileEntity implements IFluidHandler, ICustomN
         super.writeToNBT(tagCompound);
         if (tank.getFluidAmount() != 0) tagCompound.setTag("tank", tank.writeToNBT(new NBTTagCompound()));
         tagCompound.setInteger("capacity", capacity);
-        tagCompound.setTag("customNBTTag", custoomNBTTag);
-    }
-
-    @Override
-    public final Packet getDescriptionPacket() {
-        NBTTagCompound nbt = new NBTTagCompound();
-        writeToNBT(nbt);
-        S35PacketUpdateTileEntity packet = new S35PacketUpdateTileEntity(xCoord, yCoord, zCoord, 0, nbt);
-        return packet;
-    }
-
-    @Override
-    public void onDataPacket(NetworkManager net, S35PacketUpdateTileEntity pkt) {
-        NBTTagCompound nbt = pkt.func_148857_g();
-        readFromNBT(nbt);
-    }
-
-    @Override
-    public NBTTagCompound getCustomNBTTag() {
-        return custoomNBTTag;
-    }
-
-    @Override
-    public void setCustomNBTTag(NBTTagCompound tag) {
-        custoomNBTTag = tag;
     }
 }

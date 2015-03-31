@@ -7,11 +7,11 @@ import net.minecraft.world.World;
 
 public class BlockPostition {
 
-    public double x;
-    public double y;
-    public double z;
+    public int x;
+    public int y;
+    public int z;
 
-    public BlockPostition(double posX, double posY, double posZ) {
+    public BlockPostition(int posX, int posY, int posZ) {
         x = posX;
         y = posY;
         z = posZ;
@@ -24,9 +24,9 @@ public class BlockPostition {
     }
 
     public static BlockPostition readFromNBT(NBTTagCompound tag) {
-        return new BlockPostition(tag.getCompoundTag("BlockPostition").getDouble("posX"),
-                tag.getCompoundTag("BlockPostition").getDouble("posY"),
-                tag.getCompoundTag("BlockPostition").getDouble("posZ"));
+        return new BlockPostition(tag.getCompoundTag("BlockPostition").getInteger("posX"),
+                tag.getCompoundTag("BlockPostition").getInteger("posY"),
+                tag.getCompoundTag("BlockPostition").getInteger("posZ"));
     }
 
     @Override
@@ -40,17 +40,22 @@ public class BlockPostition {
     }
 
     public Block getBlock(World world) {
-        return world.getBlock((int) x, (int) y, (int) z);
+        return world.getBlock(x, y, z);
     }
 
     public TileEntity getTile(World world) {
-        return world.getTileEntity((int) x, (int) y, (int) z);
+        return world.getTileEntity(x, y, z);
     }
 
     public NBTTagCompound writeToNBT(NBTTagCompound tag) {
-        tag.getCompoundTag("BlockPostition").setDouble("posX", x);
-        tag.getCompoundTag("BlockPostition").setDouble("posY", y);
-        tag.getCompoundTag("BlockPostition").setDouble("posZ", z);
+        tag.getCompoundTag("BlockPostition").setInteger("posX", x);
+        tag.getCompoundTag("BlockPostition").setInteger("posY", y);
+        tag.getCompoundTag("BlockPostition").setInteger("posZ", z);
         return tag;
+    }
+
+    @Override
+    public String toString() {
+        return "BlockPostition {x= " + x + ", y= " + y + ", z= " + z + '}';
     }
 }

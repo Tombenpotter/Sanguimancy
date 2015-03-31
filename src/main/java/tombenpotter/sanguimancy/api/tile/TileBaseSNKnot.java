@@ -4,7 +4,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.util.ForgeDirection;
 import tombenpotter.sanguimancy.api.objects.BlockPostition;
 import tombenpotter.sanguimancy.api.objects.BoolAndBlockPosList;
-import tombenpotter.sanguimancy.api.ICustomNBTTag;
+import tombenpotter.sanguimancy.api.objects.ICustomNBTTag;
 import tombenpotter.sanguimancy.api.objects.SNKNotBoolean;
 import tombenpotter.sanguimancy.api.snManifestation.ISNComponent;
 import tombenpotter.sanguimancy.api.snManifestation.ISNKnot;
@@ -75,5 +75,15 @@ public abstract class TileBaseSNKnot extends TileEntity implements ISNKnot, ICus
             i++;
         }
         return adjacentBranches;
+    }
+
+    @Override
+    public ArrayList<BlockPostition> getSNKnots() {
+        ArrayList<BlockPostition> list = new ArrayList<BlockPostition>();
+        HashMap<BlockPostition, SNKNotBoolean> map = getComponentsInNetwork().hashMap;
+        for (BlockPostition postition : map.keySet()) {
+            if (map.get(postition).isSNKnotActive && map.get(postition).isSNKnot) list.add(postition);
+        }
+        return list;
     }
 }

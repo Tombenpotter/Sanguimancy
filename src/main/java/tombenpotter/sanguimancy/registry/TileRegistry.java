@@ -1,6 +1,7 @@
 package tombenpotter.sanguimancy.registry;
 
 import cpw.mods.fml.common.registry.GameRegistry;
+import tombenpotter.sanguimancy.api.tile.TileCamouflage;
 import tombenpotter.sanguimancy.tile.*;
 
 public class TileRegistry {
@@ -20,5 +21,8 @@ public class TileRegistry {
         GameRegistry.registerTileEntity(TileSimpleSNBranch.class, "TileSimpleSNBranch");
         GameRegistry.registerTileEntity(TileToggleSNKnot.class, "TileToggleSNKnot");
         GameRegistry.registerTileEntity(TileRitualSNPart.class, "TileRitualSNPart");
+        GameRegistry.registerTileEntity(TileCamouflage.class, "TileCamouflage");
+        GameRegistry.registerTileEntity(TileCamouflageBound.class, "TileCamouflageBound");
+        GameRegistry.registerTileEntity(TileAltarManipulator.class, "TileAltarManipulator");
     }
 }

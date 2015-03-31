@@ -9,7 +9,6 @@ public abstract class TileBaseInventory extends TileBase implements IInventory {
 
     public ItemStack[] slots;
     public int inventoryStackLimit = 64;
-    public NBTTagCompound custoomNBTTag;
 
     @Override
     public int getSizeInventory() {
@@ -85,7 +84,6 @@ public abstract class TileBaseInventory extends TileBase implements IInventory {
         for (int i = 0; i < nbttaglist.tagCount(); ++i) {
             NBTTagCompound nbttagcompound1 = nbttaglist.getCompoundTagAt(i);
             byte b0 = nbttagcompound1.getByte("Slot");
-
             if (b0 >= 0 && b0 < this.slots.length) {
                 this.slots[b0] = ItemStack.loadItemStackFromNBT(nbttagcompound1);
             }

@@ -13,9 +13,9 @@ import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import tombenpotter.sanguimancy.tile.TileDimensionalPortal;
-import tombenpotter.sanguimancy.util.PortalLocation;
-import tombenpotter.sanguimancy.util.TeleportingUtils;
 import tombenpotter.sanguimancy.util.singletons.LocationsHandler;
+import tombenpotter.sanguimancy.util.teleporting.PortalLocation;
+import tombenpotter.sanguimancy.util.teleporting.TeleportingQueue;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -72,16 +72,16 @@ public class BlockDimensionalPortal extends BlockContainer {
                         if (linkedLocations.get(0).equals(new PortalLocation(tile.masterStoneX, tile.masterStoneY + 1, tile.masterStoneZ, world.provider.dimensionId))) {
                             PortalLocation linkedLocation = linkedLocations.get(1);
                             if (linkedLocation.dimension == world.provider.dimensionId) {
-                                TeleportingUtils.teleportEntitySameDim(linkedLocation.x, linkedLocation.y, linkedLocation.z, entity, masterRitualStone.getOwner());
+                                TeleportingQueue.getInstance().teleportSameDim(linkedLocation.x, linkedLocation.y, linkedLocation.z, entity, masterRitualStone.getOwner());
                             } else {
-                                TeleportingUtils.teleportEntityToDim(world, linkedLocation.dimension, linkedLocation.x, linkedLocation.y, linkedLocation.z, entity, masterRitualStone.getOwner());
+                                TeleportingQueue.getInstance().teleportToDim(world, linkedLocation.dimension, linkedLocation.x, linkedLocation.y, linkedLocation.z, entity, masterRitualStone.getOwner());
                             }
                         } else if (linkedLocations.get(1).equals(new PortalLocation(tile.masterStoneX, tile.masterStoneY + 1, tile.masterStoneZ, world.provider.dimensionId))) {
                             PortalLocation linkedLocation = linkedLocations.get(0);
                             if (linkedLocation.dimension == world.provider.dimensionId) {
-                                TeleportingUtils.teleportEntitySameDim(linkedLocation.x, linkedLocation.y, linkedLocation.z, entity, masterRitualStone.getOwner());
+                                TeleportingQueue.getInstance().teleportSameDim(linkedLocation.x, linkedLocation.y, linkedLocation.z, entity, masterRitualStone.getOwner());
                             } else {
-                                TeleportingUtils.teleportEntityToDim(world, linkedLocation.dimension, linkedLocation.x, linkedLocation.y, linkedLocation.z, entity, masterRitualStone.getOwner());
+                                TeleportingQueue.getInstance().teleportToDim(world, linkedLocation.dimension, linkedLocation.x, linkedLocation.y, linkedLocation.z, entity, masterRitualStone.getOwner());
                             }
                         }
                     }

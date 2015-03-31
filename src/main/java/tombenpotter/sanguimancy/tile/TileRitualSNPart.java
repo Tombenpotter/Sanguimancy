@@ -1,30 +1,35 @@
 package tombenpotter.sanguimancy.tile;
 
+import WayofTime.alchemicalWizardry.ModItems;
 import WayofTime.alchemicalWizardry.api.event.RitualRunEvent;
 import WayofTime.alchemicalWizardry.api.event.RitualStopEvent;
-import cpw.mods.fml.common.eventhandler.Event;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
+import net.minecraft.util.ChatComponentText;
 import net.minecraftforge.common.MinecraftForge;
 import tombenpotter.sanguimancy.api.objects.BlockPostition;
-import tombenpotter.sanguimancy.api.EnumSNType;
-import tombenpotter.sanguimancy.api.ICustomNBTTag;
+import tombenpotter.sanguimancy.api.objects.ICustomNBTTag;
 import tombenpotter.sanguimancy.api.objects.SNKNotBoolean;
+import tombenpotter.sanguimancy.api.snManifestation.EnumSNType;
 import tombenpotter.sanguimancy.api.tile.TileBaseSNPart;
 
 import java.util.HashMap;
 
 public class TileRitualSNPart extends TileBaseSNPart implements ICustomNBTTag {
 
-    public NBTTagCompound custoomNBTTag;
-    public BlockPostition ritualPosition;
+    public NBTTagCompound customNBTTag;
+    public int xRitual;
+    public int yRitual;
+    public int zRitual;
 
     public TileRitualSNPart() {
         MinecraftForge.EVENT_BUS.register(this);
-        custoomNBTTag = new NBTTagCompound();
+        customNBTTag = new NBTTagCompound();
     }
 
     @Override
@@ -44,25 +49,29 @@ public class TileRitualSNPart extends TileBaseSNPart implements ICustomNBTTag {
     @Override
     public void readFromNBT(NBTTagCompound tagCompound) {
         super.readFromNBT(tagCompound);
-        custoomNBTTag = tagCompound.getCompoundTag("customNBTTag");
-        ritualPosition = BlockPostition.readFromNBT(tagCompound);
+        customNBTTag = tagCompound.getCompoundTag("customNBTTag");
+        this.xRitual = tagCompound.getInteger("xRitual");
+        this.yRitual = tagCompound.getInteger("yRitual");
+        this.zRitual = tagCompound.getInteger("zRitual");
     }
 
     @Override
     public void writeToNBT(NBTTagCompound tagCompound) {
         super.writeToNBT(tagCompound);
-        tagCompound.setTag("customNBTTag", custoomNBTTag);
-        ritualPosition.writeToNBT(tagCompound);
+        tagCompound.setTag("customNBTTag", customNBTTag);
+        tagCompound.setInteger("xRitual", xRitual);
+        tagCompound.setInteger("yRitual", yRitual);
+        tagCompound.setInteger("zRitual", zRitual);
     }
 
     @Override
     public NBTTagCompound getCustomNBTTag() {
-        return custoomNBTTag;
+        return customNBTTag;
     }
 
     @Override
     public void setCustomNBTTag(NBTTagCompound tag) {
-        custoomNBTTag = tag;
+        customNBTTag = tag;
     }
 
 
@@ -91,17 +100,22 @@ public class TileRitualSNPart extends TileBaseSNPart implements ICustomNBTTag {
 
     @SubscribeEvent
     public void disableLinkedRitual(RitualRunEvent event) {
-        if (ritualPosition != null) {
-            HashMap<BlockPostition, SNKNotBoolean> map = getComponentsInNetwork().hashMap;
-            for (BlockPostition postition : map.keySet()) {
-                if (map.get(postition).isSNKnot && map.get(postition).isSNKnotActive && worldObj.getBlockPowerInput(xCoord, yCoord, zCoord) > 0) {
-                    if (event.mrs.getXCoord() == ritualPosition.x && event.mrs.getYCoord() == ritualPosition.y && event.mrs.getZCoord() == ritualPosition.z) {
-                        event.setResult(Event.Result.DENY);
-                    }
-                } else if (map.get(postition).isSNKnot && !map.get(postition).isSNKnotActive) {
-                    if (event.mrs.getXCoord() == ritualPosition.x && event.mrs.getYCoord() == ritualPosition.y && event.mrs.getZCoord() == ritualPosition.z) {
-                        event.setResult(Event.Result.DENY);
-                    }
+        HashMap<BlockPostition, SNKNotBoolean> map = getComponentsInNetwork().hashMap;
+        for (BlockPostition postition : map.keySet()) {
+            if (map.get(postition).isSNKnot && map.get(postition).isSNKnotActive && (worldObj.getBlockPowerInput(xCoord, yCoord, zCoord) > 0 || worldObj.getStrongestIndirectPower(xCoord, yCoord, zCoord) > 0)) {
+                if (event.mrs.getXCoord() == xRitual && event.mrs.getYCoord() == yRitual && event.mrs.getZCoord() == zRitual) {
+                    this.xRitual = event.mrs.getXCoord();
+                    this.yRitual = event.mrs.getYCoord();
+                    this.zRitual = event.mrs.getZCoord();
+                    event.setCanceled(true);
+                }
+            }
+            if (map.get(postition).isSNKnot && !map.get(postition).isSNKnotActive) {
+                if (event.mrs.getXCoord() == xRitual && event.mrs.getYCoord() == yRitual && event.mrs.getZCoord() == zRitual) {
+                    this.xRitual = event.mrs.getXCoord();
+                    this.yRitual = event.mrs.getYCoord();
+                    this.zRitual = event.mrs.getZCoord();
+                    event.setCanceled(true);
                 }
             }
         }
@@ -109,10 +123,20 @@ public class TileRitualSNPart extends TileBaseSNPart implements ICustomNBTTag {
 
     @SubscribeEvent
     public void removeMasterStone(RitualStopEvent event) {
-        if (ritualPosition != null) {
-            if (event.mrs.getXCoord() == ritualPosition.x && event.mrs.getYCoord() == ritualPosition.y && event.mrs.getZCoord() == ritualPosition.z) {
-                worldObj.setBlockToAir(xCoord, yCoord, zCoord);
+        if (event.mrs.getXCoord() == xRitual && event.mrs.getYCoord() == yRitual && event.mrs.getZCoord() == zRitual) {
+            worldObj.setBlockToAir(xCoord, yCoord, zCoord);
+        }
+    }
+
+    public boolean onBlockRightClicked(EntityPlayer player, ItemStack stack) {
+        if (stack != null) {
+            if (stack.isItemEqual(new ItemStack(ModItems.divinationSigil)) || stack.isItemEqual(new ItemStack(ModItems.itemSeerSigil))) {
+                if (!worldObj.isRemote) {
+                    player.addChatComponentMessage(new ChatComponentText("x: " + String.valueOf(xRitual) + " y: " + String.valueOf(yRitual) + " z: " + String.valueOf(zRitual)));
+                }
+                return true;
             }
         }
+        return false;
     }
 }

@@ -24,10 +24,17 @@ public class ConfigHandler {
     public static boolean enablePump;
     public static boolean enableQuarry;
     public static boolean enablePortal;
+    public static boolean messagesWhenCorruptionEffect;
+    public static boolean enableTelepositionBlacklist;
     public static int snDimID;
     public static int addHeartPotionID;
     public static int removeHeartPotionID;
-    public static boolean messagesWhenCorruptionEffect;
+    public static int minimumToolCorruption;
+    public static int transpositionSigilCost;
+    public static String[] transpositionSigilBlacklist;
+    public static boolean addItemsOnFirstLogin;
+    public static String[] teleposerBlacklist;
+    public static boolean renderSillyAprilFish;
 
     public static void init(File file) {
         config = new Configuration(file);
@@ -56,9 +63,18 @@ public class ConfigHandler {
 
         //Features
         snDimID = config.get(features, "soulNetworkDimensionID", 42).getInt(snDimID);
-        addHeartPotionID = config.get(features, "addHeartPotionID", 100).getInt(addHeartPotionID);
-        removeHeartPotionID = config.get(features, "removeHeartPotionID", 101).getInt(removeHeartPotionID);
+        addHeartPotionID = config.get(features, "addHeartPotionID", 150).getInt(addHeartPotionID);
+        removeHeartPotionID = config.get(features, "removeHeartPotionID", 151).getInt(removeHeartPotionID);
         messagesWhenCorruptionEffect = config.get(features, "messageWhenCorruptionEffect", true).getBoolean(messagesWhenCorruptionEffect);
+        addItemsOnFirstLogin = config.get(features, "addItemsOnFirstLogin", true).getBoolean(addItemsOnFirstLogin);
+        enableTelepositionBlacklist = config.get(features, "canTeleposeManifestations", true).getBoolean(enableTelepositionBlacklist);
+        renderSillyAprilFish = config.get(features, "renderSillyAprilFish", true).getBoolean(renderSillyAprilFish);
+
+        //Balance
+        minimumToolCorruption = config.get(balancing, "minimumCorruptionForTools", 200).getInt(minimumToolCorruption);
+        transpositionSigilCost = config.get(balancing, "transpositionSigilCost", 7500).getInt(transpositionSigilCost);
+        transpositionSigilBlacklist = config.get(balancing, "transpositionSigilBlacklist", new String[]{"minecraft:bedrock"}).getStringList();
+        teleposerBlacklist = config.get(balancing, "teleposerBlacklist", new String[]{"Sanguimancy:BlockItemSNPart", "Sanguimancy:BlockRitualRepresentation"}).getStringList();
 
         config.save();
     }

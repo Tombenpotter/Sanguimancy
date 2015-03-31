@@ -6,10 +6,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import tombenpotter.sanguimancy.Sanguimancy;
 import tombenpotter.sanguimancy.blocks.*;
-import tombenpotter.sanguimancy.blocks.items.ItemBlockAltarDiviner;
-import tombenpotter.sanguimancy.blocks.items.ItemBlockAltarEmitter;
-import tombenpotter.sanguimancy.blocks.items.ItemBlockBloodTank;
-import tombenpotter.sanguimancy.blocks.items.ItemBlockIllusion;
+import tombenpotter.sanguimancy.blocks.items.*;
 
 public class BlocksRegistry {
 
@@ -26,12 +23,19 @@ public class BlocksRegistry {
     public static Block bloodstoneSlab;
     public static Block largeBloodstoneSlab;
     public static Block bloodInterface;
-
     public static Block simpleKnot;
     public static Block toggleKnot;
     public static Block simpleBranch;
     public static Block boundItem;
     public static Block ritualRepresentation;
+    public static Block etherealBlock;
+    public static Block etherealCorruptedBlock;
+    public static Block etherealToggledBlock;
+    public static Block etherealBoundBlock;
+    public static Block etherealBoundCorruptedBlock;
+    public static Block etherealBoundToggledBlock;
+    public static Block etherealPersonalBlock;
+    public static Block altarManipulator;
 
     public static void registerBlocks() {
         altarDiviner = new BlockAltarDiviner(Material.iron);
@@ -50,7 +54,7 @@ public class BlocksRegistry {
         GameRegistry.registerBlock(corruptionCrystallizer, "BlockCorruptionCrystallizer").setBlockName(Sanguimancy.modid + ".corruptionCrystallizer");
 
         lumpCleaner = new BlockLumpCleaner(Material.iron);
-        GameRegistry.registerBlock(lumpCleaner, "BlockLumpCleaner").setBlockName(Sanguimancy.modid + ".lumpCleaner");
+        GameRegistry.registerBlock(lumpCleaner, ItemBlockBloodCleanser.class, "BlockLumpCleaner").setBlockName(Sanguimancy.modid + ".lumpCleaner");
 
         bloodTank = new BlockBloodTank(Material.iron);
         GameRegistry.registerBlock(bloodTank, ItemBlockBloodTank.class, "BlockBloodTank").setBlockName(Sanguimancy.modid + ".bloodTank");
@@ -87,5 +91,29 @@ public class BlocksRegistry {
 
         ritualRepresentation = new BlockRitualSNPart(Material.iron);
         GameRegistry.registerBlock(ritualRepresentation, "BlockRitualRepresentation").setBlockName(Sanguimancy.modid + ".ritualRepresentation");
+
+        etherealBlock = new BlockEthereal(Material.iron);
+        GameRegistry.registerBlock(etherealBlock, "BlockEthereal").setBlockName(Sanguimancy.modid + ".etherealBlock");
+
+        etherealCorruptedBlock = new BlockEtherealCorrupted(Material.iron);
+        GameRegistry.registerBlock(etherealCorruptedBlock, "BlockEtherealCorrupted").setBlockName(Sanguimancy.modid + ".etherealCorruptedBlock");
+
+        etherealToggledBlock = new BlockEtherealToggled(Material.iron);
+        GameRegistry.registerBlock(etherealToggledBlock, "BlockEtehrealToggled").setBlockName(Sanguimancy.modid + ".etherealToggledBlock");
+
+        etherealBoundBlock = new BlockEtherealBound(Material.iron);
+        GameRegistry.registerBlock(etherealBoundBlock, "BlockEtherealBound").setBlockName(Sanguimancy.modid + ".etherealBoundBlock");
+
+        etherealBoundCorruptedBlock = new BlockEtherealBoundCorrupted(Material.iron);
+        GameRegistry.registerBlock(etherealBoundCorruptedBlock, "BlockEtherealBoundCorrupted").setBlockName(Sanguimancy.modid + ".etherealBoundCorruptedBlock");
+
+        etherealBoundToggledBlock = new BlockEtherealBoundToggled(Material.iron);
+        GameRegistry.registerBlock(etherealBoundToggledBlock, "BlockEtherealBoundToggled").setBlockName(Sanguimancy.modid + ".etherealBoundToggledBlock");
+
+        etherealPersonalBlock = new BlockEtherealPersonal(Material.iron);
+        GameRegistry.registerBlock(etherealPersonalBlock, "BlockEtherealPersonal").setBlockName(Sanguimancy.modid + ".etherealPersonalBlock");
+
+        altarManipulator = new BlockAltarManipulator(Material.iron);
+        GameRegistry.registerBlock(altarManipulator, ItemBlockAltarManipulator.class, "BlockAltarManipulator").setBlockName(Sanguimancy.modid + ".altarManipulator");
     }
 }

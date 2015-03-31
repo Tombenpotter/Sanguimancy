@@ -14,7 +14,7 @@ import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
-import tombenpotter.sanguimancy.api.ICustomNBTTag;
+import tombenpotter.sanguimancy.api.objects.ICustomNBTTag;
 import tombenpotter.sanguimancy.api.soulCorruption.SoulCorruptionHelper;
 
 public class TileCorruptionCrystallizer extends TileSegmentedReagentHandler implements ICustomNBTTag {
@@ -22,10 +22,10 @@ public class TileCorruptionCrystallizer extends TileSegmentedReagentHandler impl
     public int corruptionStored = 0;
     public String owner;
     public boolean multiblockFormed;
-    private NBTTagCompound custoomNBTTag;
+    private NBTTagCompound customNBTTag;
 
     public TileCorruptionCrystallizer() {
-        custoomNBTTag = new NBTTagCompound();
+        customNBTTag = new NBTTagCompound();
     }
 
     @Override
@@ -49,7 +49,7 @@ public class TileCorruptionCrystallizer extends TileSegmentedReagentHandler impl
         owner = tagCompound.getString("owner");
         corruptionStored = tagCompound.getInteger("corruptionStored");
         multiblockFormed = tagCompound.getBoolean("multiblockFormed");
-        custoomNBTTag = tagCompound.getCompoundTag("customNBTTag");
+        customNBTTag = tagCompound.getCompoundTag("customNBTTag");
     }
 
     @Override
@@ -58,7 +58,7 @@ public class TileCorruptionCrystallizer extends TileSegmentedReagentHandler impl
         tagCompound.setString("owner", owner);
         tagCompound.setInteger("corruptionStored", corruptionStored);
         tagCompound.setBoolean("multiblockFormed", multiblockFormed);
-        tagCompound.setTag("customNBTTag", custoomNBTTag);
+        tagCompound.setTag("customNBTTag", customNBTTag);
     }
 
     public boolean checkMultiblockTier(World world, int x, int y, int z) {
@@ -163,11 +163,11 @@ public class TileCorruptionCrystallizer extends TileSegmentedReagentHandler impl
 
     @Override
     public NBTTagCompound getCustomNBTTag() {
-        return custoomNBTTag;
+        return customNBTTag;
     }
 
     @Override
     public void setCustomNBTTag(NBTTagCompound tag) {
-        custoomNBTTag = tag;
+        customNBTTag = tag;
     }
 }

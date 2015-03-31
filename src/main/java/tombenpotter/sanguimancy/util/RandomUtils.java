@@ -1,5 +1,6 @@
 package tombenpotter.sanguimancy.util;
 
+import WayofTime.alchemicalWizardry.ModItems;
 import cpw.mods.fml.common.eventhandler.Event;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
@@ -24,7 +25,6 @@ import net.minecraftforge.fluids.IFluidHandler;
 import net.minecraftforge.oredict.OreDictionary;
 import tombenpotter.sanguimancy.Sanguimancy;
 import tombenpotter.sanguimancy.api.objects.MapKey;
-import tombenpotter.sanguimancy.registry.BlocksRegistry;
 import tombenpotter.sanguimancy.registry.ItemsRegistry;
 import tombenpotter.sanguimancy.world.WorldProviderSoulNetworkDimension;
 
@@ -42,6 +42,9 @@ public class RandomUtils {
     public static HashMap<String, Integer> oreDictColor = new HashMap<String, Integer>();
     public static Item.ToolMaterial corruptedMaterial = EnumHelper.addToolMaterial("corruptedToolMaterial", Integer.MAX_VALUE, 9000, 32, 10, 32);
     public static HashMap<MapKey, ItemStack> logToPlank = new HashMap<MapKey, ItemStack>();
+    public static ArrayList<ItemStack> oreLumpList = new ArrayList<ItemStack>();
+    public static ArrayList<Block> transpositionBlockBlacklist = new ArrayList<Block>();
+    public static ArrayList<Block> teleposerBlacklist = new ArrayList<Block>();
 
     public static void dropItems(World world, int x, int y, int z) {
         Random rand = new Random();
@@ -382,7 +385,11 @@ public class RandomUtils {
     }
 
     public static void setLogToPlank() {
-        ArrayList<ItemStack> arrayList = OreDictionary.getOres("plankWood");
+        getCraftingRecipeForOreDictItem("plankWood", logToPlank);
+    }
+
+    public static void getCraftingRecipeForOreDictItem(String ore, HashMap<MapKey, ItemStack> map) {
+        ArrayList<ItemStack> arrayList = OreDictionary.getOres(ore);
         for (Object o : CraftingManager.getInstance().getRecipeList()) {
             IRecipe recipe = (IRecipe) o;
             ItemStack output = recipe.getRecipeOutput();
@@ -406,7 +413,7 @@ public class RandomUtils {
                     ItemStack plank = output.copy();
                     plank.stackSize = 1;
                     if (log != null) {
-                        logToPlank.put(new MapKey(log.copy()), plank);
+                        map.put(new MapKey(log.copy()), plank);
                     }
                 }
             }
@@ -431,64 +438,50 @@ public class RandomUtils {
         return modTag;
     }
 
+    public static void setOreLumpList() {
+        for (String ore : OreDictionary.getOreNames()) {
+            if (ore.startsWith("ore")) {
+                String output = ore.substring(3);
+                if (!OreDictionary.getOres(ore).isEmpty() && !OreDictionary.getOres("ingot" + output).isEmpty()) {
+                    ItemStack stack = new ItemStack(ItemsRegistry.oreLump);
+                    checkAndSetCompound(stack);
+                    stack.stackTagCompound.setString("ore", output);
+                    oreLumpList.add(stack);
+                }
+            }
+        }
+    }
 
-    public static class SanguimancyItemStacks {
+    public static void setTranspositionBlockBlacklist() {
+        for (String s : ConfigHandler.transpositionSigilBlacklist) {
+            if (Block.getBlockFromName(s) != null) transpositionBlockBlacklist.add(Block.getBlockFromName(s));
+            else Sanguimancy.logger.error(s + " is not a correct block name.");
+        }
+    }
 
-        // Items
-        public static ItemStack unattunedPlayerSacrificer = new ItemStack(ItemsRegistry.playerSacrificer, 1, 0);
-        public static ItemStack attunnedPlayerSacrificer = new ItemStack(ItemsRegistry.playerSacrificer, 1, 1);
-        public static ItemStack focusedPlayerSacrificer = new ItemStack(ItemsRegistry.playerSacrificer, 1, 2);
-        public static ItemStack wayToDie = new ItemStack(ItemsRegistry.playerSacrificer, 1, 3);
-        public static ItemStack addCorruption = new ItemStack(ItemsRegistry.soulCorruptionTest, 1, 0);
-        public static ItemStack removeCorruption = new ItemStack(ItemsRegistry.soulCorruptionTest, 1, 1);
-        public static ItemStack negateCorruption = new ItemStack(ItemsRegistry.soulCorruptionTest, 1, 2);
-        public static ItemStack corruptionReader = new ItemStack(ItemsRegistry.soulCorruptionTest, 1, 3);
-        public static ItemStack corruptedDemonShard = new ItemStack(ItemsRegistry.corruptedDemonShard);
-        public static ItemStack corruptionCatalist = new ItemStack(ItemsRegistry.corruptionCatalyst);
-        public static ItemStack oreLump = new ItemStack(ItemsRegistry.oreLump);
-        public static ItemStack bloodAmulet = new ItemStack(ItemsRegistry.bloodAmulet);
-        public static ItemStack wand = new ItemStack(ItemsRegistry.wand);
-        public static ItemStack chunkClaimer = new ItemStack(ItemsRegistry.chunkClaimer);
-        public static ItemStack corruptedSword = new ItemStack(ItemsRegistry.corruptedSword);
-        public static ItemStack corruptedPickaxe = new ItemStack(ItemsRegistry.corruptedPickaxe);
-        public static ItemStack corruptedShovel = new ItemStack(ItemsRegistry.corruptedShovel);
-        public static ItemStack corruptedAxe = new ItemStack(ItemsRegistry.corruptedAxe);
-        public static ItemStack corruptedMineral = new ItemStack(ItemsRegistry.corruptedMineral);
-        public static ItemStack imbuedStick = new ItemStack(ItemsRegistry.imbuedStick);
-        public static ItemStack playerGuide = new ItemStack(ItemsRegistry.playerGuide);
+    public static ItemStack getOrbForLevel(int orbLevel) {
+        switch (orbLevel) {
+            default:
+                return new ItemStack(ModItems.weakBloodOrb);
+            case 1:
+                return new ItemStack(ModItems.weakBloodOrb);
+            case 2:
+                return new ItemStack(ModItems.apprenticeBloodOrb);
+            case 3:
+                return new ItemStack(ModItems.magicianBloodOrb);
+            case 4:
+                return new ItemStack(ModItems.masterBloodOrb);
+            case 5:
+                return new ItemStack(ModItems.archmageBloodOrb);
+            case 6:
+                return new ItemStack(ModItems.transcendentBloodOrb);
+        }
+    }
 
-        // Blocks
-        public static ItemStack altarEmitter = new ItemStack(BlocksRegistry.altarEmitter);
-        public static ItemStack altarDiviner = new ItemStack(BlocksRegistry.altarDiviner);
-        public static ItemStack sacrificeTransferrer = new ItemStack(BlocksRegistry.sacrificeTransfer);
-        public static ItemStack diamondOreIllusion = new ItemStack(BlocksRegistry.illusion, 1, 0);
-        public static ItemStack diamondBlockIllusion = new ItemStack(BlocksRegistry.illusion, 1, 1);
-        public static ItemStack glowstoneIllusion = new ItemStack(BlocksRegistry.illusion, 1, 2);
-        public static ItemStack netherrackIllusion = new ItemStack(BlocksRegistry.illusion, 1, 3);
-        public static ItemStack quartzOreIllusion = new ItemStack(BlocksRegistry.illusion, 1, 4);
-        public static ItemStack endStoneIllusion = new ItemStack(BlocksRegistry.illusion, 1, 5);
-        public static ItemStack pinkWoolIllusion = new ItemStack(BlocksRegistry.illusion, 1, 6);
-        public static ItemStack lavaIllusion = new ItemStack(BlocksRegistry.illusion, 1, 7);
-        public static ItemStack jackOLanternIllusion = new ItemStack(BlocksRegistry.illusion, 1, 8);
-        public static ItemStack bedrockIllusion = new ItemStack(BlocksRegistry.illusion, 1, 9);
-        public static ItemStack obsidianIllusion = new ItemStack(BlocksRegistry.illusion, 1, 10);
-        public static ItemStack glassIllusion = new ItemStack(BlocksRegistry.illusion, 1, 11);
-        public static ItemStack snowIllusion = new ItemStack(BlocksRegistry.illusion, 1, 12);
-        public static ItemStack melonIllusion = new ItemStack(BlocksRegistry.illusion, 1, 13);
-        public static ItemStack goldBlockIllusion = new ItemStack(BlocksRegistry.illusion, 1, 14);
-        public static ItemStack clayIllusion = new ItemStack(BlocksRegistry.illusion, 1, 15);
-        public static ItemStack corruptionCrystallizer = new ItemStack(BlocksRegistry.corruptionCrystallizer);
-        public static ItemStack lumpCleaner = new ItemStack(BlocksRegistry.lumpCleaner);
-        public static ItemStack bloodTank = new ItemStack(BlocksRegistry.bloodTank);
-        public static ItemStack bloodstoneStairs = new ItemStack(BlocksRegistry.bloodStoneStairs);
-        public static ItemStack largeBloodstoneStairs = new ItemStack(BlocksRegistry.largeBloodStoneStairs);
-        public static ItemStack bloodstoneSlab = new ItemStack(BlocksRegistry.bloodstoneSlab);
-        public static ItemStack largeBloodstoneSlab = new ItemStack(BlocksRegistry.largeBloodstoneSlab);
-        public static ItemStack boundItem = new ItemStack(BlocksRegistry.boundItem);
-        public static ItemStack simpleBranch = new ItemStack(BlocksRegistry.simpleBranch);
-        public static ItemStack simpleKnot = new ItemStack(BlocksRegistry.simpleKnot);
-        public static ItemStack toggleKnot = new ItemStack(BlocksRegistry.toggleKnot);
-        public static ItemStack bloodInterface = new ItemStack(BlocksRegistry.bloodInterface);
-        public static ItemStack ritualRepresentation = new ItemStack(BlocksRegistry.ritualRepresentation);
+    public static void setTeleposerBlacklist() {
+        for (String s : ConfigHandler.teleposerBlacklist) {
+            if (Block.getBlockFromName(s) != null) teleposerBlacklist.add(Block.getBlockFromName(s));
+            else Sanguimancy.logger.error(s + " is not a correct block name.");
+        }
     }
 }

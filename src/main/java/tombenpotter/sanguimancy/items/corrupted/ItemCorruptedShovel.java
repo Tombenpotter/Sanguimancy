@@ -15,6 +15,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemSpade;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.IIcon;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
@@ -26,7 +27,9 @@ import tombenpotter.sanguimancy.Sanguimancy;
 import tombenpotter.sanguimancy.api.objects.BlockAndMetadata;
 import tombenpotter.sanguimancy.api.soulCorruption.SoulCorruptionHelper;
 import tombenpotter.sanguimancy.registry.ItemsRegistry;
+import tombenpotter.sanguimancy.util.ConfigHandler;
 import tombenpotter.sanguimancy.util.RandomUtils;
+import tombenpotter.sanguimancy.util.SanguimancyItemStacks;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -34,7 +37,8 @@ import java.util.List;
 
 public class ItemCorruptedShovel extends ItemSpade {
 
-    public int minimumCorruption = 200;
+    public int minimumCorruption = ConfigHandler.minimumToolCorruption;
+    public IIcon breakingDown, goldDigger, transmutation;
     private HashMap<BlockAndMetadata, BlockAndMetadata> breakdownBlocks = new HashMap<BlockAndMetadata, BlockAndMetadata>();
     private HashMap<BlockAndMetadata, BlockAndMetadata> transmuteBlocks = new HashMap<BlockAndMetadata, BlockAndMetadata>();
 
@@ -51,8 +55,18 @@ public class ItemCorruptedShovel extends ItemSpade {
     @Override
     @SideOnly(Side.CLIENT)
     public void registerIcons(IIconRegister ir) {
-        super.registerIcons(ir);
-        //TODO: Add an icon and a different overlay for every mode.
+        this.itemIcon = ir.registerIcon(Sanguimancy.texturePath + ":CorruptedShovel");
+        this.breakingDown = ir.registerIcon(Sanguimancy.texturePath + ":CorruptedShovel_BreakDown");
+        this.goldDigger = ir.registerIcon(Sanguimancy.texturePath + ":CorruptedShovel_GoldDigger");
+        this.transmutation = ir.registerIcon(Sanguimancy.texturePath + ":CorruptedShovel_Transmute");
+    }
+
+    @Override
+    public IIcon getIcon(ItemStack stack, int pass) {
+        if (getToolMode(stack) == 1) return breakingDown;
+        else if (getToolMode(stack) == 2) return goldDigger;
+        else if (getToolMode(stack) == 3) return transmutation;
+        else return this.itemIcon;
     }
 
     @Override
@@ -82,7 +96,9 @@ public class ItemCorruptedShovel extends ItemSpade {
                 EntityPlayer player = (EntityPlayer) entityLivingBase;
                 EnergyItems.syphonBatteries(stack, player, lpConsumption);
                 if (getToolMode(stack) != 0) {
-                    SoulCorruptionHelper.incrementCorruption(RandomUtils.getItemOwner(stack));
+                    if (world.rand.nextInt(20) == 0) {
+                        SoulCorruptionHelper.incrementCorruption(RandomUtils.getItemOwner(stack));
+                    }
                 }
             }
         }
@@ -231,14 +247,14 @@ public class ItemCorruptedShovel extends ItemSpade {
         Block block = event.block;
         int metadata = event.blockMetadata;
         ItemStack stack = event.getPlayer().getHeldItem();
-        int toolMode = getToolMode(stack);
         EntityPlayer player = event.getPlayer();
         World world = event.world;
         int x = event.x;
         int y = event.y;
         int z = event.z;
-        if (stack != null && stack.isItemEqual(RandomUtils.SanguimancyItemStacks.corruptedShovel)) {
+        if (stack != null && stack.isItemEqual(SanguimancyItemStacks.corruptedShovel)) {
             int lpConsumption = 10;
+            int toolMode = getToolMode(stack);
             if (toolMode == 1) {
                 lpConsumption = lpConsumption * 5;
                 if (breakdownBlocks.containsKey(new BlockAndMetadata(block, metadata))) {
@@ -264,7 +280,9 @@ public class ItemCorruptedShovel extends ItemSpade {
             }
             EnergyItems.syphonBatteries(stack, player, lpConsumption);
             if (getToolMode(stack) != 0) {
-                SoulCorruptionHelper.incrementCorruption(RandomUtils.getItemOwner(stack));
+                if (world.rand.nextInt(20) == 0) {
+                    SoulCorruptionHelper.incrementCorruption(RandomUtils.getItemOwner(stack));
+                }
             }
         }
     }

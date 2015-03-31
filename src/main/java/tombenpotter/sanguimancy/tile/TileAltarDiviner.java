@@ -13,7 +13,7 @@ public class TileAltarDiviner extends TileBaseInventory {
 
     public TileAltarDiviner() {
         slots = new ItemStack[1];
-        custoomNBTTag = new NBTTagCompound();
+        customNBTTag = new NBTTagCompound();
     }
 
     @Override
@@ -63,22 +63,23 @@ public class TileAltarDiviner extends TileBaseInventory {
         ItemStack stack = getStackInSlot(0).copy();
         if (AltarRecipeRegistry.isRequiredItemValid(stack, tier)) {
             int containedBlood = tile.getCurrentBlood();
-            int altarCapacity = tile.getCapacity();
             AltarRecipe recipe = AltarRecipeRegistry.getAltarRecipeForItemAndTier(stack, tier);
             int bloodRequired = recipe.liquidRequired;
-            if (bloodRequired * stack.stackSize <= containedBlood) {
-                if (tile.getStackInSlot(0) == null) {
+            if (tile.getStackInSlot(0) == null) {
+                if (bloodRequired * stack.stackSize <= containedBlood) {
                     tile.setInventorySlotContents(0, stack);
                     this.setInventorySlotContents(0, null);
                     worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
                     tile.startCycle();
-                } else if (tile.getStackInSlot(0).isItemEqual(stack) && tile.getStackInSlot(0).stackSize + stack.stackSize <= tile.getInventoryStackLimit() && tile.getStackInSlot(0).stackSize + stack.stackSize <= stack.getMaxStackSize()) {
-                    int s1 = tile.getStackInSlot(0).stackSize;
-                    tile.getStackInSlot(0).stackSize = s1 + stack.stackSize;
-                    this.setInventorySlotContents(0, null);
-                    worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
                 }
-                worldObj.markBlockForUpdate(tile.xCoord, tile.yCoord, tile.zCoord);
+            } else if (tile.getStackInSlot(0) != null && tile.getStackInSlot(0).isItemEqual(stack) &&
+                    tile.getStackInSlot(0).stackSize + stack.stackSize <= tile.getInventoryStackLimit()
+                    && tile.getStackInSlot(0).stackSize + stack.stackSize <= stack.getMaxStackSize()
+                    && (tile.getStackInSlot(0).stackSize + stack.stackSize) * bloodRequired <= containedBlood) {
+                int s1 = tile.getStackInSlot(0).stackSize;
+                tile.getStackInSlot(0).stackSize = s1 + stack.stackSize;
+                this.setInventorySlotContents(0, null);
+                worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
             }
         }
     }
