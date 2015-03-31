@@ -34,6 +34,7 @@ public class ConfigHandler {
     public static String[] transpositionSigilBlacklist;
     public static boolean addItemsOnFirstLogin;
     public static String[] teleposerBlacklist;
+    public static boolean renderSillyAprilFish;
 
     public static void init(File file) {
         config = new Configuration(file);
@@ -67,6 +68,7 @@ public class ConfigHandler {
         messagesWhenCorruptionEffect = config.get(features, "messageWhenCorruptionEffect", true).getBoolean(messagesWhenCorruptionEffect);
         addItemsOnFirstLogin = config.get(features, "addItemsOnFirstLogin", true).getBoolean(addItemsOnFirstLogin);
         enableTelepositionBlacklist = config.get(features, "canTeleposeManifestations", true).getBoolean(enableTelepositionBlacklist);
+        renderSillyAprilFish = config.get(features, "renderSillyAprilFish", true).getBoolean(renderSillyAprilFish);
 
         //Balance
         minimumToolCorruption = config.get(balancing, "minimumCorruptionForTools", 200).getInt(minimumToolCorruption);

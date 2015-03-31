@@ -18,6 +18,7 @@ Added a Transposition Sigil, with its very own blacklist!
 Fixed a huuuge dupe bug with the filler and FZ barrels -_-.
 The Altar Manipulator is now finally in! Recipes, entries n' everything :D.
 Switched to Guide-API.
+Added silly april's fool fish :3
 
 Version 1.1.9-Alpha3:
 Finalized the Soul Network Manifestation system. I need now to give it a bit of fluff and couple of kicks in the butts, but it's close.
