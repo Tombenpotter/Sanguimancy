@@ -35,6 +35,7 @@ public class Sanguimancy {
     public static final String channel = "Sanguimancy";
     public static final String version = "@VERSION@";
     public static boolean isTTLoaded = false;
+    public static boolean isAprilFools = false;
     public static Logger logger = LogManager.getLogger(Sanguimancy.name);
     public static CreativeTabs tabSanguimancy = new CreativeTabs("tab" + Sanguimancy.modid) {
         @Override

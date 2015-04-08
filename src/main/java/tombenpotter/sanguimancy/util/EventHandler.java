@@ -392,7 +392,7 @@ public class EventHandler {
 
         @SubscribeEvent
         public void onRenderPlayerFish(RenderPlayerEvent.Specials.Post event) {
-            if (ConfigHandler.renderSillyAprilFish) {
+            if (ConfigHandler.renderSillyAprilFish && Sanguimancy.isAprilFools) {
                 GL11.glPushMatrix();
                 GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
                 Minecraft.getMinecraft().renderEngine.bindTexture(new ResourceLocation(Sanguimancy.texturePath + ":textures/items/AprilFish.png"));

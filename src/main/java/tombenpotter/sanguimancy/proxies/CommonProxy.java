@@ -5,10 +5,13 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
+import tombenpotter.sanguimancy.Sanguimancy;
 import tombenpotter.sanguimancy.api.snManifestation.ISNComponent;
 import tombenpotter.sanguimancy.container.ContainerLumpCleaner;
 import tombenpotter.sanguimancy.gui.GuiLumpCleaner;
 import tombenpotter.sanguimancy.tile.TileBloodCleaner;
+
+import java.util.Calendar;
 
 public class CommonProxy implements IGuiHandler {
 
@@ -16,6 +19,9 @@ public class CommonProxy implements IGuiHandler {
     }
 
     public void load() {
+        Calendar calendar = Calendar.getInstance();
+        Sanguimancy.isAprilFools = calendar.get(Calendar.MONTH) == Calendar.APRIL && calendar.get(Calendar.DAY_OF_MONTH) == 1;
+
         registerRenders();
     }
 

@@ -26,6 +26,8 @@ public class ItemBlockBloodTank extends ItemBlock implements IFluidContainerItem
 
     @SideOnly(Side.CLIENT)
     public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean p_77624_4_) {
+        list.add(String.format(StatCollector.translateToLocal("text.recipe.altar.tier"), stack.getItemDamage() + 1));
+
         if (!GuiScreen.isShiftKeyDown())
             list.add(StatCollector.translateToLocal("info.Sanguimancy.tooltip.shift.info"));
         else {
