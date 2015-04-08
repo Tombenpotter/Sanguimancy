@@ -35,7 +35,7 @@ public class ItemTelepositionSigil extends Item {
     public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean par4) {
         if (stack.stackTagCompound != null) {
             if (!GuiScreen.isShiftKeyDown()) {
-                list.add(StatCollector.translateToLocal("info.Sanguimancy.tooltip.shift.teleposition.sigil.pun"));
+                list.add(StatCollector.translateToLocal("info.Sanguimancy.tooltip.teleposition.sigil.pun"));
                 list.add(StatCollector.translateToLocal("info.Sanguimancy.tooltip.shift.info"));
             } else {
                 list.add(StatCollector.translateToLocal("info.Sanguimancy.tooltip.teleposition.sigil.pun"));
