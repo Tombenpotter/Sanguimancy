@@ -35,12 +35,12 @@ public class ItemSoulTransporter extends Item {
                 TeleportingQueue.getInstance().teleportToDim(world, 0, chunkCoords.posX, chunkCoords.posY, chunkCoords.posZ, player, player.getCommandSenderName());
             } else {
                 int dimID = ConfigHandler.snDimID;
-                int x;
-                int z;
+                int x, z;
                 if (ClaimedChunks.getClaimedChunks().getLinkedChunks(player.getCommandSenderName()) == null || ClaimedChunks.getClaimedChunks().getLinkedChunks(player.getCommandSenderName()).isEmpty()) {
-                    return stack;
-                }
-                if (ClaimedChunks.getClaimedChunks().getLinkedChunks(player.getCommandSenderName()).get(0) != null) {
+                    ChunkCoordinates chunkCoords = MinecraftServer.getServer().worldServerForDimension(dimID).getSpawnPoint();
+                    x = chunkCoords.posX;
+                    z = chunkCoords.posZ;
+                } else if (ClaimedChunks.getClaimedChunks().getLinkedChunks(player.getCommandSenderName()).get(0) != null) {
                     x = ClaimedChunks.getClaimedChunks().getLinkedChunks(player.getCommandSenderName()).get(0).getCenterXPos();
                     z = ClaimedChunks.getClaimedChunks().getLinkedChunks(player.getCommandSenderName()).get(0).getCenterZPos();
                 } else {

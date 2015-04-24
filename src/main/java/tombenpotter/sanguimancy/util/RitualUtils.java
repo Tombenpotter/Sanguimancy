@@ -91,7 +91,7 @@ public class RitualUtils {
             for (int j = -16 * multiplier; j <= 16 * multiplier; j++) {
                 for (int i = -16 * multiplier; i <= 16 * multiplier; i++) {
                     for (int k = -16 * multiplier; k <= 16 * multiplier; k++) {
-                        if (!world.isAirBlock(x + i, y + j, z + k) && world.getBlock(x + i, y + j, z + k) == FluidRegistry.getFluid(fluid.fluidID).getBlock() && world.getBlockMetadata(x + i, y + j, z + k) == 0) {
+                        if (!world.isAirBlock(x + i, y + j, z + k) && world.getBlock(x + i, y + j, z + k) == FluidRegistry.getFluid(fluid.getFluidID()).getBlock() && world.getBlockMetadata(x + i, y + j, z + k) == 0) {
                             blocks.add(new Int3(x + i, y + j, z + k));
                         }
                     }
