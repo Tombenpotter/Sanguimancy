@@ -11,6 +11,7 @@ buildscript {
 }
 
 apply plugin: 'forge'
+apply plugin: 'curseforge'
 apply plugin: 'maven-publish'
 
 def build_number = 'CUSTOM'
@@ -146,4 +147,13 @@ publishing {
     }
 }
 
-fileTree('gradle').include('curse.gradle').collect().sort().each { apply from: it }
+curse {
+    projectId = '229339'
+	if (project.hasProperty('curse_key'))
+		apiKey = project.curse_key
+    releaseType = 'beta'
+
+    changelog = project.hasProperty('changelog') ? project.changelog : ''
+    relatedProject 'blood-magic': 'requiredLibrary'
+    relatedProject 'guide-api': 'requiredLibrary'
+}
