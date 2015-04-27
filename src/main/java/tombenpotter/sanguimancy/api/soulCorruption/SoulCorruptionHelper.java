@@ -85,8 +85,11 @@ public class SoulCorruptionHelper {
             minion.func_152115_b(owner);
             minion.setTamed(true);
             player.worldObj.spawnEntityInWorld(minion);
-            if (!player.worldObj.isRemote && ConfigHandler.messagesWhenCorruptionEffect) {
+            if (!player.worldObj.isRemote && ConfigHandler.serverMessagesWhenCorruptionEffect) {
                 MinecraftServer.getServer().getConfigurationManager().sendChatMsg(new ChatComponentText(String.format(StatCollector.translateToLocal("chat.Sanguimancy.chicken.minion"), player.getDisplayName())));
+            }
+            if (!player.worldObj.isRemote && ConfigHandler.playerMessageWhenCorruptionEffect) {
+                player.addChatComponentMessage(new ChatComponentText(String.format(StatCollector.translateToLocal("chat.Sanguimancy.chicken.minion"), player.getDisplayName())));
             }
         }
     }
@@ -119,8 +122,11 @@ public class SoulCorruptionHelper {
             player.setPositionAndUpdate(i, j, k);
             decrementCorruption(player.getDisplayName());
 
-            if (!player.worldObj.isRemote && ConfigHandler.messagesWhenCorruptionEffect) {
+            if (!player.worldObj.isRemote && ConfigHandler.serverMessagesWhenCorruptionEffect) {
                 MinecraftServer.getServer().getConfigurationManager().sendChatMsg(new ChatComponentText(String.format(StatCollector.translateToLocal("chat.Sanguimancy.random.teleport"), player.getDisplayName())));
+            }
+            if (!player.worldObj.isRemote && ConfigHandler.playerMessageWhenCorruptionEffect) {
+                player.addChatComponentMessage(new ChatComponentText(String.format(StatCollector.translateToLocal("chat.Sanguimancy.random.teleport"), player.getDisplayName())));
             }
         }
     }
@@ -185,8 +191,11 @@ public class SoulCorruptionHelper {
             if (player.worldObj.rand.nextInt(750) == 0) {
                 int level = player.worldObj.rand.nextInt(5);
                 player.addPotionEffect(new PotionEffect(PotionsRegistry.potionRemoveHeart.id, 1200, level, false));
-                if (!player.worldObj.isRemote && ConfigHandler.messagesWhenCorruptionEffect) {
+                if (!player.worldObj.isRemote && ConfigHandler.serverMessagesWhenCorruptionEffect) {
                     MinecraftServer.getServer().getConfigurationManager().sendChatMsg(new ChatComponentText(String.format(StatCollector.translateToLocal("chat.Sanguimancy.loose.heart"), player.getDisplayName())));
+                }
+                if (!player.worldObj.isRemote && ConfigHandler.playerMessageWhenCorruptionEffect) {
+                    player.addChatComponentMessage(new ChatComponentText(String.format(StatCollector.translateToLocal("chat.Sanguimancy.loose.heart"), player.getDisplayName())));
                 }
             }
         }

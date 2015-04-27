@@ -24,7 +24,8 @@ public class ConfigHandler {
     public static boolean enablePump;
     public static boolean enableQuarry;
     public static boolean enablePortal;
-    public static boolean messagesWhenCorruptionEffect;
+    public static boolean serverMessagesWhenCorruptionEffect;
+    public static boolean playerMessageWhenCorruptionEffect;
     public static boolean enableTelepositionBlacklist;
     public static int snDimID;
     public static int addHeartPotionID;
@@ -65,7 +66,8 @@ public class ConfigHandler {
         snDimID = config.get(features, "soulNetworkDimensionID", 42).getInt(snDimID);
         addHeartPotionID = config.get(features, "addHeartPotionID", 150).getInt(addHeartPotionID);
         removeHeartPotionID = config.get(features, "removeHeartPotionID", 151).getInt(removeHeartPotionID);
-        messagesWhenCorruptionEffect = config.get(features, "messageWhenCorruptionEffect", true).getBoolean(messagesWhenCorruptionEffect);
+        serverMessagesWhenCorruptionEffect = config.get(features, "serverMessageWhenCorruptionEffect", true).getBoolean(serverMessagesWhenCorruptionEffect);
+        playerMessageWhenCorruptionEffect = config.get(features, "playerMessageWhenCorruptionEffect", false).getBoolean(playerMessageWhenCorruptionEffect);
         addItemsOnFirstLogin = config.get(features, "addItemsOnFirstLogin", true).getBoolean(addItemsOnFirstLogin);
         enableTelepositionBlacklist = config.get(features, "canTeleposeManifestations", true).getBoolean(enableTelepositionBlacklist);
         renderSillyAprilFish = config.get(features, "renderSillyAprilFish", true).getBoolean(renderSillyAprilFish);
