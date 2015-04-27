@@ -16,6 +16,7 @@ import net.minecraft.tileentity.TileEntityMobSpawner;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import tombenpotter.sanguimancy.Sanguimancy;
+import tombenpotter.sanguimancy.api.objects.BlockAndMetadata;
 import tombenpotter.sanguimancy.util.ConfigHandler;
 import tombenpotter.sanguimancy.util.RandomUtils;
 
@@ -59,7 +60,7 @@ public class ItemTranspositionSigil extends EnergyItems {
             world.spawnEntityInWorld(lightningBolt);
         }
         if (!world.isRemote) {
-            if (player.isSneaking() && stack.stackTagCompound.getInteger("blockId") == 0 && !RandomUtils.transpositionBlockBlacklist.contains(world.getBlock(x, y, z))) {
+            if (player.isSneaking() && stack.stackTagCompound.getInteger("blockId") == 0 && !RandomUtils.transpositionBlockBlacklist.contains(new BlockAndMetadata(world.getBlock(x, y, z), world.getBlockMetadata(x, y, z)))) {
                 int cost = ConfigHandler.transpositionSigilCost;
                 if (world.getBlock(x, y, z).getPlayerRelativeBlockHardness(player, world, x, y, z) >= 0 && world.getBlock(x, y, z).getBlockHardness(world, x, y, z) >= 0) {
                     NBTTagCompound tileNBTTag = new NBTTagCompound();

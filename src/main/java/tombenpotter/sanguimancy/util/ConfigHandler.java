@@ -22,7 +22,6 @@ public class ConfigHandler {
     public static boolean enableFelling;
     public static boolean enablePlacer;
     public static boolean enablePump;
-    public static boolean enableQuarry;
     public static boolean enablePortal;
     public static boolean serverMessagesWhenCorruptionEffect;
     public static boolean playerMessageWhenCorruptionEffect;
@@ -48,35 +47,34 @@ public class ConfigHandler {
 
     public static void syncConfig() {
         config.addCustomCategoryComment(balancing, "Balancing tweaks");
-        config.addCustomCategoryComment(features, "Allows disabling of almost all features of the mod.");
+        config.addCustomCategoryComment(features, "Configuring some mod features");
         config.addCustomCategoryComment(rituals, "All things pertaining to rituals");
 
         // Rituals
-        enableDrillOfTheDead = config.get(rituals, "enableDrillOfTheDead", true).getBoolean(enableDrillOfTheDead);
-        enableVulcanosFrigius = config.get(rituals, "enableVulcanosFrigius", true).getBoolean(enableVulcanosFrigius);
-        enableTrash = config.get(rituals, "enableTrash", true).getBoolean(enableTrash);
-        enableIllumination = config.get(rituals, "enableIllumination", true).getBoolean(enableIllumination);
-        enableFelling = config.get(rituals, "enableFelling", true).getBoolean(enableFelling);
-        enablePlacer = config.get(rituals, "enablePlacer", true).getBoolean(enablePlacer);
-        enablePump = config.get(rituals, "enablePump", true).getBoolean(enablePump);
-        enableQuarry = config.get(rituals, "enableQuarry", true).getBoolean(enableQuarry);
-        enablePortal = config.get(rituals, "enablePortal", true).getBoolean(enablePortal);
+        enableDrillOfTheDead = config.getBoolean("enableDrillOfTheDead", rituals, true, "Enable the Drill of the Dead");
+        enableVulcanosFrigius = config.getBoolean("enableVulcanosFrigius", rituals, true, "Enable the Vulcanos Frigius");
+        enableTrash = config.getBoolean("enableTrash", rituals, true, "Enable the Great Deletion");
+        enableIllumination = config.getBoolean("enableIllumination", rituals, true, "Enable the Enlightenment");
+        enableFelling = config.getBoolean("enableFelling", rituals, true, "Enable the Timberman");
+        enablePlacer = config.getBoolean("enablePlacer", rituals, true, "Enable the Filler");
+        enablePump = config.getBoolean("enablePump", rituals, true, "Enable the Hymn of Syphoning");
+        enablePortal = config.getBoolean("enablePortal", rituals, true, "Enable the Gate of the Fold");
 
         //Features
-        snDimID = config.get(features, "soulNetworkDimensionID", 42).getInt(snDimID);
-        addHeartPotionID = config.get(features, "addHeartPotionID", 150).getInt(addHeartPotionID);
-        removeHeartPotionID = config.get(features, "removeHeartPotionID", 151).getInt(removeHeartPotionID);
-        serverMessagesWhenCorruptionEffect = config.get(features, "serverMessageWhenCorruptionEffect", true).getBoolean(serverMessagesWhenCorruptionEffect);
-        playerMessageWhenCorruptionEffect = config.get(features, "playerMessageWhenCorruptionEffect", false).getBoolean(playerMessageWhenCorruptionEffect);
-        addItemsOnFirstLogin = config.get(features, "addItemsOnFirstLogin", true).getBoolean(addItemsOnFirstLogin);
-        enableTelepositionBlacklist = config.get(features, "canTeleposeManifestations", true).getBoolean(enableTelepositionBlacklist);
-        renderSillyAprilFish = config.get(features, "renderSillyAprilFish", true).getBoolean(renderSillyAprilFish);
+        snDimID = config.getInt("soulNetworkDimensionID", features, 42, 2, 500, "The ID of the Soul Network Dimension");
+        addHeartPotionID = config.getInt("addHeartPotionID", features, 150, 20, 256, "The ID of the Add Heart Potion");
+        removeHeartPotionID = config.getInt("removeHeartPotionID", features, 151, 20, 256, "The ID of the Remove  Heart Potion");
+        serverMessagesWhenCorruptionEffect = config.getBoolean("serverMessageWhenCorruptionEffect", features, true, "Send a message to the whole server when a corruption effect occurs");
+        playerMessageWhenCorruptionEffect = config.getBoolean("playerMessageWhenCorruptionEffect", features, false, "Send a message to the player when a corruption effect occurs");
+        addItemsOnFirstLogin = config.getBoolean("addItemsOnFirstLogin", features, true, "Give the player a guide and a Soul Chunk claimer on first login");
+        enableTelepositionBlacklist = config.getBoolean("canTeleposeManifestations", features, true, "Allow the teleposing of the SN Manifestations");
+        renderSillyAprilFish = config.getBoolean("renderSillyAprilFish", features, true, "Render the Silly Flapping Fish or not");
 
         //Balance
-        minimumToolCorruption = config.get(balancing, "minimumCorruptionForTools", 200).getInt(minimumToolCorruption);
-        transpositionSigilCost = config.get(balancing, "transpositionSigilCost", 7500).getInt(transpositionSigilCost);
-        transpositionSigilBlacklist = config.get(balancing, "transpositionSigilBlacklist", new String[]{"minecraft:bedrock"}).getStringList();
-        teleposerBlacklist = config.get(balancing, "teleposerBlacklist", new String[]{"Sanguimancy:BlockItemSNPart", "Sanguimancy:BlockRitualRepresentation"}).getStringList();
+        minimumToolCorruption = config.getInt("minimumCorruptionForTools", balancing, 200, 0, 100000, "The Corruption Level needed to get to the full capabilities of the tools");
+        transpositionSigilCost = config.getInt("transpositionSigilCost", balancing, 7500, 0, 100000, "The transposition sigil cost");
+        transpositionSigilBlacklist = config.getStringList("transpositionSigilBlacklist", balancing, new String[]{"minecraft:bedrock:0"}, "Blacklist for the transposition sigil.\nSyntax is: modid:name:meta\nmodid = Unique ID of the block's mod.\nname = The registered blockname.\nmeta = Metadata of the block. If none is shown, use 0.");
+        teleposerBlacklist = config.getStringList("teleposerBlacklist", balancing, new String[]{"Sanguimancy:BlockItemSNPart:0", "Sanguimancy:BlockRitualRepresentation:0"}, "Blacklist for the teleposer.\nSyntax is: modid:name:meta\nmodid = Unique ID of the block's mod.\nname = The registered blockname.\nmeta = Metadata of the block. If none is shown, use 0.");
 
         config.save();
     }

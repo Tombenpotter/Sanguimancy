@@ -35,6 +35,7 @@ import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.event.world.BlockEvent;
 import org.lwjgl.opengl.GL11;
 import tombenpotter.sanguimancy.Sanguimancy;
+import tombenpotter.sanguimancy.api.objects.BlockAndMetadata;
 import tombenpotter.sanguimancy.api.soulCorruption.SoulCorruptionHelper;
 import tombenpotter.sanguimancy.network.PacketHandler;
 import tombenpotter.sanguimancy.network.events.EventCorruptedInfusion;
@@ -324,7 +325,8 @@ public class EventHandler {
 
     @SubscribeEvent
     public void onTeleposeBlock(TeleposeEvent event) {
-        if (!ConfigHandler.enableTelepositionBlacklist && (RandomUtils.teleposerBlacklist.contains(event.finalBlock) || RandomUtils.teleposerBlacklist.contains(event.initialBlock))) {
+        if (!ConfigHandler.enableTelepositionBlacklist && (RandomUtils.teleposerBlacklist.contains(new BlockAndMetadata(event.initialBlock, event.initialMetadata))
+                || RandomUtils.teleposerBlacklist.contains(new BlockAndMetadata(event.finalBlock, event.finalMetadata)))) {
             event.setCanceled(true);
         }
     }
@@ -340,6 +342,7 @@ public class EventHandler {
         private static float renderTicks;
         private static long tickTime = 0L;
 
+        @SubscribeEvent
         public void onRenderPlayerSpecialAntlers(RenderPlayerEvent.Specials.Post event) {
             String names[] = {"Tombenpotter", "TehNut", "WayofFlowingTime", "Jadedcat", "Kris1432", "Drullkus", "TheOrangeGenius", "Direwolf20", "Pahimar", "ValiarMarcus", "Alex_hawks", "StoneWaves", "DemoXin", "insaneau"};
             for (String name : names) {

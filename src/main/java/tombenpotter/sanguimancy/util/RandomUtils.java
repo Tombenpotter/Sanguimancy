@@ -2,6 +2,7 @@ package tombenpotter.sanguimancy.util;
 
 import WayofTime.alchemicalWizardry.ModItems;
 import cpw.mods.fml.common.eventhandler.Event;
+import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.Tessellator;
@@ -24,6 +25,7 @@ import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.IFluidHandler;
 import net.minecraftforge.oredict.OreDictionary;
 import tombenpotter.sanguimancy.Sanguimancy;
+import tombenpotter.sanguimancy.api.objects.BlockAndMetadata;
 import tombenpotter.sanguimancy.api.objects.MapKey;
 import tombenpotter.sanguimancy.registry.ItemsRegistry;
 import tombenpotter.sanguimancy.world.WorldProviderSoulNetworkDimension;
@@ -43,8 +45,8 @@ public class RandomUtils {
     public static Item.ToolMaterial corruptedMaterial = EnumHelper.addToolMaterial("corruptedToolMaterial", Integer.MAX_VALUE, 9000, 32, 10, 32);
     public static HashMap<MapKey, ItemStack> logToPlank = new HashMap<MapKey, ItemStack>();
     public static ArrayList<ItemStack> oreLumpList = new ArrayList<ItemStack>();
-    public static ArrayList<Block> transpositionBlockBlacklist = new ArrayList<Block>();
-    public static ArrayList<Block> teleposerBlacklist = new ArrayList<Block>();
+    public static ArrayList<BlockAndMetadata> transpositionBlockBlacklist = new ArrayList<BlockAndMetadata>();
+    public static ArrayList<BlockAndMetadata> teleposerBlacklist = new ArrayList<BlockAndMetadata>();
 
     public static void dropItems(World world, int x, int y, int z) {
         Random rand = new Random();
@@ -454,8 +456,14 @@ public class RandomUtils {
 
     public static void setTranspositionBlockBlacklist() {
         for (String s : ConfigHandler.transpositionSigilBlacklist) {
-            if (Block.getBlockFromName(s) != null) transpositionBlockBlacklist.add(Block.getBlockFromName(s));
-            else Sanguimancy.logger.error(s + " is not a correct block name.");
+            String[] splitSource = s.split(":");
+            String modid = splitSource[0];
+            String blockName = splitSource[1];
+            Block block = GameRegistry.findBlock(modid, blockName);
+            int meta = Integer.parseInt(splitSource[2]);
+            if (block != null) {
+                transpositionBlockBlacklist.add(new BlockAndMetadata(block, meta));
+            }
         }
     }
 
@@ -480,8 +488,14 @@ public class RandomUtils {
 
     public static void setTeleposerBlacklist() {
         for (String s : ConfigHandler.teleposerBlacklist) {
-            if (Block.getBlockFromName(s) != null) teleposerBlacklist.add(Block.getBlockFromName(s));
-            else Sanguimancy.logger.error(s + " is not a correct block name.");
+            String[] splitSource = s.split(":");
+            String modid = splitSource[0];
+            String blockName = splitSource[1];
+            Block block = GameRegistry.findBlock(modid, blockName);
+            int meta = Integer.parseInt(splitSource[2]);
+            if (block != null) {
+                teleposerBlacklist.add(new BlockAndMetadata(block, meta));
+            }
         }
     }
 }
