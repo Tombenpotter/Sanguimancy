@@ -40,7 +40,10 @@ public class BlockEtherealPersonal extends BlockEtherealBound {
     public void addCollisionBoxesToList(World world, int x, int y, int z, AxisAlignedBB mask, List list, Entity entity) {
         if (entity != null && ((entity instanceof EntityPlayer && !entity.isSneaking()) || entity instanceof EntityChickenMinion)) {
             TileCamouflageBound tile = (TileCamouflageBound) world.getTileEntity(x, y, z);
-            if (tile.getOwnersList().contains(entity.getCommandSenderName())) return;
+            if (tile.getOwnersList().contains(entity.getCommandSenderName()))
+                return;
+            else
+                super.addCollisionBoxesToList(world, x, y, z, mask, list, entity);
         } else {
             super.addCollisionBoxesToList(world, x, y, z, mask, list, entity);
         }
