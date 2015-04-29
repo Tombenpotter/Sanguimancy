@@ -91,6 +91,7 @@ ritual.Sanguimancy.placer=The Filler
 ritual.Sanguimancy.pump=Hymn of Siphoning
 ritual.Sanguimancy.quarry=Aura of Obliteration
 ritual.Sanguimancy.portal=Gate of the Fold
+ritual.Sanguimancy.altar.builder=The Builder
 
 #Chat Messages
 chat.Sanguimancy.blood.required=Blood Required

@@ -30,6 +30,8 @@ public class RitualRegistry {
         // Rituals.registerRitual("quarryRitual", 2, 10000, new RitualEffectQuarry(), StatCollector.translateToLocal("ritual.Sanguimancy.quarry"));
         if (ConfigHandler.enablePortal)
             Rituals.registerRitual("portalRitual", 1, 15000, new RitualEffectPortal(), StatCollector.translateToLocal("ritual.Sanguimancy.portal"));
+        if(ConfigHandler.enableAltarBuilder)
+            Rituals.registerRitual("altarBuilderRitual", 1, 450, new RitualEffectAltarBuilder(), StatCollector.translateToLocal("ritual.Sanguimancy.altar.builder"));
     }
 
     public static void addToWoSBlacklist() {
