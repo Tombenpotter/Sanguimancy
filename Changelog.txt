@@ -1,3 +1,11 @@
+Version 1.1.9-x:
+The April's fools fish only happens on april's fools.
+Fixed sigil tooltip.
+Updated to the latest forge to ensure compatibility with new fluid stuff.
+Added a way to enable corruption messages only for player, and not the whole server.
+Allowed the blacklists to take metadata so that they are actually useful.
+Fixed the Personal Etheral Blocks letting everyone go through them.
+
 Version 1.1.9-Pre:
 Changed the Soul Corruption storing mechanic. It's fixing issues and unpracticalities ^-^.
 It also means that players' corruptions will be reset to 0.
