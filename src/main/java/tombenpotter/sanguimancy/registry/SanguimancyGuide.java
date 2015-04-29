@@ -16,6 +16,7 @@ import amerifrance.guideapi.pages.PageUnlocImage;
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
 import net.minecraftforge.oredict.ShapedOreRecipe;
@@ -253,7 +254,9 @@ public class SanguimancyGuide {
 
         ArrayList<IPage> bloodTankPages = new ArrayList<IPage>();
         bloodTankPages.addAll(PageHelper.pagesForLongText(StatCollector.translateToLocal("guide.Sanguimancy.entry.bloodTank"), SanguimancyItemStacks.bloodTank));
-        bloodTankPages.add(new PageOrbRecipe(RecipesRegistry.bloodTank));
+        for (IRecipe recipe : RecipesRegistry.bloodTank) {
+            bloodTankPages.add(new PageOrbRecipe(recipe));
+        }
         entries.add(new EntryUniText(bloodTankPages, "tile.Sanguimancy.bloodTank.name"));
 
         ArrayList<IPage> corruptionCrystallizerPages = new ArrayList<IPage>();

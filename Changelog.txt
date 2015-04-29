@@ -5,6 +5,8 @@ Updated to the latest forge to ensure compatibility with new fluid stuff.
 Added a way to enable corruption messages only for player, and not the whole server.
 Allowed the blacklists to take metadata so that they are actually useful.
 Fixed the Personal Etheral Blocks letting everyone go through them.
+Fixed the Orb recipe page because of a change in Guide-API.
+Added a way to craft the different tiers of tanks.
 
 Version 1.1.9-Pre:
 Changed the Soul Corruption storing mechanic. It's fixing issues and unpracticalities ^-^.

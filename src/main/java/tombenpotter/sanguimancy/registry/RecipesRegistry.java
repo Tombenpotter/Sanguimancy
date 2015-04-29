@@ -23,10 +23,11 @@ import java.util.ArrayList;
 
 public class RecipesRegistry {
 
-    public static IRecipe altarEmitter, sacrificeTransferrer, corruptionReader, unattunedPlayerSacrificer, corruptionCrystallizer, bloodTank, lumpCleaner,
+    public static IRecipe altarEmitter, sacrificeTransferrer, corruptionReader, unattunedPlayerSacrificer, corruptionCrystallizer, lumpCleaner,
             bloodAmulet, bloodstoneStairs, largeBloodstoneStairs, bloodstoneSlab, largeBloodstoneSlab, chunkClaimer, wand, bloodInterface, simpleBranch,
             simpleKnot, toggledKnot, corruptedMineral, corruptedSword, corruptedPickaxe, corruptedShovel, corruptedAxe, toggledEtherealBlock,
             personalEtherealBlock, soulTransporter, telepositionSigil, transpositionSigil, sanguineShifter, altarManipulator;
+    public static IRecipe[] bloodTank = new IRecipe[16];
     public static AltarRecipe altarDiviner, attunedPlayerSacrificer, corruptionCatalyst, imbuedStick, etherealManifestation;
     public static RecipeCorruptedInfusion poisonousPotato, rottenFlesh, crackedStoneBricks, bonemeal, soulSand, corruptedDemonShard, cobblestone, gravel,
             sand, dirt, corruptedEtherealBlock;
@@ -76,8 +77,6 @@ public class RecipesRegistry {
         unattunedPlayerSacrificer = RecipeRegistry.getLatestCraftingRecipe();
         GameRegistry.addRecipe(new ShapedBloodOrbRecipe(SanguimancyItemStacks.corruptionCrystallizer, "XYX", "ZAZ", "XBX", 'X', new ItemStack(Blocks.obsidian), 'Y', new ItemStack(ModBlocks.bloodSocket), 'Z', new ItemStack(Blocks.diamond_block), 'A', SanguimancyItemStacks.corruptedDemonShard, 'B', new ItemStack(ModItems.archmageBloodOrb)));
         corruptionCrystallizer = RecipeRegistry.getLatestCraftingRecipe();
-        GameRegistry.addRecipe(new ShapedBloodOrbRecipe(SanguimancyItemStacks.bloodTank, "XZX", "AYA", "XZX", 'X', new ItemStack(Blocks.stained_glass, 1, 14), 'Y', new ItemStack(ModItems.apprenticeBloodOrb), 'Z', new ItemStack(Blocks.obsidian), 'A', new ItemStack(ModItems.blankSlate)));
-        bloodTank = RecipeRegistry.getLatestCraftingRecipe();
         GameRegistry.addRecipe(new ShapedBloodOrbRecipe(SanguimancyItemStacks.lumpCleaner, "XXX", "YZY", "ABA", 'X', SanguimancyItemStacks.oreLump, 'Y', SanguimancyItemStacks.bloodTank, 'Z', new ItemStack(ModItems.masterBloodOrb), 'A', new ItemStack(Blocks.iron_block), 'B', new ItemStack(Blocks.diamond_block)));
         lumpCleaner = RecipeRegistry.getLatestCraftingRecipe();
         GameRegistry.addRecipe(new ShapedBloodOrbRecipe(SanguimancyItemStacks.bloodAmulet, "XYX", "ZAZ", "BCB", 'X', new ItemStack(Items.string), 'Y', new ItemStack(Items.bucket), 'Z', new ItemStack(ModItems.demonicSlate), 'A', new ItemStack(Items.clock), 'B', SanguimancyItemStacks.bloodTank, 'C', new ItemStack(ModItems.magicianBloodOrb)));
@@ -92,6 +91,13 @@ public class RecipesRegistry {
         sanguineShifter = RecipeRegistry.getLatestCraftingRecipe();
         GameRegistry.addRecipe(new ShapedBloodOrbRecipe(SanguimancyItemStacks.altarManipulator, "DED", "EOE", "DED", 'D', SanguimancyItemStacks.altarDiviner, 'E', SanguimancyItemStacks.altarEmitter, 'O', ModItems.magicianBloodOrb));
         altarManipulator = RecipeRegistry.getLatestCraftingRecipe();
+
+        GameRegistry.addRecipe(new ShapedBloodOrbRecipe(SanguimancyItemStacks.bloodTank, "XZX", "AYA", "XZX", 'X', new ItemStack(Blocks.stained_glass, 1, 14), 'Y', new ItemStack(ModItems.apprenticeBloodOrb), 'Z', new ItemStack(Blocks.obsidian), 'A', new ItemStack(ModItems.blankSlate)));
+        bloodTank[0] = RecipeRegistry.getLatestCraftingRecipe();
+        for (int i = 0; i < 15; i++) {
+            GameRegistry.addRecipe(new ShapedBloodOrbRecipe(new ItemStack(BlocksRegistry.bloodTank, 1, i + 1), "XSX", "TOT", "XTX", 'X', new ItemStack(Blocks.stained_glass, 1, 14), 'S', ModItems.demonicSlate, 'T', new ItemStack(BlocksRegistry.bloodTank, 1, i), 'O', ModItems.archmageBloodOrb));
+            bloodTank[i + 1] = RecipeRegistry.getLatestCraftingRecipe();
+        }
     }
 
     public static void registerAlchemyRecipes() {

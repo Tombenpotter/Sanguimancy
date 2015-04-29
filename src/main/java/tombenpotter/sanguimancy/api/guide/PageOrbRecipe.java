@@ -43,8 +43,8 @@ public class PageOrbRecipe extends PageIRecipe {
         int height = ReflectionHelper.getPrivateValue(ShapedBloodOrbRecipe.class, shapedBloodOrbRecipe, 5);
         for (int y = 0; y < height; y++) {
             for (int x = 0; x < width; x++) {
-                int stackX = (x + 1) * 20 + (guiLeft + guiBase.xSize / 7);
-                int stackY = (y + 1) * 20 + (guiTop + guiBase.ySize / 5);
+                int stackX = (x + 1) * 18 + (guiLeft + guiBase.xSize / 7);
+                int stackY = (y + 1) * 18 + (guiTop + guiBase.ySize / 5);
                 Object component = shapedBloodOrbRecipe.getInput()[y * width + x];
                 if (component != null) {
                     if (component instanceof ItemStack) {
@@ -67,8 +67,8 @@ public class PageOrbRecipe extends PageIRecipe {
                 }
             }
         }
-        int outputX = (5 * 20) + (guiLeft + guiBase.xSize / 7);
-        int outputY = (2 * 20) + (guiTop + guiBase.xSize / 5);
+        int outputX = (5 * 18) + (guiLeft + guiBase.xSize / 7);
+        int outputY = (2 * 18) + (guiTop + guiBase.xSize / 5);
         GuiHelper.drawItemStack(shapedBloodOrbRecipe.getRecipeOutput(), outputX, outputY);
         if (GuiHelper.isMouseBetween(mouseX, mouseY, outputX, outputY, 15, 15)) {
             guiBase.renderToolTip(shapedBloodOrbRecipe.getRecipeOutput(), outputX, outputY);
