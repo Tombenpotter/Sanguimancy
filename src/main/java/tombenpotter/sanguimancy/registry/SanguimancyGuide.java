@@ -60,10 +60,10 @@ public class SanguimancyGuide {
 
         ArrayList<IPage> protectionPages = new ArrayList<IPage>();
         protectionPages.addAll(PageHelper.pagesForLongText(StatCollector.translateToLocal("guide.Sanguimancy.entry.protection.1")));
-        protectionPages.add(new PageUnlocImage("protection.picture.1", new ResourceLocation(Sanguimancy.texturePath + ":textures/screenshots/CompleteCrystallizerMultiblock.png"), true));
-        protectionPages.add(new PageUnlocImage("protection.picture.2", new ResourceLocation(Sanguimancy.texturePath + ":textures/screenshots/CrystallizerMultiblock.png"), true));
-        protectionPages.add(new PageUnlocImage("protection.picture.3", new ResourceLocation(Sanguimancy.texturePath + ":textures/screenshots/WaterCrystallizerMultiblock.png"), true));
-        protectionPages.add(new PageUnlocImage("protection.picture.4", new ResourceLocation(Sanguimancy.texturePath + ":textures/screenshots/LavaCrystallizerMultiblock.png"), true));
+        protectionPages.add(new PageUnlocImage("guide.Sanguimancy.entry.protection.picture.1", new ResourceLocation(Sanguimancy.texturePath + ":textures/screenshots/CompleteCrystallizerMultiblock.png"), true));
+        protectionPages.add(new PageUnlocImage("guide.Sanguimancy.entry.protection.picture.2", new ResourceLocation(Sanguimancy.texturePath + ":textures/screenshots/CrystallizerMultiblock.png"), true));
+        protectionPages.add(new PageUnlocImage("guide.Sanguimancy.entry.protection.picture.3", new ResourceLocation(Sanguimancy.texturePath + ":textures/screenshots/WaterCrystallizerMultiblock.png"), true));
+        protectionPages.add(new PageUnlocImage("guide.Sanguimancy.entry.protection.picture.4", new ResourceLocation(Sanguimancy.texturePath + ":textures/screenshots/LavaCrystallizerMultiblock.png"), true));
         protectionPages.addAll(PageHelper.pagesForLongText(StatCollector.translateToLocal("guide.Sanguimancy.entry.protection.2")));
         entries.add(new EntryUniText(protectionPages, "guide.Sanguimancy.entryName.protection"));
 
