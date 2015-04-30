@@ -86,7 +86,7 @@ public class RitualEffectAltarBuilder extends RitualEffect {
 
     @Override
     public int getCostPerRefresh() {
-        return 10;
+        return 150;
     }
 
     @Override

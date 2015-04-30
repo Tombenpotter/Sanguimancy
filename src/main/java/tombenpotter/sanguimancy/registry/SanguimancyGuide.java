@@ -172,6 +172,12 @@ public class SanguimancyGuide {
     public static void createRitualEntries() {
         List<EntryAbstract> entries = new ArrayList<EntryAbstract>();
 
+        if (ConfigHandler.enableAltarBuilder) {
+            ArrayList<IPage> altarBuilderPages = new ArrayList<IPage>();
+            altarBuilderPages.addAll(PageHelper.pagesForLongText(StatCollector.translateToLocal("guide.Sanguimancy.entry.altar.builder")));
+            entries.add(new EntryUniText(altarBuilderPages, "ritual.Sanguimancy.altar.builder"));
+        }
+
         if (ConfigHandler.enableDrillOfTheDead) {
             ArrayList<IPage> drillOfTheDeadPages = new ArrayList<IPage>();
             drillOfTheDeadPages.addAll(PageHelper.pagesForLongText(StatCollector.translateToLocal("guide.Sanguimancy.entry.drillOfTheDead")));
@@ -209,6 +215,12 @@ public class SanguimancyGuide {
             portalPages.add(new PageUnlocImage("guide.Sanguimancy.entry.portal.picture", new ResourceLocation(Sanguimancy.texturePath + ":textures/screenshots/PortalExample.png"), true));
             portalPages.addAll(PageHelper.pagesForLongText(StatCollector.translateToLocal("guide.Sanguimancy.entry.portal.2")));
             entries.add(new EntryUniText(portalPages, "ritual.Sanguimancy.portal"));
+        }
+
+        if (ConfigHandler.enablePump) {
+            ArrayList<IPage> pumpPages = new ArrayList<IPage>();
+            pumpPages.addAll(PageHelper.pagesForLongText(StatCollector.translateToLocal("guide.Sanguimancy.entry.pump")));
+            entries.add(new EntryUniText(pumpPages, "ritual.Sanguimancy.pump"));
         }
 
         if (ConfigHandler.enableTrash) {
