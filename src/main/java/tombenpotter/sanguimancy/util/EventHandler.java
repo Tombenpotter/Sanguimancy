@@ -20,6 +20,8 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.potion.Potion;
+import net.minecraft.potion.PotionEffect;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.ResourceLocation;
@@ -117,25 +119,52 @@ public class EventHandler {
         if (!event.player.worldObj.isRemote) playerName = event.player.getDisplayName();
         else playerName = Sanguimancy.proxy.getClientPlayer().getDisplayName();
 
-        if (SoulCorruptionHelper.isCorruptionOver(playerName, 10)) {
-            SoulCorruptionHelper.spawnChickenFollower(event.player);
+        if (SoulCorruptionHelper.isCorruptionLower(playerName, 1000)) {
+            if (SoulCorruptionHelper.isCorruptionOver(playerName, 10)) {
+                SoulCorruptionHelper.spawnChickenFollower(event.player);
+            }
+            if (SoulCorruptionHelper.isCorruptionOver(playerName, 40)) {
+                SoulCorruptionHelper.killGrass(event.player);
+            }
+            if (SoulCorruptionHelper.isCorruptionOver(playerName, 60)) {
+                SoulCorruptionHelper.hurtAndHealAnimals(event.player);
+            }
+            if (SoulCorruptionHelper.isCorruptionOver(playerName, 100)) {
+                SoulCorruptionHelper.spawnIllusion(event.player);
+            }
+            if (SoulCorruptionHelper.isCorruptionOver(playerName, 150)) {
+                SoulCorruptionHelper.randomTeleport(event.player);
+            }
+            if (SoulCorruptionHelper.isCorruptionOver(playerName, 200)) {
+                SoulCorruptionHelper.loseHeart(event.player);
+            }
+        } else {
+            if (SoulCorruptionHelper.isCorruptionOver(playerName, 10)) {
+                SoulCorruptionHelper.spawnChickenFollower(event.player);
+            }
+            if (SoulCorruptionHelper.isCorruptionOver(playerName, 40)) {
+                SoulCorruptionHelper.killGrass(event.player);
+            }
+            if (SoulCorruptionHelper.isCorruptionOver(playerName, 150)) {
+                SoulCorruptionHelper.randomTeleport(event.player);
+            }
+            if (SoulCorruptionHelper.isCorruptionOver(playerName, 1300)) {
+                event.player.addPotionEffect(new PotionEffect(Potion.jump.getId(), 1, 1));
+            }
+            if (SoulCorruptionHelper.isCorruptionOver(playerName, 1600)) {
+                event.player.addPotionEffect(new PotionEffect(Potion.moveSpeed.getId(), 1, 1));
+            }
+            if (SoulCorruptionHelper.isCorruptionOver(playerName, 1900)) {
+                event.player.addPotionEffect(new PotionEffect(Potion.fireResistance.getId(), 1, 1));
+            }
+            if (SoulCorruptionHelper.isCorruptionOver(playerName, 2100)) {
+                event.player.addPotionEffect(new PotionEffect(Potion.waterBreathing.getId(), 1, 1));
+            }
+            if (SoulCorruptionHelper.isCorruptionOver(playerName, 2400)) {
+                event.player.addPotionEffect(new PotionEffect(Potion.resistance.getId(), 1, 1));
+            }
         }
-        if (SoulCorruptionHelper.isCorruptionOver(playerName, 40)) {
-            SoulCorruptionHelper.killGrass(event.player);
-        }
-        if (SoulCorruptionHelper.isCorruptionOver(playerName, 60)) {
-            SoulCorruptionHelper.hurtAndHealAnimals(event.player);
-        }
-        if (SoulCorruptionHelper.isCorruptionOver(playerName, 100)) {
-            SoulCorruptionHelper.spawnIllusion(event.player);
-        }
-        if (SoulCorruptionHelper.isCorruptionOver(playerName, 150)) {
-            SoulCorruptionHelper.randomTeleport(event.player);
-        }
-        if (SoulCorruptionHelper.isCorruptionOver(playerName, 200)) {
-            SoulCorruptionHelper.loseHeart(event.player);
-        }
-        if (!event.player.worldObj.isRemote && event.player.worldObj.getWorldTime() % 200 == 0) {
+        if (!event.player.worldObj.isRemote && event.player.worldObj.getTotalWorldTime() % 400 == 0) {
             PacketHandler.INSTANCE.sendToAll(new PacketSyncCorruption(event.player.getDisplayName()));
         }
     }
