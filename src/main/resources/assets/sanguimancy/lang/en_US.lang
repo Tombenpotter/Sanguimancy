@@ -91,7 +91,7 @@ ritual.Sanguimancy.placer=The Filler
 ritual.Sanguimancy.pump=Hymn of Siphoning
 ritual.Sanguimancy.quarry=Aura of Obliteration
 ritual.Sanguimancy.portal=Gate of the Fold
-ritual.Sanguimancy.altar.builder=The Builder
+ritual.Sanguimancy.altar.builder=The Assembly of the High Altar
 
 #Chat Messages
 chat.Sanguimancy.blood.required=Blood Required
@@ -236,7 +236,7 @@ guide.Sanguimancy.entry.portal.1=The Gate of The Fold is a highly powerful ritua
 guide.Sanguimancy.entry.portal.2=You can replace them with other blocks that fit better in your theme. The Spruce Planks you see in the picture before can be replaced by any block in the game. That is how two portals are tuned to each other. However, two portals also need to have the same owner to be linked to each other: anyone and anything can pass through it, but they need to be activated by the same player. Once the two portals are activated, go through one, and you'll come out on the other side.
 guide.Sanguimancy.entry.portal.picture=This image shows all the locations you can place blocks for the 'ID'. Be aware that they only need to be there when the ritual is activated!
 guide.Sanguimancy.entry.pump=The Hymn of Siphoning is a ritual that allows you to pump fluids from an area. This area can be made bigger using the Terrae and Orbis Terrae reagents. To start pumping, you will need to place any tank over the Master Ritual Stone with at least 1 bucket of the liquid you wish to pump from the area.
-guide.Sanguimancy.entry.altar.builder=The Builder is a ritual designed to make your life easier. As you progress through Blood Magic, you sometimes need to create new altars. The Builder allows you to do this more easily! Once the ritual is in place, make sure that the area inside of it is clear of blocks, and activate it. Place a chest on top of the Master Ritual Stone with all the blocks forming the altar structure, and wait. There you go, easy altars!
+guide.Sanguimancy.entry.altar.builder=The Assembly of the High Altar is a ritual designed to make your life easier. As you progress through Blood Magic, you sometimes need to create new altars. The Assembly allows you to do this more easily! Once the ritual is in place, make sure that the area inside of it is clear of blocks, and activate it. Place a chest on top of the Master Ritual Stone with all the blocks forming the altar structure, and wait. There you go, easy altars!
 
 #Lore
 guide.Sanguimancy.entryName.sacrificeMagic=Sacrifice Magic

@@ -10,6 +10,7 @@ import WayofTime.alchemicalWizardry.common.bloodAltarUpgrade.AltarComponent;
 import WayofTime.alchemicalWizardry.common.bloodAltarUpgrade.UpgradedAltars;
 import WayofTime.alchemicalWizardry.common.spell.complex.effect.SpellHelper;
 import net.minecraft.block.Block;
+import net.minecraft.entity.effect.EntityLightningBolt;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.inventory.IInventory;
@@ -49,33 +50,44 @@ public class RitualEffectAltarBuilder extends RitualEffect {
             }
             SoulNetworkHandler.causeNauseaToPlayer(owner);
         } else {
-            for (int i = 2; i <= UpgradedAltars.highestAltar; i++) {
-                List<AltarComponent> altarComponents = UpgradedAltars.getAltarUpgradeListForTier(i);
-                for (AltarComponent altarComponent : altarComponents) {
-                    boolean isReplaceable = world.getBlock(x + altarComponent.getX(), y + 2 + altarComponent.getY(), z + altarComponent.getZ()).isReplaceable(world, x + altarComponent.getX(), y + 2 + altarComponent.getY(), z + altarComponent.getZ());
-                    if (!altarComponent.isBloodRune() && hasItem(tileEntity, Item.getItemFromBlock(altarComponent.getBlock()), altarComponent.getMetadata())) {
-                        if (altarComponent.getBlock() == Blocks.stonebrick) {
-                            if (isReplaceable) {
+            if (world.getTotalWorldTime() % 15 == 0) {
+                if (world.getBlock(x, y + 2, z).isReplaceable(world, x, y + 2, z) && hasItem(tileEntity, Item.getItemFromBlock(ModBlocks.blockAltar), 0)) {
+                    world.setBlock(x, y + 2, z, ModBlocks.blockAltar);
+                    consumeItem(tileEntity, Item.getItemFromBlock(ModBlocks.blockAltar), 0);
+                    world.addWeatherEffect(new EntityLightningBolt(world, x, y + 2, z));
+                    SoulNetworkHandler.syphonFromNetwork(owner, getCostPerRefresh());
+                }
+                for (int i = 2; i <= UpgradedAltars.highestAltar; i++) {
+                    List<AltarComponent> altarComponents = UpgradedAltars.getAltarUpgradeListForTier(i);
+                    for (AltarComponent altarComponent : altarComponents) {
+                        boolean isReplaceable = world.getBlock(x + altarComponent.getX(), y + 2 + altarComponent.getY(), z + altarComponent.getZ()).isReplaceable(world, x + altarComponent.getX(), y + 2 + altarComponent.getY(), z + altarComponent.getZ());
+                        if (!isReplaceable) {
+                            continue;
+                        }
+                        if (!altarComponent.isBloodRune()) {
+                            if (altarComponent.getBlock() == Blocks.stonebrick) {
                                 BlockAndMetadata blockAndMetadata = getMundaneBlock(tileEntity);
                                 if (blockAndMetadata != null) {
                                     world.setBlock(x + altarComponent.getX(), y + 2 + altarComponent.getY(), z + altarComponent.getZ(), blockAndMetadata.block, blockAndMetadata.metadata, 3);
+                                    world.addWeatherEffect(new EntityLightningBolt(world, x + altarComponent.getX(), y + 2 + altarComponent.getY(), z + altarComponent.getZ()));
                                     SoulNetworkHandler.syphonFromNetwork(owner, getCostPerRefresh());
+                                    break;
                                 }
-                            }
-                        } else {
-                            if (isReplaceable) {
+                            } else if (altarComponent.getBlock() != Blocks.stonebrick && hasItem(tileEntity, Item.getItemFromBlock(altarComponent.getBlock()), altarComponent.getMetadata())) {
                                 world.setBlock(x + altarComponent.getX(), y + 2 + altarComponent.getY(), z + altarComponent.getZ(), altarComponent.getBlock(), altarComponent.getMetadata(), 3);
                                 consumeItem(tileEntity, Item.getItemFromBlock(altarComponent.getBlock()), altarComponent.getMetadata());
+                                world.addWeatherEffect(new EntityLightningBolt(world, x + altarComponent.getX(), y + 2 + altarComponent.getY(), z + altarComponent.getZ()));
                                 SoulNetworkHandler.syphonFromNetwork(owner, getCostPerRefresh());
+                                break;
                             }
-                        }
-                    } else if (altarComponent.isBloodRune()) {
-                        if (isReplaceable) {
+                        } else {
                             int bloodRuneSlot = getBloodRuneSlot(tileEntity);
                             if (bloodRuneSlot != -1) {
                                 world.setBlock(x + altarComponent.getX(), y + 2 + altarComponent.getY(), z + altarComponent.getZ(), Block.getBlockFromItem(tileEntity.getStackInSlot(bloodRuneSlot).getItem()), tileEntity.getStackInSlot(bloodRuneSlot).getItemDamage(), 3);
-                                consumeItem(tileEntity, tileEntity.getStackInSlot(bloodRuneSlot).getItem(), tileEntity.getStackInSlot(bloodRuneSlot).getItemDamage());
+                                tileEntity.decrStackSize(bloodRuneSlot, 1);
+                                world.addWeatherEffect(new EntityLightningBolt(world, x + altarComponent.getX(), y + 2 + altarComponent.getY(), z + altarComponent.getZ()));
                                 SoulNetworkHandler.syphonFromNetwork(owner, getCostPerRefresh());
+                                break;
                             }
                         }
                     }
@@ -146,8 +158,10 @@ public class RitualEffectAltarBuilder extends RitualEffect {
 
     public void consumeItem(IInventory inv, Item item, int damage) {
         for (int i = 0; i < inv.getSizeInventory(); i++) {
-            if (inv.getStackInSlot(i) != null && inv.getStackInSlot(i).getItem() == item && inv.getStackInSlot(i).getItemDamage() == damage)
+            if (inv.getStackInSlot(i) != null && inv.getStackInSlot(i).getItem() == item && inv.getStackInSlot(i).getItemDamage() == damage) {
                 inv.decrStackSize(i, 1);
+                return;
+            }
         }
     }
 

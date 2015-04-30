@@ -7,7 +7,8 @@ Allowed the blacklists to take metadata so that they are actually useful.
 Fixed the Personal Etheral Blocks letting everyone go through them.
 Fixed the Orb recipe page because of a change in Guide-API.
 Added a way to craft the different tiers of tanks.
-Fixed the text under some pictures being too long of simply not there
+Fixed the text under some pictures being too long of simply not there.
+Added the Assembly of the High Altar: an altar building ritual.
 
 Version 1.1.9-Pre:
 Changed the Soul Corruption storing mechanic. It's fixing issues and unpracticalities ^-^.
