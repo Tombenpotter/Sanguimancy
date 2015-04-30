@@ -60,7 +60,7 @@ public class ConfigHandler {
         enablePlacer = config.getBoolean("enablePlacer", rituals, true, "Enable the Filler");
         enablePump = config.getBoolean("enablePump", rituals, true, "Enable the Hymn of Syphoning");
         enablePortal = config.getBoolean("enablePortal", rituals, true, "Enable the Gate of the Fold");
-        enableAltarBuilder = config.getBoolean("enableAltarBuilder",rituals, true, "Enable the Builder");
+        enableAltarBuilder = config.getBoolean("enableAltarBuilder", rituals, true, "Enable the Builder");
 
         //Features
         snDimID = config.getInt("soulNetworkDimensionID", features, 42, 2, 500, "The ID of the Soul Network Dimension");
