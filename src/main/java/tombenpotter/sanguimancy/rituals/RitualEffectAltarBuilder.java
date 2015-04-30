@@ -1,5 +1,6 @@
 package tombenpotter.sanguimancy.rituals;
 
+import WayofTime.alchemicalWizardry.ModBlocks;
 import WayofTime.alchemicalWizardry.api.rituals.IMasterRitualStone;
 import WayofTime.alchemicalWizardry.api.rituals.RitualComponent;
 import WayofTime.alchemicalWizardry.api.rituals.RitualEffect;
@@ -10,11 +11,13 @@ import WayofTime.alchemicalWizardry.common.bloodAltarUpgrade.UpgradedAltars;
 import WayofTime.alchemicalWizardry.common.spell.complex.effect.SpellHelper;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
+import tombenpotter.sanguimancy.api.objects.BlockAndMetadata;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,14 +52,25 @@ public class RitualEffectAltarBuilder extends RitualEffect {
             for (int i = 2; i <= UpgradedAltars.highestAltar; i++) {
                 List<AltarComponent> altarComponents = UpgradedAltars.getAltarUpgradeListForTier(i);
                 for (AltarComponent altarComponent : altarComponents) {
+                    boolean isReplaceable = world.getBlock(x + altarComponent.getX(), y + 2 + altarComponent.getY(), z + altarComponent.getZ()).isReplaceable(world, x + altarComponent.getX(), y + 2 + altarComponent.getY(), z + altarComponent.getZ());
                     if (!altarComponent.isBloodRune() && hasItem(tileEntity, Item.getItemFromBlock(altarComponent.getBlock()), altarComponent.getMetadata())) {
-                        if (world.getBlock(x + altarComponent.getX(), y + 2 + altarComponent.getY(), z + altarComponent.getZ()).isReplaceable(world, x + altarComponent.getX(), y + 2 + altarComponent.getY(), z + altarComponent.getZ())) {
-                            world.setBlock(x + altarComponent.getX(), y + 2 + altarComponent.getY(), z + altarComponent.getZ(), altarComponent.getBlock(), altarComponent.getMetadata(), 3);
-                            consumeItem(tileEntity, Item.getItemFromBlock(altarComponent.getBlock()), altarComponent.getMetadata());
-                            SoulNetworkHandler.syphonFromNetwork(owner, getCostPerRefresh());
+                        if (altarComponent.getBlock() == Blocks.stonebrick) {
+                            if (isReplaceable) {
+                                BlockAndMetadata blockAndMetadata = getMundaneBlock(tileEntity);
+                                if (blockAndMetadata != null) {
+                                    world.setBlock(x + altarComponent.getX(), y + 2 + altarComponent.getY(), z + altarComponent.getZ(), blockAndMetadata.block, blockAndMetadata.metadata, 3);
+                                    SoulNetworkHandler.syphonFromNetwork(owner, getCostPerRefresh());
+                                }
+                            }
+                        } else {
+                            if (isReplaceable) {
+                                world.setBlock(x + altarComponent.getX(), y + 2 + altarComponent.getY(), z + altarComponent.getZ(), altarComponent.getBlock(), altarComponent.getMetadata(), 3);
+                                consumeItem(tileEntity, Item.getItemFromBlock(altarComponent.getBlock()), altarComponent.getMetadata());
+                                SoulNetworkHandler.syphonFromNetwork(owner, getCostPerRefresh());
+                            }
                         }
                     } else if (altarComponent.isBloodRune()) {
-                        if (world.getBlock(x + altarComponent.getX(), y + 2 + altarComponent.getY(), z + altarComponent.getZ()).isReplaceable(world, x + altarComponent.getX(), y + 2 + altarComponent.getY(), z + altarComponent.getZ())) {
+                        if (isReplaceable) {
                             int bloodRuneSlot = getBloodRuneSlot(tileEntity);
                             if (bloodRuneSlot != -1) {
                                 world.setBlock(x + altarComponent.getX(), y + 2 + altarComponent.getY(), z + altarComponent.getZ(), Block.getBlockFromItem(tileEntity.getStackInSlot(bloodRuneSlot).getItem()), tileEntity.getStackInSlot(bloodRuneSlot).getItemDamage(), 3);
@@ -143,5 +157,19 @@ public class RitualEffectAltarBuilder extends RitualEffect {
                 return i;
         }
         return -1;
+    }
+
+    public BlockAndMetadata getMundaneBlock(IInventory inv) {
+        for (int i = 0; i < inv.getSizeInventory(); i++) {
+            if (inv.getStackInSlot(i) != null && inv.getStackInSlot(i).getItem() instanceof ItemBlock && !(Block.getBlockFromItem(inv.getStackInSlot(i).getItem()) instanceof BloodRune)) {
+                Block block = Block.getBlockFromItem(inv.getStackInSlot(i).getItem());
+                if (block != null && block != Blocks.glowstone && block != ModBlocks.largeBloodStoneBrick && block != ModBlocks.blockCrystal) {
+                    BlockAndMetadata blockAndMetadata = new BlockAndMetadata(block, inv.getStackInSlot(i).getItemDamage());
+                    inv.decrStackSize(i, 1);
+                    return blockAndMetadata;
+                }
+            }
+        }
+        return null;
     }
 }
