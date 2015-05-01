@@ -1,13 +1,15 @@
 package tombenpotter.sanguimancy.tile;
 
 import WayofTime.alchemicalWizardry.api.items.interfaces.IBloodOrb;
-import WayofTime.alchemicalWizardry.common.items.EnergyBattery;
+import WayofTime.alchemicalWizardry.api.soulNetwork.LifeEssenceNetwork;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.Packet;
+import net.minecraft.server.MinecraftServer;
+import net.minecraft.world.World;
 import tombenpotter.sanguimancy.api.objects.Timer;
 import tombenpotter.sanguimancy.api.tile.TileComputerBase;
 import tombenpotter.sanguimancy.compat.lua.events.LuaOrbMaxed;
@@ -48,7 +50,7 @@ public class TileBloodInterface extends TileComputerBase implements IInventory {
 
     public int getLifeEssence() {
         if (ownerName == null || itemStack == null) return 0;
-        return Math.min(maxOrbLP, ((EnergyBattery) itemStack.getItem()).getCurrentEssence(itemStack));
+        return Math.min(maxOrbLP, getCurrentEssence(itemStack));
     }
 
     public String getOwner() {
@@ -123,7 +125,7 @@ public class TileBloodInterface extends TileComputerBase implements IInventory {
     }
 
     public void updateOrb() {
-        maxOrbLP = itemStack == null ? 0 : ((EnergyBattery) itemStack.getItem()).getMaxEssence();
+        maxOrbLP = itemStack == null ? 0 : ((IBloodOrb) itemStack.getItem()).getMaxEssence();
         ownerName = itemStack == null || !itemStack.hasTagCompound() || !itemStack.getTagCompound().hasKey("ownerName") ? null : itemStack.getTagCompound().getString("ownerName");
     }
 
@@ -226,5 +228,29 @@ public class TileBloodInterface extends TileComputerBase implements IInventory {
     @Override
     public void setCustomNBTTag(NBTTagCompound tag) {
         custoomNBTTag = tag;
+    }
+
+    public int getCurrentEssence(ItemStack par1ItemStack) {
+        if (par1ItemStack == null) {
+            return 0;
+        }
+
+        NBTTagCompound itemTag = par1ItemStack.getTagCompound();
+
+        if (itemTag == null || itemTag.getString("ownerName").equals("")) {
+            return 0;
+        }
+
+        String owner = itemTag.getString("ownerName");
+        World worldSave = MinecraftServer.getServer().worldServers[0];
+        LifeEssenceNetwork data = (LifeEssenceNetwork) worldSave.loadItemData(LifeEssenceNetwork.class, owner);
+
+        if (data == null) {
+            data = new LifeEssenceNetwork(owner);
+            worldSave.setItemData(owner, data);
+        }
+
+        int currentEssence = data.currentEssence;
+        return (currentEssence);
     }
 }

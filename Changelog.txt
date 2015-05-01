@@ -10,6 +10,7 @@ Added a way to craft the different tiers of tanks.
 Fixed the text under some pictures being too long of simply not there.
 Added the Assembly of the High Altar: an altar building ritual.
 Added positive effects to Soul Corruption after 1000 corruption.
+Probable fix for the issue with Forbidden Magic's Orb not using the Energy Battery class.
 
 Version 1.1.9-Pre:
 Changed the Soul Corruption storing mechanic. It's fixing issues and unpracticalities ^-^.
