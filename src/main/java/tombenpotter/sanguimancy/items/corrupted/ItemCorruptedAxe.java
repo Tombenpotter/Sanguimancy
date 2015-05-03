@@ -232,10 +232,12 @@ public class ItemCorruptedAxe extends ItemAxe {
             EntityPlayer player = (EntityPlayer) event.source.getEntity();
             if (player.getHeldItem() != null && player.getHeldItem().getItem() instanceof ItemCorruptedAxe) {
                 int corruption = SoulCorruptionHelper.getCorruptionLevel(RandomUtils.getItemOwner(player.getHeldItem()));
-                int chance = 100 * (minimumCorruption / corruption);
-                if (chance < 1) chance = 1;
-                if (player.worldObj.rand.nextInt(chance) == 0 && getSkullDrop(event.entityLiving) != null) {
-                    RandomUtils.dropItemStackInWorld(event.entityLiving.worldObj, event.entityLiving.posX, event.entityLiving.posY, event.entityLiving.posZ, getSkullDrop(event.entityLiving).copy());
+                if (corruption != 0) {
+                    int chance = 100 * (minimumCorruption / corruption);
+                    if (chance < 1) chance = 1;
+                    if (player.worldObj.rand.nextInt(chance) == 0 && getSkullDrop(event.entityLiving) != null) {
+                        RandomUtils.dropItemStackInWorld(event.entityLiving.worldObj, event.entityLiving.posX, event.entityLiving.posY, event.entityLiving.posZ, getSkullDrop(event.entityLiving).copy());
+                    }
                 }
             }
         }
