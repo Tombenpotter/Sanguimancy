@@ -31,8 +31,13 @@ public class ItemChunkClaimer extends Item {
     public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player) {
         if (!world.isRemote) {
             if (player.worldObj.provider.dimensionId == ConfigHandler.snDimID) {
-                if (ClaimedChunks.getClaimedChunks().addLocation(player.getCommandSenderName(), new ChunkIntPairSerializable((int) player.posX >> 4, (int) player.posZ >> 4))) {
-                    player.addChatComponentMessage(new ChatComponentText(StatCollector.translateToLocal("chat.Sanguimancy.successfully.claimed")));
+                ChunkIntPairSerializable chunkIntPairSerializable = new ChunkIntPairSerializable((int) player.posX >> 4, (int) player.posZ >> 4);
+                if (ClaimedChunks.getClaimedChunks().addLocation(player.getCommandSenderName(), chunkIntPairSerializable)) {
+                    String text = StatCollector.translateToLocal("chat.Sanguimancy.successfully.claimed");
+                    text.replace("%x", String.valueOf(chunkIntPairSerializable.getCenterXPos()));
+                    text.replace("%z", String.valueOf(chunkIntPairSerializable.getCenterZPos()));
+                    text.replace("%d", String.valueOf(ConfigHandler.snDimID));
+                    player.addChatComponentMessage(new ChatComponentText(text));
                     player.inventory.consumeInventoryItem(this);
                 } else {
                     player.addChatComponentMessage(new ChatComponentText(StatCollector.translateToLocal("chat.Sanguimancy.unsuccessfully.claimed")));

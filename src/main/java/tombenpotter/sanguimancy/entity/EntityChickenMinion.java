@@ -22,6 +22,7 @@ public class EntityChickenMinion extends EntityTameable {
     public float field_70888_h;
     public float field_70889_i = 1.0F;
     public int timeUntilNextEgg;
+    public int ticksLived;
 
     public EntityChickenMinion(World world) {
         super(world);
@@ -35,6 +36,7 @@ public class EntityChickenMinion extends EntityTameable {
         this.tasks.addTask(5, new EntityAIWander(this, 1.0D));
         this.tasks.addTask(6, new EntityAIWatchClosest(this, EntityPlayer.class, 6.0F));
         this.tasks.addTask(7, new EntityAILookIdle(this));
+        this.ticksLived = 0;
     }
 
     @Override
@@ -51,6 +53,7 @@ public class EntityChickenMinion extends EntityTameable {
 
     @Override
     public void onLivingUpdate() {
+        this.ticksLived++;
         super.onLivingUpdate();
         this.field_70888_h = this.field_70886_e;
         this.field_70884_g = this.destPos;
@@ -74,6 +77,9 @@ public class EntityChickenMinion extends EntityTameable {
             this.playSound("mob.chicken.plop", 1.0F, (this.rand.nextFloat() - this.rand.nextFloat()) * 0.2F + 1.0F);
             this.dropItem(Items.egg, 1);
             this.timeUntilNextEgg = this.rand.nextInt(6000) + 6000;
+        }
+        if (ticksLived > 36000 && !worldObj.isRemote) {
+            this.setDead();
         }
     }
 

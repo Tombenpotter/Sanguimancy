@@ -84,7 +84,9 @@ public class SoulCorruptionHelper {
             String owner = player.getUniqueID().toString();
             minion.func_152115_b(owner);
             minion.setTamed(true);
-            player.worldObj.spawnEntityInWorld(minion);
+            if (!player.worldObj.isRemote) {
+                player.worldObj.spawnEntityInWorld(minion);
+            }
             if (!player.worldObj.isRemote && ConfigHandler.serverMessagesWhenCorruptionEffect) {
                 MinecraftServer.getServer().getConfigurationManager().sendChatMsg(new ChatComponentText(String.format(StatCollector.translateToLocal("chat.Sanguimancy.chicken.minion"), player.getDisplayName())));
             }
