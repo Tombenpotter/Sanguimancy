@@ -89,12 +89,12 @@ public class RitualEffectCobble extends RitualEffect {
         ArrayList<RitualComponent> obsidianRitual = new ArrayList();
         obsidianRitual.add(new RitualComponent(1, 0, 0, RitualComponent.FIRE));
         obsidianRitual.add(new RitualComponent(-1, 0, 0, RitualComponent.FIRE));
+        obsidianRitual.add(new RitualComponent(-1, 1, -1, RitualComponent.WATER));
+        obsidianRitual.add(new RitualComponent(1, 1, -1, RitualComponent.WATER));
         obsidianRitual.add(new RitualComponent(0, 0, 1, RitualComponent.FIRE));
         obsidianRitual.add(new RitualComponent(0, 0, -1, RitualComponent.FIRE));
         obsidianRitual.add(new RitualComponent(1, 1, 1, RitualComponent.WATER));
         obsidianRitual.add(new RitualComponent(-1, 1, 1, RitualComponent.WATER));
-        obsidianRitual.add(new RitualComponent(-1, 1, -1, RitualComponent.WATER));
-        obsidianRitual.add(new RitualComponent(1, 1, -1, RitualComponent.WATER));
         return obsidianRitual;
     }
 }
