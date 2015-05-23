@@ -97,7 +97,7 @@ public class ItemCorruptedShovel extends ItemSpade {
                 EnergyItems.syphonBatteries(stack, player, lpConsumption);
                 if (getToolMode(stack) != 0) {
                     if (world.rand.nextInt(20) == 0) {
-                        SoulCorruptionHelper.incrementCorruption(RandomUtils.getItemOwner(stack));
+                        SoulCorruptionHelper.incrementCorruption(world.getPlayerEntityByName(RandomUtils.getItemOwner(stack)));
                     }
                 }
             }
@@ -173,14 +173,6 @@ public class ItemCorruptedShovel extends ItemSpade {
         RandomUtils.checkAndSetCompound(stack);
         stack.setItemDamage(0);
         super.onUpdate(stack, world, entity, par4, par5);
-    }
-
-    @Override
-    public float getDigSpeed(ItemStack stack, Block block, int meta) {
-        RandomUtils.checkAndSetCompound(stack);
-        int playerCorruption = SoulCorruptionHelper.getCorruptionLevel(RandomUtils.getItemOwner(stack));
-        return super.getDigSpeed(stack, block, meta) * (playerCorruption / minimumCorruption);
-
     }
 
     public void setbreakdownBlocks() {
@@ -281,7 +273,7 @@ public class ItemCorruptedShovel extends ItemSpade {
             EnergyItems.syphonBatteries(stack, player, lpConsumption);
             if (getToolMode(stack) != 0) {
                 if (world.rand.nextInt(20) == 0) {
-                    SoulCorruptionHelper.incrementCorruption(RandomUtils.getItemOwner(stack));
+                    SoulCorruptionHelper.incrementCorruption(world.getPlayerEntityByName(RandomUtils.getItemOwner(stack)));
                 }
             }
         }

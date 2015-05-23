@@ -103,19 +103,17 @@ public class ItemTranspositionSigil extends EnergyItems {
                         world.spawnEntityInWorld(lightningBolt);
                         if (!world.isRemote) {
                             world.setBlock(x, y, z, blockToPlace, metadata, 3);
-                            if (stack.stackTagCompound.getCompoundTag("TileNBTTag") != null && blockToPlace.hasTileEntity(metadata)) {
-                                TileEntity tile = TileEntity.createAndLoadEntity(stack.stackTagCompound.getCompoundTag("TileNBTTag"));
-                                tile.xCoord = x;
-                                tile.yCoord = y;
-                                tile.zCoord = z;
-                                world.setTileEntity(x, y, z, tile);
-                                world.markBlockForUpdate(x, y, z);
-                                tile.markDirty();
-                            }
                             stack.stackTagCompound.setInteger("blockId", 0);
                             stack.stackTagCompound.setInteger("metadata", 0);
                             blockToPlace.onBlockPlacedBy(world, x, y, z, player, new ItemStack(blockToPlace));
                             blockToPlace.onPostBlockPlaced(world, x, y, z, metadata);
+                            if (stack.stackTagCompound.getCompoundTag("TileNBTTag") != null && blockToPlace.hasTileEntity(metadata)) {
+                                stack.stackTagCompound.getCompoundTag("TileNBTTag").setInteger("x", x);
+                                stack.stackTagCompound.getCompoundTag("TileNBTTag").setInteger("y", y);
+                                stack.stackTagCompound.getCompoundTag("TileNBTTag").setInteger("z", z);
+                                world.getTileEntity(x, y, z).readFromNBT(stack.stackTagCompound.getCompoundTag("TileNBTTag"));
+                                world.markBlockForUpdate(x, y, z);
+                            }
                             world.markBlockForUpdate(x, y, z);
                         }
                     }

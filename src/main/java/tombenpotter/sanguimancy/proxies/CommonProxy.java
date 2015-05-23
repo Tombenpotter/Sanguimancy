@@ -93,4 +93,8 @@ public class CommonProxy implements IGuiHandler {
 
     public void addColoredFlameEffects(World world, double x, double y, double z, double movX, double movY, double movZ, int red, int green, int blue) {
     }
+
+    public World getClientWorld() {
+        return null;
+    }
 }

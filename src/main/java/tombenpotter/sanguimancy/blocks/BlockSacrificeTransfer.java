@@ -90,7 +90,7 @@ public class BlockSacrificeTransfer extends BlockContainer {
                     SoulNetworkHandler.setCurrentEssence(owner, currentEssence + stack.stackTagCompound.getInteger("bloodStolen"));
                     player.setFire(1000);
                     tile.setInventorySlotContents(0, null);
-                    SoulCorruptionHelper.addCorruption(player.getDisplayName(), 2);
+                    SoulCorruptionHelper.addCorruption(player, 2);
                 } else if (stack.stackTagCompound.getString("ownerName").equals(player.getCommandSenderName())) {
                     String sacrificed = player.getCommandSenderName();
                     int sacrificedEssence = SoulNetworkHandler.getCurrentEssence(sacrificed);

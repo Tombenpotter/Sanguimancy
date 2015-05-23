@@ -92,7 +92,7 @@ public class ItemCorruptedPickaxe extends ItemPickaxe implements IBindable {
                 EnergyItems.syphonBatteries(stack, player, lpConsumption);
                 if (getToolMode(stack) != 0) {
                     if (world.rand.nextInt(20) == 0) {
-                        SoulCorruptionHelper.incrementCorruption(RandomUtils.getItemOwner(stack));
+                        SoulCorruptionHelper.incrementCorruption(world.getPlayerEntityByName(RandomUtils.getItemOwner(stack)));
                     }
                 }
             }
@@ -174,13 +174,6 @@ public class ItemCorruptedPickaxe extends ItemPickaxe implements IBindable {
         super.onUpdate(stack, world, entity, par4, par5);
     }
 
-    @Override
-    public float getDigSpeed(ItemStack stack, Block block, int meta) {
-        RandomUtils.checkAndSetCompound(stack);
-        int playerCorruption = SoulCorruptionHelper.getCorruptionLevel(RandomUtils.getItemOwner(stack));
-        return super.getDigSpeed(stack, block, meta) * (playerCorruption / minimumCorruption);
-
-    }
 
     @Override
     public boolean hitEntity(ItemStack stack, EntityLivingBase target, EntityLivingBase attacker) {

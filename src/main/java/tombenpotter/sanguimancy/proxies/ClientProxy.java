@@ -102,4 +102,9 @@ public class ClientProxy extends CommonProxy {
         EntityColoredFlameFX particle = new EntityColoredFlameFX(world, x, y, z, movX, movY, movZ, red, green, blue);
         FMLClientHandler.instance().getClient().effectRenderer.addEffect(particle);
     }
+
+    @Override
+    public World getClientWorld() {
+        return Minecraft.getMinecraft().theWorld;
+    }
 }

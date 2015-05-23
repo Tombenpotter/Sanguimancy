@@ -103,9 +103,9 @@ public class TileCorruptionCrystallizer extends TileSegmentedReagentHandler impl
     public void removeAndStoreCorruption(World world, EntityPlayer player, int x, int y, int z) {
         if (player != null) {
             if (canDrainReagent(ReagentRegistry.sanctusReagent, 20)) {
-                if (SoulCorruptionHelper.isCorruptionOver(player.getDisplayName(), 1) && (world.getWorldTime() % 200 == 0)) {
+                if (SoulCorruptionHelper.isCorruptionOver(player, 1) && (world.getWorldTime() % 200 == 0)) {
                     drain(ForgeDirection.UNKNOWN, 20, true);
-                    SoulCorruptionHelper.decrementCorruption(player.getDisplayName());
+                    SoulCorruptionHelper.decrementCorruption(player);
                     corruptionStored = corruptionStored + 1;
                     SoulNetworkHandler.syphonFromNetwork(player.getCommandSenderName(), 500);
                 } else if (corruptionStored > 0 && canDrainReagent(ReagentRegistry.sanctusReagent, 5)) {
@@ -117,7 +117,7 @@ public class TileCorruptionCrystallizer extends TileSegmentedReagentHandler impl
             } else {
                 if (corruptionStored > 0) {
                     if ((world.getWorldTime() % 100 == 0)) {
-                        SoulCorruptionHelper.incrementCorruption(player.getDisplayName());
+                        SoulCorruptionHelper.incrementCorruption(player);
                         corruptionStored = corruptionStored - 1;
                     }
                 }
