@@ -1,6 +1,7 @@
 package tombenpotter.sanguimancy.util;
 
 import WayofTime.alchemicalWizardry.ModItems;
+import com.google.common.base.Strings;
 import cpw.mods.fml.common.eventhandler.Event;
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.block.Block;
@@ -442,7 +443,7 @@ public class RandomUtils {
 
     public static void setOreLumpList() {
         for (String ore : OreDictionary.getOreNames()) {
-            if (ore.startsWith("ore")) {
+            if (!Strings.isNullOrEmpty(ore) && ore.startsWith("ore")) {
                 String output = ore.substring(3);
                 if (!OreDictionary.getOres(ore).isEmpty() && !OreDictionary.getOres("ingot" + output).isEmpty()) {
                     ItemStack stack = new ItemStack(ItemsRegistry.oreLump);
