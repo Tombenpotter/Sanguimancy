@@ -1,6 +1,6 @@
 package tombenpotter.sanguimancy.util;
 
-import WayofTime.alchemicalWizardry.common.Int3;
+import WayofTime.alchemicalWizardry.api.Int3;
 import WayofTime.alchemicalWizardry.common.spell.complex.effect.SpellHelper;
 import net.minecraft.block.Block;
 import net.minecraft.entity.item.EntityItem;
