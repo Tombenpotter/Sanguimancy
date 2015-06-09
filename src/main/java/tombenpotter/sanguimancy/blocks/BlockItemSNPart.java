@@ -86,11 +86,13 @@ public class BlockItemSNPart extends BlockContainer {
 
     @Override
     public void onNeighborBlockChange(World world, int x, int y, int z, Block neighborBlock) {
-        ISNComponent branch = (ISNComponent) world.getTileEntity(x, y, z);
-        if (!branch.getComponentsInNetwork().hashMap.isEmpty()) {
-            for (BlockPostition postition : branch.getComponentsInNetwork().hashMap.keySet()) {
-                ISNComponent component = (ISNComponent) postition.getTile(world);
-                component.onNetworkUpdate(new BlockPostition(x, y, z));
+        if (world.getTileEntity(x, y, z) != null && world.getTileEntity(x, y, z) instanceof ISNComponent) {
+            ISNComponent branch = (ISNComponent) world.getTileEntity(x, y, z);
+            if (!branch.getComponentsInNetwork().hashMap.isEmpty()) {
+                for (BlockPostition postition : branch.getComponentsInNetwork().hashMap.keySet()) {
+                    ISNComponent component = (ISNComponent) postition.getTile(world);
+                    component.onNetworkUpdate(new BlockPostition(x, y, z));
+                }
             }
         }
     }

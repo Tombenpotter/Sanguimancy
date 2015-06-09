@@ -48,7 +48,7 @@ public class ItemBloodAmulet extends Item implements IFluidContainerItem {
             float health = livingBase.getHealth();
             RandomUtils.checkAndSetCompound(stack);
             if (health < 10F && stack.hasTagCompound() && getFluid(stack) != null) {
-                if (getFluid(stack).fluidID == new FluidStack(AlchemicalWizardry.lifeEssenceFluid, 1).fluidID && getFluid(stack).amount >= bloodLoss) {
+                if (getFluid(stack).getFluidID() == new FluidStack(AlchemicalWizardry.lifeEssenceFluid, 1).getFluidID() && getFluid(stack).amount >= bloodLoss) {
                     livingBase.heal(1F);
                     livingBase.motionX = 0;
                     livingBase.motionY = 0;
@@ -65,7 +65,7 @@ public class ItemBloodAmulet extends Item implements IFluidContainerItem {
     public boolean onItemUse(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int p_77648_7_, float p_77648_8_, float p_77648_9_, float p_77648_10_) {
         if (world.getTileEntity(x, y, z) != null && world.getTileEntity(x, y, z) instanceof TileBloodTank) {
             TileBloodTank tile = (TileBloodTank) world.getTileEntity(x, y, z);
-            if (tile.tank.getFluid() != null && tile.tank.getFluid().fluidID == AlchemicalWizardry.lifeEssenceFluid.getID()) {
+            if (tile.tank.getFluid() != null && tile.tank.getFluid().getFluidID() == AlchemicalWizardry.lifeEssenceFluid.getID()) {
                 tile.drain(ForgeDirection.UNKNOWN, FluidContainerRegistry.BUCKET_VOLUME, true);
                 fill(stack, new FluidStack(AlchemicalWizardry.lifeEssenceFluid, FluidContainerRegistry.BUCKET_VOLUME), true);
                 return true;
@@ -107,7 +107,7 @@ public class ItemBloodAmulet extends Item implements IFluidContainerItem {
     @Override
     public int fill(ItemStack stack, FluidStack resource, boolean doFill) {
         if (resource == null || stack.stackSize != 1) return 0;
-        if (resource.fluidID != AlchemicalWizardry.lifeEssenceFluid.getID()) {
+        if (resource.getFluidID() != AlchemicalWizardry.lifeEssenceFluid.getID()) {
             return 0;
         }
         int fillAmount = 0, capacity = getCapacity(stack);

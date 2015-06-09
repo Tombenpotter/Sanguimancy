@@ -10,8 +10,9 @@ buildscript {
     }
 }
 
+import org.ajoberstar.grgit.Grgit
+
 apply plugin: 'forge'
-apply plugin: 'curseforge'
 apply plugin: 'maven-publish'
 
 def build_number = 'CUSTOM'
@@ -22,8 +23,6 @@ if (System.getenv('BUILD_NUMBER') != null)
 group = package_group
 archivesBaseName = mod_name
 version = "${mc_version}-${mod_version}-${build_number}"
-
-import org.ajoberstar.grgit.Grgit
 
 def gitHash = 'unknown'
 if (new File(projectDir, '.git').exists()) {
@@ -63,35 +62,53 @@ repositories {
         name "Mobius Repo"
         url "http://mobiusstrip.eu/maven"
     }
-    maven { // CCC/NEI (for WAILA)
+    maven {
         name 'CB Repo'
         url "http://chickenbones.net/maven/"
     }
-	 maven { 
+	maven { 
 		name 'TehNut Repo'
 		url "http://tehnut.info/maven/"
-	} 
+	}
+	maven {
+		name 'OpenComputers Repo'
+		url "http://maven.cil.li/"
+	}
 }
 
 dependencies {
-    compile "mcp.mobius.waila:Waila:1.5.5_1.7.10"
-	compile "codechicken:NotEnoughItems:1.7.10-1.0.3.64:dev"
+	compile "codechicken:CodeChickenCore:${mc_version}-${ccc_version}:dev"
+	compile "codechicken:CodeChickenLib:${mc_version}-${ccl_version}:dev"
+	compile "codechicken:NotEnoughItems:${mc_version}-${nei_version}:dev"
+	
+	compile "mcp.mobius.waila:Waila:${waila_version}_${mc_version}:dev"
+	
+	compile "li.cil.oc:OpenComputers:MC${mc_version}-${oc_version}-dev:dev"
+	
 	compile "info.amerifrance.guideapi:Guide-API:${mc_version}-${guideapi_version}:deobf"
     compile fileTree(dir: 'libs', include: '*.jar')
 }
 
-task copyChicken(type: Copy, dependsOn: "extractUserDev") {
-    from { configurations.compile }
-    include "**/*Chicken*.jar", "**/*NotEnoughItems*.jar"
-    exclude "**/CodeChickenLib*" // because CCC downloads it anyways.. -_-
-    into file(minecraft.runDir + "/mods")
-
-    mustRunAfter "deobfBinJar"
+task copyModDeps(type: Copy, dependsOn: "extractUserDev") {
+	from { configurations.compile }
+	include "**/*CodeChickenCore*.jar", "**/*NotEnoughItems*.jar"
+	into file(minecraft.runDir + "/mods")
+	
+	mustRunAfter "deobfBinJar"
+    mustRunAfter "repackMinecraft"
+}
+	
+task copyLibDeps(type: Copy, dependsOn: "extractUserDev") {
+	from { configurations.compile }
+	include "**/CodeChickenLib*.jar"
+	into file(minecraft.runDir + "/mods/1.7.10")
+		
+	mustRunAfter "deobfBinJar"
     mustRunAfter "repackMinecraft"
 }
 
-tasks.setupDevWorkspace.dependsOn copyChicken
-tasks.setupDecompWorkspace.dependsOn copyChicken
+tasks.setupDevWorkspace.dependsOn copyModDeps, copyLibDeps
+tasks.setupDecompWorkspace.dependsOn copyModDeps, copyLibDeps
 
 jar {
     classifier = ''
@@ -104,19 +121,19 @@ jar {
     )
 }
 
-// add a source jar
+// Add a source jar
 task sourceJar(type: Jar) {
     from sourceSets.main.allSource
     classifier = 'sources'
 }
 
-// add a javadoc jar
+// Add a javadoc jar
 task javadocJar(type: Jar, dependsOn: javadoc) {
     from javadoc.destinationDir
     classifier = 'javadoc'
 }
 
-// because the normal output has been made to be obfuscated
+// Adds a deobfuscated jar
 task deobfJar(type: Jar) {
     from sourceSets.main.output
     classifier = 'deobf'
@@ -147,13 +164,4 @@ publishing {
     }
 }
 
-curse {
-    projectId = '229339'
-	if (project.hasProperty('curse_key'))
-		apiKey = project.curse_key
-    releaseType = 'beta'
-
-    changelog = project.hasProperty('changelog') ? project.changelog : ''
-    relatedProject 'blood-magic': 'requiredLibrary'
-    relatedProject 'guide-api': 'requiredLibrary'
-}
+fileTree('gradle').include('curse.gradle').collect().sort().each { apply from: it }

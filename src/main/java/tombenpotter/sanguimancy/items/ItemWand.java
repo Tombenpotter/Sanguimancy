@@ -48,9 +48,10 @@ public class ItemWand extends Item {
         }
         if (!player.isSneaking()) {
             shootSpell(world, player, stack);
+            world.playSoundAtEntity(player, "random.fizz", 0.5F, 0.4F / (itemRand.nextFloat() * 0.4F + 0.8F));
             player.swingItem();
+            return stack;
         }
-        world.playSoundAtEntity(player, "random.fizz", 0.5F, 0.4F / (itemRand.nextFloat() * 0.4F + 0.8F));
         return stack;
     }
 

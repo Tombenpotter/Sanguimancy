@@ -38,9 +38,9 @@ public class ItemCorruptionCatalyst extends Item {
         } else if (stack.stackTagCompound.getBoolean("activated")) {
             if (entity != null && entity instanceof EntityPlayer) {
                 EntityPlayer player = (EntityPlayer) entity;
-                if (player.getHeldItem() != null && RecipeCorruptedInfusion.isRecipeValid(new ItemStack[]{player.getHeldItem()}, SoulCorruptionHelper.getCorruptionLevel(player.getDisplayName()))) {
+                if (player.getHeldItem() != null && RecipeCorruptedInfusion.isRecipeValid(new ItemStack[]{player.getHeldItem()}, SoulCorruptionHelper.getCorruptionLevel(player))) {
                     ItemStack[] input = new ItemStack[]{player.getHeldItem().copy()};
-                    RecipeCorruptedInfusion recipe = RecipeCorruptedInfusion.getPossibleRecipes(input, SoulCorruptionHelper.getCorruptionLevel(player.getDisplayName())).get(0);
+                    RecipeCorruptedInfusion recipe = RecipeCorruptedInfusion.getPossibleRecipes(input, SoulCorruptionHelper.getCorruptionLevel(player)).get(0);
                     ItemStack output = recipe.fOutput.copy();
                     for (ItemStack inputStack : recipe.fInput) {
                         if (world.getWorldTime() % recipe.fTime == 0) {

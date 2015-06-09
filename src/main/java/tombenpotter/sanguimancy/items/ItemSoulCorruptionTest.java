@@ -80,23 +80,23 @@ public class ItemSoulCorruptionTest extends Item {
         if (!world.isRemote) {
             if (stack.getItemDamage() == 0) {
                 if (!player.isSneaking()) {
-                    SoulCorruptionHelper.incrementCorruption(player.getDisplayName());
+                    SoulCorruptionHelper.incrementCorruption(player);
                 } else {
-                    SoulCorruptionHelper.addCorruption(player.getDisplayName(), 100);
+                    SoulCorruptionHelper.addCorruption(player, 100);
                 }
             }
             if (stack.getItemDamage() == 1) {
                 if (!player.isSneaking()) {
-                    SoulCorruptionHelper.decrementCorruption(player.getDisplayName());
+                    SoulCorruptionHelper.decrementCorruption(player);
                 } else {
-                    SoulCorruptionHelper.removeCorruption(player.getDisplayName(), 100);
+                    SoulCorruptionHelper.removeCorruption(player, 100);
                 }
             }
             if (stack.getItemDamage() == 2) {
-                SoulCorruptionHelper.negateCorruption(player.getDisplayName());
+                SoulCorruptionHelper.negateCorruption(player);
             }
             if (stack.getItemDamage() == 3) {
-                player.addChatComponentMessage(new ChatComponentText(StatCollector.translateToLocal("chat.Sanguimancy.soul.corruption") + ": " + String.valueOf(SoulCorruptionHelper.getCorruptionLevel(player.getDisplayName()))));
+                player.addChatComponentMessage(new ChatComponentText(StatCollector.translateToLocal("chat.Sanguimancy.soul.corruption") + ": " + String.valueOf(SoulCorruptionHelper.getCorruptionLevel(player))));
             }
         }
         return stack;

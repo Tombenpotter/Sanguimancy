@@ -16,60 +16,52 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.StatCollector;
 import tombenpotter.sanguimancy.Sanguimancy;
 import tombenpotter.sanguimancy.entity.EntityChickenMinion;
-import tombenpotter.sanguimancy.network.PacketHandler;
-import tombenpotter.sanguimancy.network.events.EventSoulCorruption;
-import tombenpotter.sanguimancy.network.packets.PacketSyncCorruption;
 import tombenpotter.sanguimancy.registry.BlocksRegistry;
 import tombenpotter.sanguimancy.registry.PotionsRegistry;
 import tombenpotter.sanguimancy.util.ConfigHandler;
-import tombenpotter.sanguimancy.util.RandomUtils;
-import tombenpotter.sanguimancy.util.singletons.SoulCorruption;
 
 import java.util.List;
 
 public class SoulCorruptionHelper {
 
-    public static int getCorruptionLevel(String ownerName) {
-        RandomUtils.fireEvent(new EventSoulCorruption.EventCheckSoulCorruption(ownerName));
-        return SoulCorruption.getSoulCorruption().getCorruption(ownerName);
+    public static int getCorruptionLevel(EntityPlayer player) {
+        return SoulCorruption.getSoulCorruption(player);
     }
 
-    public static void setCorruptionLevel(String ownerName, int level) {
-        SoulCorruption.getSoulCorruption().setCorruption(ownerName, level);
-        RandomUtils.fireEvent(new EventSoulCorruption.EventSetSoulCorruption(ownerName, level));
-        PacketHandler.INSTANCE.sendToAll(new PacketSyncCorruption(ownerName));
+    public static void setCorruptionLevel(EntityPlayer player, int level) {
+        SoulCorruption.get(player).setSoulCorruption(level);
     }
 
-    public static boolean isCorruptionEqual(String ownerName, int level) {
-        return getCorruptionLevel(ownerName) == level;
+    public static boolean isCorruptionEqual(EntityPlayer player, int level) {
+        return getCorruptionLevel(player) == level;
     }
 
-    public static boolean isCorruptionOver(String ownerName, int level) {
-        return getCorruptionLevel(ownerName) >= level;
+    public static boolean isCorruptionOver(EntityPlayer player, int level) {
+        return getCorruptionLevel(player) >= level;
     }
 
-    public static boolean isCorruptionLower(String ownerName, int level) {
-        return getCorruptionLevel(ownerName) <= level;
+    public static boolean isCorruptionLower(EntityPlayer player, int level) {
+        return getCorruptionLevel(player) <= level;
     }
 
-    public static void negateCorruption(String ownerName) {
-        setCorruptionLevel(ownerName, 0);
+    public static void negateCorruption(EntityPlayer player) {
+        setCorruptionLevel(player, 0);
     }
 
-    public static void addCorruption(String ownerName, int level) {
-        setCorruptionLevel(ownerName, getCorruptionLevel(ownerName) + level);
+    public static void addCorruption(EntityPlayer player, int level) {
+        setCorruptionLevel(player, getCorruptionLevel(player) + level);
     }
 
-    public static void removeCorruption(String ownerName, int level) {
-        setCorruptionLevel(ownerName, getCorruptionLevel(ownerName) - level);
+    public static void removeCorruption(EntityPlayer player, int level) {
+        setCorruptionLevel(player, getCorruptionLevel(player) - level);
     }
 
-    public static void incrementCorruption(String ownerName) {
-        addCorruption(ownerName, 1);
+    public static void incrementCorruption(EntityPlayer player) {
+        addCorruption(player, 1);
     }
 
-    public static void decrementCorruption(String ownerName) {
-        removeCorruption(ownerName, 1);
+    public static void decrementCorruption(EntityPlayer player) {
+        removeCorruption(player, 1);
     }
 
     @SideOnly(Side.CLIENT)
@@ -84,9 +76,14 @@ public class SoulCorruptionHelper {
             String owner = player.getUniqueID().toString();
             minion.func_152115_b(owner);
             minion.setTamed(true);
-            player.worldObj.spawnEntityInWorld(minion);
-            if (!player.worldObj.isRemote && ConfigHandler.messagesWhenCorruptionEffect) {
+            if (!player.worldObj.isRemote) {
+                player.worldObj.spawnEntityInWorld(minion);
+            }
+            if (!player.worldObj.isRemote && ConfigHandler.serverMessagesWhenCorruptionEffect) {
                 MinecraftServer.getServer().getConfigurationManager().sendChatMsg(new ChatComponentText(String.format(StatCollector.translateToLocal("chat.Sanguimancy.chicken.minion"), player.getDisplayName())));
+            }
+            if (!player.worldObj.isRemote && ConfigHandler.playerMessageWhenCorruptionEffect) {
+                player.addChatComponentMessage(new ChatComponentText(String.format(StatCollector.translateToLocal("chat.Sanguimancy.chicken.minion"), player.getDisplayName())));
             }
         }
     }
@@ -117,10 +114,13 @@ public class SoulCorruptionHelper {
             int k = (int) (player.posZ + player.worldObj.rand.nextInt(16) - player.worldObj.rand.nextInt(16));
             if (j <= 5) j = j + 10;
             player.setPositionAndUpdate(i, j, k);
-            decrementCorruption(player.getDisplayName());
+            decrementCorruption(player);
 
-            if (!player.worldObj.isRemote && ConfigHandler.messagesWhenCorruptionEffect) {
+            if (!player.worldObj.isRemote && ConfigHandler.serverMessagesWhenCorruptionEffect) {
                 MinecraftServer.getServer().getConfigurationManager().sendChatMsg(new ChatComponentText(String.format(StatCollector.translateToLocal("chat.Sanguimancy.random.teleport"), player.getDisplayName())));
+            }
+            if (!player.worldObj.isRemote && ConfigHandler.playerMessageWhenCorruptionEffect) {
+                player.addChatComponentMessage(new ChatComponentText(String.format(StatCollector.translateToLocal("chat.Sanguimancy.random.teleport"), player.getDisplayName())));
             }
         }
     }
@@ -185,8 +185,11 @@ public class SoulCorruptionHelper {
             if (player.worldObj.rand.nextInt(750) == 0) {
                 int level = player.worldObj.rand.nextInt(5);
                 player.addPotionEffect(new PotionEffect(PotionsRegistry.potionRemoveHeart.id, 1200, level, false));
-                if (!player.worldObj.isRemote && ConfigHandler.messagesWhenCorruptionEffect) {
+                if (!player.worldObj.isRemote && ConfigHandler.serverMessagesWhenCorruptionEffect) {
                     MinecraftServer.getServer().getConfigurationManager().sendChatMsg(new ChatComponentText(String.format(StatCollector.translateToLocal("chat.Sanguimancy.loose.heart"), player.getDisplayName())));
+                }
+                if (!player.worldObj.isRemote && ConfigHandler.playerMessageWhenCorruptionEffect) {
+                    player.addChatComponentMessage(new ChatComponentText(String.format(StatCollector.translateToLocal("chat.Sanguimancy.loose.heart"), player.getDisplayName())));
                 }
             }
         }

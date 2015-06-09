@@ -82,7 +82,9 @@ public class Sanguimancy {
         MinecraftForge.EVENT_BUS.register(new EventHandler());
         FMLCommonHandler.instance().bus().register(TeleportingQueue.getInstance());
         PacketHandler.registerPackets();
-        if (Loader.isModLoaded("Waila")) WailaCompatRegistry.register();
+        if (Loader.isModLoaded("Waila")) {
+            WailaCompatRegistry.register();
+        }
         NetworkRegistry.INSTANCE.registerGuiHandler(this, proxy);
     }
 

@@ -16,6 +16,7 @@ import net.minecraft.tileentity.TileEntityMobSpawner;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import tombenpotter.sanguimancy.Sanguimancy;
+import tombenpotter.sanguimancy.api.objects.BlockAndMetadata;
 import tombenpotter.sanguimancy.util.ConfigHandler;
 import tombenpotter.sanguimancy.util.RandomUtils;
 
@@ -59,7 +60,7 @@ public class ItemTranspositionSigil extends EnergyItems {
             world.spawnEntityInWorld(lightningBolt);
         }
         if (!world.isRemote) {
-            if (player.isSneaking() && stack.stackTagCompound.getInteger("blockId") == 0 && !RandomUtils.transpositionBlockBlacklist.contains(world.getBlock(x, y, z))) {
+            if (player.isSneaking() && stack.stackTagCompound.getInteger("blockId") == 0 && !RandomUtils.transpositionBlockBlacklist.contains(new BlockAndMetadata(world.getBlock(x, y, z), world.getBlockMetadata(x, y, z)))) {
                 int cost = ConfigHandler.transpositionSigilCost;
                 if (world.getBlock(x, y, z).getPlayerRelativeBlockHardness(player, world, x, y, z) >= 0 && world.getBlock(x, y, z).getBlockHardness(world, x, y, z) >= 0) {
                     NBTTagCompound tileNBTTag = new NBTTagCompound();
@@ -102,19 +103,17 @@ public class ItemTranspositionSigil extends EnergyItems {
                         world.spawnEntityInWorld(lightningBolt);
                         if (!world.isRemote) {
                             world.setBlock(x, y, z, blockToPlace, metadata, 3);
-                            if (stack.stackTagCompound.getCompoundTag("TileNBTTag") != null && blockToPlace.hasTileEntity(metadata)) {
-                                TileEntity tile = TileEntity.createAndLoadEntity(stack.stackTagCompound.getCompoundTag("TileNBTTag"));
-                                tile.xCoord = x;
-                                tile.yCoord = y;
-                                tile.zCoord = z;
-                                world.setTileEntity(x, y, z, tile);
-                                world.markBlockForUpdate(x, y, z);
-                                tile.markDirty();
-                            }
                             stack.stackTagCompound.setInteger("blockId", 0);
                             stack.stackTagCompound.setInteger("metadata", 0);
                             blockToPlace.onBlockPlacedBy(world, x, y, z, player, new ItemStack(blockToPlace));
                             blockToPlace.onPostBlockPlaced(world, x, y, z, metadata);
+                            if (stack.stackTagCompound.getCompoundTag("TileNBTTag") != null && blockToPlace.hasTileEntity(metadata)) {
+                                stack.stackTagCompound.getCompoundTag("TileNBTTag").setInteger("x", x);
+                                stack.stackTagCompound.getCompoundTag("TileNBTTag").setInteger("y", y);
+                                stack.stackTagCompound.getCompoundTag("TileNBTTag").setInteger("z", z);
+                                world.getTileEntity(x, y, z).readFromNBT(stack.stackTagCompound.getCompoundTag("TileNBTTag"));
+                                world.markBlockForUpdate(x, y, z);
+                            }
                             world.markBlockForUpdate(x, y, z);
                         }
                     }

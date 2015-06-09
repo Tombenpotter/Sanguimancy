@@ -11,6 +11,7 @@ import cpw.mods.fml.common.ModContainer;
 import cpw.mods.fml.common.eventhandler.Event;
 import cpw.mods.fml.common.eventhandler.EventPriority;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import cpw.mods.fml.common.gameevent.PlayerEvent;
 import cpw.mods.fml.common.gameevent.TickEvent;
 import cpw.mods.fml.common.registry.GameData;
 import net.minecraft.client.Minecraft;
@@ -18,8 +19,11 @@ import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.potion.Potion;
+import net.minecraft.potion.PotionEffect;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.ResourceLocation;
@@ -27,6 +31,7 @@ import net.minecraft.util.StatCollector;
 import net.minecraft.world.WorldServer;
 import net.minecraftforge.client.event.RenderPlayerEvent;
 import net.minecraftforge.common.ForgeChunkManager;
+import net.minecraftforge.event.entity.EntityEvent;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.EntityStruckByLightningEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
@@ -35,6 +40,8 @@ import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.event.world.BlockEvent;
 import org.lwjgl.opengl.GL11;
 import tombenpotter.sanguimancy.Sanguimancy;
+import tombenpotter.sanguimancy.api.objects.BlockAndMetadata;
+import tombenpotter.sanguimancy.api.soulCorruption.SoulCorruption;
 import tombenpotter.sanguimancy.api.soulCorruption.SoulCorruptionHelper;
 import tombenpotter.sanguimancy.network.PacketHandler;
 import tombenpotter.sanguimancy.network.events.EventCorruptedInfusion;
@@ -53,6 +60,15 @@ import java.util.ArrayList;
 public class EventHandler {
 
     public EventHandler() {
+    }
+
+    public static void syncCorruption(EntityPlayer player) {
+        SoulCorruption data = SoulCorruption.get(player);
+        if (data != null) {
+            NBTTagCompound tagCompound = new NBTTagCompound();
+            data.saveNBTData(tagCompound);
+            PacketHandler.INSTANCE.sendTo(new PacketSyncCorruption(player, tagCompound), (EntityPlayerMP) player);
+        }
     }
 
     @SubscribeEvent
@@ -81,7 +97,7 @@ public class EventHandler {
                         focusedStack.stackTagCompound.setString("thiefName", perpetrator.getCommandSenderName());
                         perpetrator.inventory.addItemStackToInventory(focusedStack);
                         SoulNetworkHandler.setCurrentEssence(owner, 0);
-                        SoulCorruptionHelper.incrementCorruption(player.getDisplayName());
+                        SoulCorruptionHelper.incrementCorruption(player);
                     }
                 }
             }
@@ -112,30 +128,41 @@ public class EventHandler {
 
     @SubscribeEvent
     public void onPlayerTick(TickEvent.PlayerTickEvent event) {
-        String playerName;
-        if (!event.player.worldObj.isRemote) playerName = event.player.getDisplayName();
-        else playerName = Sanguimancy.proxy.getClientPlayer().getDisplayName();
-
-        if (SoulCorruptionHelper.isCorruptionOver(playerName, 10)) {
+        if (SoulCorruptionHelper.isCorruptionOver(event.player, 10)) {
             SoulCorruptionHelper.spawnChickenFollower(event.player);
         }
-        if (SoulCorruptionHelper.isCorruptionOver(playerName, 40)) {
+        if (SoulCorruptionHelper.isCorruptionOver(event.player, 40)) {
             SoulCorruptionHelper.killGrass(event.player);
         }
-        if (SoulCorruptionHelper.isCorruptionOver(playerName, 60)) {
+        if (SoulCorruptionHelper.isCorruptionOver(event.player, 60)) {
             SoulCorruptionHelper.hurtAndHealAnimals(event.player);
         }
-        if (SoulCorruptionHelper.isCorruptionOver(playerName, 100)) {
+        if (SoulCorruptionHelper.isCorruptionOver(event.player, 100)) {
             SoulCorruptionHelper.spawnIllusion(event.player);
         }
-        if (SoulCorruptionHelper.isCorruptionOver(playerName, 150)) {
+        if (SoulCorruptionHelper.isCorruptionOver(event.player, 150)) {
             SoulCorruptionHelper.randomTeleport(event.player);
         }
-        if (SoulCorruptionHelper.isCorruptionOver(playerName, 200)) {
+        if (SoulCorruptionHelper.isCorruptionOver(event.player, 200)) {
             SoulCorruptionHelper.loseHeart(event.player);
         }
-        if (!event.player.worldObj.isRemote && event.player.worldObj.getWorldTime() % 200 == 0) {
-            PacketHandler.INSTANCE.sendToAll(new PacketSyncCorruption(event.player.getDisplayName()));
+        if (SoulCorruptionHelper.isCorruptionOver(event.player, 1300)) {
+            event.player.addPotionEffect(new PotionEffect(Potion.jump.getId(), 1, 1));
+        }
+        if (SoulCorruptionHelper.isCorruptionOver(event.player, 1600)) {
+            event.player.addPotionEffect(new PotionEffect(Potion.moveSpeed.getId(), 1, 1));
+        }
+        if (SoulCorruptionHelper.isCorruptionOver(event.player, 1900)) {
+            event.player.addPotionEffect(new PotionEffect(Potion.fireResistance.getId(), 1, 1));
+        }
+        if (SoulCorruptionHelper.isCorruptionOver(event.player, 2100)) {
+            event.player.addPotionEffect(new PotionEffect(Potion.waterBreathing.getId(), 1, 1));
+        }
+        if (SoulCorruptionHelper.isCorruptionOver(event.player, 2400)) {
+            event.player.addPotionEffect(new PotionEffect(Potion.resistance.getId(), 1, 1));
+        }
+        if (!event.player.worldObj.isRemote && event.player.worldObj.getTotalWorldTime() % 200 == 0) {
+            syncCorruption(event.player);
         }
     }
 
@@ -143,7 +170,7 @@ public class EventHandler {
     public void onPlayerAttack(AttackEntityEvent event) {
         if (event.entityPlayer != null && event.target != null && event.target instanceof EntityLivingBase) {
             EntityLivingBase target = (EntityLivingBase) event.target;
-            if (SoulCorruptionHelper.isCorruptionOver(event.entityPlayer.getDisplayName(), 30))
+            if (SoulCorruptionHelper.isCorruptionOver(event.entityPlayer, 30))
                 SoulCorruptionHelper.addWither(target);
         }
     }
@@ -151,7 +178,7 @@ public class EventHandler {
     @SubscribeEvent
     public void onRitualActivation(RitualActivatedEvent event) {
         if (event.player != null) {
-            if (SoulCorruptionHelper.isCorruptionOver(event.player.getDisplayName(), 50) && event.player.worldObj.rand.nextInt(10) == 0) {
+            if (SoulCorruptionHelper.isCorruptionOver(event.player, 50) && event.player.worldObj.rand.nextInt(10) == 0) {
                 event.setResult(Event.Result.DENY);
             }
         }
@@ -324,8 +351,45 @@ public class EventHandler {
 
     @SubscribeEvent
     public void onTeleposeBlock(TeleposeEvent event) {
-        if (!ConfigHandler.enableTelepositionBlacklist && (RandomUtils.teleposerBlacklist.contains(event.finalBlock) || RandomUtils.teleposerBlacklist.contains(event.initialBlock))) {
+        if (!ConfigHandler.enableTelepositionBlacklist && (RandomUtils.teleposerBlacklist.contains(new BlockAndMetadata(event.initialBlock, event.initialMetadata))
+                || RandomUtils.teleposerBlacklist.contains(new BlockAndMetadata(event.finalBlock, event.finalMetadata)))) {
             event.setCanceled(true);
+        }
+    }
+
+    @SubscribeEvent
+    public void onCreateEntity(EntityEvent.EntityConstructing event) {
+        if (event.entity instanceof EntityPlayer && SoulCorruption.get((EntityPlayer) event.entity) == null) {
+            SoulCorruption.create((EntityPlayer) event.entity);
+        }
+    }
+
+    @SubscribeEvent
+    public void onPlayerChangeDimension(PlayerEvent.PlayerChangedDimensionEvent event) {
+        syncCorruption(event.player);
+    }
+
+    @SubscribeEvent
+    public void onPlayerSpawn(PlayerEvent.PlayerRespawnEvent event) {
+        syncCorruption(event.player);
+    }
+
+    @SubscribeEvent
+    public void onPlayerClone(net.minecraftforge.event.entity.player.PlayerEvent.Clone event) {
+        NBTTagCompound tagCompound = new NBTTagCompound();
+        SoulCorruption.get(event.original).saveNBTData(tagCompound);
+        SoulCorruption.get(event.entityPlayer).saveNBTData(tagCompound);
+        syncCorruption(event.entityPlayer);
+    }
+
+    @SubscribeEvent
+    public void onDigWithCorruptedTool(net.minecraftforge.event.entity.player.PlayerEvent.BreakSpeed event) {
+        if (event.entityPlayer.getHeldItem() != null) {
+            ItemStack stack = event.entityPlayer.getHeldItem();
+            if (stack.getItem() == ItemsRegistry.corruptedAxe || stack.getItem() == ItemsRegistry.corruptedShovel || stack.getItem() == ItemsRegistry.corruptedPickaxe) {
+                int corruption = SoulCorruptionHelper.getCorruptionLevel(event.entityPlayer);
+                event.newSpeed = event.originalSpeed * (corruption / ConfigHandler.minimumToolCorruption);
+            }
         }
     }
 
@@ -340,6 +404,7 @@ public class EventHandler {
         private static float renderTicks;
         private static long tickTime = 0L;
 
+        @SubscribeEvent
         public void onRenderPlayerSpecialAntlers(RenderPlayerEvent.Specials.Post event) {
             String names[] = {"Tombenpotter", "TehNut", "WayofFlowingTime", "Jadedcat", "Kris1432", "Drullkus", "TheOrangeGenius", "Direwolf20", "Pahimar", "ValiarMarcus", "Alex_hawks", "StoneWaves", "DemoXin", "insaneau"};
             for (String name : names) {

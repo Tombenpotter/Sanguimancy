@@ -55,7 +55,7 @@ public class BlockEtherealCorrupted extends BlockCamouflage {
         if (entity != null && ((entity instanceof EntityPlayer && !entity.isSneaking()))) {
             EntityPlayer player = (EntityPlayer) entity;
             TileCamouflage tile = (TileCamouflage) world.getTileEntity(x, y, z);
-            if (SoulCorruptionHelper.isCorruptionOver(player.getDisplayName(), tile.getCustomNBTTag().getInteger("MinimumCorruption"))) {
+            if (SoulCorruptionHelper.isCorruptionOver(player, tile.getCustomNBTTag().getInteger("MinimumCorruption"))) {
                 return;
             } else {
                 super.addCollisionBoxesToList(world, x, y, z, mask, list, entity);

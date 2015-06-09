@@ -105,7 +105,7 @@ public class TileBloodCleaner extends TileBaseSidedInventory implements IFluidHa
 
     @Override
     public int fill(ForgeDirection from, FluidStack resource, boolean doFill) {
-        if (resource.fluidID == AlchemicalWizardry.lifeEssenceFluid.getID()) {
+        if (resource.getFluidID() == AlchemicalWizardry.lifeEssenceFluid.getID()) {
             worldObj.markBlockForUpdate(this.xCoord, this.yCoord, this.zCoord);
             return tank.fill(resource, doFill);
         }

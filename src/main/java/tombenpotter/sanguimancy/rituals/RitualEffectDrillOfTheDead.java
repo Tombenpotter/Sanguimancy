@@ -25,7 +25,7 @@ public class RitualEffectDrillOfTheDead extends RitualEffect {
 
     @Override
     public boolean startRitual(IMasterRitualStone ritualStone, EntityPlayer player) {
-        SoulCorruptionHelper.incrementCorruption(player.getDisplayName());
+        SoulCorruptionHelper.incrementCorruption(player);
         return true;
     }
 

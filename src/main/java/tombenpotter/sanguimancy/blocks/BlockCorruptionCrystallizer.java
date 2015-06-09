@@ -60,7 +60,7 @@ public class BlockCorruptionCrystallizer extends BlockContainer {
     public boolean removedByPlayer(World world, EntityPlayer player, int x, int y, int z, boolean willHarvest) {
         if (player != null) {
             TileCorruptionCrystallizer tile = (TileCorruptionCrystallizer) world.getTileEntity(x, y, z);
-            SoulCorruptionHelper.addCorruption(player.getDisplayName(), tile.corruptionStored);
+            SoulCorruptionHelper.addCorruption(player, tile.corruptionStored);
         }
         world.removeTileEntity(x, y, y);
         return super.removedByPlayer(world, player, x, y, z);

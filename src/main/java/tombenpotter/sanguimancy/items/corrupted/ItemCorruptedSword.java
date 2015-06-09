@@ -70,7 +70,7 @@ public class ItemCorruptedSword extends Item {
                 list.add(StatCollector.translateToLocal("info.Sanguimancy.tooltip.minimum.corruption.1"));
                 list.add(StatCollector.translateToLocal("info.Sanguimancy.tooltip.minimum.corruption.2") + ": " + String.valueOf(minimumCorruption));
                 list.add(StatCollector.translateToLocal("info.Sanguimancy.tooltip.activated") + ": " + String.valueOf(getActivated(stack)));
-                int corruption = SoulCorruptionHelper.getCorruptionLevel(RandomUtils.getItemOwner(stack));
+                int corruption = SoulCorruptionHelper.getCorruptionLevel(player);
                 list.add("\u00A79+ " + (int) (baseDamage * (corruption / minimumCorruption)) + " " + StatCollector.translateToLocal("info.Sanguimancy.tooltip.attack.damage"));
             }
         }
@@ -81,7 +81,7 @@ public class ItemCorruptedSword extends Item {
     public boolean hitEntity(ItemStack stack, EntityLivingBase target, EntityLivingBase attacker) {
         if (attacker instanceof EntityPlayer) {
             EntityPlayer attackerPlayer = (EntityPlayer) attacker;
-            int corruption = SoulCorruptionHelper.getCorruptionLevel(RandomUtils.getItemOwner(stack));
+            int corruption = SoulCorruptionHelper.getCorruptionLevel(((EntityPlayer) attacker).worldObj.getPlayerEntityByName(RandomUtils.getItemOwner(stack)));
             target.attackEntityFrom(DamageSource.causePlayerDamage(attackerPlayer), baseDamage * (corruption / minimumCorruption));
             if (target instanceof EntityPlayer && getActivated(stack)) {
                 EntityPlayer targetPlayer = (EntityPlayer) target;
@@ -90,7 +90,7 @@ public class ItemCorruptedSword extends Item {
                 targetPlayer.addPotionEffect(new PotionEffect(PotionsRegistry.potionRemoveHeart.id, 1200, amplifier, false));
                 attackerPlayer.addPotionEffect(new PotionEffect(PotionsRegistry.potionAddHeart.id, 1200, amplifier, false));
                 if (attackerPlayer.worldObj.rand.nextInt(20) == 0) {
-                    SoulCorruptionHelper.incrementCorruption(RandomUtils.getItemOwner(stack));
+                    SoulCorruptionHelper.incrementCorruption(((EntityPlayer) attacker).worldObj.getPlayerEntityByName(RandomUtils.getItemOwner(stack)));
                 }
                 EnergyItems.syphonBatteries(stack, attackerPlayer, 50 * amplifier);
             }

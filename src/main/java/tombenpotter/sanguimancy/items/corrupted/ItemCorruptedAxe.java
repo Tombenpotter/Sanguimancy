@@ -71,11 +71,10 @@ public class ItemCorruptedAxe extends ItemAxe {
                 world.setBlockToAir(x, y, z);
             } else if (toolMode == 1) {
                 lpConsumption = lpConsumption * 5;
-                for (int i = -5; i <= 5; i++) {
-                    for (int j = -5; j <= 5; j++) {
-                        for (int k = -5; k <= 5; k++) {
+                for (int i = x - 5; i <= x + 5; i++) {
+                    for (int j = y - 5; j <= y + 5; j++) {
+                        for (int k = z - 5; k <= z + 5; k++) {
                             if (world.getBlock(i, j, k) instanceof BlockLeavesBase) {
-                                RandomUtils.dropBlockDropsWithFortune(world, block, i, j, k, metadata, 0);
                                 world.setBlockToAir(i, j, k);
                             }
                         }
@@ -105,7 +104,7 @@ public class ItemCorruptedAxe extends ItemAxe {
                 EnergyItems.syphonBatteries(stack, player, lpConsumption);
                 if (getToolMode(stack) != 0) {
                     if (world.rand.nextInt(20) == 0) {
-                        SoulCorruptionHelper.incrementCorruption(RandomUtils.getItemOwner(stack));
+                        SoulCorruptionHelper.incrementCorruption(world.getPlayerEntityByName(RandomUtils.getItemOwner(stack)));
                     }
                 }
             }
@@ -184,21 +183,13 @@ public class ItemCorruptedAxe extends ItemAxe {
     }
 
     @Override
-    public float getDigSpeed(ItemStack stack, Block block, int meta) {
-        RandomUtils.checkAndSetCompound(stack);
-        int playerCorruption = SoulCorruptionHelper.getCorruptionLevel(RandomUtils.getItemOwner(stack));
-        return super.getDigSpeed(stack, block, meta) * (playerCorruption / minimumCorruption);
-
-    }
-
-    @Override
     public boolean hitEntity(ItemStack stack, EntityLivingBase target, EntityLivingBase attacker) {
         if (attacker instanceof EntityPlayer) {
             EntityPlayer player = (EntityPlayer) attacker;
             EnergyItems.syphonBatteries(stack, player, 100);
             if (getToolMode(stack) == 2) {
                 if (player.worldObj.rand.nextInt(20) == 0) {
-                    SoulCorruptionHelper.incrementCorruption(RandomUtils.getItemOwner(stack));
+                    SoulCorruptionHelper.incrementCorruption(((EntityPlayer) attacker).worldObj.getPlayerEntityByName(RandomUtils.getItemOwner(stack)));
                 }
             }
             return true;
@@ -231,11 +222,13 @@ public class ItemCorruptedAxe extends ItemAxe {
         if (event.source.getEntity() instanceof EntityPlayer) {
             EntityPlayer player = (EntityPlayer) event.source.getEntity();
             if (player.getHeldItem() != null && player.getHeldItem().getItem() instanceof ItemCorruptedAxe) {
-                int corruption = SoulCorruptionHelper.getCorruptionLevel(RandomUtils.getItemOwner(player.getHeldItem()));
-                int chance = 100 * (minimumCorruption / corruption);
-                if (chance < 1) chance = 1;
-                if (player.worldObj.rand.nextInt(chance) == 0 && getSkullDrop(event.entityLiving) != null) {
-                    RandomUtils.dropItemStackInWorld(event.entityLiving.worldObj, event.entityLiving.posX, event.entityLiving.posY, event.entityLiving.posZ, getSkullDrop(event.entityLiving).copy());
+                int corruption = SoulCorruptionHelper.getCorruptionLevel(player);
+                if (corruption != 0) {
+                    int chance = 100 * (minimumCorruption / corruption);
+                    if (chance < 1) chance = 1;
+                    if (player.worldObj.rand.nextInt(chance) == 0 && getSkullDrop(event.entityLiving) != null) {
+                        RandomUtils.dropItemStackInWorld(event.entityLiving.worldObj, event.entityLiving.posX, event.entityLiving.posY, event.entityLiving.posZ, getSkullDrop(event.entityLiving).copy());
+                    }
                 }
             }
         }

@@ -160,4 +160,9 @@ public class BlockBloodTank extends BlockContainer {
             list.add(new ItemStack(id, 1, i));
         }
     }
+
+    @Override
+    public int damageDropped(int meta) {
+        return meta;
+    }
 }
