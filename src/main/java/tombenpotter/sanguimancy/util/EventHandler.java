@@ -316,8 +316,8 @@ public class EventHandler {
     public void onSanguimancyItemTooltip(ItemTooltipEvent event) {
         ItemStack stack = event.itemStack;
 
-		String modId = GameRegistry.findUniqueIdentifierFor(stack.getItem()).modId;
-		if (modId.equals(Sanguimancy.modid) && stack.stackTagCompound != null && stack.stackTagCompound.hasKey("ownerName")) {
+		GameRegistry.UniqueIdentifier id = GameRegistry.findUniqueIdentifierFor(stack.getItem());
+		if (id != null && id.modId.equals(Sanguimancy.modid) && stack.stackTagCompound != null && stack.stackTagCompound.hasKey("ownerName")) {
 			if (GuiScreen.isShiftKeyDown()) {
 				event.toolTip.add(StatCollector.translateToLocal("info.Sanguimancy.tooltip.owner") + ": " + stack.stackTagCompound.getString("ownerName"));
 			}
