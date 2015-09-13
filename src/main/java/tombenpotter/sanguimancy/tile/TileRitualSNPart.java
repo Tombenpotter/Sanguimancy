@@ -28,8 +28,22 @@ public class TileRitualSNPart extends TileBaseSNPart implements ICustomNBTTag {
     public int zRitual;
 
     public TileRitualSNPart() {
-        MinecraftForge.EVENT_BUS.register(this);
         customNBTTag = new NBTTagCompound();
+    }
+
+    public void validate() {
+        super.validate();
+        MinecraftForge.EVENT_BUS.register(this);
+    }
+
+    public void invalidate() {
+        MinecraftForge.EVENT_BUS.unregister(this);
+        super.invalidate();
+    }
+
+    public void onChunkUnload() {
+        MinecraftForge.EVENT_BUS.unregister(this);
+        super.onChunkUnload();
     }
 
     @Override
