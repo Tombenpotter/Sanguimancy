@@ -80,7 +80,7 @@ public class RitualEffectDrillOfTheDead extends RitualEffect {
                     }
                 }
             }
-            SoulNetworkHandler.syphonFromNetwork(owner, getCostPerRefresh());
+            SoulNetworkHandler.syphonFromNetwork(owner, getCostPerRefresh() * entityCount);
         }
     }
 
