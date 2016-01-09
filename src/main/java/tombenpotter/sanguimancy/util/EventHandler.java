@@ -7,13 +7,12 @@ import WayofTime.alchemicalWizardry.common.spell.complex.effect.SpellHelper;
 import amerifrance.guideapi.api.GuideRegistry;
 import cpw.mods.fml.client.event.ConfigChangedEvent;
 import cpw.mods.fml.common.Loader;
-import cpw.mods.fml.common.ModContainer;
 import cpw.mods.fml.common.eventhandler.Event;
 import cpw.mods.fml.common.eventhandler.EventPriority;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.PlayerEvent;
 import cpw.mods.fml.common.gameevent.TickEvent;
-import cpw.mods.fml.common.registry.GameData;
+import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.renderer.Tessellator;
@@ -318,17 +317,12 @@ public class EventHandler {
     public void onSanguimancyItemTooltip(ItemTooltipEvent event) {
         ItemStack stack = event.itemStack;
 
-        try {
-            ModContainer mod = GameData.findModOwner(GameData.itemRegistry.getNameForObject(stack.getItem()));
-            String modname = mod == null ? "Minecraft" : mod.getName();
-            if (modname.equals(Sanguimancy.name) && stack.stackTagCompound != null && stack.stackTagCompound.hasKey("ownerName")) {
-                if (GuiScreen.isShiftKeyDown()) {
-                    event.toolTip.add((StatCollector.translateToLocal("info.Sanguimancy.tooltip.owner") + ": " + RandomUtils.getItemOwner(stack)));
-                }
-            }
-        } catch (NullPointerException e) {
-            Sanguimancy.logger.info("No mod found for this item");
-        }
+		GameRegistry.UniqueIdentifier id = GameRegistry.findUniqueIdentifierFor(stack.getItem());
+		if (id != null && id.modId.equals(Sanguimancy.modid) && stack.stackTagCompound != null && stack.stackTagCompound.hasKey("ownerName")) {
+			if (GuiScreen.isShiftKeyDown()) {
+				event.toolTip.add(StatCollector.translateToLocal("info.Sanguimancy.tooltip.owner") + ": " + stack.stackTagCompound.getString("ownerName"));
+			}
+		}
     }
 
     @SubscribeEvent
