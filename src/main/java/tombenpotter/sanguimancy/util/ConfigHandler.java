@@ -36,6 +36,7 @@ public class ConfigHandler {
     public static boolean addItemsOnFirstLogin;
     public static String[] teleposerBlacklist;
     public static boolean renderSillyAprilFish;
+    public static boolean noPlayerDamageforDoD;
 
     public static void init(File file) {
         config = new Configuration(file);
@@ -71,6 +72,7 @@ public class ConfigHandler {
         addItemsOnFirstLogin = config.getBoolean("addItemsOnFirstLogin", features, true, "Give the player a guide and a Soul Chunk claimer on first login");
         enableTelepositionBlacklist = config.getBoolean("canTeleposeManifestations", features, true, "Allow the teleposing of the SN Manifestations");
         renderSillyAprilFish = config.getBoolean("renderSillyAprilFish", features, true, "Render the Silly Flapping Fish or not");
+        noPlayerDamageforDoD = config.getBoolean("noPlayerDamageForDoD", features, true, "Disable Player damage for the Drill of the Dead");
 
         //Balance
         minimumToolCorruption = config.getInt("minimumCorruptionForTools", balancing, 200, 0, 100000, "The Corruption Level needed to get to the full capabilities of the tools");

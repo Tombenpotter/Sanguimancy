@@ -35,6 +35,7 @@ public class Sanguimancy {
     public static final String channel = "Sanguimancy";
     public static final String version = "@VERSION@";
     public static boolean isTTLoaded = false;
+    public static boolean isIguanaTweaksLoaded = false;
     public static boolean isAprilFools = false;
     public static Logger logger = LogManager.getLogger(Sanguimancy.name);
     public static CreativeTabs tabSanguimancy = new CreativeTabs("tab" + Sanguimancy.modid) {
@@ -101,6 +102,7 @@ public class Sanguimancy {
         SanguimancyGuide.registerGuide();
         proxy.postLoad();
         isTTLoaded = Loader.isModLoaded("ThaumicTinkerer");
+        isIguanaTweaksLoaded = Loader.isModLoaded("IguanaTweaksTConstruct");
     }
 
     @Mod.EventHandler

@@ -14,6 +14,7 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
 import tombenpotter.sanguimancy.Sanguimancy;
 import tombenpotter.sanguimancy.api.soulCorruption.SoulCorruptionHelper;
+import tombenpotter.sanguimancy.util.ConfigHandler;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -67,8 +68,7 @@ public class RitualEffectDrillOfTheDead extends RitualEffect {
                 if (livingEntity instanceof EntityPlayer || livingEntity instanceof IBossDisplayData || AlchemicalWizardry.wellBlacklist.contains(livingEntity.getClass())) {
                     continue;
                 }
-                if (SoulNetworkHandler.getPlayerForUsername(owner) != null && !Sanguimancy.isTTLoaded) { //I had a bad experience with TT crashing with player damage.
-                    // That just makes sure it doesn't happen :)
+                if (SoulNetworkHandler.getPlayerForUsername(owner) != null && (!Sanguimancy.isTTLoaded || !Sanguimancy.isIguanaTweaksLoaded || !ConfigHandler.noPlayerDamageforDoD)) {
                     if (livingEntity.attackEntityFrom(DamageSource.causePlayerDamage(SoulNetworkHandler.getPlayerForUsername(owner)), livingEntity.getMaxHealth() * 2)) {
                         entityCount++;
                         tileAltar.sacrificialDaggerCall(this.amount, true);
@@ -80,7 +80,7 @@ public class RitualEffectDrillOfTheDead extends RitualEffect {
                     }
                 }
             }
-            SoulNetworkHandler.syphonFromNetwork(owner, getCostPerRefresh());
+            SoulNetworkHandler.syphonFromNetwork(owner, getCostPerRefresh() * entityCount);
         }
     }
 

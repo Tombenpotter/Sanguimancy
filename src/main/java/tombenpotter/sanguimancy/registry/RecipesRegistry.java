@@ -54,7 +54,7 @@ public class RecipesRegistry {
         corruptedPickaxe = GameRegistry.addShapedRecipe(SanguimancyItemStacks.corruptedPickaxe, "XXX", " Y ", " Y ", 'X', SanguimancyItemStacks.corruptedMineral, 'Y', SanguimancyItemStacks.imbuedStick);
         corruptedShovel = GameRegistry.addShapedRecipe(SanguimancyItemStacks.corruptedShovel, " X ", " Y ", " Y ", 'X', SanguimancyItemStacks.corruptedMineral, 'Y', SanguimancyItemStacks.imbuedStick);
         corruptedAxe = GameRegistry.addShapedRecipe(SanguimancyItemStacks.corruptedAxe, "XX ", "XY ", " Y ", 'X', SanguimancyItemStacks.corruptedMineral, 'Y', SanguimancyItemStacks.imbuedStick);
-        toggledEtherealBlock = GameRegistry.addShapedRecipe(new ItemStack(BlocksRegistry.etherealBoundBlock, 8), "XXX", "XYX", "XXX", 'Y', Blocks.redstone_block, 'X', SanguimancyItemStacks.etherealBlock);
+        toggledEtherealBlock = GameRegistry.addShapedRecipe(new ItemStack(BlocksRegistry.etherealToggledBlock, 8), "XXX", "XYX", "XXX", 'Y', Blocks.redstone_block, 'X', SanguimancyItemStacks.etherealBlock);
         personalEtherealBlock = GameRegistry.addShapedRecipe(new ItemStack(BlocksRegistry.etherealPersonalBlock, 8), "XXX", "XYX", "XXX", 'X', SanguimancyItemStacks.etherealBoundBlock, 'Y', Items.name_tag);
         bloodInterface = GameRegistry.addShapedRecipe(SanguimancyItemStacks.bloodInterface, "XYX", "XZX", "XXX", 'X', Blocks.stone, 'Y', new ItemStack(ModBlocks.bloodRune, 1, 0), 'Z', new ItemStack(Items.comparator));
     }
