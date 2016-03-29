@@ -7,13 +7,12 @@ import WayofTime.alchemicalWizardry.common.spell.complex.effect.SpellHelper;
 import amerifrance.guideapi.api.GuideRegistry;
 import cpw.mods.fml.client.event.ConfigChangedEvent;
 import cpw.mods.fml.common.Loader;
-import cpw.mods.fml.common.ModContainer;
 import cpw.mods.fml.common.eventhandler.Event;
 import cpw.mods.fml.common.eventhandler.EventPriority;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.PlayerEvent;
 import cpw.mods.fml.common.gameevent.TickEvent;
-import cpw.mods.fml.common.registry.GameData;
+import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.renderer.Tessellator;
@@ -129,23 +128,25 @@ public class EventHandler {
 
     @SubscribeEvent
     public void onPlayerTick(TickEvent.PlayerTickEvent event) {
-        if (SoulCorruptionHelper.isCorruptionOver(event.player, 10)) {
-            SoulCorruptionHelper.spawnChickenFollower(event.player);
-        }
-        if (SoulCorruptionHelper.isCorruptionOver(event.player, 40)) {
-            SoulCorruptionHelper.killGrass(event.player);
-        }
-        if (SoulCorruptionHelper.isCorruptionOver(event.player, 60)) {
-            SoulCorruptionHelper.hurtAndHealAnimals(event.player);
-        }
-        if (SoulCorruptionHelper.isCorruptionOver(event.player, 100)) {
-            SoulCorruptionHelper.spawnIllusion(event.player);
-        }
-        if (SoulCorruptionHelper.isCorruptionOver(event.player, 150)) {
-            SoulCorruptionHelper.randomTeleport(event.player);
-        }
-        if (SoulCorruptionHelper.isCorruptionOver(event.player, 200)) {
-            SoulCorruptionHelper.loseHeart(event.player);
+        if (SoulCorruptionHelper.isCorruptionLower(event.player, 2000)) {
+            if (SoulCorruptionHelper.isCorruptionOver(event.player, 10)) {
+                SoulCorruptionHelper.spawnChickenFollower(event.player);
+            }
+            if (SoulCorruptionHelper.isCorruptionOver(event.player, 40)) {
+                SoulCorruptionHelper.killGrass(event.player);
+            }
+            if (SoulCorruptionHelper.isCorruptionOver(event.player, 60)) {
+                SoulCorruptionHelper.hurtAndHealAnimals(event.player);
+            }
+            if (SoulCorruptionHelper.isCorruptionOver(event.player, 100)) {
+                SoulCorruptionHelper.spawnIllusion(event.player);
+            }
+            if (SoulCorruptionHelper.isCorruptionOver(event.player, 150)) {
+                SoulCorruptionHelper.randomTeleport(event.player);
+            }
+            if (SoulCorruptionHelper.isCorruptionOver(event.player, 200)) {
+                SoulCorruptionHelper.loseHeart(event.player);
+            }
         }
         if (SoulCorruptionHelper.isCorruptionOver(event.player, 1300)) {
             event.player.addPotionEffect(new PotionEffect(Potion.jump.getId(), 1, 1));
@@ -162,6 +163,7 @@ public class EventHandler {
         if (SoulCorruptionHelper.isCorruptionOver(event.player, 2400)) {
             event.player.addPotionEffect(new PotionEffect(Potion.resistance.getId(), 1, 1));
         }
+
         if (!event.player.worldObj.isRemote && event.player.worldObj.getTotalWorldTime() % 200 == 0) {
             syncCorruption(event.player);
         }
@@ -318,16 +320,11 @@ public class EventHandler {
     public void onSanguimancyItemTooltip(ItemTooltipEvent event) {
         ItemStack stack = event.itemStack;
 
-        try {
-            ModContainer mod = GameData.findModOwner(GameData.itemRegistry.getNameForObject(stack.getItem()));
-            String modname = mod == null ? "Minecraft" : mod.getName();
-            if (modname.equals(Sanguimancy.name) && stack.stackTagCompound != null && stack.stackTagCompound.hasKey("ownerName")) {
-                if (GuiScreen.isShiftKeyDown()) {
-                    event.toolTip.add((StatCollector.translateToLocal("info.Sanguimancy.tooltip.owner") + ": " + RandomUtils.getItemOwner(stack)));
-                }
+        GameRegistry.UniqueIdentifier id = GameRegistry.findUniqueIdentifierFor(stack.getItem());
+        if (id != null && id.modId.equals(Sanguimancy.modid) && stack.stackTagCompound != null && stack.stackTagCompound.hasKey("ownerName")) {
+            if (GuiScreen.isShiftKeyDown()) {
+                event.toolTip.add(StatCollector.translateToLocal("info.Sanguimancy.tooltip.owner") + ": " + stack.stackTagCompound.getString("ownerName"));
             }
-        } catch (NullPointerException e) {
-            Sanguimancy.logger.info("No mod found for this item");
         }
     }
 

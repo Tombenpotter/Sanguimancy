@@ -52,6 +52,13 @@ public class TeleportingUtils {
                         player.setPositionAndUpdate(x, y, z);
                         player.worldObj.updateEntityWithOptionalForce(player, false);
                         player.playerNetServerHandler.sendPacket(new S06PacketUpdateHealth(player.getHealth(), player.getFoodStats().getFoodLevel(), player.getFoodStats().getSaturationLevel()));
+
+                        if (oldWorld.provider.dimensionId == 1) {
+                            // For some reason teleporting out of the end does weird things.
+                            player.setPositionAndUpdate(x, y, z);
+                            newWorldServer.spawnEntityInWorld(player);
+                            newWorldServer.updateEntityWithOptionalForce(player, false);
+                        }
                     }
                 } else if (!entity.worldObj.isRemote) {
                     NBTTagCompound tag = new NBTTagCompound();

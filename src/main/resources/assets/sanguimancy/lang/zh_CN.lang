@@ -1,2 +1,281 @@
-tile.Sanguimancy.altarDiviner.name=祭坛推测栏
-tile.Sanguimancy.altarEmitter.name=祭坛传感器
+#Blocks
+tile.Sanguimancy.altarDiviner.name=祭坛推测器
+tile.Sanguimancy.altarEmitter.name=祭坛红石信号发射器
+tile.Sanguimancy.sacrificeTransfer.name=灵魂转移器
+tile.Sanguimancy.illusion.diamond.ore.name=假钻石矿
+tile.Sanguimancy.illusion.diamond.block.name=假钻石块
+tile.Sanguimancy.illusion.glowstone.name=假萤石
+tile.Sanguimancy.illusion.netherrack.name=假地狱岩
+tile.Sanguimancy.illusion.quartz.ore.name=假下界石英矿石
+tile.Sanguimancy.illusion.end.stone.name=假末地石
+tile.Sanguimancy.illusion.wool.pink.name=假粉色羊毛
+tile.Sanguimancy.illusion.lava.flow.name=假岩浆
+tile.Sanguimancy.illusion.pumpkin.on.name=假南瓜灯
+tile.Sanguimancy.illusion.bedrock.name=假基岩
+tile.Sanguimancy.illusion.obsidian.name=假黑曜石
+tile.Sanguimancy.illusion.glass.name=假玻璃
+tile.Sanguimancy.illusion.snow.name=假雪方块
+tile.Sanguimancy.illusion.melon.name=假西瓜
+tile.Sanguimancy.illusion.gold.block.name=假金块
+tile.Sanguimancy.illusion.clay.name=假黏土块
+tile.Sanguimancy.illusion.nether.brick.name=假地狱砖块
+tile.Sanguimancy.corruptionCrystallizer.name=灵魂堕落结晶器
+tile.Sanguimancy.lumpCleaner.name=血液清洗机
+tile.Sanguimancy.bloodTank.name=血液储罐
+tile.Sanguimancy.dimensionalPortal.name=异次元之门
+tile.Sanguimancy.bloodStoneStair.name=血石砖楼梯
+tile.Sanguimancy.largeBloodStoneStair.name=大血石砖楼梯
+tile.Sanguimancy.bloodStoneSlab.name=血石台阶
+tile.Sanguimancy.largeBloodStoneSlab.name=大血石台阶
+tile.Sanguimancy.doubleBloodStoneSlab.name=血石台阶
+tile.Sanguimancy.doubleLargeBloodStoneSlab.name=大血石台阶
+tile.Sanguimancy.itemSNPart.name=物品显示器
+tile.Sanguimancy.interface.name=血魔法-红石信号接口
+tile.Sanguimancy.knotActivator.name=灵魂节点激活器
+tile.Sanguimancy.simpleSNKnot.name=单一灵魂节点
+tile.Sanguimancy.toggleSNKnot.name=切换灵魂节点
+tile.Sanguimancy.simpleSNBranch.name=灵魂连接中继点
+tile.Sanguimancy.ritualRepresentation.name=仪式表现
+tile.Sanguimancy.etherealBlock.name=天域方块
+tile.Sanguimancy.etherealCorruptedBlock.name=堕落天域方块
+tile.Sanguimancy.etherealToggledBlock.name=切换天域方块
+tile.Sanguimancy.etherealBoundBlock.name=绑定天域方块
+tile.Sanguimancy.etherealBoundCorruptedBlock.name=绑定堕落天域方块
+tile.Sanguimancy.etherealBoundToggledBlock.name=绑定切换天域方块
+tile.Sanguimancy.etherealPersonalBlock.name=私人天域方块
+tile.Sanguimancy.altarManipulator.name=祭坛操纵器
+
+#Items
+item.Sanguimancy.playerSacrificer.unattuned.name=不谐调玩家牺牲石
+item.Sanguimancy.playerSacrificer.attuned.name=谐调玩家牺牲石
+item.Sanguimancy.playerSacrificer.focused.name=聚焦玩家牺牲石
+item.Sanguimancy.playerSacrificer.wayToDie.name=Way to Die!
+item.Sanguimancy.soulCorruption.add.name=增加灵魂堕落
+item.Sanguimancy.soulCorruption.remove.name=移除灵魂堕落
+item.Sanguimancy.soulCorruption.negate.name=取消灵魂堕落
+item.Sanguimancy.soulCorruption.reader.name=灵魂堕落读取器
+item.Sanguimancy.resource.corruptedDemonShard.name=堕落恶魔碎片
+item.Sanguimancy.corruptionCatalist.name=堕落催化剂
+item.Sanguimancy.oreLump.name=%s矿石碎块
+item.Sanguimancy.bloodAmulet.name=血护身符
+item.Sanguimancy.spellWand.name=法杖
+item.Sanguimancy.chunkClaimer.name=灵魂区块申请器
+item.Sanguimancy.corruptedSword.name=堕落之剑
+item.Sanguimancy.corruptedPickaxe.name=堕落之镐
+item.Sanguimancy.corruptedShovel.name=堕落之铲
+item.Sanguimancy.corruptedAxe.name=堕落之斧
+item.Sanguimancy.resource.corruptedMineral.name=堕落矿石
+item.Sanguimancy.resource.imbuedStick.name=灌注之杖
+item.Sanguimancy.resource.etherealManifestation.name=天域显示器
+item.Sanguimancy.soulTransporter.name=灵魂传送器
+item.Sanguimancy.telepositionSigil.name=传送印记
+item.Sanguimancy.transpositionSigil.name=搬运印记
+item.Sanguimancy.resource.manipulatorUpgrade.name=祭坛输出面板
+
+#Entities
+entity.Sanguimancy.EntityChickenMinion.name=邪恶爪牙
+
+#Creative Tab
+itemGroup.tabSanguimancy=Sanguimancy
+
+#Keybinds
+key.Sanguimancy.search=定位玩家
+
+#Rituals
+ritual.Sanguimancy.drill.dead=死亡钻井
+ritual.Sanguimancy.vulcanos.frigius=刷石机
+ritual.Sanguimancy.trash=大垃圾桶
+ritual.Sanguimancy.illumination=大范围照明
+ritual.Sanguimancy.feller=超级伐木工
+ritual.Sanguimancy.placer=填充机
+ritual.Sanguimancy.pump=液泵
+ritual.Sanguimancy.quarry=Aura of Obliteration
+ritual.Sanguimancy.portal=折越之门
+ritual.Sanguimancy.altar.builder=高级祭坛建造
+
+#Chat Messages
+chat.Sanguimancy.blood.required=需要血液
+chat.Sanguimancy.soul.corruption=灵魂堕落
+chat.Sanguimancy.not.enough.LP=你的 LP 含量不足
+chat.Sanguimancy.bound.item=绑定Item
+chat.Sanguimancy.deactivated=这个绑定到你灵魂的道具由于未激活而不工作
+chat.Sanguimancy.removed=这个道具与你的灵魂断开了连接
+chat.Sanguimancy.added.success=你感受到什么东西与你的灵魂建立了连接
+chat.Sanguimancy.added.fail=你感受到什么东西试图与你的灵魂建立连接但是失败了
+chat.Sanguimancy.successfully.claimed=在 x: %x, z: %z 处于次元 %d 的一个区块成功地被你占领了
+chat.Sanguimancy.unsuccessfully.claimed=这个区块已经有人占领了
+chat.Sanguimancy.intial.claimer=当你灵魂成形时这个东西掉下来了
+chat.Sanguimancy.not.sn.dim=你现在不在灵魂网络次元世界
+chat.Sanguimancy.chicken.minion=这个邪恶爪牙似乎十分喜欢%s
+chat.Sanguimancy.random.teleport=一种强大的力量似乎把 %s 给弹走了
+chat.Sanguimancy.loose.heart=%s 似乎放错了一些心
+
+#Tooltips
+info.Sanguimancy.tooltip.shift.info=--按 Shift 查看信息--
+info.Sanguimancy.tooltip.place.corner.1=应放置在以下方块的角落里:
+info.Sanguimancy.tooltip.place.corner.2=在祭坛旁放置3x3的平台
+info.Sanguimancy.tooltip.place.altar=放在祭坛旁边
+info.Sanguimancy.tooltip.sacrifice.transfer=不要让其他人来干你的脏活!
+info.Sanguimancy.tooltip.sacrifice.player.owner=血液拥有者
+info.Sanguimancy.tooltip.sacrifice.player.stolen=偷来的 LP 
+info.Sanguimancy.tooltip.sacrifice.player.thief=小偷的名字
+info.Sanguimancy.tooltip.creative.only=创造模式专属
+info.Sanguimancy.tooltip.illusion=这个方块是一个谎言
+info.Sanguimancy.tooltip.corrupted.infusion.1=把这个道具放到你的物品栏里
+info.Sanguimancy.tooltip.corrupted.infusion.2=堕落注魔就会开始
+info.Sanguimancy.tooltip.ore=%s矿
+info.Sanguimancy.tooltip.amount=总计
+info.Sanguimancy.tooltip.fluid=流体
+info.Sanguimancy.tooltip.capacity=容量
+info.Sanguimancy.tooltip.none=无
+info.Sanguimancy.tooltip.any=任意矿石碎块
+info.Sanguimancy.tooltip.per.point=每半颗心
+info.Sanguimancy.tooltip.activated=能力开启
+info.Sanguimancy.tooltip.owner=目前的所有者
+info.Sanguimancy.tooltip.minimum.corruption.1=需要最小堕落指数以开启工具
+info.Sanguimancy.tooltip.minimum.corruption.2=默认的功能
+info.Sanguimancy.tooltip.wrong.player=这不是你的东西,无法破坏
+info.Sanguimancy.tooltip.mode=模式
+info.Sanguimancy.tooltip.mode.regular=普通
+info.Sanguimancy.tooltip.pickaxe.mode.silk.touch=精确采集
+info.Sanguimancy.tooltip.pickaxe.mode.fortune.1=时运 1
+info.Sanguimancy.tooltip.pickaxe.mode.fortune.2=时运 2
+info.Sanguimancy.tooltip.pickaxe.mode.fortune.3=时运 3
+info.Sanguimancy.tooltip.pickaxe.mode.smelt=自动冶炼
+info.Sanguimancy.tooltip.shovel.mode.break.down=打碎
+info.Sanguimancy.tooltip.shovel.mode.lucky=筛矿
+info.Sanguimancy.tooltip.shovel.mode.transmute=嬗变
+info.Sanguimancy.tooltip.axe.mode.leaf.decay=落叶
+info.Sanguimancy.tooltip.axe.mode.head.hunter=斩首
+info.Sanguimancy.tooltip.axe.mode.refine=斧锯
+info.Sanguimancy.tooltip.attack.damage=攻击伤害
+info.Sanguimancy.tooltip.book.author=Tombenpotter著
+info.Sanguimancy.tooltip.spell.current=当前法术
+info.Sanguimancy.tooltip.coordinates=坐标
+info.Sanguimancy.tooltip.bound.dimension=绑定次元
+info.Sanguimancy.tooltip.teleposition.sigil.pun=我可以用这个瞬移
+info.Sanguimancy.tooltip.evil.toaster=1996年的邪恶的烤面包机
+info.Sanguimancy.tooltip.shift.transposition.sigil.pun=用来移动一个方块
+info.Sanguimancy.tooltip.place.top=放置在祭坛顶部
+
+#Guide Entries
+guide.Sanguimancy.book.name=钻研黑暗的学问
+guide.Sanguimancy.book.title=一个法术的旅程
+guide.Sanguimancy.welcomeMessage=欢迎,血魔法师,在《血魔法》中你一定走过了许多黑暗的道路.如果你执意在这条路上走下去,那么奇怪而危险的事情就会发生.我已经警告过你了.
+
+guide.Sanguimancy.category.lore=黑魔法
+guide.Sanguimancy.category.items=物品
+guide.Sanguimancy.category.blocks=方块
+guide.Sanguimancy.category.rituals=仪式
+
+#Page Info
+text.recipe.shapedOrb=合适宝珠合成
+
+text.recipe.altar=血之祭坛
+text.recipe.altar.tier=层数: %s
+text.recipe.altar.bloodRequired=LP: %s
+
+text.recipe.corrupted=堕落
+text.recipe.corruption.minCorruption=最小堕落指数: %s
+text.recipe.corruption.duration=持续时间: %s
+
+#Items
+guide.Sanguimancy.entry.corruptionReader=读取器允许你读取灵魂堕落指数.右键读取器会告知你灵魂的堕落程度.
+guide.Sanguimancy.entry.sacrificingStones.1=不谐调玩家牺牲石是Sanguimancy机械的基础, LP 转移器.
+guide.Sanguimancy.entry.sacrificingStones.2=法师们不喜欢不谐调道具.为了做出Sanguimancy机械,你一定很需要这个:谐调玩家牺牲石.
+guide.Sanguimancy.entry.sacrificingStones.3=一旦你无情的献祭了另一个玩家,同时物品栏里还装有谐调玩家牺牲石,你就会得到这个:聚焦玩家牺牲石.
+guide.Sanguimancy.entry.bloodAmulet=血护身符以生命源质为能源工作.它不与你的灵魂网络相连接,需要对它填充血液才能启动它的功能:用它右击血液储罐.如果你安了热力膨胀,你可以用流体转置机把它填满.血护身符能在你生命值低于5心时回复你的生命.它回复1心用掉的LP比你牺牲1心产生的LP还多,就算你用5级祭坛填满牺牲符文也一样.
+guide.Sanguimancy.entry.chunkClaimer=区块申请器在血魔法中是个很重要的道具.这个道具允许你在灵魂网络次元占领一个区块成为你自己的地盘.一旦你这么做了,任何与你灵魂绑定的物品都会在这个区块内具现化.如果你没有占领区块,你将无法把道具绑定到你的灵魂网络.区块申请器使用时直接被消耗掉,每个玩家在第一次进入灵魂网络次元时都会领取属于他们自己的区块.
+guide.Sanguimancy.entryName.craftingItems=制造物品
+guide.Sanguimancy.entry.craftingItems=这些是只会在工作台中制造物品时用到的物品
+guide.Sanguimancy.entry.corruptionCatalyst.1=堕落催化剂是堕落注魔机械的核心.一旦它被右键启动,那么只要它在你的物品栏里,任何你手持的物品和可以堕落化的物品都会缓慢地变成另一种物品.然而这个过程并不在瞬间完成,而且它有一个前提:玩家的堕落指数大于一个最小值时这个过程才会开始.
+guide.Sanguimancy.entry.corruptionCatalyst.2=在后面几页你能找到所有堕落注魔物品的合成表.
+guide.Sanguimancy.entry.oreLump=通过堕落一块矿石,你可以得到两块矿石碎块.不加处理的话这些矿石碎块没什么用,你可以用血液来清洗它们,把每个矿石碎块转化成一个金属锭.
+guide.Sanguimancy.entry.wand=法杖能储存4个复杂的法术水晶.只要拿你物品栏里的水晶右击法杖就可以把水晶加到法杖中去.这个过程会消耗掉你的水晶.你可以按照之前所述的方法重新改写水晶的内容,但是你不能把法术水晶要回来或是改变水晶绑定的坐标.手持法杖按shift+右键循环切换法术.法杖可以显示目前选择的法术水晶的名字,用以区分不同法术水晶内储存的法术.手持法杖右键开始施法.
+guide.Sanguimancy.entry.corruptedAxe=堕落之斧是堕落工具的一种.它的基本功能是砍树,堕落激发了工具的其他能力.这个工具的特性使得其采掘方块的速度完全取决于使用者灵魂的堕落程度.为了激发工具的基本能力,使用者必须达到一定程度的堕落堕落的数值在工具的提示信息里有注明否则工具的能力会降低.算上普通模式,这个工具一共有3种不同的模式.每次用这个工具击打怪物或破坏方块时,都会消耗你的灵魂网络中的生命源质.                                                                                                                                                                                                                                                                                         在工具不处于普通模式状态时,每次使用会增加使用者的灵魂堕落指数.堕落之斧的第一个模式是落叶模式.当这把斧子破坏掉一个方块的时候,这个方块周围所有的叶子都会消失.第二个模式是斩首模式.当它击杀一个怪物或一个玩家的时候,有一定的几率掉落头.且灵魂堕落程度越高,这个几率越大.最后一个模式是斧锯模式.当原木被破坏时,会掉落6个木板;当木板被破坏时,会掉落3个木棍.
+guide.Sanguimancy.entry.corruptedPickaxe=堕落之镐是堕落工具的一种.它的基本功能是采矿,堕落激发了工具的其他能力.这个工具的特性使得其采掘方块的速度完全取决于使用者灵魂的堕落程度.为了激发工具的基本能力,使用者必须达到一定程度的堕落堕落的数值在工具的提示信息里有注明否则工具的能力会降低.算上普通模式,这个工具一共有3种不同的模式.每次用这个工具击打怪物或破坏方块时,都会消耗你的灵魂网络中的生命源质.                                                                                                                                                                                                                                                                                         在工具不处于普通模式状态时,每次使用会增加使用者的灵魂堕落指数.堕落之镐的第一个模式是精确采集.第二、第三、第四个模式分别是时运I、II、III.第五个模式是自动冶炼模式.能冶炼的方块在被破坏时会掉落它在熔炉中冶炼后的产物.对不能冶炼的方块没有效果.
+guide.Sanguimancy.entry.corruptedShovel=堕落之铲是堕落工具的一种.它的基本功能是挖掘,堕落激发了工具的其他能力.这个工具的特性使得其采掘方块的速度完全取决于使用者灵魂的堕落程度.为了激发工具的基本能力,使用者必须达到一定程度的堕落堕落的数值在工具的提示信息里有注明否则工具的能力会降低.算上普通模式,这个工具一共有3种不同的模式.每次用这个工具击打怪物或破坏方块时,都会消耗你的灵魂网络中的生命源质.                                                                                                                                                                                                                                                                                         在工具不处于普通模式状态时,每次使用会增加使用者的灵魂堕落指数.堕落之铲的第一个模式是打碎模式.如果被挖掘的方块是列表中的方块,这个方块的六个面上会显示出另一个方块的透明图片.意思是这个方块被破坏时会被透明图片里的方块所取代.第二个模式是筛矿模式.挖沙烁时有微小的几率掉落金粒、钻石或绿宝石(只能挖沙烁).                                                                                                                                                                                                                                                                                         第三个模式是嬗变模式.如果被挖掘的方块是列表中的方块,这个方块的六个面上会显示出另一个方块的透明图片.意思是这个方块被破坏时会被透明图片里的方块所取代.
+guide.Sanguimancy.entry.corruptedSword=堕落之剑是堕落工具的一种.它的基本功能是打怪,堕落激发了工具的其他能力.这个工具的特性使得其杀伤怪物的能力完全取决于使用者灵魂的堕落程度.为了激发工具的基本能力,使用者必须达到一定程度的堕落堕落的数值在工具的提示信息里有注明否则工具的能力会降低.这个工具只能用来杀怪.每次用这个工具击打怪物或破坏方块时,都会消耗你的灵魂网络中的生命源质.                                                                                                                                                                                                                                                                                         在工具不处于普通模式状态时,每次使用会增加使用者的灵魂堕落指数.这个工具的能力是生命窃取.这把剑的能力启动以后,能把被这把剑击中的其他玩家的生命加到持剑的玩家的生命里.最多能偷取7.5颗心.
+guide.Sanguimancy.entry.etherealManifestation=如果你想让绑定的物品或启动的仪式在灵魂网络次元中显示出来,你必须在你的物品栏里放一个天域显示器. 
+guide.Sanguimancy.entry.soulTransporter=灵魂传送器能把你传送到灵魂网络次元.不要忘记要带两个,因为灵魂网络次元中没有传送门!
+guide.Sanguimancy.entry.telepositionSigil=传送印记能把你传送到你之前去过的地方.手持传送印记按shift+右键传送器对要传送的位置进行标记.手持传送印记右键传送回原来标记的地方.相同次元内传送会消耗1000LP,而不同次元内传送会消耗10000LP.
+guide.Sanguimancy.entry.transpositionSigil=搬运印记能让玩家在不破坏方块的前提下搬走方块.在搬运印记内没有方块的前提下按shift+右键点击要搬走的方块来把它储存在印记中,再次右键能让方块完好无损地放置在另一个地方.
+
+#Blocks
+guide.Sanguimancy.entry.soulTransferrer=灵魂转移器让你把通过LP窃取机械偷来的LP转移到你自己的灵魂网络里.详情见牺牲魔法中的'黑魔法'章节
+guide.Sanguimancy.entry.altarEmitter=祭坛红石信号发射器是祭坛自动化第一阶段.这个方块可以检测祭坛里是否有给定数量的LP.他通过发射红石信号来说明LP数量已经大于等于要求数值.右键方块使被比较数值+100,按shift+右键方块使被比较数值-100.
+guide.Sanguimancy.entry.altarDiviner=祭坛推测器是祭坛自动化第二阶段.它是一个没有GUI界面的机器且只有一个内部插槽.右键点击放入物品.空手右击取出物品.这个方块比较特别的地方在于只有当血之祭坛里攒够了做够多的LP时,它才会把自己装的东西转移到祭坛里去.它一次最多转移一组物品.这个方块必须直接放在血之祭坛旁边才能工作.
+guide.Sanguimancy.entry.corruptionCrystallizer=结晶器允许你绑定堕落指数到这个存在的平面.详情见黑魔法第三章
+guide.Sanguimancy.entry.bloodInterface=血魔法-红石信号接口允许红石信号ComputerCraft或OpenComputers自动管理你的LP网络.为了测量LP数值,使用这个东西必须要放一个气血宝珠才能加载,它能测量的LP的最大值取决于宝珠的容量.输出:红石比较器: 0-15 红石信号强度换算到宝珠内所含LP与总容量之比*16取整.                                                                                                                                                                                                                                                                                         外设(comput): Lua Methods "getOwner()" - 以字符串返回宝珠主人名字, "getOrbMaximum()" - 以整形返回宝珠的最大容量, "getLifeEssence()" - 以整形返回宝珠主人的LP数值(受限于getOrbMaximum()).The Lua Event: "orb_limit" - 以逻辑型返回宝珠是否填满的信息
+guide.Sanguimancy.entryName.decorativeBlocks=装饰方块
+guide.Sanguimancy.entry.bloodTank=血液储罐能存储16桶任意流体(被破坏时保留流体).
+guide.Sanguimancy.entry.bloodCleanser=血液清洗机是一个能用血液清洗物品的魔法机械,并创造出新的物品.
+guide.Sanguimancy.entryName.manifestations=灵魂显示器
+guide.Sanguimancy.entry.itemManifestation=这个方块会出现在你灵魂网络次元的专属区块里,前提是你把一个道具绑定到了你的灵魂网络中.它无法被你破坏.它有这么几种用途:第一,手持占卜印记能看见所绑定道具的名字.所以我个人推荐你在绑定道具之前给道具改个名字,因为这样更容易根据对它们的描述来追踪它们.就这样把这个方块放在那里不会产生什么特别的效果.                                                                                                                                                                                                                                                                                         假如你想把一个灵魂节点和它连接起来,可以直接让它们两个互相接触或者使用灵魂连接中继点,这样你就获得了对道具的控制权.如果代表道具的方块被禁用了,那么方块所代表的道具也将无法使用.你可以对方块通红石信号来禁用它所代表的道具的使用,即使它已经连接到了灵魂节点上.
+guide.Sanguimancy.entry.ritualManifestation=这个方块会出现在你灵魂网络次元的专属区块里,前提是你启动了一个仪式.当仪式停止时代表仪式的方块就会消失.它无法被你破坏.就这样把这个方块放在那里不会产生什么特别的效果.假如你想把一个灵魂节点和它连接起来,可以直接让它们两个互相接触或者使用灵魂连接中继点,这样你就获得了对仪式的控制权.如果代表仪式的方块被禁用了,那么方块所代表的仪式也将无法使用.                                                                                                                                                                                                                                                                                         你可以对方块通红石信号来禁用它所代表的仪式的使用,即使它已经连接到了灵魂节点上.
+guide.Sanguimancy.entry.soulBranch=灵魂连接中继点用来把不同的代表灵魂的方块连接到灵魂节点上.一旦与灵魂节点的链接建立成功,火焰会显示出这个链接.
+guide.Sanguimancy.entry.simpleKnot=单一灵魂节点是控制不同代表灵魂道具/仪式的方块的核心.如果代表灵魂道具/仪式的方块与灵魂节点相链接,相邻或是用灵魂连接中继点进行链接,这样你就获得了对灵魂网络的控制权.手持占卜印记右键灵魂节点,任何与之链接的代表灵魂道具/仪式的方块就会被禁用.这会覆盖掉使用红石信号禁用的效果.再次右键重新启用灵魂节点.
+guide.Sanguimancy.entry.toggledKnot=切换灵魂节点用途与单一灵魂节点相同,二者的区别是:如果切换节点被通入红石信号,它会停止模仿灵魂节点的行为转而去模仿灵魂连接中继点的行为,传递信号但不会禁用任何代表灵魂道具/仪式的方块.
+guide.Sanguimancy.entryName.etherealBlocks=天域方块
+guide.Sanguimancy.entry.etherealBlock=天域方块会阻挡任何除玩家以外的实体通过它.手持实体方块右键可以把方块的材质给与天域方块,而且连Waila都会被骗到.手持水桶右键可以移除材质.
+guide.Sanguimancy.entry.corruptedEtherealBlock=堕落天域方块拥有所有天域方块的特性,而且还多了一个特性:玩家需要达到一定的堕落等级才能穿过它.右键增加允许通过的堕落等级,按shift+右键减少允许通过的堕落等级.
+guide.Sanguimancy.entry.toggledEtherealBlock=切换天域方块伪装的像天域方块一样,但有一点不同:如果不对它通入红石信号,任何实体都能穿过去.当通入红石信号时,它会再次变得不可穿过.当玩家进入潜行状态时.它同样不可通过
+guide.Sanguimancy.entry.boundEtherealBlocks=绑定天域方块比天域方块,堕落或切换天域方块又多一个特性:唯有放置它的玩家才能破坏它.制造这种方块的方法:在绑定仪式中放置1~64个天域方块,堕落或切换天域方块然后启动仪式.
+guide.Sanguimancy.entry.personalEtherealBlock=私人天域方块的行为像绑定天域方块,但不同的是唯有放置它的玩家才能穿过它.除此人之外任何实体都不能通过它.
+guide.Sanguimancy.entry.altarManipulator=祭坛操纵器是祭坛自动化第三阶段.它是一个没有GUI界面的机器.然而祭坛红石信号发射器和祭坛推测器都有些局限性,祭坛操纵器却不会有这样的问题.将物品放入这个方块和从这个方块拿出物品都不能手动操作.而且祭坛操纵器只有在直接放在血之祭坛上方的情况下才会接受物品,在有足够的生命源质和足够高的祭坛等级才会开始制造物品.制造结束之后它会把成品回收,保留物品直到物品被取出.                                                                                                                                                                                                                                                                                         这个过程确保了被输入的物品只会被加工一次,而不会被一遍又一遍地反复加工.
+guide.Sanguimancy.entry.sanguineShifter=祭坛输出面板是祭坛操纵器的升级插件.物品可以用漏斗输入祭坛操纵器,但是却不能用漏斗输出出来.不用担心!现在我们有祭坛输出面板!手持祭坛输出面板右键祭坛操纵器除了底面以外的任何一个面,祭坛操纵器的这个面就会多出来一个物品栏用来存放输出的物品.
+
+#Rituals
+guide.Sanguimancy.entry.drillOfTheDead=死亡钻井仪式简单地说就是苦难之井.苦难之井每次工作让工作区域内的怪物减半颗心,而死亡钻井直接就会杀掉怪物.默认情况下每杀掉一只怪消耗75LP并赚取200LP.注意:死亡钻井不能秒杀Boss怪,元素生物和恶魔.激活这个仪式会增加你的§4灵魂堕落§r水平.
+guide.Sanguimancy.entry.vulcanosFrigius=刷石机仪式不用岩浆不用挖就可以制造圆石或黑曜石.这个仪式首先会制造4块圆石,每块圆石会消耗10LP.只要仪式一直处于启用状态,圆石就会一直刷下去.如果你给仪式提供暗黑粉末炼金试剂,那么它每次就会生产4个黑曜石,每块黑曜石消耗100LP和5个炼金试剂.
+guide.Sanguimancy.entry.greatDeletion=大垃圾桶仪式让你丢弃你不需要的物品,只要把垃圾扔到主仪式石上面就行.小心点别扔错东西了!因为扔掉了就拿不回来了!(这个仪式真垃圾——译者注)
+guide.Sanguimancy.entry.enlightenment=大范围照明仪式是一个能照亮主仪式石周围空间的仪式(其实是插上了看不见的火把——译者注).这个仪式消耗1LP/tick,而且这个仪式会一直检查周围有没有黑暗的地方,如果有它就会重新把区域点亮.
+guide.Sanguimancy.entry.timberman=超级伐木工仪式能大范围的砍伐树木.他什么树都砍, given that it’s not going to the world limit.
+guide.Sanguimancy.entry.filler=填充机仪式在主仪式石上方平铺从物品栏中取出的方块(铺地板).也许它可以用来建造林场之类的玩意儿.
+guide.Sanguimancy.entry.portal.1=折越之门仪式是一个高耗能仪式.任何实体经过传送都会消耗1000LP.注意跨世界传送会消耗10000LP.为了建立传送关系,需要在不同的地点建立两道传送门.而且这两道传送门还需要有相同的'传送门 ID'.为了让两道传送门频率一致,它们需要处在相同的环境中.也就是说要被完全相同的方块所包围.下一页有安装传送门的图示.
+guide.Sanguimancy.entry.portal.2=图片中的云衫木板可以用任何方块代替.两道传送门要是想连接在一起那么启动仪式的玩家也必须得是同一个人.仪式启动后,玩家从其中一扇门进去,就能从另一扇门出来.
+guide.Sanguimancy.entry.portal.picture=这张图片展示了哪些地方的方块可以作为传送门的'ID'使用.注意这些方块一定要在仪式启动前放置好,且仪式启动后也不要改动!
+guide.Sanguimancy.entry.pump=液泵仪式能让你从一个区域抽取液体.对仪式提供泥土粉末和环境粉末炼金试剂可以扩大抽取液体的范围.启动仪式之前,你需要在主仪式石上放置一个流体储罐,流体储罐里要装有一桶你想从环境中抽取的那种液体.
+guide.Sanguimancy.entry.altar.builder=高级祭坛建造仪式能帮你搭建祭坛.有时你需要搭建不止一个血之祭坛.高级祭坛建造仪式 启动仪式前确保在要搭建祭坛的范围内没有碍事的方块存在,在主仪式石上放一个装有祭坛建造材料的箱子,然后再启动仪式.
+
+#Lore
+guide.Sanguimancy.entryName.sacrificeMagic=牺牲魔法
+guide.Sanguimancy.entry.sacrificeMagic=§l可恶的小偷,他偷走了我的宝藏! — Smeagol(咕噜·史麦戈·史图尔人·霍比特人——译者注)§r血魔法师们你们好!如果你想来这找一些轻柔的气血宝珠或者是温和的牺牲刀,那你就找错地方了!我们将深入研究一些更为黑暗和被世人视为禁忌的东西:将人类献祭.颤抖吧,凡人!(中二病十足——译者注)                                                                                                                                                                                                                                                                                         ……诶,你还在这吗?好吧,我们继续.下面是一个如何偷取一个玩家灵魂网络的全部内容的指导.首先,你需要做一个不谐调玩家牺牲石,之后把它放在5级祭坛里来创造一个谐调玩家牺牲石.当你物品栏里有这个道具的时候,任何你PvP掉的玩家复活以后都会发现他的灵魂网络里面没东西了,而这些东西都会储存在你的聚焦玩家牺牲石里.                                                                                                                                                                                                                                                                                         这个东西是一个一次性使用的道具,如果它丢了或是被破坏你将无法重新获得它,所以你要小心地保存好它.一旦你做完了这个肮脏工作,你必须建造一个灵魂转移器.手持聚焦玩家牺牲石右键灵魂转移器将聚焦玩家牺牲石插入进去.做完这些之后,在这个方块上来回行走,这样那个玩家的LP就会加到你自己的身上.                                                                                                                                                                                                                                                                                         其实我是不建议牺牲其他玩家来满足你的一己私欲的,因为这样做的后果是十分不愉快的(除非你想和其他玩家在服务器里进行撕逼大战——译者注).毕竟,你的双手已经被其他玩家的死亡所沾染,不信的话你可以从头到尾看着这个过程.
+
+guide.Sanguimancy.entryName.corruption=灵魂堕落
+guide.Sanguimancy.entry.corruption=§l “也许,我比其他人更远地超越了魔法的限制." — Tom Marvolo Riddle(伏地魔先生——译者注)§r然而，这样做是不是无害的.显然,一位可怜的玩家被你给搞死了.但是,呃,人是你故意杀的,所以你不该在意这件事.不要误会,我说的有害的事情是发生在你身上的事.做这么个黑暗仪式会引发黑魔法让你的灵魂堕落.仔细想想的话黑魔法对你来说其实是免费的不是吗?                                                                                                                                                                                                                                                                                         诶,你真的是这么想的?那你这人心眼可忒坏了.回到主题.灵魂堕落到底是什么呢?灵魂堕落深入研究黑魔法的结果.低浓度的灵魂堕落是无害的,但随着浓度的升高它会变得越来越危险.然而我不打算详细解释每一级的灵魂堕落有何影响…毕竟,我不愿破坏你研究魔法的乐趣…(你这分明就是懒得写——译者注)                                                                                                                                                                                                                                                                                         灵魂堕落通过黑暗仪式累积,如上所说.有一种方法可以测量你灵魂堕落的程度,那就是使用灵魂堕落读取器,一个黑暗版本的占卜印记.在§o创造模式下§r,你可以使用工具增加,降低,或者直接消除堕落指数.
+
+guide.Sanguimancy.entryName.protection=灵魂保护
+guide.Sanguimancy.entry.protection.1=§l “事物没有好坏之分:只是强者与弱者对其看法不同." — Quirinus Quirrell(奎里纳斯·奇洛先生——译者注) §r  我希望最后一章会给你一点惊喜.灵魂堕落过高会使你的灵魂处于岌岌可危的状态.然而如果你执意增加你的灵魂堕落程度,这一章会告诉你怎样将危害控制在最小的程度.警告:你永远无法摆脱已发生的灵魂的堕落.它永远跟你绑定在一起.                                                                                                                                                                                                                                                                                         不过我们有办法减少它对你的影响.不过这样做的花销非常大,无论是建造还是保持灵魂堕落结晶器的使用.灵魂堕落结晶器能消耗LP和神圣粉末炼金试剂,有效的将你的堕落缓慢地转移至这个方块内部.一旦所有的堕落都转移完毕,你需要给方块持续提供LP和炼金试剂来维持它的稳定工作.
+guide.Sanguimancy.entry.protection.picture.1=要让结晶器工作,你需要在它底部建造一个结构.这是它建造完成时候的造型.看起来很时髦不是吗?
+guide.Sanguimancy.entry.protection.picture.2=首先,你需要将结晶器放置在比地面高两层的位置处.
+guide.Sanguimancy.entry.protection.picture.3=然后,你需要放置4个主仪式石在它下面一层的四个角落处.四个涌泉仪式必须先启动.
+guide.Sanguimancy.entry.protection.picture.4=最后,放置8个下界夜曲仪式,如图所示启动它们.根据结晶器的外观是否改变的现象你可以判断出它是否在工作.
+guide.Sanguimancy.entry.protection.2=这样就大功告成了.只要给结晶器持续提供神圣粉末,从你的灵魂网络持续供给LP,同时不要破坏结晶器方块,你的堕落就会被保存在它里面.不过,我说过堕落也有很多有用的效果,什么?你说我没说过?不管了反正现在我说过了.举个例子,当你堕落到一定程度以后,被你打击的生物都会中凋零效果.岂不美哉?吾甚乐之!
+
+guide.Sanguimancy.entryName.apllications=灵魂堕落的增加
+guide.Sanguimancy.entry.applications=§l “人不要脸,天下无敌.” — Eragon(龙骑士——译者注) §r 我十分同意前人所写之物.一旦你的灵魂堕落了,你就是一个真正的厚颜无耻之人XD.这种人无论在什么情况下都想法设法地利用一切可以利用的人或物.那么少年你想堕落吗?如果你的回答是yes,那么我向你隆重推出:堕落注魔!堕落注魔的过程十分的特别.                                                                                                                                                                                                                                                                                         首先你要准备一些堕落催化剂.把它们一直放在你的物品栏里,一旦你的灵魂足够堕落,就有机会使反应开始进行,然后把你手中拿着的东西变成其他的东西.这个过程的合成表在这本书另一部分.
+
+#Mods Compatibility
+
+#Waila Compatibility
+compat.waila.multiblock.formed=多方块结构
+compat.waila.corruption.stored=灵魂堕落储存
+compat.waila.owner=主人
+compat.waila.content=内含
+compat.waila.stacksize=物品数量
+compat.waila.blood.required=需要血液
+
+#NEI Compatibility
+compat.nei.corrupted.infusion=堕落注魔
+compat.nei.corrupted.infusion.time=持续时间
+compat.nei.corrupted.infusion.minimum.corruption=最小堕落指数
+compat.nei.corrupted.infusion.minimum.exact=具体的道具
+compat.nei.blood.cleanser=血液清洗机
+compat.nei.blood.required=需要血液
+
+#Gui
+gui.Sanguimancy.config.title=Sanguimancy 配置
+
+#Console
+info.Sanguimancy.console.config.refresh=更新配置文件
