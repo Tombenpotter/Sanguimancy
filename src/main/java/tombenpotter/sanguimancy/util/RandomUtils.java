@@ -461,10 +461,23 @@ public class RandomUtils {
             String modid = splitSource[0];
             String blockName = splitSource[1];
             Block block = GameRegistry.findBlock(modid, blockName);
-            int meta = Integer.parseInt(splitSource[2]);
-            if (block != null) {
+            int meta = splitSource[2].equals("*") ? OreDictionary.WILDCARD_VALUE : Integer.parseInt(splitSource[2]);
+
+            if (block != null)
                 transpositionBlockBlacklist.add(new BlockAndMetadata(block, meta));
-            }
+        }
+    }
+
+    public static void setTeleposerBlacklist() {
+        for (String s : ConfigHandler.teleposerBlacklist) {
+            String[] splitSource = s.split(":");
+            String modid = splitSource[0];
+            String blockName = splitSource[1];
+            Block block = GameRegistry.findBlock(modid, blockName);
+            int meta = splitSource[2].equals("*") ? OreDictionary.WILDCARD_VALUE : Integer.parseInt(splitSource[2]);
+
+            if (block != null)
+                teleposerBlacklist.add(new BlockAndMetadata(block, meta));
         }
     }
 
@@ -484,19 +497,6 @@ public class RandomUtils {
                 return new ItemStack(ModItems.archmageBloodOrb);
             case 6:
                 return new ItemStack(ModItems.transcendentBloodOrb);
-        }
-    }
-
-    public static void setTeleposerBlacklist() {
-        for (String s : ConfigHandler.teleposerBlacklist) {
-            String[] splitSource = s.split(":");
-            String modid = splitSource[0];
-            String blockName = splitSource[1];
-            Block block = GameRegistry.findBlock(modid, blockName);
-            int meta = Integer.parseInt(splitSource[2]);
-            if (block != null) {
-                teleposerBlacklist.add(new BlockAndMetadata(block, meta));
-            }
         }
     }
 }

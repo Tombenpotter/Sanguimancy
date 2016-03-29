@@ -37,6 +37,7 @@ import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.player.AttackEntityEvent;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.event.world.BlockEvent;
+import net.minecraftforge.oredict.OreDictionary;
 import org.lwjgl.opengl.GL11;
 import tombenpotter.sanguimancy.Sanguimancy;
 import tombenpotter.sanguimancy.api.objects.BlockAndMetadata;
@@ -348,10 +349,14 @@ public class EventHandler {
 
     @SubscribeEvent
     public void onTeleposeBlock(TeleposeEvent event) {
-        if (!ConfigHandler.enableTelepositionBlacklist && (RandomUtils.teleposerBlacklist.contains(new BlockAndMetadata(event.initialBlock, event.initialMetadata))
-                || RandomUtils.teleposerBlacklist.contains(new BlockAndMetadata(event.finalBlock, event.finalMetadata)))) {
+
+        BlockAndMetadata initialBlock = new BlockAndMetadata(event.initialBlock, event.initialMetadata);
+        BlockAndMetadata initalWild = new BlockAndMetadata(event.initialBlock, OreDictionary.WILDCARD_VALUE);
+        BlockAndMetadata finalBlock = new BlockAndMetadata(event.finalBlock, event.finalMetadata);
+        BlockAndMetadata finalWild = new BlockAndMetadata(event.finalBlock, OreDictionary.WILDCARD_VALUE);
+
+        if (!ConfigHandler.enableTelepositionBlacklist && (RandomUtils.teleposerBlacklist.contains(initialBlock) || RandomUtils.teleposerBlacklist.contains(initalWild) || RandomUtils.teleposerBlacklist.contains(finalBlock) || RandomUtils.teleposerBlacklist.contains(finalWild)))
             event.setCanceled(true);
-        }
     }
 
     @SubscribeEvent
