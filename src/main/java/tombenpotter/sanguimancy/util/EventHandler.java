@@ -127,23 +127,25 @@ public class EventHandler {
 
     @SubscribeEvent
     public void onPlayerTick(TickEvent.PlayerTickEvent event) {
-        if (SoulCorruptionHelper.isCorruptionOver(event.player, 10)) {
-            SoulCorruptionHelper.spawnChickenFollower(event.player);
-        }
-        if (SoulCorruptionHelper.isCorruptionOver(event.player, 40)) {
-            SoulCorruptionHelper.killGrass(event.player);
-        }
-        if (SoulCorruptionHelper.isCorruptionOver(event.player, 60)) {
-            SoulCorruptionHelper.hurtAndHealAnimals(event.player);
-        }
-        if (SoulCorruptionHelper.isCorruptionOver(event.player, 100)) {
-            SoulCorruptionHelper.spawnIllusion(event.player);
-        }
-        if (SoulCorruptionHelper.isCorruptionOver(event.player, 150)) {
-            SoulCorruptionHelper.randomTeleport(event.player);
-        }
-        if (SoulCorruptionHelper.isCorruptionOver(event.player, 200)) {
-            SoulCorruptionHelper.loseHeart(event.player);
+        if (SoulCorruptionHelper.isCorruptionLower(event.player, 2000)) {
+            if (SoulCorruptionHelper.isCorruptionOver(event.player, 10)) {
+                SoulCorruptionHelper.spawnChickenFollower(event.player);
+            }
+            if (SoulCorruptionHelper.isCorruptionOver(event.player, 40)) {
+                SoulCorruptionHelper.killGrass(event.player);
+            }
+            if (SoulCorruptionHelper.isCorruptionOver(event.player, 60)) {
+                SoulCorruptionHelper.hurtAndHealAnimals(event.player);
+            }
+            if (SoulCorruptionHelper.isCorruptionOver(event.player, 100)) {
+                SoulCorruptionHelper.spawnIllusion(event.player);
+            }
+            if (SoulCorruptionHelper.isCorruptionOver(event.player, 150)) {
+                SoulCorruptionHelper.randomTeleport(event.player);
+            }
+            if (SoulCorruptionHelper.isCorruptionOver(event.player, 200)) {
+                SoulCorruptionHelper.loseHeart(event.player);
+            }
         }
         if (SoulCorruptionHelper.isCorruptionOver(event.player, 1300)) {
             event.player.addPotionEffect(new PotionEffect(Potion.jump.getId(), 1, 1));
@@ -160,6 +162,7 @@ public class EventHandler {
         if (SoulCorruptionHelper.isCorruptionOver(event.player, 2400)) {
             event.player.addPotionEffect(new PotionEffect(Potion.resistance.getId(), 1, 1));
         }
+
         if (!event.player.worldObj.isRemote && event.player.worldObj.getTotalWorldTime() % 200 == 0) {
             syncCorruption(event.player);
         }
@@ -316,12 +319,12 @@ public class EventHandler {
     public void onSanguimancyItemTooltip(ItemTooltipEvent event) {
         ItemStack stack = event.itemStack;
 
-		GameRegistry.UniqueIdentifier id = GameRegistry.findUniqueIdentifierFor(stack.getItem());
-		if (id != null && id.modId.equals(Sanguimancy.modid) && stack.stackTagCompound != null && stack.stackTagCompound.hasKey("ownerName")) {
-			if (GuiScreen.isShiftKeyDown()) {
-				event.toolTip.add(StatCollector.translateToLocal("info.Sanguimancy.tooltip.owner") + ": " + stack.stackTagCompound.getString("ownerName"));
-			}
-		}
+        GameRegistry.UniqueIdentifier id = GameRegistry.findUniqueIdentifierFor(stack.getItem());
+        if (id != null && id.modId.equals(Sanguimancy.modid) && stack.stackTagCompound != null && stack.stackTagCompound.hasKey("ownerName")) {
+            if (GuiScreen.isShiftKeyDown()) {
+                event.toolTip.add(StatCollector.translateToLocal("info.Sanguimancy.tooltip.owner") + ": " + stack.stackTagCompound.getString("ownerName"));
+            }
+        }
     }
 
     @SubscribeEvent
