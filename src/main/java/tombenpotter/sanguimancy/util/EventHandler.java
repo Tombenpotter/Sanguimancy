@@ -315,19 +315,6 @@ public class EventHandler {
         SpellHelper.sendIndexedParticleToAllAround(event.entityPlayer.worldObj, posX, posY, posZ, 20, event.entityPlayer.worldObj.provider.dimensionId, 4, posX, posY, posZ);
     }
 
-    @SubscribeEvent(priority = EventPriority.HIGHEST)
-    //This code is very much inspired by the one in ProfMobius' Waila mod
-    public void onSanguimancyItemTooltip(ItemTooltipEvent event) {
-        ItemStack stack = event.itemStack;
-
-        GameRegistry.UniqueIdentifier id = GameRegistry.findUniqueIdentifierFor(stack.getItem());
-        if (id != null && id.modId.equals(Sanguimancy.modid) && stack.stackTagCompound != null && stack.stackTagCompound.hasKey("ownerName")) {
-            if (GuiScreen.isShiftKeyDown()) {
-                event.toolTip.add(StatCollector.translateToLocal("info.Sanguimancy.tooltip.owner") + ": " + stack.stackTagCompound.getString("ownerName"));
-            }
-        }
-    }
-
     @SubscribeEvent
     public void onBreakBoundTile(BlockEvent.BreakEvent event) {
         if (event.world.getTileEntity(event.x, event.y, event.z) != null && event.world.getTileEntity(event.x, event.y, event.z) instanceof TileCamouflageBound) {
@@ -405,6 +392,21 @@ public class EventHandler {
 
         private static float renderTicks;
         private static long tickTime = 0L;
+
+        @SubscribeEvent(priority = EventPriority.HIGHEST)
+        //This code is very much inspired by the one in ProfMobius' Waila mod
+        public void onSanguimancyItemTooltip(ItemTooltipEvent event) {
+            ItemStack stack = event.itemStack;
+
+            if (stack != null) {
+                GameRegistry.UniqueIdentifier id = GameRegistry.findUniqueIdentifierFor(stack.getItem());
+                if (id != null && id.modId.equals(Sanguimancy.modid) && stack.stackTagCompound != null && stack.stackTagCompound.hasKey("ownerName")) {
+                    if (GuiScreen.isShiftKeyDown()) {
+                        event.toolTip.add(StatCollector.translateToLocal("info.Sanguimancy.tooltip.owner") + ": " + stack.stackTagCompound.getString("ownerName"));
+                    }
+                }
+            }
+        }
 
         @SubscribeEvent
         public void onRenderPlayerSpecialAntlers(RenderPlayerEvent.Specials.Post event) {
