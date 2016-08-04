@@ -1,18 +1,21 @@
 buildscript {
     repositories {
         mavenCentral()
-        maven { url = "http://files.minecraftforge.net/maven" }
-        maven { url = "https://oss.sonatype.org/content/repositories/snapshots/" }
+        maven { url "http://files.minecraftforge.net/maven" }
+        maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
     }
     dependencies {
-        classpath 'net.minecraftforge.gradle:ForgeGradle:1.2-SNAPSHOT'
+        classpath 'net.minecraftforge.gradle:ForgeGradle:2.2-SNAPSHOT'
         classpath 'org.ajoberstar:gradle-git:0.10.1'
     }
 }
 
-import org.ajoberstar.grgit.Grgit
+plugins {
+    id "net.minecraftforge.gradle.forge" version "2.0.2"
+    id 'com.matthewprenger.cursegradle' version '1.0.7'
+    id 'io.franzbecker.gradle-lombok' version '1.6'
+}
 
-apply plugin: 'forge'
 apply plugin: 'maven-publish'
 
 def build_number = 'CUSTOM'
@@ -20,22 +23,51 @@ def build_number = 'CUSTOM'
 if (System.getenv('BUILD_NUMBER') != null)
     build_number = System.getenv('BUILD_NUMBER')
 
+def username = 'SanguimancyDev'
+
+if (project.hasProperty('dev_username'))
+    username = "${dev_username}"
+
 group = package_group
 archivesBaseName = mod_name
 version = "${mc_version}-${mod_version}-${build_number}"
 
+if (project.hasProperty('gitpush'))
+    version += "-ss"
+
+import org.ajoberstar.grgit.*
+
+ext.repo = Grgit.open(project.file('.'))
 def gitHash = 'unknown'
-if (new File(projectDir, '.git').exists()) {
-    def repo = Grgit.open(project.file('.'))
+
+if (new File(projectDir, '.git').exists())
     gitHash = repo.log().find().abbreviatedId
+
+repositories {
+    maven { url "http://dvs1.progwml6.com/files/maven" }
+    maven { url "http://mobiusstrip.eu/maven" }
+    maven { url "http://tehnut.info/maven" }
+    maven { url "http://maven.cil.li/"}
+}
+
+dependencies {
+    deobfCompile "mezz.jei:jei_${mc_version}:${jei_version}"
+    deobfCompile "mcp.mobius.waila:Waila:${waila_version}_1.9.4:dev"
+    deobfCompile "info.amerifrance.guideapi:Guide-API:1.9.4-${guideapi_version}"
+    deobfCompile "com.wayoftime.bloodmagic:BloodMagic:${bm_version}"
+    deobfCompile "li.cil.oc:OpenComputers:MC${mc_version}-${oc_version}-dev"
+
+    compile fileTree(dir: 'libs', include: '*.jar')
 }
 
 minecraft {
     version = "${mc_version}-${forge_version}"
     runDir = "run"
-	
-	replace "@VERSION@", project.version
+
+    replace "@VERSION@", project.version
     replaceIn "Sanguimancy.java"
+
+    clientRunArgs += "--username=${username}"
 
     if (project.hasProperty('mappings_version'))
         mappings = project.mappings_version
@@ -51,95 +83,70 @@ processResources {
 
         expand 'version': project.version, 'mcversion': project.minecraft.version
     }
+
     from(sourceSets.main.resources.srcDirs) {
         exclude '**/*.info'
         exclude '**/*.properties'
     }
 }
 
-repositories {
-    maven { // WAILA
-        name "Mobius Repo"
-        url "http://mobiusstrip.eu/maven"
+if (JavaVersion.current().isJava8Compatible()) {
+    allprojects {
+        tasks.withType(Javadoc) {
+            options.addStringOption('Xdoclint:none', '-quiet')
+        }
     }
-    maven {
-        name 'CB Repo'
-        url "http://chickenbones.net/maven/"
-    }
-	maven { 
-		name 'TehNut Repo'
-		url "http://tehnut.info/maven/"
-	}
-	maven {
-		name 'OpenComputers Repo'
-		url "http://maven.cil.li/"
-	}
 }
 
-dependencies {
-	compile "codechicken:CodeChickenCore:${mc_version}-${ccc_version}:dev"
-	compile "codechicken:CodeChickenLib:${mc_version}-${ccl_version}:dev"
-	compile "codechicken:NotEnoughItems:${mc_version}-${nei_version}:dev"
-	
-	compile "mcp.mobius.waila:Waila:${waila_version}_${mc_version}:dev"
-	
-	compile "li.cil.oc:OpenComputers:MC${mc_version}-${oc_version}-dev:dev"
-	
-	compile "info.amerifrance.guideapi:Guide-API:${mc_version}-${guideapi_version}:deobf"
-    compile fileTree(dir: 'libs', include: '*.jar')
+lombok {
+    version = "1.16.6"
+    sha256 = "e0a471be03e1e6b02bf019480cec7a3ac9801702bf7bf62f15d077ad4df8dd5d"
 }
 
-task copyModDeps(type: Copy, dependsOn: "extractUserDev") {
-	from { configurations.compile }
-	include "**/*CodeChickenCore*.jar", "**/*NotEnoughItems*.jar"
-	into file(minecraft.runDir + "/mods")
-	
-	mustRunAfter "deobfBinJar"
-    mustRunAfter "repackMinecraft"
-}
-	
-task copyLibDeps(type: Copy, dependsOn: "extractUserDev") {
-	from { configurations.compile }
-	include "**/CodeChickenLib*.jar"
-	into file(minecraft.runDir + "/mods/1.7.10")
-		
-	mustRunAfter "deobfBinJar"
-    mustRunAfter "repackMinecraft"
+import io.franzbecker.gradle.lombok.task.DelombokTask
+
+task delombok(type: DelombokTask) {
+    args("src/main/java", "-d", "build/sources/delomboked/java")
 }
 
-tasks.setupDevWorkspace.dependsOn copyModDeps, copyLibDeps
-tasks.setupDecompWorkspace.dependsOn copyModDeps, copyLibDeps
+task delombokHelp(type: DelombokTask) {
+    args "--help"
+}
+
+tasks.eclipse.dependsOn installLombok
 
 jar {
     classifier = ''
     manifest.mainAttributes(
-            "Built-By": System.getProperty('user.name'),
-            "Created-By": "${System.getProperty('java.vm.version')} + (${System.getProperty('java.vm.vendor')})",
-            "Implementation-Title": project.name,
-            "Implementation-Version": project.version,
-            "Git-Hash": gitHash
+        "Built-By": System.getProperty('user.name'),
+        "Created-By": "${System.getProperty('java.vm.version')} + (${System.getProperty('java.vm.vendor')})",
+        "Implementation-Title": project.name,
+        "Implementation-Version": project.version,
+        "Git-Hash": gitHash,
+        "Built-On": "${mc_version}-${forge_version}"
     )
 }
 
-// Add a source jar
-task sourceJar(type: Jar) {
+// API jar
+task apiJar(type: Jar) {
     from sourceSets.main.allSource
-    classifier = 'sources'
+    from sourceSets.main.output
+    include 'tombenpotter/sanguimancy/api/**/*'
+    classifier = 'api'
 }
 
-// Add a javadoc jar
+// Javadoc jar
 task javadocJar(type: Jar, dependsOn: javadoc) {
     from javadoc.destinationDir
     classifier = 'javadoc'
 }
 
-// Adds a deobfuscated jar
-task deobfJar(type: Jar) {
-    from sourceSets.main.output
-    classifier = 'deobf'
+javadoc {
+    source = projectDir.path + "/build/sources/delomboked/java"
 }
 
-tasks.build.dependsOn sourceJar, javadocJar, deobfJar
+tasks.javadoc.dependsOn delombok
+tasks.build.dependsOn javadoc, javadocJar, apiJar
 
 tasks.withType(JavaCompile) { task ->
     task.options.encoding = 'UTF-8'
@@ -149,10 +156,10 @@ publishing {
     tasks.publish.dependsOn 'build'
     publications {
         mavenJava(MavenPublication) {
-            from components.java
-            artifact sourceJar
+            artifact jar
             artifact javadocJar
-            artifact deobfJar
+            artifact sourceJar
+            artifact apiJar
         }
     }
     repositories {
@@ -164,4 +171,53 @@ publishing {
     }
 }
 
-fileTree('gradle').include('curse.gradle').collect().sort().each { apply from: it }
+String getChangelogText() {
+    def changelogFile = new File('changelog.txt')
+    String str = ''
+    String separator = '---'
+    int lineCount = 0
+    boolean done = false
+    changelogFile.eachLine {
+        if (done || it == null) {
+            return
+        }
+        if (lineCount < 3) {
+            lineCount++
+            if (it.startsWith(separator)) {return}
+        }
+        if (!it.startsWith(separator)) {
+            str += "$it" + (lineCount < 3 ? ':\n\n' : '\n')
+            return
+        }
+        done = true // once we go past the first version block, parse no more
+    }
+    return str
+}
+
+def curseRelations = {
+    optionalLibrary 'just-enough-items-jei'
+    optionalLibrary 'waila'
+    optionalLibrary 'opencomputers'
+    optionalLibrary 'computercraft'
+    requiredLibrary 'blood-magic'
+    requiredLibrary 'guide-api'
+}
+
+curseforge {
+    if (project.hasProperty('curse_key_Tombenpotter'))
+        apiKey = project.curse_key_Tombenpotter
+
+    project {
+        id = "${curse_id}"
+        changelog = getChangelogText()
+        releaseType = 'beta'
+
+        relations curseRelations
+        addGameVersion '1.10'
+        addGameVersion '1.10.2'
+
+        addArtifact javadocJar
+        addArtifact sourceJar
+        addArtifact apiJar
+    }
+}

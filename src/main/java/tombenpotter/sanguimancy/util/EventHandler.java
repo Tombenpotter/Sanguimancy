@@ -1,32 +1,24 @@
 package tombenpotter.sanguimancy.util;
 
-import WayofTime.alchemicalWizardry.api.event.*;
-import WayofTime.alchemicalWizardry.api.soulNetwork.SoulNetworkHandler;
-import WayofTime.alchemicalWizardry.common.items.EnergyItems;
-import WayofTime.alchemicalWizardry.common.spell.complex.effect.SpellHelper;
+import WayofTime.bloodmagic.api.event.ItemBindEvent;
+import WayofTime.bloodmagic.api.event.RitualEvent;
+import WayofTime.bloodmagic.api.event.SoulNetworkEvent;
+import WayofTime.bloodmagic.api.event.TeleposeEvent;
+import WayofTime.bloodmagic.api.saving.SoulNetwork;
 import amerifrance.guideapi.api.GuideRegistry;
-import cpw.mods.fml.client.event.ConfigChangedEvent;
-import cpw.mods.fml.common.Loader;
-import cpw.mods.fml.common.eventhandler.Event;
-import cpw.mods.fml.common.eventhandler.EventPriority;
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
-import cpw.mods.fml.common.gameevent.PlayerEvent;
-import cpw.mods.fml.common.gameevent.TickEvent;
-import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.init.MobEffects;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.util.ChatComponentText;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.StatCollector;
 import net.minecraft.world.WorldServer;
 import net.minecraftforge.client.event.RenderPlayerEvent;
 import net.minecraftforge.common.ForgeChunkManager;
@@ -37,6 +29,14 @@ import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.player.AttackEntityEvent;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.event.world.BlockEvent;
+import net.minecraftforge.fml.client.event.ConfigChangedEvent;
+import net.minecraftforge.fml.common.Loader;
+import net.minecraftforge.fml.common.eventhandler.Event;
+import net.minecraftforge.fml.common.eventhandler.EventPriority;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.gameevent.PlayerEvent;
+import net.minecraftforge.fml.common.gameevent.TickEvent;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.oredict.OreDictionary;
 import org.lwjgl.opengl.GL11;
 import tombenpotter.sanguimancy.Sanguimancy;
@@ -73,7 +73,7 @@ public class EventHandler {
 
     @SubscribeEvent
     public void onConfigChanged(ConfigChangedEvent.OnConfigChangedEvent event) {
-        if (event.modID.equals(Sanguimancy.modid)) {
+        if (event.getModID().equals(Sanguimancy.modid)) {
             ConfigHandler.syncConfig();
             Sanguimancy.logger.info(StatCollector.translateToLocal("info." + Sanguimancy.modid + ".console.config.refresh"));
         }
@@ -81,20 +81,20 @@ public class EventHandler {
 
     @SubscribeEvent
     public void onPlayerSacrificed(LivingDeathEvent event) {
-        if (event.entity != null && !event.entity.worldObj.isRemote) {
-            if (event.entity instanceof EntityPlayer) {
-                EntityPlayer player = (EntityPlayer) event.entity;
-                String owner = player.getCommandSenderName();
-                int currentEssence = SoulNetworkHandler.getCurrentEssence(owner);
-                if (event.source.getEntity() != null && event.source.getEntity() instanceof EntityPlayer) {
-                    EntityPlayer perpetrator = (EntityPlayer) event.source.getEntity();
+        if (event.getEntity() != null && !event.getEntity().worldObj.isRemote) {
+            if (event.getEntity() instanceof EntityPlayer) {
+                EntityPlayer player = (EntityPlayer) event.getEntity();
+                String owner = player.getName();
+                int currentEssence = SoulNetwork.getCurrentEssence(owner);
+                if (event.getSource().getEntity() != null && event.getSource().getEntity() instanceof EntityPlayer) {
+                    EntityPlayer perpetrator = (EntityPlayer) event.getSource().getEntity();
                     ItemStack attunedStack = new ItemStack(ItemsRegistry.playerSacrificer, 1, 1);
                     if (perpetrator.inventory.hasItemStack(attunedStack)) {
-                        perpetrator.inventory.consumeInventoryItem(attunedStack.getItem());
+                        perpetrator.inventory.deleteStack(attunedStack); ;
                         ItemStack focusedStack = new ItemStack(ItemsRegistry.playerSacrificer, 1, 2);
                         EnergyItems.checkAndSetItemOwner(focusedStack, owner);
-                        focusedStack.stackTagCompound.setInteger("bloodStolen", currentEssence);
-                        focusedStack.stackTagCompound.setString("thiefName", perpetrator.getCommandSenderName());
+                        focusedStack.getTagCompound().setInteger("bloodStolen", currentEssence);
+                        focusedStack.getTagCompound().setString("thiefName", perpetrator.getName());
                         perpetrator.inventory.addItemStackToInventory(focusedStack);
                         SoulNetworkHandler.setCurrentEssence(owner, 0);
                         SoulCorruptionHelper.incrementCorruption(player);
@@ -106,8 +106,8 @@ public class EventHandler {
 
     @SubscribeEvent
     public void onPlayerJoinWorld(EntityJoinWorldEvent event) {
-        if (!event.entity.worldObj.isRemote && event.entity != null && event.entity instanceof EntityPlayer) {
-            EntityPlayer player = (EntityPlayer) event.entity;
+        if (event.getEntity() != null && !event.getEntity().worldObj.isRemote && event.getEntity() instanceof EntityPlayer) {
+            EntityPlayer player = (EntityPlayer) event.getEntity();
             NBTTagCompound tag = RandomUtils.getModTag(player, Sanguimancy.modid);
             if (!tag.getBoolean("hasInitialChunkClaimer") && ConfigHandler.addItemsOnFirstLogin) {
                 player.addChatComponentMessage(new ChatComponentText(StatCollector.translateToLocal("chat.Sanguimancy.intial.claimer")));
@@ -149,19 +149,19 @@ public class EventHandler {
             }
         }
         if (SoulCorruptionHelper.isCorruptionOver(event.player, 1300)) {
-            event.player.addPotionEffect(new PotionEffect(Potion.jump.getId(), 1, 1));
+            event.player.addPotionEffect(new PotionEffect(MobEffects.JUMP_BOOST, 1, 1));
         }
         if (SoulCorruptionHelper.isCorruptionOver(event.player, 1600)) {
-            event.player.addPotionEffect(new PotionEffect(Potion.moveSpeed.getId(), 1, 1));
+            event.player.addPotionEffect(new PotionEffect(MobEffects.SPEED, 1, 1));
         }
         if (SoulCorruptionHelper.isCorruptionOver(event.player, 1900)) {
-            event.player.addPotionEffect(new PotionEffect(Potion.fireResistance.getId(), 1, 1));
+            event.player.addPotionEffect(new PotionEffect(MobEffects.FIRE_RESISTANCE, 1, 1));
         }
         if (SoulCorruptionHelper.isCorruptionOver(event.player, 2100)) {
-            event.player.addPotionEffect(new PotionEffect(Potion.waterBreathing.getId(), 1, 1));
+            event.player.addPotionEffect(new PotionEffect(MobEffects.WATER_BREATHING, 1, 1));
         }
         if (SoulCorruptionHelper.isCorruptionOver(event.player, 2400)) {
-            event.player.addPotionEffect(new PotionEffect(Potion.resistance.getId(), 1, 1));
+            event.player.addPotionEffect(new PotionEffect(MobEffects.RESISTANCE, 1, 1));
         }
 
         if (!event.player.worldObj.isRemote && event.player.worldObj.getTotalWorldTime() % 200 == 0) {
@@ -171,15 +171,15 @@ public class EventHandler {
 
     @SubscribeEvent
     public void onPlayerAttack(AttackEntityEvent event) {
-        if (event.entityPlayer != null && event.target != null && event.target instanceof EntityLivingBase) {
-            EntityLivingBase target = (EntityLivingBase) event.target;
-            if (SoulCorruptionHelper.isCorruptionOver(event.entityPlayer, 30))
+        if (event.getEntityPlayer() != null && event.getTarget() != null && event.getTarget() instanceof EntityLivingBase) {
+            EntityLivingBase target = (EntityLivingBase) event.getTarget();
+            if (SoulCorruptionHelper.isCorruptionOver(event.getEntityPlayer(), 30))
                 SoulCorruptionHelper.addWither(target);
         }
     }
 
     @SubscribeEvent
-    public void onRitualActivation(RitualActivatedEvent event) {
+    public void onRitualActivation(RitualEvent.RitualActivatedEvent event) {
         if (event.player != null) {
             if (SoulCorruptionHelper.isCorruptionOver(event.player, 50) && event.player.worldObj.rand.nextInt(10) == 0) {
                 event.setResult(Event.Result.DENY);
@@ -190,14 +190,14 @@ public class EventHandler {
     @SubscribeEvent
     public void onChunkForce(ForgeChunkManager.ForceChunkEvent event) {
         if (!Loader.isModLoaded("loaderlist")) {
-            RandomUtils.writeLog(event.ticket.getModId() + " forcing the loading of the chunk at x= " + String.valueOf(event.location.getCenterXPos()) + " and z=" + String.valueOf(event.location.getCenterZPosition()) + " in dimension " + String.valueOf(event.ticket.world.provider.dimensionId), "ChunkloadingLog.txt");
+            RandomUtils.writeLog(event.getTicket().getModId() + " forcing the loading of the chunk at x= " + String.valueOf(event.getLocation().getCenterXPos()) + " and z=" + String.valueOf(event.getLocation().getCenterZPosition()) + " in dimension " + String.valueOf(event.getTicket().world.provider.getDimension()), "ChunkloadingLog.txt");
         }
     }
 
     @SubscribeEvent
     public void onChunkUnforce(ForgeChunkManager.UnforceChunkEvent event) {
         if (!Loader.isModLoaded("loaderlist")) {
-            RandomUtils.writeLog(event.ticket.getModId() + " unforcing the loading of the chunk at x= " + String.valueOf(event.location.getCenterXPos()) + " and z=" + String.valueOf(event.location.getCenterZPosition()) + " in dimension " + String.valueOf(event.ticket.world.provider.dimensionId), "ChunkloadingLog.txt");
+            RandomUtils.writeLog(event.getTicket().getModId() + " unforcing the loading of the chunk at x= " + String.valueOf(event.getLocation().getCenterXPos()) + " and z=" + String.valueOf(event.getLocation().getCenterZPosition()) + " in dimension " + String.valueOf(event.getTicket().world.provider.getDimension()), "ChunkloadingLog.txt");
         }
     }
 
@@ -206,9 +206,9 @@ public class EventHandler {
         if (!event.player.worldObj.isRemote) {
             if (event.player.inventory.hasItemStack(SanguimancyItemStacks.etherealManifestation)) {
                 int dimID = ConfigHandler.snDimID;
-                WorldServer dimWorld = MinecraftServer.getServer().worldServerForDimension(dimID);
-                if (ClaimedChunks.getClaimedChunks().getLinkedChunks(event.player.getCommandSenderName()) != null) {
-                    for (ChunkIntPairSerializable chunkInt : ClaimedChunks.getClaimedChunks().getLinkedChunks(event.player.getCommandSenderName())) {
+                WorldServer dimWorld = MinecraftServer.getServer.worldServerForDimension(dimID);
+                if (ClaimedChunks.getClaimedChunks().getLinkedChunks(event.player.getName()) != null) {
+                    for (ChunkIntPairSerializable chunkInt : ClaimedChunks.getClaimedChunks().getLinkedChunks(event.player.getName())) {
                         int baseX = (chunkInt.chunkXPos << 4) + (dimWorld.rand.nextInt(16));
                         int baseZ = (chunkInt.chunkZPos << 4) + (dimWorld.rand.nextInt(16));
                         int baseY = dimWorld.getTopSolidOrLiquidBlock(baseX, baseZ) + 2;
@@ -221,7 +221,7 @@ public class EventHandler {
                             RandomUtils.checkAndSetCompound(event.itemStack);
                             if (BoundItems.getBoundItems().addItem(name, boundItemState)) {
                                 dimWorld.setBlock(baseX, baseY, baseZ, BlocksRegistry.boundItem);
-                                event.itemStack.stackTagCompound.setString("SavedItemName", name);
+                                event.itemStack.getTagCompound().setString("SavedItemName", name);
                                 if (dimWorld.getTileEntity(baseX, baseY, baseZ) != null && dimWorld.getTileEntity(baseX, baseY, baseZ) instanceof TileItemSNPart) {
                                     TileItemSNPart tile = (TileItemSNPart) dimWorld.getTileEntity(baseX, baseY, baseZ);
                                     tile.setInventorySlotContents(0, event.itemStack.copy());
@@ -235,16 +235,16 @@ public class EventHandler {
                         break;
                     }
                 }
-                event.player.inventory.consumeInventoryItem(SanguimancyItemStacks.etherealManifestation.getItem());
+                event.player.inventory.consumeInventoryItem(SanguimancyItemStacks.etherealManifestation);
             }
         }
     }
 
     @SubscribeEvent
-    public void onItemDrainNetwork(ItemDrainNetworkEvent event) {
+    public void onItemDrainNetwork(SoulNetworkEvent.ItemDrainNetworkEvent event) {
         if (!event.player.worldObj.isRemote && event.itemStack != null) {
-            if (event.itemStack.stackTagCompound.hasKey("SavedItemName")) {
-                String name = event.itemStack.stackTagCompound.getString("SavedItemName");
+            if (event.itemStack.getTagCompound().hasKey("SavedItemName")) {
+                String name = event.itemStack.getTagCompound().getString("SavedItemName");
                 if (!BoundItems.getBoundItems().hasKey(name)) {
                     event.player.addChatComponentMessage(new ChatComponentText(StatCollector.translateToLocal("chat.Sanguimancy.removed")));
                     RandomUtils.unbindItemStack(event.itemStack);
@@ -274,13 +274,13 @@ public class EventHandler {
     }
 
     @SubscribeEvent
-    public void onRitualStart(RitualActivatedEvent event) {
+    public void onRitualStart(RitualEvent.RitualActivatedEvent event) {
         if (!event.player.worldObj.isRemote) {
             if (event.player.inventory.hasItemStack(SanguimancyItemStacks.etherealManifestation)) {
                 int dimID = ConfigHandler.snDimID;
                 WorldServer dimWorld = MinecraftServer.getServer().worldServerForDimension(dimID);
-                if (ClaimedChunks.getClaimedChunks().getLinkedChunks(event.player.getCommandSenderName()) != null) {
-                    for (ChunkIntPairSerializable chunkInt : ClaimedChunks.getClaimedChunks().getLinkedChunks(event.player.getCommandSenderName())) {
+                if (ClaimedChunks.getClaimedChunks().getLinkedChunks(event.player.getName()) != null) {
+                    for (ChunkIntPairSerializable chunkInt : ClaimedChunks.getClaimedChunks().getLinkedChunks(event.player.getName())) {
                         int baseX = (chunkInt.chunkXPos << 4) + (dimWorld.rand.nextInt(16));
                         int baseZ = (chunkInt.chunkZPos << 4) + (dimWorld.rand.nextInt(16));
                         int baseY = dimWorld.getTopSolidOrLiquidBlock(baseX, baseZ) + 2;
@@ -317,10 +317,10 @@ public class EventHandler {
 
     @SubscribeEvent
     public void onBreakBoundTile(BlockEvent.BreakEvent event) {
-        if (event.world.getTileEntity(event.x, event.y, event.z) != null && event.world.getTileEntity(event.x, event.y, event.z) instanceof TileCamouflageBound) {
-            TileCamouflageBound tile = (TileCamouflageBound) event.world.getTileEntity(event.x, event.y, event.z);
+        if (event.getWorld().getTileEntity(event.x, event.y, event.z) != null && event.getWorld().getTileEntity(event.x, event.y, event.z) instanceof TileCamouflageBound) {
+            TileCamouflageBound tile = (TileCamouflageBound) event.getWo`.getTileEntity(event.x, event.y, event.z);
             if (tile.getOwnersList() == null) tile.setOwnersList(new ArrayList<String>());
-            if (!tile.getOwnersList().isEmpty() && !tile.getOwnersList().contains(event.getPlayer().getCommandSenderName())) {
+            if (!tile.getOwnersList().isEmpty() && !tile.getOwnersList().contains(event.getPlayer().getName())) {
                 event.getPlayer().addChatComponentMessage(new ChatComponentText(StatCollector.translateToLocal("info.Sanguimancy.tooltip.wrong.player")));
                 event.setCanceled(true);
             }
@@ -329,27 +329,15 @@ public class EventHandler {
 
     @SubscribeEvent
     public void onTranspositionSigilLightning(EntityStruckByLightningEvent event) {
-        if (event.lightning.getEntityData() != null && event.lightning.getEntityData().getBoolean("isTranspositionSigilBolt")) {
+        if (event.getLightning().getEntityData() != null && event.getLightning().getEntityData().getBoolean("isTranspositionSigilBolt")) {
             event.setCanceled(true);
         }
     }
 
     @SubscribeEvent
-    public void onTeleposeBlock(TeleposeEvent event) {
-
-        BlockAndMetadata initialBlock = new BlockAndMetadata(event.initialBlock, event.initialMetadata);
-        BlockAndMetadata initalWild = new BlockAndMetadata(event.initialBlock, OreDictionary.WILDCARD_VALUE);
-        BlockAndMetadata finalBlock = new BlockAndMetadata(event.finalBlock, event.finalMetadata);
-        BlockAndMetadata finalWild = new BlockAndMetadata(event.finalBlock, OreDictionary.WILDCARD_VALUE);
-
-        if (!ConfigHandler.enableTelepositionBlacklist && (RandomUtils.teleposerBlacklist.contains(initialBlock) || RandomUtils.teleposerBlacklist.contains(initalWild) || RandomUtils.teleposerBlacklist.contains(finalBlock) || RandomUtils.teleposerBlacklist.contains(finalWild)))
-            event.setCanceled(true);
-    }
-
-    @SubscribeEvent
     public void onCreateEntity(EntityEvent.EntityConstructing event) {
-        if (event.entity instanceof EntityPlayer && SoulCorruption.get((EntityPlayer) event.entity) == null) {
-            SoulCorruption.create((EntityPlayer) event.entity);
+        if (event.getEntity() instanceof EntityPlayer && SoulCorruption.get((EntityPlayer) event.getEntity()) == null) {
+            SoulCorruption.create((EntityPlayer) event.getEntity());
         }
     }
 
@@ -366,18 +354,18 @@ public class EventHandler {
     @SubscribeEvent
     public void onPlayerClone(net.minecraftforge.event.entity.player.PlayerEvent.Clone event) {
         NBTTagCompound tagCompound = new NBTTagCompound();
-        SoulCorruption.get(event.original).saveNBTData(tagCompound);
-        SoulCorruption.get(event.entityPlayer).saveNBTData(tagCompound);
-        syncCorruption(event.entityPlayer);
+        SoulCorruption.get(event.getOriginal()).saveNBTData(tagCompound);
+        SoulCorruption.get(event.getEntityPlayer()).saveNBTData(tagCompound);
+        syncCorruption(event.getEntityPlayer());
     }
 
     @SubscribeEvent
     public void onDigWithCorruptedTool(net.minecraftforge.event.entity.player.PlayerEvent.BreakSpeed event) {
-        if (event.entityPlayer.getHeldItem() != null) {
-            ItemStack stack = event.entityPlayer.getHeldItem();
+        if (event.getEntityPlayer().getHeldItem(EnumHand.MAIN_HAND) != null) {
+            ItemStack stack = event.getEntityPlayer().getHeldItem(EnumHand.MAIN_HAND);
             if (stack.getItem() == ItemsRegistry.corruptedAxe || stack.getItem() == ItemsRegistry.corruptedShovel || stack.getItem() == ItemsRegistry.corruptedPickaxe) {
-                int corruption = SoulCorruptionHelper.getCorruptionLevel(event.entityPlayer);
-                event.newSpeed = event.originalSpeed * (corruption / ConfigHandler.minimumToolCorruption);
+                int corruption = SoulCorruptionHelper.getCorruptionLevel(event.getEntityPlayer());
+                event.setNewSpeed(event.getOriginalSpeed() * (corruption / ConfigHandler.minimumToolCorruption));
             }
         }
     }
@@ -396,7 +384,7 @@ public class EventHandler {
         @SubscribeEvent(priority = EventPriority.HIGHEST)
         //This code is very much inspired by the one in ProfMobius' Waila mod
         public void onSanguimancyItemTooltip(ItemTooltipEvent event) {
-            ItemStack stack = event.itemStack;
+            ItemStack stack = event.getItemStack();
 
             if (stack != null) {
                 GameRegistry.UniqueIdentifier id = GameRegistry.findUniqueIdentifierFor(stack.getItem());
@@ -412,7 +400,7 @@ public class EventHandler {
         public void onRenderPlayerSpecialAntlers(RenderPlayerEvent.Specials.Post event) {
             String names[] = {"Tombenpotter", "TehNut", "WayofFlowingTime", "Jadedcat", "Kris1432", "Drullkus", "TheOrangeGenius", "Direwolf20", "Pahimar", "ValiarMarcus", "Alex_hawks", "StoneWaves", "DemoXin", "insaneau"};
             for (String name : names) {
-                if (event.entityPlayer.getCommandSenderName().equalsIgnoreCase(name)) {
+                if (event.getEntityPlayer().getName().equalsIgnoreCase(name)) {
                     GL11.glPushMatrix();
                     GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
                     Minecraft.getMinecraft().renderEngine.bindTexture(new ResourceLocation(Sanguimancy.texturePath + ":textures/items/Wand.png"));
