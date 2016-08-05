@@ -1,22 +1,20 @@
 package tombenpotter.sanguimancy.api.tile;
 
-import cpw.mods.fml.common.Optional;
 import dan200.computercraft.api.lua.ILuaContext;
-import dan200.computercraft.api.lua.LuaException;
 import dan200.computercraft.api.peripheral.IComputerAccess;
 import dan200.computercraft.api.peripheral.IPeripheral;
-import li.cil.oc.api.Network;
 import li.cil.oc.api.machine.Arguments;
 import li.cil.oc.api.machine.Context;
 import li.cil.oc.api.network.*;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
-import tombenpotter.sanguimancy.api.objects.ICustomNBTTag;
-import tombenpotter.sanguimancy.api.objects.Timer;
-import tombenpotter.sanguimancy.compat.lua.events.LuaEvent;
-import tombenpotter.sanguimancy.compat.lua.methods.LuaMethod;
-import tombenpotter.sanguimancy.util.enums.ModList;
+import net.minecraftforge.fml.common.Optional;
+import tombenpotter.oldsanguimancy.api.objects.ICustomNBTTag;
+import tombenpotter.oldsanguimancy.api.objects.Timer;
+import tombenpotter.oldsanguimancy.compat.lua.events.LuaEvent;
+import tombenpotter.oldsanguimancy.compat.lua.methods.LuaMethod;
+import tombenpotter.oldsanguimancy.util.enums.ModList;
 
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;

@@ -1,8 +1,8 @@
 package tombenpotter.sanguimancy.util;
 
 import net.minecraft.item.ItemStack;
-import tombenpotter.sanguimancy.registry.BlocksRegistry;
-import tombenpotter.sanguimancy.registry.ItemsRegistry;
+import tombenpotter.oldsanguimancy.registry.BlocksRegistry;
+import tombenpotter.oldsanguimancy.registry.ItemsRegistry;
 
 public class SanguimancyItemStacks {
 
@@ -29,8 +29,6 @@ public class SanguimancyItemStacks {
     public static ItemStack imbuedStick = new ItemStack(ItemsRegistry.resource, 1, 2);
     public static ItemStack etherealManifestation = new ItemStack(ItemsRegistry.resource, 1, 3);
     public static ItemStack soulTransporter = new ItemStack(ItemsRegistry.soulTransporter);
-    public static ItemStack telepositionSigil = new ItemStack(ItemsRegistry.telepositionSigil);
-    public static ItemStack transpositionSigil = new ItemStack(ItemsRegistry.transpositionSigil);
     public static ItemStack sanguineShifter = new ItemStack(ItemsRegistry.resource, 1, 4);
 
     // Blocks
@@ -55,7 +53,6 @@ public class SanguimancyItemStacks {
     public static ItemStack clayIllusion = new ItemStack(BlocksRegistry.illusion, 1, 15);
     public static ItemStack corruptionCrystallizer = new ItemStack(BlocksRegistry.corruptionCrystallizer);
     public static ItemStack lumpCleaner = new ItemStack(BlocksRegistry.lumpCleaner);
-    public static ItemStack bloodTank = new ItemStack(BlocksRegistry.bloodTank);
     public static ItemStack bloodstoneStairs = new ItemStack(BlocksRegistry.bloodStoneStairs);
     public static ItemStack largeBloodstoneStairs = new ItemStack(BlocksRegistry.largeBloodStoneStairs);
     public static ItemStack bloodstoneSlab = new ItemStack(BlocksRegistry.bloodstoneSlab);

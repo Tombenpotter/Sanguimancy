@@ -2,10 +2,11 @@ package tombenpotter.sanguimancy.api.tile;
 
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
-import net.minecraft.network.Packet;
-import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
+import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
-import tombenpotter.sanguimancy.api.objects.ICustomNBTTag;
+import tombenpotter.oldsanguimancy.api.objects.ICustomNBTTag;
+
+import javax.annotation.Nullable;
 
 public class TileBase extends TileEntity implements ICustomNBTTag {
 
@@ -18,9 +19,10 @@ public class TileBase extends TileEntity implements ICustomNBTTag {
     }
 
     @Override
-    public void writeToNBT(NBTTagCompound tagCompound) {
+    public NBTTagCompound writeToNBT(NBTTagCompound tagCompound) {
         super.writeToNBT(tagCompound);
         tagCompound.setTag("customNBTTag", customNBTTag);
+        return tagCompound;
     }
 
     @Override
@@ -33,19 +35,24 @@ public class TileBase extends TileEntity implements ICustomNBTTag {
         customNBTTag = tag;
     }
 
-
+    @Nullable
     @Override
-    public final Packet getDescriptionPacket() {
-        NBTTagCompound nbt = new NBTTagCompound();
-        writeToNBT(nbt);
-        S35PacketUpdateTileEntity packet = new S35PacketUpdateTileEntity(xCoord, yCoord, zCoord, 0, nbt);
+    public SPacketUpdateTileEntity getUpdatePacket() {
+        SPacketUpdateTileEntity packet = new SPacketUpdateTileEntity(pos, 0, getUpdateTag());
         return packet;
     }
 
     @Override
-    public void onDataPacket(NetworkManager net, S35PacketUpdateTileEntity pkt) {
-        NBTTagCompound nbt = pkt.func_148857_g();
+    public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity pkt) {
+        NBTTagCompound nbt = pkt.getNbtCompound();
         readFromNBT(nbt);
+    }
+
+    @Override
+    public NBTTagCompound getUpdateTag() {
+        NBTTagCompound tag = super.getUpdateTag();
+        readFromNBT(tag);
+        return tag;
     }
 
     @Override
@@ -54,6 +61,6 @@ public class TileBase extends TileEntity implements ICustomNBTTag {
         if (worldObj.isRemote) {
             return;
         }
-        this.worldObj.markBlockForUpdate(xCoord, yCoord, zCoord); // Update block + TE via Network
+        this.worldObj.notifyBlockUpdate(pos, worldObj.getBlockState(pos), worldObj.getBlockState(pos), 3); // Update block + TE via Network
     }
 }
