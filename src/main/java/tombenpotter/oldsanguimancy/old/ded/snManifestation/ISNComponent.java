@@ -1,4 +1,4 @@
-package tombenpotter.oldsanguimancy.api.snManifestation;
+package tombenpotter.oldsanguimancy.old.ded.snManifestation;
 
 import tombenpotter.sanguimancy.api.objects.BlockPostition;
 import tombenpotter.sanguimancy.api.objects.BoolAndBlockPosList;

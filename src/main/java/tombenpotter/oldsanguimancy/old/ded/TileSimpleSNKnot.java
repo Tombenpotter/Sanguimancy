@@ -1,4 +1,4 @@
-package tombenpotter.oldsanguimancy.tile;
+package tombenpotter.oldsanguimancy.old.ded;
 
 import WayofTime.alchemicalWizardry.ModItems;
 import net.minecraft.item.ItemStack;

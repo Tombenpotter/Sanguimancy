@@ -1,4 +1,4 @@
-package tombenpotter.oldsanguimancy.world;
+package tombenpotter.oldsanguimancy.old.ded.world;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;

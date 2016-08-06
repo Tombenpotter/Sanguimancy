@@ -1,4 +1,4 @@
-package tombenpotter.oldsanguimancy.client.render;
+package tombenpotter.oldsanguimancy.old.ded;
 
 import WayofTime.alchemicalWizardry.ModItems;
 import cpw.mods.fml.client.FMLClientHandler;
@@ -16,7 +16,7 @@ import net.minecraftforge.client.IItemRenderer;
 import org.lwjgl.opengl.GL11;
 import tombenpotter.oldsanguimancy.Sanguimancy;
 import tombenpotter.oldsanguimancy.client.model.ModelCube;
-import tombenpotter.oldsanguimancy.tile.TileRitualSNPart;
+import tombenpotter.oldsanguimancy.old.ded.TileRitualSNPart;
 import tombenpotter.sanguimancy.util.SanguimancyItemStacks;
 
 public class RenderRitualRepresentation extends TileEntitySpecialRenderer implements IItemRenderer {

@@ -1,4 +1,4 @@
-package tombenpotter.oldsanguimancy.client.render;
+package tombenpotter.oldsanguimancy.old.ded;
 
 
 import cpw.mods.fml.client.FMLClientHandler;

@@ -1,4 +1,4 @@
-package tombenpotter.oldsanguimancy.tile;
+package tombenpotter.oldsanguimancy.old.ded;
 
 import net.minecraft.nbt.NBTTagCompound;
 

@@ -1,4 +1,4 @@
-package tombenpotter.oldsanguimancy.tile;
+package tombenpotter.oldsanguimancy.old.ded;
 
 import WayofTime.alchemicalWizardry.ModItems;
 import net.minecraft.entity.player.EntityPlayer;
@@ -12,8 +12,8 @@ import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.StatCollector;
 import tombenpotter.sanguimancy.api.objects.BlockPostition;
-import tombenpotter.oldsanguimancy.api.snManifestation.EnumSNType;
-import tombenpotter.oldsanguimancy.api.snManifestation.ISNKnot;
+import tombenpotter.oldsanguimancy.old.ded.snManifestation.EnumSNType;
+import tombenpotter.oldsanguimancy.old.ded.snManifestation.ISNKnot;
 import tombenpotter.oldsanguimancy.api.tile.TileBaseSNPart;
 import tombenpotter.oldsanguimancy.util.BoundItemState;
 import tombenpotter.oldsanguimancy.util.singletons.BoundItems;

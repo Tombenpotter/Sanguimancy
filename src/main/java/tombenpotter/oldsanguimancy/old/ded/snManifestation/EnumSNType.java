@@ -1,4 +1,4 @@
-package tombenpotter.oldsanguimancy.api.snManifestation;
+package tombenpotter.oldsanguimancy.old.ded.snManifestation;
 
 public enum EnumSNType {
     ITEM,

@@ -2,7 +2,7 @@ package tombenpotter.oldsanguimancy.registry;
 
 import cpw.mods.fml.common.registry.GameRegistry;
 import tombenpotter.oldsanguimancy.api.tile.TileCamouflage;
-import tombenpotter.oldsanguimancy.old.ded.TileBloodTank;
+import tombenpotter.oldsanguimancy.old.ded.*;
 import tombenpotter.oldsanguimancy.tile.*;
 
 public class TileRegistry {

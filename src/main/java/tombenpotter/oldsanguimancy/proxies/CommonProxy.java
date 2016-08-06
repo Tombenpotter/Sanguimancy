@@ -8,7 +8,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.network.IGuiHandler;
 import tombenpotter.oldsanguimancy.Sanguimancy;
-import tombenpotter.oldsanguimancy.api.snManifestation.ISNComponent;
+import tombenpotter.oldsanguimancy.old.ded.snManifestation.ISNComponent;
 import tombenpotter.oldsanguimancy.container.ContainerLumpCleaner;
 import tombenpotter.oldsanguimancy.gui.GuiLumpCleaner;
 import tombenpotter.oldsanguimancy.tile.TileBloodCleaner;

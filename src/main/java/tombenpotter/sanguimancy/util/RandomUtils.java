@@ -13,7 +13,6 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.DimensionType;
 import net.minecraft.world.World;
 import net.minecraftforge.common.DimensionManager;
 import net.minecraftforge.common.MinecraftForge;
@@ -24,7 +23,6 @@ import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fml.common.eventhandler.Event;
 import net.minecraftforge.oredict.OreDictionary;
 import tombenpotter.oldsanguimancy.registry.ItemsRegistry;
-import tombenpotter.oldsanguimancy.world.WorldProviderSoulNetworkDimension;
 import tombenpotter.sanguimancy.Sanguimancy;
 import tombenpotter.sanguimancy.api.objects.MapKey;
 
@@ -252,6 +250,7 @@ public class RandomUtils {
         }
     }
 
+    /*
     public static void createSNDimension() {
         int dimID = ConfigHandler.snDimID;
         if (!DimensionManager.isDimensionRegistered(dimID)) {
@@ -261,6 +260,7 @@ public class RandomUtils {
             DimensionManager.registerDimension(dimID, type);
         }
     }
+    */
 
     public static void dropBlockDropsWithFortune(World world, IBlockState state, BlockPos pos, int fortune) {
         if (state.getBlock() != null && state.getBlock().getDrops(world, pos, state, 0) != null) {

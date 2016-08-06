@@ -1,4 +1,4 @@
-package tombenpotter.oldsanguimancy.blocks;
+package tombenpotter.oldsanguimancy.old.ded;
 
 import WayofTime.alchemicalWizardry.AlchemicalWizardry;
 import WayofTime.alchemicalWizardry.api.rituals.IMasterRitualStone;

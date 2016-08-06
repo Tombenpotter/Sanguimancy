@@ -1,4 +1,4 @@
-package tombenpotter.oldsanguimancy.tile;
+package tombenpotter.oldsanguimancy.old.ded;
 
 import WayofTime.alchemicalWizardry.ModItems;
 import WayofTime.alchemicalWizardry.api.event.RitualRunEvent;
@@ -14,7 +14,7 @@ import net.minecraft.util.ChatComponentText;
 import net.minecraftforge.common.MinecraftForge;
 import tombenpotter.sanguimancy.api.objects.BlockPostition;
 import tombenpotter.sanguimancy.api.objects.ICustomNBTTag;
-import tombenpotter.oldsanguimancy.api.snManifestation.EnumSNType;
+import tombenpotter.oldsanguimancy.old.ded.snManifestation.EnumSNType;
 import tombenpotter.oldsanguimancy.api.tile.TileBaseSNPart;
 
 import java.util.HashMap;

@@ -1,4 +1,4 @@
-package tombenpotter.oldsanguimancy.world;
+package tombenpotter.oldsanguimancy.old.ded.world;
 
 import WayofTime.alchemicalWizardry.ModBlocks;
 import net.minecraft.block.Block;

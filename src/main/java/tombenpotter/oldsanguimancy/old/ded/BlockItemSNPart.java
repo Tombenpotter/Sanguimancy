@@ -1,4 +1,4 @@
-package tombenpotter.oldsanguimancy.blocks;
+package tombenpotter.oldsanguimancy.old.ded;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -13,8 +13,7 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import tombenpotter.oldsanguimancy.Sanguimancy;
 import tombenpotter.sanguimancy.api.objects.BlockPostition;
-import tombenpotter.oldsanguimancy.api.snManifestation.ISNComponent;
-import tombenpotter.oldsanguimancy.tile.TileItemSNPart;
+import tombenpotter.oldsanguimancy.old.ded.snManifestation.ISNComponent;
 import tombenpotter.oldsanguimancy.util.singletons.BoundItems;
 
 import java.util.Random;

@@ -7,8 +7,7 @@ import net.minecraft.block.material.Material;
 import tombenpotter.oldsanguimancy.Sanguimancy;
 import tombenpotter.oldsanguimancy.blocks.*;
 import tombenpotter.oldsanguimancy.blocks.items.*;
-import tombenpotter.oldsanguimancy.old.ded.BlockBloodTank;
-import tombenpotter.oldsanguimancy.old.ded.ItemBlockBloodTank;
+import tombenpotter.oldsanguimancy.old.ded.*;
 
 public class BlocksRegistry {
 
