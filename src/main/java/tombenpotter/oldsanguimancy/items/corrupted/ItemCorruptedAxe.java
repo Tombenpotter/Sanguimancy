@@ -23,10 +23,10 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
 import tombenpotter.oldsanguimancy.Sanguimancy;
-import tombenpotter.oldsanguimancy.api.objects.MapKey;
+import tombenpotter.sanguimancy.api.objects.MapKey;
 import tombenpotter.oldsanguimancy.api.soulCorruption.SoulCorruptionHelper;
-import tombenpotter.oldsanguimancy.util.ConfigHandler;
-import tombenpotter.oldsanguimancy.util.RandomUtils;
+import tombenpotter.sanguimancy.util.ConfigHandler;
+import tombenpotter.sanguimancy.util.RandomUtils;
 
 import java.util.List;
 

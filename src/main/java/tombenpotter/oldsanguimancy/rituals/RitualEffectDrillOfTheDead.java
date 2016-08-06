@@ -14,7 +14,7 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
 import tombenpotter.oldsanguimancy.Sanguimancy;
 import tombenpotter.oldsanguimancy.api.soulCorruption.SoulCorruptionHelper;
-import tombenpotter.oldsanguimancy.util.ConfigHandler;
+import tombenpotter.sanguimancy.util.ConfigHandler;
 
 import java.util.ArrayList;
 import java.util.List;

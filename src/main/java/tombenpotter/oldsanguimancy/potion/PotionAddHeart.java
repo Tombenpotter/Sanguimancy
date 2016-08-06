@@ -5,7 +5,7 @@ import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.BaseAttributeMap;
 import net.minecraft.potion.Potion;
 import tombenpotter.oldsanguimancy.registry.PotionsRegistry;
-import tombenpotter.oldsanguimancy.util.ConfigHandler;
+import tombenpotter.sanguimancy.util.ConfigHandler;
 
 public class PotionAddHeart extends Potion {
 

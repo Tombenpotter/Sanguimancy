@@ -22,7 +22,7 @@ import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.IFluidContainerItem;
 import tombenpotter.oldsanguimancy.Sanguimancy;
 import tombenpotter.oldsanguimancy.old.ded.TileBloodTank;
-import tombenpotter.oldsanguimancy.util.RandomUtils;
+import tombenpotter.sanguimancy.util.RandomUtils;
 
 import java.util.List;
 

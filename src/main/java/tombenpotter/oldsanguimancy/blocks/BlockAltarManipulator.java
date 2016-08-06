@@ -9,7 +9,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import tombenpotter.oldsanguimancy.Sanguimancy;
 import tombenpotter.oldsanguimancy.tile.TileAltarManipulator;
-import tombenpotter.oldsanguimancy.util.RandomUtils;
+import tombenpotter.sanguimancy.util.RandomUtils;
 import tombenpotter.sanguimancy.util.SanguimancyItemStacks;
 
 public class BlockAltarManipulator extends BlockContainer {

@@ -12,15 +12,15 @@ import net.minecraftforge.fml.common.event.*;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import tombenpotter.oldsanguimancy.compat.computercraft.PeripheralProvider;
-import tombenpotter.oldsanguimancy.compat.waila.WailaCompatRegistry;
-import tombenpotter.oldsanguimancy.network.PacketHandler;
+import tombenpotter.sanguimancy.compat.computercraft.PeripheralProvider;
+import tombenpotter.sanguimancy.compat.waila.WailaCompatRegistry;
+import tombenpotter.sanguimancy.network.PacketHandler;
 import tombenpotter.oldsanguimancy.proxies.CommonProxy;
 import tombenpotter.oldsanguimancy.registry.*;
-import tombenpotter.oldsanguimancy.util.ConfigHandler;
-import tombenpotter.oldsanguimancy.util.EventHandler;
-import tombenpotter.oldsanguimancy.util.RandomUtils;
-import tombenpotter.oldsanguimancy.util.enums.ModList;
+import tombenpotter.sanguimancy.util.ConfigHandler;
+import tombenpotter.sanguimancy.util.EventHandler;
+import tombenpotter.sanguimancy.util.RandomUtils;
+import tombenpotter.sanguimancy.util.enums.ModList;
 import tombenpotter.oldsanguimancy.util.teleporting.TeleportingQueue;
 
 @Mod(modid = Sanguimancy.modid, name = Sanguimancy.name, version = Sanguimancy.version, dependencies = Sanguimancy.depend, guiFactory = "tombenpotter.sanguimancy.client.gui.ConfigGuiFactory")

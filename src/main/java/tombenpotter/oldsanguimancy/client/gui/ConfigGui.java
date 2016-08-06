@@ -11,7 +11,7 @@ import tombenpotter.oldsanguimancy.Sanguimancy;
 import java.util.ArrayList;
 import java.util.List;
 
-import static tombenpotter.oldsanguimancy.util.ConfigHandler.*;
+import static tombenpotter.sanguimancy.util.ConfigHandler.*;
 
 public class ConfigGui extends GuiConfig {
 

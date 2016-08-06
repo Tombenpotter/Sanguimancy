@@ -1,20 +1,24 @@
 package tombenpotter.sanguimancy.api.tile;
 
 import dan200.computercraft.api.lua.ILuaContext;
+import dan200.computercraft.api.lua.LuaException;
 import dan200.computercraft.api.peripheral.IComputerAccess;
 import dan200.computercraft.api.peripheral.IPeripheral;
 import li.cil.oc.api.machine.Arguments;
 import li.cil.oc.api.machine.Context;
 import li.cil.oc.api.network.*;
+import li.cil.oc.server.network.Network;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.ITickable;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.Optional;
-import tombenpotter.oldsanguimancy.api.objects.ICustomNBTTag;
-import tombenpotter.oldsanguimancy.api.objects.Timer;
-import tombenpotter.oldsanguimancy.compat.lua.events.LuaEvent;
-import tombenpotter.oldsanguimancy.compat.lua.methods.LuaMethod;
-import tombenpotter.oldsanguimancy.util.enums.ModList;
+import tombenpotter.sanguimancy.api.objects.ICustomNBTTag;
+import tombenpotter.sanguimancy.api.objects.Timer;
+import tombenpotter.sanguimancy.compat.lua.events.LuaEvent;
+import tombenpotter.sanguimancy.compat.lua.methods.LuaMethod;
+import tombenpotter.sanguimancy.util.enums.ModList;
 
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
@@ -27,7 +31,7 @@ import java.util.Set;
         @Optional.Interface(iface = "li.cil.oc.api.network.Environment", modid = ModList.Names.OPENCOMPUTERS),
         @Optional.Interface(iface = "li.cil.oc.api.network.ManagedPeripheral", modid = ModList.Names.OPENCOMPUTERS)
 })
-public abstract class TileComputerBase extends TileEntity implements ManagedPeripheral, Environment, IPeripheral, ICustomNBTTag {
+public abstract class TileComputerBase extends TileEntity implements ManagedPeripheral, Environment, IPeripheral, ICustomNBTTag, ITickable {
     protected final String name;
     protected final Map<Integer, String> methodIDs = new LinkedHashMap<Integer, String>();
     protected final Map<String, LuaMethod> methodNames = new LinkedHashMap<String, LuaMethod>();
@@ -42,8 +46,7 @@ public abstract class TileComputerBase extends TileEntity implements ManagedPeri
     }
 
     @Override
-    public void updateEntity() {
-        super.updateEntity();
+    public void update() {
         if (!worldObj.isRemote) serverUpdate();
         if (initialize) init();
     }
@@ -65,6 +68,7 @@ public abstract class TileComputerBase extends TileEntity implements ManagedPeri
     @Override
     public void readFromNBT(NBTTagCompound compound) {
         super.readFromNBT(compound);
+
         if (ModList.opencomputers.isLoaded()) {
             if (node instanceof Component)
                 ((Component) node).load(compound);
@@ -72,12 +76,15 @@ public abstract class TileComputerBase extends TileEntity implements ManagedPeri
     }
 
     @Override
-    public void writeToNBT(NBTTagCompound compound) {
+    public NBTTagCompound writeToNBT(NBTTagCompound compound) {
         super.writeToNBT(compound);
+
         if (ModList.opencomputers.isLoaded()) {
             if (node instanceof Component)
                 ((Component) node).save(compound);
         }
+
+        return compound;
     }
 
     //####################Peripheral Stuff################
@@ -176,7 +183,7 @@ public abstract class TileComputerBase extends TileEntity implements ManagedPeri
             if (node instanceof Component)
                 ((Component) node).remove();
         }
-        this.onInvalidateOrUnload(worldObj, xCoord, yCoord, zCoord, false);
+        this.onInvalidateOrUnload(worldObj, pos, false);
     }
 
     @Override
@@ -185,11 +192,11 @@ public abstract class TileComputerBase extends TileEntity implements ManagedPeri
         super.invalidate();
         if (node instanceof Component)
             ((Component) node).remove();
-        this.onInvalidateOrUnload(worldObj, xCoord, yCoord, zCoord, true);
+        this.onInvalidateOrUnload(worldObj, pos, true);
     }
 
     @Optional.Method(modid = ModList.Names.OPENCOMPUTERS)
-    protected void onInvalidateOrUnload(World world, int x, int y, int z, boolean invalid) {
+    protected void onInvalidateOrUnload(World world, BlockPos pos, boolean invalid) {
     }
 
     @Optional.Method(modid = ModList.Names.OPENCOMPUTERS)

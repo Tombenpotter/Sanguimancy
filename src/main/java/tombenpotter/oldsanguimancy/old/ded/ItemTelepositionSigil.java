@@ -13,7 +13,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import tombenpotter.oldsanguimancy.Sanguimancy;
-import tombenpotter.oldsanguimancy.util.RandomUtils;
+import tombenpotter.sanguimancy.util.RandomUtils;
 import tombenpotter.oldsanguimancy.util.teleporting.TeleportingQueue;
 
 import java.util.List;

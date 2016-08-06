@@ -21,7 +21,7 @@ import tombenpotter.oldsanguimancy.entity.EntityChickenMinion;
 import tombenpotter.oldsanguimancy.old.ded.EntityPlayerPointer;
 import tombenpotter.oldsanguimancy.registry.BlocksRegistry;
 import tombenpotter.oldsanguimancy.tile.*;
-import tombenpotter.oldsanguimancy.util.EventHandler;
+import tombenpotter.sanguimancy.util.EventHandler;
 
 public class ClientProxy extends CommonProxy {
 

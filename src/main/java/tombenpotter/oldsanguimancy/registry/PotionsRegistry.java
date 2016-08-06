@@ -3,7 +3,7 @@ package tombenpotter.oldsanguimancy.registry;
 import net.minecraft.potion.Potion;
 import tombenpotter.oldsanguimancy.potion.PotionAddHeart;
 import tombenpotter.oldsanguimancy.potion.PotionRemoveHeart;
-import tombenpotter.oldsanguimancy.util.ConfigHandler;
+import tombenpotter.sanguimancy.util.ConfigHandler;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;

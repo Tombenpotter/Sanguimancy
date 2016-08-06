@@ -14,7 +14,7 @@ import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
-import tombenpotter.oldsanguimancy.api.objects.ICustomNBTTag;
+import tombenpotter.sanguimancy.api.objects.ICustomNBTTag;
 import tombenpotter.oldsanguimancy.api.soulCorruption.SoulCorruptionHelper;
 
 public class TileCorruptionCrystallizer extends TileSegmentedReagentHandler implements ICustomNBTTag {

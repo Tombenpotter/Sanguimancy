@@ -16,7 +16,7 @@ import net.minecraftforge.oredict.OreDictionary;
 import tombenpotter.oldsanguimancy.api.bloodutils.api.registries.RecipeRegistry;
 import tombenpotter.oldsanguimancy.recipes.RecipeBloodCleanser;
 import tombenpotter.oldsanguimancy.recipes.RecipeCorruptedInfusion;
-import tombenpotter.oldsanguimancy.util.RandomUtils;
+import tombenpotter.sanguimancy.util.RandomUtils;
 import tombenpotter.sanguimancy.util.SanguimancyItemStacks;
 
 import java.util.ArrayList;

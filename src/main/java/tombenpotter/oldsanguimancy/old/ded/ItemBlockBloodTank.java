@@ -12,7 +12,7 @@ import net.minecraft.util.StatCollector;
 import net.minecraftforge.fluids.FluidContainerRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.IFluidContainerItem;
-import tombenpotter.oldsanguimancy.util.RandomUtils;
+import tombenpotter.sanguimancy.util.RandomUtils;
 
 import java.util.List;
 

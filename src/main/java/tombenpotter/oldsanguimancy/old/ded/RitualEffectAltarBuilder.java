@@ -18,7 +18,6 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
-import tombenpotter.oldsanguimancy.api.objects.BlockAndMetadata;
 
 import java.util.ArrayList;
 import java.util.List;

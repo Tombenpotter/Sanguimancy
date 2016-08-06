@@ -10,14 +10,14 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.Packet;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.World;
-import tombenpotter.oldsanguimancy.api.objects.Timer;
+import tombenpotter.sanguimancy.api.objects.Timer;
 import tombenpotter.oldsanguimancy.api.tile.TileComputerBase;
-import tombenpotter.oldsanguimancy.compat.lua.events.LuaOrbMaxed;
-import tombenpotter.oldsanguimancy.compat.lua.methods.LuaGetLifeEssence;
-import tombenpotter.oldsanguimancy.compat.lua.methods.LuaGetOrbMax;
-import tombenpotter.oldsanguimancy.compat.lua.methods.LuaGetOwner;
-import tombenpotter.oldsanguimancy.network.PacketHandler;
-import tombenpotter.oldsanguimancy.network.packets.PacketBloodInterfaceUpdate;
+import tombenpotter.sanguimancy.compat.lua.events.LuaOrbMaxed;
+import tombenpotter.sanguimancy.compat.lua.methods.LuaGetLifeEssence;
+import tombenpotter.sanguimancy.compat.lua.methods.LuaGetOrbMax;
+import tombenpotter.sanguimancy.compat.lua.methods.LuaGetOwner;
+import tombenpotter.sanguimancy.network.PacketHandler;
+import tombenpotter.sanguimancy.network.packets.PacketBloodInterfaceUpdate;
 import tombenpotter.oldsanguimancy.registry.BlocksRegistry;
 
 public class TileBloodInterface extends TileComputerBase implements IInventory {

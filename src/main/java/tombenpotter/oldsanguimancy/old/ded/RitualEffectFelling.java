@@ -12,7 +12,6 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
-import tombenpotter.oldsanguimancy.util.RitualUtils;
 
 import java.util.ArrayList;
 import java.util.List;

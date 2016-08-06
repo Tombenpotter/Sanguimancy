@@ -3,7 +3,7 @@ package tombenpotter.oldsanguimancy.tile;
 import WayofTime.alchemicalWizardry.ModItems;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import tombenpotter.oldsanguimancy.api.objects.BlockPostition;
+import tombenpotter.sanguimancy.api.objects.BlockPostition;
 import tombenpotter.oldsanguimancy.api.tile.TileBaseSNKnot;
 
 public class TileSimpleSNKnot extends TileBaseSNKnot {

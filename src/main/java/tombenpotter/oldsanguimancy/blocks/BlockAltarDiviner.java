@@ -12,7 +12,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import tombenpotter.oldsanguimancy.Sanguimancy;
 import tombenpotter.oldsanguimancy.tile.TileAltarDiviner;
-import tombenpotter.oldsanguimancy.util.RandomUtils;
+import tombenpotter.sanguimancy.util.RandomUtils;
 
 public class BlockAltarDiviner extends BlockContainer {
 

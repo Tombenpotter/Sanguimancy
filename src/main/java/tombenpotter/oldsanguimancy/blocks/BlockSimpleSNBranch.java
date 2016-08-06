@@ -9,7 +9,7 @@ import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import tombenpotter.oldsanguimancy.Sanguimancy;
-import tombenpotter.oldsanguimancy.api.objects.BlockPostition;
+import tombenpotter.sanguimancy.api.objects.BlockPostition;
 import tombenpotter.oldsanguimancy.api.snManifestation.ISNComponent;
 import tombenpotter.oldsanguimancy.tile.TileSimpleSNBranch;
 

@@ -6,7 +6,7 @@ import net.minecraft.util.StatCollector;
 import tombenpotter.oldsanguimancy.entity.EntityChickenMinion;
 import tombenpotter.oldsanguimancy.old.ded.*;
 import tombenpotter.oldsanguimancy.rituals.*;
-import tombenpotter.oldsanguimancy.util.ConfigHandler;
+import tombenpotter.sanguimancy.util.ConfigHandler;
 
 import java.util.ArrayList;
 

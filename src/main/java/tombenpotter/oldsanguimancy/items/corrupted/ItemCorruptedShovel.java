@@ -24,11 +24,10 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.event.world.BlockEvent;
 import tombenpotter.oldsanguimancy.Sanguimancy;
-import tombenpotter.oldsanguimancy.api.objects.BlockAndMetadata;
 import tombenpotter.oldsanguimancy.api.soulCorruption.SoulCorruptionHelper;
 import tombenpotter.oldsanguimancy.registry.ItemsRegistry;
-import tombenpotter.oldsanguimancy.util.ConfigHandler;
-import tombenpotter.oldsanguimancy.util.RandomUtils;
+import tombenpotter.sanguimancy.util.ConfigHandler;
+import tombenpotter.sanguimancy.util.RandomUtils;
 import tombenpotter.sanguimancy.util.SanguimancyItemStacks;
 
 import java.util.ArrayList;

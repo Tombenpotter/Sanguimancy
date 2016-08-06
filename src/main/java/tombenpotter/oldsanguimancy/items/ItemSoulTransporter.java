@@ -10,7 +10,7 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.world.World;
 import tombenpotter.oldsanguimancy.Sanguimancy;
-import tombenpotter.oldsanguimancy.util.ConfigHandler;
+import tombenpotter.sanguimancy.util.ConfigHandler;
 import tombenpotter.oldsanguimancy.util.singletons.ClaimedChunks;
 import tombenpotter.oldsanguimancy.util.teleporting.TeleportingQueue;
 

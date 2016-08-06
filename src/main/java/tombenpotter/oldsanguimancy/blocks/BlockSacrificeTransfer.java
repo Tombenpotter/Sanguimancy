@@ -22,7 +22,7 @@ import tombenpotter.oldsanguimancy.api.soulCorruption.SoulCorruptionHelper;
 import tombenpotter.oldsanguimancy.client.particle.EntityColoredFlameFX;
 import tombenpotter.oldsanguimancy.items.ItemPlayerSacrificer;
 import tombenpotter.oldsanguimancy.tile.TileSacrificeTransfer;
-import tombenpotter.oldsanguimancy.util.RandomUtils;
+import tombenpotter.sanguimancy.util.RandomUtils;
 import tombenpotter.sanguimancy.util.SanguimancyItemStacks;
 
 import java.util.Random;

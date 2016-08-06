@@ -18,7 +18,7 @@ import tombenpotter.oldsanguimancy.Sanguimancy;
 import tombenpotter.oldsanguimancy.entity.EntityChickenMinion;
 import tombenpotter.oldsanguimancy.registry.BlocksRegistry;
 import tombenpotter.oldsanguimancy.registry.PotionsRegistry;
-import tombenpotter.oldsanguimancy.util.ConfigHandler;
+import tombenpotter.sanguimancy.util.ConfigHandler;
 
 import java.util.List;
 

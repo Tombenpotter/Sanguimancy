@@ -12,9 +12,9 @@ import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import tombenpotter.oldsanguimancy.Sanguimancy;
 import tombenpotter.oldsanguimancy.api.soulCorruption.SoulCorruptionHelper;
-import tombenpotter.oldsanguimancy.network.events.EventCorruptedInfusion;
+import tombenpotter.sanguimancy.network.events.EventCorruptedInfusion;
 import tombenpotter.oldsanguimancy.recipes.RecipeCorruptedInfusion;
-import tombenpotter.oldsanguimancy.util.RandomUtils;
+import tombenpotter.sanguimancy.util.RandomUtils;
 
 import java.util.List;
 

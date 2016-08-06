@@ -2,7 +2,7 @@ package tombenpotter.oldsanguimancy.tile;
 
 import net.minecraft.nbt.NBTTagCompound;
 import tombenpotter.oldsanguimancy.Sanguimancy;
-import tombenpotter.oldsanguimancy.api.objects.BlockPostition;
+import tombenpotter.sanguimancy.api.objects.BlockPostition;
 import tombenpotter.oldsanguimancy.api.tile.TileBaseSNBranch;
 
 public class TileSimpleSNBranch extends TileBaseSNBranch {

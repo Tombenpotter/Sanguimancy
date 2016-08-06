@@ -2,7 +2,7 @@ package tombenpotter.oldsanguimancy.recipes;
 
 import com.google.common.collect.ImmutableList;
 import net.minecraft.item.ItemStack;
-import tombenpotter.oldsanguimancy.util.RandomUtils;
+import tombenpotter.sanguimancy.util.RandomUtils;
 
 import java.util.LinkedList;
 import java.util.List;

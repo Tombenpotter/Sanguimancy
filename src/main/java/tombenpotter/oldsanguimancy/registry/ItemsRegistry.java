@@ -9,7 +9,7 @@ import tombenpotter.oldsanguimancy.items.corrupted.ItemCorruptedShovel;
 import tombenpotter.oldsanguimancy.items.corrupted.ItemCorruptedSword;
 import tombenpotter.oldsanguimancy.old.ded.ItemTelepositionSigil;
 import tombenpotter.oldsanguimancy.old.ded.ItemTranspositionSigil;
-import tombenpotter.oldsanguimancy.util.RandomUtils;
+import tombenpotter.sanguimancy.util.RandomUtils;
 
 public class ItemsRegistry {
 
