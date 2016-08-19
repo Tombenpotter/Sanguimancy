@@ -1,12 +1,12 @@
-package tombenpotter.oldsanguimancy.blocks.items;
+package tombenpotter.sanguimancy.blocks.items;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.StatCollector;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.List;
 
@@ -15,6 +15,7 @@ public class ItemBlockIllusion extends ItemBlock {
     public ItemBlockIllusion(Block block) {
         super(block);
         setHasSubtypes(true);
+        setRegistryName(block.getRegistryName());
     }
 
     @Override
@@ -99,6 +100,6 @@ public class ItemBlockIllusion extends ItemBlock {
     @SideOnly(Side.CLIENT)
     @Override
     public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean p_77624_4_) {
-        list.add(StatCollector.translateToLocal("info.Sanguimancy.tooltip.illusion"));
+        list.add(I18n.format("info.Sanguimancy.tooltip.illusion"));
     }
 }

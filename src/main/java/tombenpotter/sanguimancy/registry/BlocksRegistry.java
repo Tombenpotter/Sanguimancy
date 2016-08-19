@@ -5,14 +5,16 @@ import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import tombenpotter.oldsanguimancy.blocks.*;
-import tombenpotter.oldsanguimancy.blocks.items.*;
+import tombenpotter.oldsanguimancy.blocks.items.ItemBlockBloodCleanser;
 import tombenpotter.sanguimancy.Sanguimancy;
 import tombenpotter.sanguimancy.blocks.BlockAltarDiviner;
 import tombenpotter.sanguimancy.blocks.BlockAltarEmitter;
 import tombenpotter.sanguimancy.blocks.BlockAltarManipulator;
+import tombenpotter.sanguimancy.blocks.BlockIllusion;
 import tombenpotter.sanguimancy.blocks.items.ItemBlockAltarDiviner;
 import tombenpotter.sanguimancy.blocks.items.ItemBlockAltarEmitter;
 import tombenpotter.sanguimancy.blocks.items.ItemBlockAltarManipulator;
+import tombenpotter.sanguimancy.blocks.items.ItemBlockIllusion;
 
 public class BlocksRegistry {
 
@@ -50,11 +52,13 @@ public class BlocksRegistry {
         GameRegistry.register(altarManipulator);
         GameRegistry.register(new ItemBlockAltarManipulator(altarManipulator));
 
+        illusion = new BlockIllusion(Material.IRON).setRegistryName(Sanguimancy.modid, "BlockIllusion").setUnlocalizedName(Sanguimancy.modid + ".illusion").setLightLevel(1F);
+        GameRegistry.register(illusion);
+        GameRegistry.register(new ItemBlockIllusion(illusion));
+        
+        //Not updated yet
         sacrificeTransfer = new BlockSacrificeTransfer(Material.iron);
         GameRegistry.registerBlock(sacrificeTransfer, "BlockSacrificeTransfer").setBlockName(Sanguimancy.modid + ".sacrificeTransfer");
-
-        illusion = new BlockIllusion(Material.iron);
-        GameRegistry.registerBlock(illusion, ItemBlockIllusion.class, "BlockIllusion").setBlockName(Sanguimancy.modid + ".illusion").setLightLevel(1F);
 
         corruptionCrystallizer = new BlockCorruptionCrystallizer(Material.iron);
         GameRegistry.registerBlock(corruptionCrystallizer, "BlockCorruptionCrystallizer").setBlockName(Sanguimancy.modid + ".corruptionCrystallizer");
