@@ -16,7 +16,7 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.FluidContainerRegistry;
 import tombenpotter.oldsanguimancy.Sanguimancy;
-import tombenpotter.oldsanguimancy.tile.TileBloodCleaner;
+import tombenpotter.oldsanguimancy.tiles.TileBloodCleaner;
 import tombenpotter.sanguimancy.util.RandomUtils;
 
 public class BlockLumpCleaner extends BlockContainer {

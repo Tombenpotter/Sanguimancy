@@ -8,7 +8,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
-import tombenpotter.oldsanguimancy.tile.TileBloodInterface;
+import tombenpotter.oldsanguimancy.tiles.TileBloodInterface;
 
 public class BlockBloodInterface extends BlockContainer {
     public BlockBloodInterface() {

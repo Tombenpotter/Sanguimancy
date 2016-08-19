@@ -11,7 +11,7 @@ import tombenpotter.oldsanguimancy.Sanguimancy;
 import tombenpotter.oldsanguimancy.old.ded.snManifestation.ISNComponent;
 import tombenpotter.oldsanguimancy.container.ContainerLumpCleaner;
 import tombenpotter.oldsanguimancy.gui.GuiLumpCleaner;
-import tombenpotter.oldsanguimancy.tile.TileBloodCleaner;
+import tombenpotter.oldsanguimancy.tiles.TileBloodCleaner;
 
 import java.util.Calendar;
 

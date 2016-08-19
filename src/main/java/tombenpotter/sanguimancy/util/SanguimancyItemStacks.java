@@ -1,8 +1,8 @@
 package tombenpotter.sanguimancy.util;
 
 import net.minecraft.item.ItemStack;
-import tombenpotter.oldsanguimancy.registry.BlocksRegistry;
-import tombenpotter.oldsanguimancy.registry.ItemsRegistry;
+import tombenpotter.sanguimancy.registry.BlocksRegistry;
+import tombenpotter.sanguimancy.registry.ItemsRegistry;
 
 public class SanguimancyItemStacks {
 

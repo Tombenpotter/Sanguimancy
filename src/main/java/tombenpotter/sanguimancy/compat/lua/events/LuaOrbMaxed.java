@@ -1,7 +1,7 @@
 package tombenpotter.sanguimancy.compat.lua.events;
 
 import net.minecraft.tileentity.TileEntity;
-import tombenpotter.oldsanguimancy.tile.TileBloodInterface;
+import tombenpotter.oldsanguimancy.tiles.TileBloodInterface;
 
 public class LuaOrbMaxed extends LuaEvent {
 

@@ -11,7 +11,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.Explosion;
 import net.minecraft.world.World;
 import tombenpotter.oldsanguimancy.Sanguimancy;
-import tombenpotter.oldsanguimancy.tile.TileCamouflageBound;
+import tombenpotter.oldsanguimancy.tiles.TileCamouflageBound;
 
 public class BlockEtherealBoundCorrupted extends BlockEtherealCorrupted {
 

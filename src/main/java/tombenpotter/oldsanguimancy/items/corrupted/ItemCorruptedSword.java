@@ -21,7 +21,7 @@ import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import tombenpotter.oldsanguimancy.Sanguimancy;
 import tombenpotter.oldsanguimancy.api.soulCorruption.SoulCorruptionHelper;
-import tombenpotter.oldsanguimancy.registry.PotionsRegistry;
+import tombenpotter.sanguimancy.registry.PotionsRegistry;
 import tombenpotter.sanguimancy.util.ConfigHandler;
 import tombenpotter.sanguimancy.util.RandomUtils;
 

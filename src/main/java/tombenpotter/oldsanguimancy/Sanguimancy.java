@@ -16,12 +16,12 @@ import tombenpotter.sanguimancy.compat.computercraft.PeripheralProvider;
 import tombenpotter.sanguimancy.compat.waila.WailaCompatRegistry;
 import tombenpotter.sanguimancy.network.PacketHandler;
 import tombenpotter.oldsanguimancy.proxies.CommonProxy;
-import tombenpotter.oldsanguimancy.registry.*;
+import tombenpotter.sanguimancy.registry.*;
 import tombenpotter.sanguimancy.util.ConfigHandler;
 import tombenpotter.sanguimancy.util.EventHandler;
 import tombenpotter.sanguimancy.util.RandomUtils;
 import tombenpotter.sanguimancy.util.enums.ModList;
-import tombenpotter.oldsanguimancy.util.teleporting.TeleportingQueue;
+import tombenpotter.oldsanguimancy.old.ded.teleporting.TeleportingQueue;
 
 @Mod(modid = Sanguimancy.modid, name = Sanguimancy.name, version = Sanguimancy.version, dependencies = Sanguimancy.depend, guiFactory = "tombenpotter.sanguimancy.client.gui.ConfigGuiFactory")
 public class Sanguimancy {
@@ -68,7 +68,7 @@ public class Sanguimancy {
         EntitiesRegistry.registerEntities();
         PotionsRegistry.potionPreInit();
         if (ModList.computercraft.isLoaded()) PeripheralProvider.register();
-        RandomUtils.createSNDimension();
+//        RandomUtils.createSNDimension();
     }
 
     @Mod.EventHandler
@@ -90,13 +90,6 @@ public class Sanguimancy {
     }
 
     @Mod.EventHandler
-    public void imcCallback(FMLInterModComms.IMCEvent event) {
-        for (final FMLInterModComms.IMCMessage imcMessage : event.getMessages()) {
-            MessageRegistry.registerMessage(imcMessage.key, imcMessage);
-        }
-    }
-
-    @Mod.EventHandler
     public void postInit(FMLPostInitializationEvent event) {
         RecipesRegistry.registerCustomModRecipes();
         SanguimancyGuide.registerGuide();
@@ -109,7 +102,5 @@ public class Sanguimancy {
     public void serverStarting(FMLServerStartingEvent event) {
         RandomUtils.setLogToPlank();
         RandomUtils.setOreLumpList();
-        RandomUtils.setTranspositionBlockBlacklist();
-        RandomUtils.setTeleposerBlacklist();
     }
 }

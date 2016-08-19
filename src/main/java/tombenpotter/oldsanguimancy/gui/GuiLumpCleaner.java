@@ -8,7 +8,7 @@ import net.minecraft.util.StatCollector;
 import org.lwjgl.opengl.GL11;
 import tombenpotter.oldsanguimancy.Sanguimancy;
 import tombenpotter.oldsanguimancy.container.ContainerLumpCleaner;
-import tombenpotter.oldsanguimancy.tile.TileBloodCleaner;
+import tombenpotter.oldsanguimancy.tiles.TileBloodCleaner;
 
 import java.util.ArrayList;
 

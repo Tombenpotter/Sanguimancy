@@ -11,8 +11,8 @@ import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.world.World;
 import tombenpotter.oldsanguimancy.Sanguimancy;
 import tombenpotter.sanguimancy.util.ConfigHandler;
-import tombenpotter.oldsanguimancy.util.singletons.ClaimedChunks;
-import tombenpotter.oldsanguimancy.util.teleporting.TeleportingQueue;
+import tombenpotter.oldsanguimancy.old.ded.singletons.ClaimedChunks;
+import tombenpotter.oldsanguimancy.old.ded.teleporting.TeleportingQueue;
 
 public class ItemSoulTransporter extends Item {
 

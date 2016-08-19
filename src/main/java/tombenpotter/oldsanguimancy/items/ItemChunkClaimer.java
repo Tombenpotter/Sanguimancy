@@ -12,7 +12,7 @@ import net.minecraft.world.World;
 import tombenpotter.oldsanguimancy.Sanguimancy;
 import tombenpotter.oldsanguimancy.util.ChunkIntPairSerializable;
 import tombenpotter.sanguimancy.util.ConfigHandler;
-import tombenpotter.oldsanguimancy.util.singletons.ClaimedChunks;
+import tombenpotter.oldsanguimancy.old.ded.singletons.ClaimedChunks;
 
 public class ItemChunkClaimer extends Item {
 

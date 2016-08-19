@@ -11,7 +11,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import tombenpotter.oldsanguimancy.blocks.BlockCorruptionCrystallizer;
-import tombenpotter.oldsanguimancy.tile.TileCorruptionCrystallizer;
+import tombenpotter.oldsanguimancy.tiles.TileCorruptionCrystallizer;
 
 import java.util.List;
 

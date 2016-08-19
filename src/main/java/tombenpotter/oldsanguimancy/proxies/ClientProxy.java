@@ -19,8 +19,10 @@ import tombenpotter.oldsanguimancy.old.ded.snManifestation.ISNComponent;
 import tombenpotter.oldsanguimancy.client.particle.EntityColoredFlameFX;
 import tombenpotter.oldsanguimancy.client.render.*;
 import tombenpotter.oldsanguimancy.entity.EntityChickenMinion;
-import tombenpotter.oldsanguimancy.registry.BlocksRegistry;
-import tombenpotter.oldsanguimancy.tile.*;
+import tombenpotter.sanguimancy.tiles.TileAltarDiviner;
+import tombenpotter.sanguimancy.registry.BlocksRegistry;
+import tombenpotter.oldsanguimancy.tiles.*;
+import tombenpotter.sanguimancy.tiles.TileAltarManipulator;
 import tombenpotter.sanguimancy.util.EventHandler;
 
 public class ClientProxy extends CommonProxy {

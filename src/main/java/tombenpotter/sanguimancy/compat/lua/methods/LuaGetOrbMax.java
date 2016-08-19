@@ -1,7 +1,7 @@
 package tombenpotter.sanguimancy.compat.lua.methods;
 
 import net.minecraft.tileentity.TileEntity;
-import tombenpotter.oldsanguimancy.tile.TileBloodInterface;
+import tombenpotter.oldsanguimancy.tiles.TileBloodInterface;
 
 public class LuaGetOrbMax extends LuaMethod {
     public LuaGetOrbMax() {

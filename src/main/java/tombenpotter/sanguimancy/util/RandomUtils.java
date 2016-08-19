@@ -22,7 +22,7 @@ import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fml.common.eventhandler.Event;
 import net.minecraftforge.oredict.OreDictionary;
-import tombenpotter.oldsanguimancy.registry.ItemsRegistry;
+import tombenpotter.sanguimancy.registry.ItemsRegistry;
 import tombenpotter.sanguimancy.Sanguimancy;
 import tombenpotter.sanguimancy.api.objects.MapKey;
 

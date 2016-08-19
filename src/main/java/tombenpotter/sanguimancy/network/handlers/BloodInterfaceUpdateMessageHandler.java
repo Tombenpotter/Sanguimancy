@@ -1,6 +1,5 @@
 package tombenpotter.sanguimancy.network.handlers;
 
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
@@ -8,9 +7,8 @@ import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
-import net.minecraftforge.fml.common.registry.GameRegistry;
 import tombenpotter.oldsanguimancy.Sanguimancy;
-import tombenpotter.oldsanguimancy.tile.TileBloodInterface;
+import tombenpotter.oldsanguimancy.tiles.TileBloodInterface;
 import tombenpotter.sanguimancy.network.MessageHelper;
 import tombenpotter.sanguimancy.network.packets.PacketBloodInterfaceUpdate;
 

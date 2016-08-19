@@ -11,17 +11,20 @@ import javax.annotation.Nullable;
 public class TileBase extends TileEntity implements ICustomNBTTag {
 
     public NBTTagCompound customNBTTag;
+    public int cooldown;
 
     @Override
     public void readFromNBT(NBTTagCompound tagCompound) {
         super.readFromNBT(tagCompound);
         customNBTTag = tagCompound.getCompoundTag("customNBTTag");
+        cooldown = tagCompound.getInteger("cooldown");
     }
 
     @Override
     public NBTTagCompound writeToNBT(NBTTagCompound tagCompound) {
         super.writeToNBT(tagCompound);
         tagCompound.setTag("customNBTTag", customNBTTag);
+        tagCompound.setInteger("cooldown", cooldown);
         return tagCompound;
     }
 
@@ -62,5 +65,13 @@ public class TileBase extends TileEntity implements ICustomNBTTag {
             return;
         }
         this.worldObj.notifyBlockUpdate(pos, worldObj.getBlockState(pos), worldObj.getBlockState(pos), 3); // Update block + TE via Network
+    }
+
+    public boolean noCooldown() {
+        if (cooldown > 0) {
+            cooldown--;
+            return false;
+        }
+        return true;
     }
 }

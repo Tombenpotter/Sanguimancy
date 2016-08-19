@@ -10,8 +10,8 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
-import tombenpotter.oldsanguimancy.blocks.BlockAltarEmitter;
-import tombenpotter.oldsanguimancy.tile.TileAltarEmitter;
+import tombenpotter.sanguimancy.blocks.BlockAltarEmitter;
+import tombenpotter.sanguimancy.tiles.TileAltarEmitter;
 
 import java.util.List;
 

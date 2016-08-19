@@ -21,7 +21,7 @@ import tombenpotter.oldsanguimancy.Sanguimancy;
 import tombenpotter.oldsanguimancy.api.soulCorruption.SoulCorruptionHelper;
 import tombenpotter.oldsanguimancy.client.particle.EntityColoredFlameFX;
 import tombenpotter.oldsanguimancy.items.ItemPlayerSacrificer;
-import tombenpotter.oldsanguimancy.tile.TileSacrificeTransfer;
+import tombenpotter.oldsanguimancy.tiles.TileSacrificeTransfer;
 import tombenpotter.sanguimancy.util.RandomUtils;
 import tombenpotter.sanguimancy.util.SanguimancyItemStacks;
 

@@ -6,8 +6,8 @@ import net.minecraft.inventory.Container;
 import net.minecraft.inventory.Slot;
 import net.minecraft.inventory.SlotFurnace;
 import net.minecraft.item.ItemStack;
-import tombenpotter.oldsanguimancy.registry.ItemsRegistry;
-import tombenpotter.oldsanguimancy.tile.TileBloodCleaner;
+import tombenpotter.sanguimancy.registry.ItemsRegistry;
+import tombenpotter.oldsanguimancy.tiles.TileBloodCleaner;
 
 public class ContainerLumpCleaner extends Container {
 

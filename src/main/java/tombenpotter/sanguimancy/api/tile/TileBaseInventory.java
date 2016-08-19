@@ -4,6 +4,7 @@ import net.minecraft.util.EnumFacing;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.items.CapabilityItemHandler;
+import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
 
 public abstract class TileBaseInventory extends TileBase implements ICapabilityProvider {
@@ -28,5 +29,9 @@ public abstract class TileBaseInventory extends TileBase implements ICapabilityP
             return (T) inventory;
         }
         return super.getCapability(capability, facing);
+    }
+
+    public IItemHandler getInventory(EnumFacing facing) {
+        return getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, facing);
     }
 }

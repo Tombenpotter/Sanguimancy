@@ -25,7 +25,7 @@ import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.event.world.BlockEvent;
 import tombenpotter.oldsanguimancy.Sanguimancy;
 import tombenpotter.oldsanguimancy.api.soulCorruption.SoulCorruptionHelper;
-import tombenpotter.oldsanguimancy.registry.ItemsRegistry;
+import tombenpotter.sanguimancy.registry.ItemsRegistry;
 import tombenpotter.sanguimancy.util.ConfigHandler;
 import tombenpotter.sanguimancy.util.RandomUtils;
 import tombenpotter.sanguimancy.util.SanguimancyItemStacks;
