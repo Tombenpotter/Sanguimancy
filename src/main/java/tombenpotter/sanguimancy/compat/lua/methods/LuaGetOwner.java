@@ -1,7 +1,7 @@
 package tombenpotter.sanguimancy.compat.lua.methods;
 
 import net.minecraft.tileentity.TileEntity;
-import tombenpotter.oldsanguimancy.tiles.TileBloodInterface;
+import tombenpotter.sanguimancy.tiles.TileBloodInterface;
 
 public class LuaGetOwner extends LuaMethod {
     public LuaGetOwner() {

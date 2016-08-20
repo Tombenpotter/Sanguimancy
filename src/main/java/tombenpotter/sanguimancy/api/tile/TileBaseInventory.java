@@ -1,5 +1,6 @@
 package tombenpotter.sanguimancy.api.tile;
 
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
@@ -33,5 +34,21 @@ public abstract class TileBaseInventory extends TileBase implements ICapabilityP
 
     public IItemHandler getInventory(EnumFacing facing) {
         return getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, facing);
+    }
+
+    @Override
+    public void readFromNBT(NBTTagCompound tagCompound) {
+        super.readFromNBT(tagCompound);
+
+        inventory.deserializeNBT(tagCompound.getCompoundTag("inventory"));
+    }
+
+    @Override
+    public NBTTagCompound writeToNBT(NBTTagCompound tagCompound) {
+        super.writeToNBT(tagCompound);
+
+        tagCompound.setTag("inventory", inventory.serializeNBT());
+
+        return tagCompound;
     }
 }

@@ -7,7 +7,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.fml.common.network.ByteBufUtils;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
-import tombenpotter.oldsanguimancy.tiles.TileBloodInterface;
+import tombenpotter.sanguimancy.tiles.TileBloodInterface;
 import tombenpotter.sanguimancy.network.MessageHelper;
 
 public class PacketBloodInterfaceUpdate implements IMessage {

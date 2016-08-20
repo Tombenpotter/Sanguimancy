@@ -1,16 +1,10 @@
 package tombenpotter.sanguimancy.registry;
 
-import WayofTime.bloodmagic.registry.ModBlocks;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraftforge.fml.common.registry.GameRegistry;
-import tombenpotter.oldsanguimancy.blocks.*;
-import tombenpotter.oldsanguimancy.blocks.items.ItemBlockBloodCleanser;
 import tombenpotter.sanguimancy.Sanguimancy;
-import tombenpotter.sanguimancy.blocks.BlockAltarDiviner;
-import tombenpotter.sanguimancy.blocks.BlockAltarEmitter;
-import tombenpotter.sanguimancy.blocks.BlockAltarManipulator;
-import tombenpotter.sanguimancy.blocks.BlockIllusion;
+import tombenpotter.sanguimancy.blocks.*;
 import tombenpotter.sanguimancy.blocks.items.ItemBlockAltarDiviner;
 import tombenpotter.sanguimancy.blocks.items.ItemBlockAltarEmitter;
 import tombenpotter.sanguimancy.blocks.items.ItemBlockAltarManipulator;
@@ -28,8 +22,6 @@ public class BlocksRegistry {
     public static Block lumpCleaner;
     public static Block bloodStoneStairs;
     public static Block largeBloodStoneStairs;
-    public static Block bloodstoneSlab;
-    public static Block largeBloodstoneSlab;
     public static Block bloodInterface;
     public static Block etherealBlock;
     public static Block etherealCorruptedBlock;
@@ -55,7 +47,12 @@ public class BlocksRegistry {
         illusion = new BlockIllusion(Material.IRON).setRegistryName(Sanguimancy.modid, "BlockIllusion").setUnlocalizedName(Sanguimancy.modid + ".illusion").setLightLevel(1F);
         GameRegistry.register(illusion);
         GameRegistry.register(new ItemBlockIllusion(illusion));
-        
+
+        bloodInterface = new BlockBloodInterface(Material.IRON).setRegistryName(Sanguimancy.modid, "BlockBloodInterface").setUnlocalizedName(Sanguimancy.modid + ".interface");
+        GameRegistry.register(bloodInterface);
+
+        /*
+
         //Not updated yet
         sacrificeTransfer = new BlockSacrificeTransfer(Material.iron);
         GameRegistry.registerBlock(sacrificeTransfer, "BlockSacrificeTransfer").setBlockName(Sanguimancy.modid + ".sacrificeTransfer");
@@ -65,21 +62,6 @@ public class BlocksRegistry {
 
         lumpCleaner = new BlockLumpCleaner(Material.iron);
         GameRegistry.registerBlock(lumpCleaner, ItemBlockBloodCleanser.class, "BlockLumpCleaner").setBlockName(Sanguimancy.modid + ".lumpCleaner");
-
-        bloodStoneStairs = new BlockBloodStoneStair(ModBlocks.bloodStoneBrick, 0);
-        GameRegistry.registerBlock(bloodStoneStairs, "BlockBloodStoneStairs").setBlockName(Sanguimancy.modid + ".bloodStoneStair");
-
-        largeBloodStoneStairs = new BlockLargeBloodStoneStair(ModBlocks.largeBloodStoneBrick, 0);
-        GameRegistry.registerBlock(largeBloodStoneStairs, "BlockLargeBloodStoneStairs").setBlockName(Sanguimancy.modid + ".largeBloodStoneStair");
-
-        bloodstoneSlab = new BlockBloodstoneSlab(false, Material.rock);
-        GameRegistry.registerBlock(bloodstoneSlab, "BlockBloodStoneSlab").setBlockName(Sanguimancy.modid + ".bloodStoneSlab");
-
-        largeBloodstoneSlab = new BlockLargeBloodstoneSlab(false, Material.rock);
-        GameRegistry.registerBlock(largeBloodstoneSlab, "BlockLargeBloodStoneSlab").setBlockName(Sanguimancy.modid + ".largeBloodStoneSlab");
-
-        bloodInterface = new BlockBloodInterface();
-        GameRegistry.registerBlock(bloodInterface, "BlockBloodInterface").setBlockName(Sanguimancy.modid + ".interface");
 
         etherealBlock = new BlockEthereal(Material.iron);
         GameRegistry.registerBlock(etherealBlock, "BlockEthereal").setBlockName(Sanguimancy.modid + ".etherealBlock");
@@ -101,5 +83,7 @@ public class BlocksRegistry {
 
         etherealPersonalBlock = new BlockEtherealPersonal(Material.iron);
         GameRegistry.registerBlock(etherealPersonalBlock, "BlockEtherealPersonal").setBlockName(Sanguimancy.modid + ".etherealPersonalBlock");
+
+        */
     }
 }

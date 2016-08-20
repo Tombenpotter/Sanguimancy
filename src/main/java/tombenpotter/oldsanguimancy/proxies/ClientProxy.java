@@ -23,6 +23,7 @@ import tombenpotter.sanguimancy.tiles.TileAltarDiviner;
 import tombenpotter.sanguimancy.registry.BlocksRegistry;
 import tombenpotter.oldsanguimancy.tiles.*;
 import tombenpotter.sanguimancy.tiles.TileAltarManipulator;
+import tombenpotter.sanguimancy.tiles.TileBloodInterface;
 import tombenpotter.sanguimancy.util.EventHandler;
 
 public class ClientProxy extends CommonProxy {

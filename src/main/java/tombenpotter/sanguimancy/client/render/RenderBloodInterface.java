@@ -13,7 +13,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.IItemRenderer;
 import org.lwjgl.opengl.GL11;
 import tombenpotter.oldsanguimancy.Sanguimancy;
-import tombenpotter.oldsanguimancy.tiles.TileBloodInterface;
+import tombenpotter.sanguimancy.tiles.TileBloodInterface;
 import tombenpotter.sanguimancy.client.model.ModelHollowCube;
 
 public class RenderBloodInterface extends TileEntitySpecialRenderer implements IItemRenderer {

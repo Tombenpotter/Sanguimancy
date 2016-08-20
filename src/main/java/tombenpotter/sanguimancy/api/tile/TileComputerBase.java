@@ -9,7 +9,6 @@ import li.cil.oc.api.machine.Context;
 import li.cil.oc.api.network.*;
 import li.cil.oc.server.network.Network;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -31,7 +30,7 @@ import java.util.Set;
         @Optional.Interface(iface = "li.cil.oc.api.network.Environment", modid = ModList.Names.OPENCOMPUTERS),
         @Optional.Interface(iface = "li.cil.oc.api.network.ManagedPeripheral", modid = ModList.Names.OPENCOMPUTERS)
 })
-public abstract class TileComputerBase extends TileEntity implements ManagedPeripheral, Environment, IPeripheral, ICustomNBTTag, ITickable {
+public abstract class TileComputerBase extends TileBaseInventory implements ManagedPeripheral, Environment, IPeripheral, ICustomNBTTag, ITickable {
     protected final String name;
     protected final Map<Integer, String> methodIDs = new LinkedHashMap<Integer, String>();
     protected final Map<String, LuaMethod> methodNames = new LinkedHashMap<String, LuaMethod>();
@@ -41,8 +40,10 @@ public abstract class TileComputerBase extends TileEntity implements ManagedPeri
     private Set<Object> computers = new LinkedHashSet<Object>();
     private Set<Object> context = new LinkedHashSet<Object>();
 
-    public TileComputerBase(String name) {
+    public TileComputerBase(String name, int slotNumber) {
+        super(slotNumber);
         this.name = name;
+        this.customNBTTag = new NBTTagCompound();
     }
 
     @Override
