@@ -1,2 +1,3 @@
-@API(owner = "Sanguimancy", apiVersion = "@VERSION@", provides = "Sanguimancy|API") package tombenpotter.sanguimancy.api;
+@API(owner = "Sanguimancy", apiVersion = "@VERSION@", provides = "Sanguimancy|API")
+package tombenpotter.sanguimancy.api;
 

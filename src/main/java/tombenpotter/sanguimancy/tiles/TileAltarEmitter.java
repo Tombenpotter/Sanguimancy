@@ -6,8 +6,8 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.math.BlockPos;
-import tombenpotter.sanguimancy.blocks.BlockAltarEmitter;
 import tombenpotter.sanguimancy.api.tile.TileBase;
+import tombenpotter.sanguimancy.blocks.BlockAltarEmitter;
 
 public class TileAltarEmitter extends TileBase implements ITickable {
 

@@ -13,6 +13,10 @@ public class TileBase extends TileEntity implements ICustomNBTTag {
     public NBTTagCompound customNBTTag;
     public int cooldown;
 
+    public TileBase() {
+        customNBTTag = new NBTTagCompound();
+    }
+
     @Override
     public void readFromNBT(NBTTagCompound tagCompound) {
         super.readFromNBT(tagCompound);

@@ -16,13 +16,13 @@ public class BlocksRegistry {
     public static Block altarDiviner;
     public static Block altarManipulator;
 
-    public static Block sacrificeTransfer;
     public static Block illusion;
+    public static Block bloodInterface;
+
+    public static Block sacrificeTransfer;
     public static Block corruptionCrystallizer;
     public static Block lumpCleaner;
-    public static Block bloodStoneStairs;
-    public static Block largeBloodStoneStairs;
-    public static Block bloodInterface;
+
     public static Block etherealBlock;
     public static Block etherealCorruptedBlock;
     public static Block etherealToggledBlock;
@@ -51,12 +51,11 @@ public class BlocksRegistry {
         bloodInterface = new BlockBloodInterface(Material.IRON).setRegistryName(Sanguimancy.modid, "BlockBloodInterface").setUnlocalizedName(Sanguimancy.modid + ".interface");
         GameRegistry.register(bloodInterface);
 
+        sacrificeTransfer = new BlockSacrificeTransfer(Material.IRON).setRegistryName(Sanguimancy.modid, "BlockSacrificeTransfer").setUnlocalizedName(Sanguimancy.modid + ".sacrificeTransfer");
+        GameRegistry.register(sacrificeTransfer);
+
         /*
-
         //Not updated yet
-        sacrificeTransfer = new BlockSacrificeTransfer(Material.iron);
-        GameRegistry.registerBlock(sacrificeTransfer, "BlockSacrificeTransfer").setBlockName(Sanguimancy.modid + ".sacrificeTransfer");
-
         corruptionCrystallizer = new BlockCorruptionCrystallizer(Material.iron);
         GameRegistry.registerBlock(corruptionCrystallizer, "BlockCorruptionCrystallizer").setBlockName(Sanguimancy.modid + ".corruptionCrystallizer");
 

@@ -43,19 +43,19 @@ import org.lwjgl.opengl.GL11;
 import tombenpotter.oldsanguimancy.Sanguimancy;
 import tombenpotter.oldsanguimancy.api.soulCorruption.SoulCorruption;
 import tombenpotter.oldsanguimancy.api.soulCorruption.SoulCorruptionHelper;
-import tombenpotter.sanguimancy.registry.BlocksRegistry;
-import tombenpotter.sanguimancy.registry.ItemsRegistry;
-import tombenpotter.sanguimancy.registry.SanguimancyGuide;
-import tombenpotter.oldsanguimancy.tiles.TileCamouflageBound;
+import tombenpotter.oldsanguimancy.old.ded.BoundItemState;
 import tombenpotter.oldsanguimancy.old.ded.TileItemSNPart;
 import tombenpotter.oldsanguimancy.old.ded.TileRitualSNPart;
-import tombenpotter.oldsanguimancy.old.ded.BoundItemState;
-import tombenpotter.oldsanguimancy.util.ChunkIntPairSerializable;
 import tombenpotter.oldsanguimancy.old.ded.singletons.BoundItems;
 import tombenpotter.oldsanguimancy.old.ded.singletons.ClaimedChunks;
+import tombenpotter.oldsanguimancy.tiles.TileCamouflageBound;
+import tombenpotter.oldsanguimancy.util.ChunkIntPairSerializable;
 import tombenpotter.sanguimancy.network.PacketHandler;
 import tombenpotter.sanguimancy.network.events.EventCorruptedInfusion;
 import tombenpotter.sanguimancy.network.packets.PacketSyncCorruption;
+import tombenpotter.sanguimancy.registry.BlocksRegistry;
+import tombenpotter.sanguimancy.registry.ItemsRegistry;
+import tombenpotter.sanguimancy.registry.SanguimancyGuide;
 
 import java.util.ArrayList;
 

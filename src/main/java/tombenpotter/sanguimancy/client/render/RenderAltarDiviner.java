@@ -13,9 +13,9 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.IItemRenderer;
 import org.lwjgl.opengl.GL11;
 import tombenpotter.oldsanguimancy.Sanguimancy;
-import tombenpotter.sanguimancy.tiles.TileAltarDiviner;
 import tombenpotter.sanguimancy.client.model.ModelAltarDiviner;
 import tombenpotter.sanguimancy.registry.BlocksRegistry;
+import tombenpotter.sanguimancy.tiles.TileAltarDiviner;
 
 public class RenderAltarDiviner extends TileEntitySpecialRenderer implements IItemRenderer {
     private final RenderItem customRenderItem;

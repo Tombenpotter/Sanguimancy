@@ -13,6 +13,7 @@ public abstract class TileBaseInventory extends TileBase implements ICapabilityP
     protected ItemStackHandler inventory;
 
     public TileBaseInventory(int size) {
+        super();
         inventory = new ItemStackHandler(size);
     }
 

@@ -8,9 +8,9 @@ import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import tombenpotter.oldsanguimancy.Sanguimancy;
-import tombenpotter.sanguimancy.tiles.TileBloodInterface;
 import tombenpotter.sanguimancy.network.MessageHelper;
 import tombenpotter.sanguimancy.network.packets.PacketBloodInterfaceUpdate;
+import tombenpotter.sanguimancy.tiles.TileBloodInterface;
 
 public class BloodInterfaceUpdateMessageHandler implements IMessageHandler<PacketBloodInterfaceUpdate, IMessage> {
 

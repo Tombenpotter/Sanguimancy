@@ -13,8 +13,8 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.client.FMLClientHandler;
 import org.lwjgl.opengl.GL11;
 import tombenpotter.oldsanguimancy.Sanguimancy;
-import tombenpotter.sanguimancy.tiles.TileAltarManipulator;
 import tombenpotter.sanguimancy.client.model.ModelHollowCube;
+import tombenpotter.sanguimancy.tiles.TileAltarManipulator;
 
 public class RenderAltarManipulator extends TileEntitySpecialRenderer implements IItemRenderer {
 

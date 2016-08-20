@@ -5,7 +5,9 @@ import WayofTime.alchemicalWizardry.api.rituals.Rituals;
 import net.minecraft.util.StatCollector;
 import tombenpotter.oldsanguimancy.entity.EntityChickenMinion;
 import tombenpotter.oldsanguimancy.old.ded.*;
-import tombenpotter.oldsanguimancy.rituals.*;
+import tombenpotter.oldsanguimancy.rituals.RitualEffectDrillOfTheDead;
+import tombenpotter.oldsanguimancy.rituals.RitualEffectLighting;
+import tombenpotter.oldsanguimancy.rituals.RitualEffectTrash;
 import tombenpotter.sanguimancy.util.ConfigHandler;
 
 import java.util.ArrayList;
