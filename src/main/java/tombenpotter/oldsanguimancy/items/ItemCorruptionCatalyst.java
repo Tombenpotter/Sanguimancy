@@ -13,7 +13,7 @@ import net.minecraft.world.World;
 import tombenpotter.oldsanguimancy.Sanguimancy;
 import tombenpotter.sanguimancy.api.soulCorruption.SoulCorruptionHelper;
 import tombenpotter.sanguimancy.network.events.EventCorruptedInfusion;
-import tombenpotter.oldsanguimancy.recipes.RecipeCorruptedInfusion;
+import tombenpotter.sanguimancy.recipes.RecipeCorruptedInfusion;
 import tombenpotter.sanguimancy.util.RandomUtils;
 
 import java.util.List;

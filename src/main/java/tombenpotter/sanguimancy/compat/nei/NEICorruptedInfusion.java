@@ -10,7 +10,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.StatCollector;
 import org.lwjgl.input.Mouse;
 import tombenpotter.oldsanguimancy.Sanguimancy;
-import tombenpotter.oldsanguimancy.recipes.RecipeCorruptedInfusion;
+import tombenpotter.sanguimancy.recipes.RecipeCorruptedInfusion;
 
 import java.awt.*;
 import java.lang.reflect.Field;

@@ -7,7 +7,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.fluids.*;
 import tombenpotter.oldsanguimancy.api.tile.TileBaseSidedInventory;
-import tombenpotter.oldsanguimancy.recipes.RecipeBloodCleanser;
+import tombenpotter.sanguimancy.recipes.RecipeBloodCleanser;
 
 public class TileBloodCleaner extends TileBaseSidedInventory implements IFluidHandler {
 

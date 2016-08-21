@@ -16,7 +16,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
 import tombenpotter.oldsanguimancy.Sanguimancy;
-import tombenpotter.oldsanguimancy.recipes.RecipeCorruptedInfusion;
+import tombenpotter.sanguimancy.recipes.RecipeCorruptedInfusion;
 
 public class PageCorruptionRecipe extends PageBase {
 

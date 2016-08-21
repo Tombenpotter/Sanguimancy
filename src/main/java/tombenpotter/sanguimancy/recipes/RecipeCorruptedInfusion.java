@@ -1,4 +1,4 @@
-package tombenpotter.oldsanguimancy.recipes;
+package tombenpotter.sanguimancy.recipes;
 
 import com.google.common.collect.ImmutableList;
 import net.minecraft.item.ItemStack;
