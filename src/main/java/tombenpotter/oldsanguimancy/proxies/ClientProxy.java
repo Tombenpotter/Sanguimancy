@@ -18,7 +18,7 @@ import tombenpotter.oldsanguimancy.old.ded.*;
 import tombenpotter.oldsanguimancy.old.ded.snManifestation.ISNComponent;
 import tombenpotter.oldsanguimancy.client.particle.EntityColoredFlameFX;
 import tombenpotter.oldsanguimancy.client.render.*;
-import tombenpotter.oldsanguimancy.entity.EntityChickenMinion;
+import tombenpotter.sanguimancy.entity.EntityChickenMinion;
 import tombenpotter.sanguimancy.tiles.TileAltarDiviner;
 import tombenpotter.sanguimancy.registry.BlocksRegistry;
 import tombenpotter.sanguimancy.tiles.TileAltarManipulator;

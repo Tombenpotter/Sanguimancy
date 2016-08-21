@@ -15,7 +15,7 @@ import tombenpotter.oldsanguimancy.Sanguimancy;
 import tombenpotter.oldsanguimancy.api.block.BlockCamouflage;
 import tombenpotter.sanguimancy.api.soulCorruption.SoulCorruptionHelper;
 import tombenpotter.oldsanguimancy.api.tile.TileCamouflage;
-import tombenpotter.oldsanguimancy.entity.EntityChickenMinion;
+import tombenpotter.sanguimancy.entity.EntityChickenMinion;
 
 import java.util.List;
 

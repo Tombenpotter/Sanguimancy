@@ -11,7 +11,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.World;
 import tombenpotter.oldsanguimancy.Sanguimancy;
-import tombenpotter.oldsanguimancy.entity.EntityChickenMinion;
+import tombenpotter.sanguimancy.entity.EntityChickenMinion;
 import tombenpotter.oldsanguimancy.tiles.TileCamouflageBound;
 
 import java.util.List;

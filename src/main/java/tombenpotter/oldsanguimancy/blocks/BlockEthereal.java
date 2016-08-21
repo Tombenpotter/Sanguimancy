@@ -11,7 +11,7 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import tombenpotter.oldsanguimancy.Sanguimancy;
 import tombenpotter.oldsanguimancy.api.block.BlockCamouflage;
-import tombenpotter.oldsanguimancy.entity.EntityChickenMinion;
+import tombenpotter.sanguimancy.entity.EntityChickenMinion;
 
 import java.util.List;
 
