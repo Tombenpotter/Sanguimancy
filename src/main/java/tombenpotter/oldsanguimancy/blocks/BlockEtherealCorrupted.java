@@ -13,7 +13,7 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import tombenpotter.oldsanguimancy.Sanguimancy;
 import tombenpotter.oldsanguimancy.api.block.BlockCamouflage;
-import tombenpotter.oldsanguimancy.api.soulCorruption.SoulCorruptionHelper;
+import tombenpotter.sanguimancy.api.soulCorruption.SoulCorruptionHelper;
 import tombenpotter.oldsanguimancy.api.tile.TileCamouflage;
 import tombenpotter.oldsanguimancy.entity.EntityChickenMinion;
 

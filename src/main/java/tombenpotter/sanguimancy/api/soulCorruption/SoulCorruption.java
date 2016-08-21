@@ -1,4 +1,4 @@
-package tombenpotter.oldsanguimancy.api.soulCorruption;
+package tombenpotter.sanguimancy.api.soulCorruption;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;

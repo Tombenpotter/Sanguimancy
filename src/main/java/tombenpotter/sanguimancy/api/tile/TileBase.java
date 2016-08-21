@@ -78,4 +78,8 @@ public class TileBase extends TileEntity implements ICustomNBTTag {
         }
         return true;
     }
+
+    public void markForUpdate() {
+        worldObj.notifyBlockUpdate(pos, worldObj.getBlockState(pos), worldObj.getBlockState(pos), 3);
+    }
 }

@@ -8,7 +8,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.client.FMLClientHandler;
 import org.lwjgl.opengl.GL11;
 import tombenpotter.oldsanguimancy.Sanguimancy;
-import tombenpotter.oldsanguimancy.tiles.TileCorruptionCrystallizer;
+import tombenpotter.sanguimancy.tiles.TileCorruptionCrystallizer;
 import tombenpotter.sanguimancy.client.model.ModelCorruptionCrystallizer;
 import tombenpotter.sanguimancy.util.SanguimancyItemStacks;
 

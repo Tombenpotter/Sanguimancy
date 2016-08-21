@@ -11,10 +11,10 @@ public class TileRegistry {
         GameRegistry.registerTileEntity(TileAltarManipulator.class, "TileAltarManipulator");
         GameRegistry.registerTileEntity(TileIllusion.class, "TileIllusion");
         GameRegistry.registerTileEntity(TileBloodInterface.class, "TileBloodInterface");
-
-        /*
         GameRegistry.registerTileEntity(TileSacrificeTransfer.class, "TileSacrificeTransfer");
         GameRegistry.registerTileEntity(TileCorruptionCrystallizer.class, "TileCorruptionCrystallizer");
+
+        /*
         GameRegistry.registerTileEntity(TileBloodCleaner.class, "TileBloodCleaner");
         GameRegistry.registerTileEntity(TileCamouflage.class, "TileCamouflage");
         GameRegistry.registerTileEntity(TileCamouflageBound.class, "TileCamouflageBound");

@@ -1,4 +1,4 @@
-package tombenpotter.oldsanguimancy.api.bloodutils.api.registries;
+package tombenpotter.sanguimancy.api.registries;
 
 import WayofTime.alchemicalWizardry.api.altarRecipeRegistry.AltarRecipe;
 import WayofTime.alchemicalWizardry.api.altarRecipeRegistry.AltarRecipeRegistry;

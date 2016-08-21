@@ -49,16 +49,16 @@ public class BlocksRegistry {
         GameRegistry.register(new ItemBlockIllusion(illusion));
 
         bloodInterface = new BlockBloodInterface(Material.IRON).setRegistryName(Sanguimancy.modid, "BlockBloodInterface").setUnlocalizedName(Sanguimancy.modid + ".interface");
-        GameRegistry.register(bloodInterface);
+        GameRegistry.registerWithItem(bloodInterface);
 
         sacrificeTransfer = new BlockSacrificeTransfer(Material.IRON).setRegistryName(Sanguimancy.modid, "BlockSacrificeTransfer").setUnlocalizedName(Sanguimancy.modid + ".sacrificeTransfer");
-        GameRegistry.register(sacrificeTransfer);
+        GameRegistry.registerWithItem(sacrificeTransfer);
+
+        corruptionCrystallizer = new BlockCorruptionCrystallizer(Material.IRON).setRegistryName(Sanguimancy.modid, "BlockCorruptionCrystallizer").setUnlocalizedName(Sanguimancy.modid + ".corruptionCrystallizer");
+        GameRegistry.registerWithItem(corruptionCrystallizer);
 
         /*
         //Not updated yet
-        corruptionCrystallizer = new BlockCorruptionCrystallizer(Material.iron);
-        GameRegistry.registerBlock(corruptionCrystallizer, "BlockCorruptionCrystallizer").setBlockName(Sanguimancy.modid + ".corruptionCrystallizer");
-
         lumpCleaner = new BlockLumpCleaner(Material.iron);
         GameRegistry.registerBlock(lumpCleaner, ItemBlockBloodCleanser.class, "BlockLumpCleaner").setBlockName(Sanguimancy.modid + ".lumpCleaner");
 
@@ -82,7 +82,6 @@ public class BlocksRegistry {
 
         etherealPersonalBlock = new BlockEtherealPersonal(Material.iron);
         GameRegistry.registerBlock(etherealPersonalBlock, "BlockEtherealPersonal").setBlockName(Sanguimancy.modid + ".etherealPersonalBlock");
-
         */
     }
 }

@@ -1,4 +1,4 @@
-package tombenpotter.oldsanguimancy.api.soulCorruption;
+package tombenpotter.sanguimancy.api.soulCorruption;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;

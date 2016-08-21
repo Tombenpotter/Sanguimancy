@@ -18,7 +18,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 import tombenpotter.oldsanguimancy.Sanguimancy;
-import tombenpotter.oldsanguimancy.api.guide.PageCorruptionRecipe;
+import tombenpotter.sanguimancy.api.guide.PageCorruptionRecipe;
 import tombenpotter.oldsanguimancy.recipes.RecipeCorruptedInfusion;
 import tombenpotter.sanguimancy.util.ConfigHandler;
 import tombenpotter.sanguimancy.util.SanguimancyItemStacks;

@@ -13,7 +13,7 @@ import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraftforge.oredict.OreDictionary;
-import tombenpotter.oldsanguimancy.api.bloodutils.api.registries.RecipeRegistry;
+import tombenpotter.sanguimancy.api.registries.RecipeRegistry;
 import tombenpotter.oldsanguimancy.recipes.RecipeBloodCleanser;
 import tombenpotter.oldsanguimancy.recipes.RecipeCorruptedInfusion;
 import tombenpotter.sanguimancy.util.RandomUtils;

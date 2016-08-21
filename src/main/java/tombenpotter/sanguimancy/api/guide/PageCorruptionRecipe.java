@@ -1,4 +1,4 @@
-package tombenpotter.oldsanguimancy.api.guide;
+package tombenpotter.sanguimancy.api.guide;
 
 import amerifrance.guideapi.api.abstraction.CategoryAbstract;
 import amerifrance.guideapi.api.abstraction.EntryAbstract;
