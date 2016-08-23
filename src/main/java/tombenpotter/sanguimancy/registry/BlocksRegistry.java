@@ -57,30 +57,5 @@ public class BlocksRegistry {
         bloodCleaner = new BlockBloodCleaner(Material.IRON).setRegistryName(Sanguimancy.modid, "BlockBloodCleaner").setUnlocalizedName(Sanguimancy.modid + ".bloodCleaner");
         GameRegistry.register(bloodCleaner);
         GameRegistry.register(new ItemBlockBloodCleaner(bloodCleaner));
-
-
-        /*
-        //Not updated yet
-        etherealBlock = new BlockEthereal(Material.iron);
-        GameRegistry.registerBlock(etherealBlock, "BlockEthereal").setBlockName(Sanguimancy.modid + ".etherealBlock");
-
-        etherealCorruptedBlock = new BlockEtherealCorrupted(Material.iron);
-        GameRegistry.registerBlock(etherealCorruptedBlock, "BlockEtherealCorrupted").setBlockName(Sanguimancy.modid + ".etherealCorruptedBlock");
-
-        etherealToggledBlock = new BlockEtherealToggled(Material.iron);
-        GameRegistry.registerBlock(etherealToggledBlock, "BlockEtehrealToggled").setBlockName(Sanguimancy.modid + ".etherealToggledBlock");
-
-        etherealBoundBlock = new BlockEtherealBound(Material.iron);
-        GameRegistry.registerBlock(etherealBoundBlock, "BlockEtherealBound").setBlockName(Sanguimancy.modid + ".etherealBoundBlock");
-
-        etherealBoundCorruptedBlock = new BlockEtherealBoundCorrupted(Material.iron);
-        GameRegistry.registerBlock(etherealBoundCorruptedBlock, "BlockEtherealBoundCorrupted").setBlockName(Sanguimancy.modid + ".etherealBoundCorruptedBlock");
-
-        etherealBoundToggledBlock = new BlockEtherealBoundToggled(Material.iron);
-        GameRegistry.registerBlock(etherealBoundToggledBlock, "BlockEtherealBoundToggled").setBlockName(Sanguimancy.modid + ".etherealBoundToggledBlock");
-
-        etherealPersonalBlock = new BlockEtherealPersonal(Material.iron);
-        GameRegistry.registerBlock(etherealPersonalBlock, "BlockEtherealPersonal").setBlockName(Sanguimancy.modid + ".etherealPersonalBlock");
-        */
     }
 }

@@ -3,11 +3,11 @@ package tombenpotter.sanguimancy.registry;
 import WayofTime.alchemicalWizardry.AlchemicalWizardry;
 import WayofTime.alchemicalWizardry.api.rituals.Rituals;
 import net.minecraft.util.StatCollector;
-import tombenpotter.sanguimancy.entity.EntityChickenMinion;
 import tombenpotter.oldsanguimancy.old.ded.*;
 import tombenpotter.oldsanguimancy.rituals.RitualEffectDrillOfTheDead;
 import tombenpotter.oldsanguimancy.rituals.RitualEffectLighting;
 import tombenpotter.oldsanguimancy.rituals.RitualEffectTrash;
+import tombenpotter.sanguimancy.entity.EntityChickenMinion;
 import tombenpotter.sanguimancy.util.ConfigHandler;
 
 import java.util.ArrayList;

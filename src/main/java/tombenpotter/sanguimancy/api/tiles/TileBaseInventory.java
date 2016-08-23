@@ -1,4 +1,4 @@
-package tombenpotter.sanguimancy.api.tile;
+package tombenpotter.sanguimancy.api.tiles;
 
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;

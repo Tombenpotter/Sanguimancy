@@ -1,6 +1,6 @@
 package tombenpotter.sanguimancy.tiles;
 
-import tombenpotter.sanguimancy.api.tile.TileBaseInventory;
+import tombenpotter.sanguimancy.api.tiles.TileBaseInventory;
 
 public class TileSacrificeTransfer extends TileBaseInventory {
 

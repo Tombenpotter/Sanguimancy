@@ -11,17 +11,15 @@ import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidContainerRegistry;
 import net.minecraftforge.fluids.FluidTank;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
-import net.minecraftforge.fluids.capability.IFluidHandler;
-import tombenpotter.sanguimancy.api.tile.TileBaseSidedInventory;
+import tombenpotter.sanguimancy.api.tiles.TileBaseSidedInventory;
 import tombenpotter.sanguimancy.recipes.RecipeBloodCleanser;
 
 public class TileBloodCleaner extends TileBaseSidedInventory implements ITickable {
 
-    protected FluidTank tank;
-
     public int ticksLeft;
     public int maxTicks;
     public boolean isActive;
+    protected FluidTank tank;
 
     public TileBloodCleaner() {
         super(2);
@@ -109,8 +107,8 @@ public class TileBloodCleaner extends TileBaseSidedInventory implements ITickabl
         return super.getCapability(capability, facing);
     }
 
-    public IFluidHandler getTank(EnumFacing facing) {
-        return getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, facing);
+    public FluidTank getTank(EnumFacing facing) {
+        return tank;
     }
 
     @Override

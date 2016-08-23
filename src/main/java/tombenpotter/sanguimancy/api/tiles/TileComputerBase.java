@@ -1,4 +1,4 @@
-package tombenpotter.sanguimancy.api.tile;
+package tombenpotter.sanguimancy.api.tiles;
 
 import dan200.computercraft.api.lua.ILuaContext;
 import dan200.computercraft.api.lua.LuaException;

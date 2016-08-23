@@ -9,7 +9,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.math.BlockPos;
-import tombenpotter.sanguimancy.api.tile.TileBaseInventory;
+import tombenpotter.sanguimancy.api.tiles.TileBaseInventory;
 
 public class TileAltarDiviner extends TileBaseInventory implements ITickable {
 

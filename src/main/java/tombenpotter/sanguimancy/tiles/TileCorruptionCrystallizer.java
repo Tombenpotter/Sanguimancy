@@ -12,7 +12,7 @@ import net.minecraft.util.ITickable;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import tombenpotter.sanguimancy.api.soulCorruption.SoulCorruptionHelper;
-import tombenpotter.sanguimancy.api.tile.TileBase;
+import tombenpotter.sanguimancy.api.tiles.TileBase;
 
 public class TileCorruptionCrystallizer extends TileBase implements ITickable {
 

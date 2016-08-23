@@ -8,7 +8,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ITickable;
 import tombenpotter.sanguimancy.api.objects.Timer;
-import tombenpotter.sanguimancy.api.tile.TileComputerBase;
+import tombenpotter.sanguimancy.api.tiles.TileComputerBase;
 import tombenpotter.sanguimancy.compat.lua.events.LuaOrbMaxed;
 import tombenpotter.sanguimancy.compat.lua.methods.LuaGetLifeEssence;
 import tombenpotter.sanguimancy.compat.lua.methods.LuaGetOrbMax;

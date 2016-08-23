@@ -5,6 +5,8 @@ import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.items.IItemHandler;
+import net.minecraftforge.items.SlotItemHandler;
 import tombenpotter.sanguimancy.registry.ItemsRegistry;
 import tombenpotter.sanguimancy.tiles.TileBloodCleaner;
 
@@ -14,7 +16,7 @@ public class ContainerLumpCleaner extends Container {
 
     public ContainerLumpCleaner(EntityPlayer player, TileBloodCleaner entity) {
         this.tile = entity;
-        createSlots(entity, player);
+        createSlots(entity.getInventory(null), player);
         bindPlayerInventory(player.inventory);
     }
 
@@ -29,14 +31,14 @@ public class ContainerLumpCleaner extends Container {
         }
     }
 
-    public void createSlots(TileBloodCleaner tile, EntityPlayer player) {
-        addSlotToContainer(new Slot(tile, 0, 52, 16));
-        addSlotToContainer(new Slot(player, tile, 1, 129, 34));
+    public void createSlots(IItemHandler itemHandler, EntityPlayer player) {
+        addSlotToContainer(new SlotItemHandler(itemHandler, 0, 52, 16));
+        addSlotToContainer(new SlotItemHandler(itemHandler, 1, 129, 34));
     }
 
     @Override
     public boolean canInteractWith(EntityPlayer player) {
-        return tile.isUseableByPlayer(player);
+        return true;
     }
 
     @Override

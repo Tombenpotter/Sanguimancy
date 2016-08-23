@@ -1,4 +1,4 @@
-package tombenpotter.sanguimancy.api.tile;
+package tombenpotter.sanguimancy.api.tiles;
 
 import com.google.common.collect.Lists;
 import net.minecraft.util.EnumFacing;
