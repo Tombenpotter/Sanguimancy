@@ -43,7 +43,8 @@ public class BlockAltarManipulator extends BlockContainer {
             ItemStack stack = tile.getInventory(null).getStackInSlot(2);
             tile.getInventory(null).extractItem(2, stack.stackSize, false);
             player.inventory.addItemStackToInventory(stack);
-            world.notifyBlockUpdate(pos, state, state, 3);
+            tile.markForUpdate();
+
             return true;
         } else if (player.getHeldItem(EnumHand.MAIN_HAND) != null && player.getHeldItem(EnumHand.MAIN_HAND).isItemEqual(SanguimancyItemStacks.sanguineShifter) && tile.getInventory(null).getStackInSlot(2) == null) {
             ItemStack stack = player.getHeldItem(EnumHand.MAIN_HAND).copy();
@@ -59,7 +60,8 @@ public class BlockAltarManipulator extends BlockContainer {
                     }
                 }
             }
-            world.notifyBlockUpdate(pos, state, state, 3);
+            tile.markForUpdate();
+
             return true;
         }
         return false;

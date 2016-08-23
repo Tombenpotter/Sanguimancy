@@ -40,7 +40,7 @@ public class BlockBloodInterface extends BlockContainer {
 
             if (!world.isRemote) {
                 ItemStack oldStack = bloodInterface.getInventory(null).getStackInSlot(0);
-                bloodInterface.getInventory(null).insertItem(0, heldItem, false);
+                bloodInterface.getInventory(null).setStackInSlot(0, heldItem);
                 player.inventory.setInventorySlotContents(player.inventory.currentItem, oldStack);
             }
             return true;

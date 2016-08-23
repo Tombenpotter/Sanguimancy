@@ -21,8 +21,6 @@ public class ConfigHandler {
     public static boolean serverMessagesWhenCorruptionEffect;
     public static boolean playerMessageWhenCorruptionEffect;
     public static int snDimID;
-    public static int addHeartPotionID;
-    public static int removeHeartPotionID;
     public static int minimumToolCorruption;
     public static boolean addItemsOnFirstLogin;
     public static boolean renderSillyAprilFish;
@@ -49,8 +47,6 @@ public class ConfigHandler {
 
         //Features
         snDimID = config.getInt("soulNetworkDimensionID", features, 42, 2, 500, "The ID of the Soul Network Dimension");
-        addHeartPotionID = config.getInt("addHeartPotionID", features, 115, 20, 127, "The ID of the Add Heart Potion");
-        removeHeartPotionID = config.getInt("removeHeartPotionID", features, 116, 20, 127, "The ID of the Remove  Heart Potion");
         serverMessagesWhenCorruptionEffect = config.getBoolean("serverMessageWhenCorruptionEffect", features, true, "Send a message to the whole server when a corruption effect occurs");
         playerMessageWhenCorruptionEffect = config.getBoolean("playerMessageWhenCorruptionEffect", features, false, "Send a message to the player when a corruption effect occurs");
         addItemsOnFirstLogin = config.getBoolean("addItemsOnFirstLogin", features, true, "Give the player a guide and a Soul Chunk claimer on first login");

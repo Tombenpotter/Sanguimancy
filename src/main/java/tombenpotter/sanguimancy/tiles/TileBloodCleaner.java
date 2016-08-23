@@ -108,7 +108,7 @@ public class TileBloodCleaner extends TileBaseSidedInventory implements ITickabl
     }
 
     public FluidTank getTank(EnumFacing facing) {
-        return tank;
+        return (FluidTank) getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, facing);
     }
 
     @Override

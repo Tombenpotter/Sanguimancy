@@ -40,7 +40,7 @@ public class BlockAltarDiviner extends BlockContainer {
             world.notifyBlockUpdate(pos, state, state, 3);
         } else if (player.getHeldItem(EnumHand.MAIN_HAND) != null && tile.getInventory(null).getStackInSlot(0) == null) {
             ItemStack stack = player.getHeldItem(EnumHand.MAIN_HAND);
-            tile.getInventory(null).insertItem(0, stack.copy(), false);
+            tile.getInventory(null).setStackInSlot(0, stack.copy());
 
             if (!player.capabilities.isCreativeMode) {
                 for (int i = 0; i < stack.stackSize; i++) {
