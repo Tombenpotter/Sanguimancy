@@ -52,7 +52,7 @@ public class SanguimancyItemStacks {
     public static ItemStack goldBlockIllusion = new ItemStack(BlocksRegistry.illusion, 1, 14);
     public static ItemStack clayIllusion = new ItemStack(BlocksRegistry.illusion, 1, 15);
     public static ItemStack corruptionCrystallizer = new ItemStack(BlocksRegistry.corruptionCrystallizer);
-    public static ItemStack lumpCleaner = new ItemStack(BlocksRegistry.lumpCleaner);
+    public static ItemStack lumpCleaner = new ItemStack(BlocksRegistry.bloodCleaner);
     public static ItemStack bloodstoneStairs = new ItemStack(BlocksRegistry.bloodStoneStairs);
     public static ItemStack largeBloodstoneStairs = new ItemStack(BlocksRegistry.largeBloodStoneStairs);
     public static ItemStack bloodstoneSlab = new ItemStack(BlocksRegistry.bloodstoneSlab);

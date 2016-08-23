@@ -1,13 +1,12 @@
-package tombenpotter.oldsanguimancy.container;
+package tombenpotter.sanguimancy.container;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.Slot;
-import net.minecraft.inventory.SlotFurnace;
 import net.minecraft.item.ItemStack;
 import tombenpotter.sanguimancy.registry.ItemsRegistry;
-import tombenpotter.oldsanguimancy.tiles.TileBloodCleaner;
+import tombenpotter.sanguimancy.tiles.TileBloodCleaner;
 
 public class ContainerLumpCleaner extends Container {
 
@@ -32,7 +31,7 @@ public class ContainerLumpCleaner extends Container {
 
     public void createSlots(TileBloodCleaner tile, EntityPlayer player) {
         addSlotToContainer(new Slot(tile, 0, 52, 16));
-        addSlotToContainer(new SlotFurnace(player, tile, 1, 129, 34));
+        addSlotToContainer(new Slot(player, tile, 1, 129, 34));
     }
 
     @Override

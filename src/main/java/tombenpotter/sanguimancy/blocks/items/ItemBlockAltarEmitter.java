@@ -12,8 +12,11 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import java.util.List;
 
 public class ItemBlockAltarEmitter extends ItemBlock {
+
     public ItemBlockAltarEmitter(Block block) {
         super(block);
+
+        setRegistryName(block.getRegistryName());
     }
 
     @SideOnly(Side.CLIENT)

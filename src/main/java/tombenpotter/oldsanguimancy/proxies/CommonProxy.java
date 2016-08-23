@@ -9,9 +9,9 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.common.network.IGuiHandler;
 import tombenpotter.oldsanguimancy.Sanguimancy;
 import tombenpotter.oldsanguimancy.old.ded.snManifestation.ISNComponent;
-import tombenpotter.oldsanguimancy.container.ContainerLumpCleaner;
+import tombenpotter.sanguimancy.container.ContainerLumpCleaner;
 import tombenpotter.oldsanguimancy.gui.GuiLumpCleaner;
-import tombenpotter.oldsanguimancy.tiles.TileBloodCleaner;
+import tombenpotter.sanguimancy.tiles.TileBloodCleaner;
 
 import java.util.Calendar;
 

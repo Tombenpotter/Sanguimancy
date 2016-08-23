@@ -300,7 +300,7 @@ public class SanguimancyGuide {
         //for (RecipeBloodCleanser r : RecipeBloodCleanser.getAllRecipes()) {
         //    bloodCleanserPages.add(new EntryBloodCleanserRecipe(r));
         //}
-        entries.add(new EntryUniText(bloodCleanserPages, "tile.Sanguimancy.lumpCleaner.name"));
+        entries.add(new EntryUniText(bloodCleanserPages, "tile.Sanguimancy.bloodCleaner.name"));
 
         ArrayList<IPage> soulTransferrerPages = new ArrayList<IPage>();
         soulTransferrerPages.addAll(PageHelper.pagesForLongText(StatCollector.translateToLocal("guide.Sanguimancy.entry.soulTransferrer"), SanguimancyItemStacks.sacrificeTransferrer));

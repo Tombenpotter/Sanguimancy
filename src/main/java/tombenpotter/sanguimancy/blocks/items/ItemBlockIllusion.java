@@ -14,6 +14,7 @@ public class ItemBlockIllusion extends ItemBlock {
 
     public ItemBlockIllusion(Block block) {
         super(block);
+
         setHasSubtypes(true);
         setRegistryName(block.getRegistryName());
     }

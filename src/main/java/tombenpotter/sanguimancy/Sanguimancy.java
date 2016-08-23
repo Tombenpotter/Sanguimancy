@@ -73,7 +73,6 @@ public class Sanguimancy {
         proxy.load();
         RitualRegistry.registerRituals();
         RecipesRegistry.registerAltarRecipes();
-        RecipesRegistry.registerAlchemyRecipes();
         RecipesRegistry.registerBindingRecipes();
         PotionsRegistry.registerPotions();
         FMLCommonHandler.instance().bus().register(new EventHandler());

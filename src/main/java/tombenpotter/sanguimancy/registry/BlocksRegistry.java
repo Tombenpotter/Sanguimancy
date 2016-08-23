@@ -5,10 +5,7 @@ import net.minecraft.block.material.Material;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import tombenpotter.sanguimancy.Sanguimancy;
 import tombenpotter.sanguimancy.blocks.*;
-import tombenpotter.sanguimancy.blocks.items.ItemBlockAltarDiviner;
-import tombenpotter.sanguimancy.blocks.items.ItemBlockAltarEmitter;
-import tombenpotter.sanguimancy.blocks.items.ItemBlockAltarManipulator;
-import tombenpotter.sanguimancy.blocks.items.ItemBlockIllusion;
+import tombenpotter.sanguimancy.blocks.items.*;
 
 public class BlocksRegistry {
 
@@ -21,7 +18,7 @@ public class BlocksRegistry {
 
     public static Block sacrificeTransfer;
     public static Block corruptionCrystallizer;
-    public static Block lumpCleaner;
+    public static Block bloodCleaner;
 
     public static Block etherealBlock;
     public static Block etherealCorruptedBlock;
@@ -57,11 +54,13 @@ public class BlocksRegistry {
         corruptionCrystallizer = new BlockCorruptionCrystallizer(Material.IRON).setRegistryName(Sanguimancy.modid, "BlockCorruptionCrystallizer").setUnlocalizedName(Sanguimancy.modid + ".corruptionCrystallizer");
         GameRegistry.registerWithItem(corruptionCrystallizer);
 
+        bloodCleaner = new BlockBloodCleaner(Material.IRON).setRegistryName(Sanguimancy.modid, "BlockBloodCleaner").setUnlocalizedName(Sanguimancy.modid + ".bloodCleaner");
+        GameRegistry.register(bloodCleaner);
+        GameRegistry.register(new ItemBlockBloodCleaner(bloodCleaner));
+
+
         /*
         //Not updated yet
-        lumpCleaner = new BlockLumpCleaner(Material.iron);
-        GameRegistry.registerBlock(lumpCleaner, ItemBlockBloodCleanser.class, "BlockLumpCleaner").setBlockName(Sanguimancy.modid + ".lumpCleaner");
-
         etherealBlock = new BlockEthereal(Material.iron);
         GameRegistry.registerBlock(etherealBlock, "BlockEthereal").setBlockName(Sanguimancy.modid + ".etherealBlock");
 
