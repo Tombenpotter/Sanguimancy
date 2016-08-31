@@ -16,6 +16,7 @@ public class ConfigHandler {
     // Options in the config
     // Rituals
     public static boolean enableDrillOfTheDead;
+    public static boolean enableVulcanosFrigius;
     public static boolean enableTrash;
     public static boolean enableIllumination;
     public static boolean serverMessagesWhenCorruptionEffect;
@@ -42,6 +43,7 @@ public class ConfigHandler {
 
         // Rituals
         enableDrillOfTheDead = config.getBoolean("enableDrillOfTheDead", rituals, true, "Enable the Drill of the Dead");
+        enableVulcanosFrigius = config.getBoolean("enableVulcanosFrigius", rituals, true, "Enable the Vulcanos Frigius");
         enableTrash = config.getBoolean("enableTrash", rituals, true, "Enable the Great Deletion");
         enableIllumination = config.getBoolean("enableIllumination", rituals, true, "Enable the Enlightenment");
 

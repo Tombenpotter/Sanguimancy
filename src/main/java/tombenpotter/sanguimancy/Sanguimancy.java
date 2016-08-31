@@ -63,7 +63,7 @@ public class Sanguimancy {
         RecipesRegistry.registerShapedRecipes();
         RecipesRegistry.registerOrbRecipes();
         EntitiesRegistry.registerEntities();
-        PotionsRegistry.potionPreInit();
+        PotionsRegistry.registerPotions();
         if (ModList.computercraft.isLoaded()) PeripheralProvider.register();
 //        RandomUtils.createSNDimension();
     }
@@ -71,10 +71,9 @@ public class Sanguimancy {
     @Mod.EventHandler
     public void load(FMLInitializationEvent event) {
         proxy.load();
-        RitualRegistry.registerRituals();
+        RitualsRegistry.registerRituals();
         RecipesRegistry.registerAltarRecipes();
         RecipesRegistry.registerBindingRecipes();
-        PotionsRegistry.registerPotions();
         FMLCommonHandler.instance().bus().register(new EventHandler());
         MinecraftForge.EVENT_BUS.register(new EventHandler());
         PacketHandler.registerPackets();

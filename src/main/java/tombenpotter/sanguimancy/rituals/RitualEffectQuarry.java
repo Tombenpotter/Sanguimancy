@@ -1,22 +1,7 @@
-package tombenpotter.oldsanguimancy.rituals;
+package tombenpotter.sanguimancy.rituals;
 
-import WayofTime.alchemicalWizardry.api.alchemy.energy.ReagentRegistry;
-import WayofTime.alchemicalWizardry.api.rituals.IMasterRitualStone;
-import WayofTime.alchemicalWizardry.api.rituals.RitualBreakMethod;
-import WayofTime.alchemicalWizardry.api.rituals.RitualComponent;
-import WayofTime.alchemicalWizardry.api.rituals.RitualEffect;
-import WayofTime.alchemicalWizardry.api.soulNetwork.SoulNetworkHandler;
-import WayofTime.alchemicalWizardry.common.spell.complex.effect.SpellHelper;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.IInventory;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.world.World;
-
-import java.util.ArrayList;
-import java.util.List;
-
-public class RitualEffectQuarry extends RitualEffect {
-
+public class RitualEffectQuarry {
+/*
     public static final int reagentDrain = 1000;
 
     @Override
@@ -90,7 +75,7 @@ public class RitualEffectQuarry extends RitualEffect {
                     world.setBlock(currentCoord.x, currentCoord.y, currentCoord.z, Blocks.air, 0, 2);
                     SoulNetworkHandler.syphonFromNetwork(owner, getCostPerRefresh());
                 }
-            }*/
+            }/
         }
         return true;
     }
@@ -126,4 +111,5 @@ public class RitualEffectQuarry extends RitualEffect {
         quarryRitual.add(new RitualComponent(0, 2, 2, RitualComponent.DUSK));
         return quarryRitual;
     }
+    */
 }
