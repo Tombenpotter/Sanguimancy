@@ -1,41 +1,7 @@
-package tombenpotter.oldsanguimancy.items.corrupted;
+package tombenpotter.sanguimancy.items.unused;
 
-import WayofTime.alchemicalWizardry.common.items.EnergyItems;
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
-import net.minecraft.block.Block;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiScreen;
-import net.minecraft.client.renderer.texture.IIconRegister;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
-import net.minecraft.init.Items;
-import net.minecraft.item.ItemSpade;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.IIcon;
-import net.minecraft.util.MovingObjectPosition;
-import net.minecraft.util.StatCollector;
-import net.minecraft.world.World;
-import net.minecraftforge.client.event.RenderWorldLastEvent;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.common.util.ForgeDirection;
-import net.minecraftforge.event.world.BlockEvent;
-import tombenpotter.oldsanguimancy.Sanguimancy;
-import tombenpotter.sanguimancy.api.soulCorruption.SoulCorruptionHelper;
-import tombenpotter.sanguimancy.registry.ItemsRegistry;
-import tombenpotter.sanguimancy.util.ConfigHandler;
-import tombenpotter.sanguimancy.util.RandomUtils;
-import tombenpotter.sanguimancy.util.SanguimancyItemStacks;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-
-public class ItemCorruptedShovel extends ItemSpade {
-
+public class ItemCorruptedShovel {
+/*
     public int minimumCorruption = ConfigHandler.minimumToolCorruption;
     public IIcon breakingDown, goldDigger, transmutation;
     private HashMap<BlockAndMetadata, BlockAndMetadata> breakdownBlocks = new HashMap<BlockAndMetadata, BlockAndMetadata>();
@@ -283,4 +249,5 @@ public class ItemCorruptedShovel extends ItemSpade {
         if (attacker instanceof EntityPlayer) EnergyItems.syphonBatteries(stack, (EntityPlayer) attacker, 15);
         return true;
     }
+    */
 }

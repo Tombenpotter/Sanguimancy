@@ -1,36 +1,7 @@
-package tombenpotter.oldsanguimancy.items.corrupted;
+package tombenpotter.sanguimancy.items.unused;
 
-import WayofTime.alchemicalWizardry.common.items.EnergyItems;
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockLeavesBase;
-import net.minecraft.client.gui.GuiScreen;
-import net.minecraft.client.renderer.texture.IIconRegister;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.monster.EntityCreeper;
-import net.minecraft.entity.monster.EntitySkeleton;
-import net.minecraft.entity.monster.EntityZombie;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Items;
-import net.minecraft.item.ItemAxe;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.IIcon;
-import net.minecraft.util.StatCollector;
-import net.minecraft.world.World;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.entity.living.LivingDropsEvent;
-import tombenpotter.oldsanguimancy.Sanguimancy;
-import tombenpotter.sanguimancy.api.objects.MapKey;
-import tombenpotter.sanguimancy.api.soulCorruption.SoulCorruptionHelper;
-import tombenpotter.sanguimancy.util.ConfigHandler;
-import tombenpotter.sanguimancy.util.RandomUtils;
-
-import java.util.List;
-
-public class ItemCorruptedAxe extends ItemAxe {
+public class ItemCorruptedAxe {
+    /*
     public int minimumCorruption = ConfigHandler.minimumToolCorruption;
     public IIcon leafDecay, headHunter, refine;
 
@@ -233,4 +204,5 @@ public class ItemCorruptedAxe extends ItemAxe {
             }
         }
     }
+    */
 }

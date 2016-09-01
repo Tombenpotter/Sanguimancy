@@ -1,27 +1,10 @@
-package tombenpotter.oldsanguimancy.items;
+package tombenpotter.sanguimancy.items.unused;
 
-import WayofTime.alchemicalWizardry.ModItems;
-import WayofTime.alchemicalWizardry.common.items.EnergyItems;
-import WayofTime.alchemicalWizardry.common.tileEntity.TESpellParadigmBlock;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
-import net.minecraft.client.gui.GuiScreen;
-import net.minecraft.client.renderer.texture.IIconRegister;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.server.MinecraftServer;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.StatCollector;
-import net.minecraft.world.World;
-import tombenpotter.oldsanguimancy.Sanguimancy;
-import tombenpotter.sanguimancy.util.RandomUtils;
-
-import java.util.List;
 
 public class ItemWand extends Item {
 
+    /*
     public int maxSpells = 3;
 
     public ItemWand() {
@@ -127,4 +110,5 @@ public class ItemWand extends Item {
     public boolean isFull3D() {
         return true;
     }
+    */
 }

@@ -11,24 +11,18 @@ public class SanguimancyItemStacks {
     public static ItemStack attunnedPlayerSacrificer = new ItemStack(ItemsRegistry.playerSacrificer, 1, 1);
     public static ItemStack focusedPlayerSacrificer = new ItemStack(ItemsRegistry.playerSacrificer, 1, 2);
     public static ItemStack wayToDie = new ItemStack(ItemsRegistry.playerSacrificer, 1, 3);
-    public static ItemStack addCorruption = new ItemStack(ItemsRegistry.soulCorruptionTest, 1, 0);
-    public static ItemStack removeCorruption = new ItemStack(ItemsRegistry.soulCorruptionTest, 1, 1);
-    public static ItemStack negateCorruption = new ItemStack(ItemsRegistry.soulCorruptionTest, 1, 2);
-    public static ItemStack corruptionReader = new ItemStack(ItemsRegistry.soulCorruptionTest, 1, 3);
     public static ItemStack corruptedDemonShard = new ItemStack(ItemsRegistry.resource, 1, 0);
-    public static ItemStack corruptionCatalist = new ItemStack(ItemsRegistry.corruptionCatalyst);
-    public static ItemStack oreLump = new ItemStack(ItemsRegistry.oreLump);
     public static ItemStack bloodAmulet = new ItemStack(ItemsRegistry.bloodAmulet);
+    /*
     public static ItemStack wand = new ItemStack(ItemsRegistry.wand);
-    public static ItemStack chunkClaimer = new ItemStack(ItemsRegistry.chunkClaimer);
     public static ItemStack corruptedSword = new ItemStack(ItemsRegistry.corruptedSword);
     public static ItemStack corruptedPickaxe = new ItemStack(ItemsRegistry.corruptedPickaxe);
     public static ItemStack corruptedShovel = new ItemStack(ItemsRegistry.corruptedShovel);
     public static ItemStack corruptedAxe = new ItemStack(ItemsRegistry.corruptedAxe);
+    */
     public static ItemStack corruptedMineral = new ItemStack(ItemsRegistry.resource, 1, 1);
     public static ItemStack imbuedStick = new ItemStack(ItemsRegistry.resource, 1, 2);
     public static ItemStack etherealManifestation = new ItemStack(ItemsRegistry.resource, 1, 3);
-    public static ItemStack soulTransporter = new ItemStack(ItemsRegistry.soulTransporter);
     public static ItemStack sanguineShifter = new ItemStack(ItemsRegistry.resource, 1, 4);
 
     // Blocks
@@ -53,16 +47,7 @@ public class SanguimancyItemStacks {
     public static ItemStack clayIllusion = new ItemStack(BlocksRegistry.illusion, 1, 15);
     public static ItemStack corruptionCrystallizer = new ItemStack(BlocksRegistry.corruptionCrystallizer);
     public static ItemStack lumpCleaner = new ItemStack(BlocksRegistry.bloodCleaner);
-    public static ItemStack bloodstoneStairs = new ItemStack(BlocksRegistry.bloodStoneStairs);
-    public static ItemStack largeBloodstoneStairs = new ItemStack(BlocksRegistry.largeBloodStoneStairs);
-    public static ItemStack bloodstoneSlab = new ItemStack(BlocksRegistry.bloodstoneSlab);
-    public static ItemStack largeBloodstoneSlab = new ItemStack(BlocksRegistry.largeBloodstoneSlab);
-    public static ItemStack boundItem = new ItemStack(BlocksRegistry.boundItem);
-    public static ItemStack simpleBranch = new ItemStack(BlocksRegistry.simpleBranch);
-    public static ItemStack simpleKnot = new ItemStack(BlocksRegistry.simpleKnot);
-    public static ItemStack toggleKnot = new ItemStack(BlocksRegistry.toggleKnot);
     public static ItemStack bloodInterface = new ItemStack(BlocksRegistry.bloodInterface);
-    public static ItemStack ritualRepresentation = new ItemStack(BlocksRegistry.ritualRepresentation);
     public static ItemStack etherealBlock = new ItemStack(BlocksRegistry.etherealBlock);
     public static ItemStack etherealCorruptedBlock = new ItemStack(BlocksRegistry.etherealCorruptedBlock);
     public static ItemStack etherealToggledBlock = new ItemStack(BlocksRegistry.etherealToggledBlock);

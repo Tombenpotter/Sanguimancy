@@ -1,7 +1,5 @@
 package tombenpotter.sanguimancy.api.soulCorruption;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.effect.EntityLightningBolt;
 import net.minecraft.entity.passive.EntityAnimal;
@@ -10,10 +8,10 @@ import net.minecraft.init.Blocks;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.DamageSource;
-import net.minecraft.util.StatCollector;
+import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import tombenpotter.oldsanguimancy.Sanguimancy;
 import tombenpotter.sanguimancy.entity.EntityChickenMinion;
 import tombenpotter.sanguimancy.registry.BlocksRegistry;
@@ -21,6 +19,8 @@ import tombenpotter.sanguimancy.registry.PotionsRegistry;
 import tombenpotter.sanguimancy.util.ConfigHandler;
 
 import java.util.List;
+
+;
 
 public class SoulCorruptionHelper {
 

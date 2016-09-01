@@ -1,29 +1,7 @@
-package tombenpotter.oldsanguimancy.items.corrupted;
+package tombenpotter.sanguimancy.items.unused;
 
-import WayofTime.alchemicalWizardry.api.items.interfaces.IBindable;
-import WayofTime.alchemicalWizardry.common.items.EnergyItems;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
-import net.minecraft.block.Block;
-import net.minecraft.client.gui.GuiScreen;
-import net.minecraft.client.renderer.texture.IIconRegister;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemPickaxe;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.IIcon;
-import net.minecraft.util.StatCollector;
-import net.minecraft.world.World;
-import tombenpotter.oldsanguimancy.Sanguimancy;
-import tombenpotter.sanguimancy.api.soulCorruption.SoulCorruptionHelper;
-import tombenpotter.sanguimancy.util.ConfigHandler;
-import tombenpotter.sanguimancy.util.RandomUtils;
-
-import java.util.List;
-
-public class ItemCorruptedPickaxe extends ItemPickaxe implements IBindable {
-
+public class ItemCorruptedPickaxe {
+/*
     public int minimumCorruption = ConfigHandler.minimumToolCorruption;
     public IIcon silkTouch, fortuneI, fortuneII, fortuneIII, autosmelt;
 
@@ -180,4 +158,5 @@ public class ItemCorruptedPickaxe extends ItemPickaxe implements IBindable {
         if (attacker instanceof EntityPlayer) EnergyItems.syphonBatteries(stack, (EntityPlayer) attacker, 15);
         return true;
     }
+    */
 }
