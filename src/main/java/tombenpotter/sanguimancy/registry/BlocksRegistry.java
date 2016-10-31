@@ -13,20 +13,10 @@ public class BlocksRegistry {
     public static Block altarDiviner;
     public static Block altarManipulator;
 
-    public static Block illusion;
     public static Block bloodInterface;
 
     public static Block sacrificeTransfer;
-    public static Block corruptionCrystallizer;
     public static Block bloodCleaner;
-
-    public static Block etherealBlock;
-    public static Block etherealCorruptedBlock;
-    public static Block etherealToggledBlock;
-    public static Block etherealBoundBlock;
-    public static Block etherealBoundCorruptedBlock;
-    public static Block etherealBoundToggledBlock;
-    public static Block etherealPersonalBlock;
 
     public static void registerBlocks() {
         altarEmitter = new BlockAltarEmitter(Material.IRON).setRegistryName(Sanguimancy.modid, "BlockAltarEmitter").setUnlocalizedName(Sanguimancy.modid + ".altarEmitter");
@@ -41,18 +31,11 @@ public class BlocksRegistry {
         GameRegistry.register(altarManipulator);
         GameRegistry.register(new ItemBlockAltarManipulator(altarManipulator));
 
-        illusion = new BlockIllusion(Material.IRON).setRegistryName(Sanguimancy.modid, "BlockIllusion").setUnlocalizedName(Sanguimancy.modid + ".illusion").setLightLevel(1F);
-        GameRegistry.register(illusion);
-        GameRegistry.register(new ItemBlockIllusion(illusion));
-
         bloodInterface = new BlockBloodInterface(Material.IRON).setRegistryName(Sanguimancy.modid, "BlockBloodInterface").setUnlocalizedName(Sanguimancy.modid + ".interface");
         GameRegistry.registerWithItem(bloodInterface);
 
         sacrificeTransfer = new BlockSacrificeTransfer(Material.IRON).setRegistryName(Sanguimancy.modid, "BlockSacrificeTransfer").setUnlocalizedName(Sanguimancy.modid + ".sacrificeTransfer");
         GameRegistry.registerWithItem(sacrificeTransfer);
-
-        corruptionCrystallizer = new BlockCorruptionCrystallizer(Material.IRON).setRegistryName(Sanguimancy.modid, "BlockCorruptionCrystallizer").setUnlocalizedName(Sanguimancy.modid + ".corruptionCrystallizer");
-        GameRegistry.registerWithItem(corruptionCrystallizer);
 
         bloodCleaner = new BlockBloodCleaner(Material.IRON).setRegistryName(Sanguimancy.modid, "BlockBloodCleaner").setUnlocalizedName(Sanguimancy.modid + ".bloodCleaner");
         GameRegistry.register(bloodCleaner);

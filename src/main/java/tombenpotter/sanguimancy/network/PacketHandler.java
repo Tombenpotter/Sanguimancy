@@ -3,7 +3,6 @@ package tombenpotter.sanguimancy.network;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 import net.minecraftforge.fml.relauncher.Side;
-import tombenpotter.oldsanguimancy.Sanguimancy;
 import tombenpotter.sanguimancy.network.handlers.BloodInterfaceUpdateMessageHandler;
 import tombenpotter.sanguimancy.network.handlers.SyncCorruptionMessageHandler;
 import tombenpotter.sanguimancy.network.packets.PacketBloodInterfaceUpdate;

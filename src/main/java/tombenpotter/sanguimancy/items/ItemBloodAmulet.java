@@ -23,7 +23,7 @@ import net.minecraftforge.fluids.capability.ItemFluidContainer;
 import net.minecraftforge.fluids.capability.templates.FluidHandlerItemStack;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import tombenpotter.oldsanguimancy.Sanguimancy;
+import tombenpotter.sanguimancy.Sanguimancy;
 import tombenpotter.sanguimancy.util.RandomUtils;
 
 import java.util.List;
@@ -35,7 +35,7 @@ public class ItemBloodAmulet extends ItemFluidContainer {
     public ItemBloodAmulet() {
         super(Integer.MAX_VALUE);
 
-        setCreativeTab(Sanguimancy.tabSanguimancy);
+        setCreativeTab(Sanguimancy.creativeTab);
         setUnlocalizedName(Sanguimancy.modid + ".bloodAmulet");
         MinecraftForge.EVENT_BUS.register(this);
     }

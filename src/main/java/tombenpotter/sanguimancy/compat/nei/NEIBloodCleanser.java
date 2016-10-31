@@ -9,7 +9,6 @@ import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.StatCollector;
 import org.lwjgl.input.Mouse;
-import tombenpotter.oldsanguimancy.Sanguimancy;
 import tombenpotter.sanguimancy.recipes.RecipeBloodCleanser;
 
 import java.awt.*;

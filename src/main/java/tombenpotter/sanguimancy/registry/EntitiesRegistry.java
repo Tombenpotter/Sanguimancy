@@ -3,7 +3,6 @@ package tombenpotter.sanguimancy.registry;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityList;
 import net.minecraftforge.fml.common.registry.EntityRegistry;
-import tombenpotter.oldsanguimancy.Sanguimancy;
 import tombenpotter.sanguimancy.entity.EntityChickenMinion;
 
 public class EntitiesRegistry {

@@ -15,7 +15,6 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import tombenpotter.oldsanguimancy.Sanguimancy;
 import tombenpotter.sanguimancy.recipes.RecipeCorruptedInfusion;
 
 public class PageCorruptionRecipe extends PageBase {

@@ -8,14 +8,14 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import tombenpotter.oldsanguimancy.Sanguimancy;
+import tombenpotter.sanguimancy.Sanguimancy;
 
 import java.util.List;
 
 public class ItemPlayerSacrificer extends Item {
 
     public ItemPlayerSacrificer() {
-        setCreativeTab(Sanguimancy.tabSanguimancy);
+        setCreativeTab(Sanguimancy.creativeTab);
         setUnlocalizedName(Sanguimancy.modid + ".playerSacrificer");
         setHasSubtypes(true);
     }

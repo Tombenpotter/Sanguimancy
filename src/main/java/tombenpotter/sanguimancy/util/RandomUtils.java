@@ -1,7 +1,6 @@
 package tombenpotter.sanguimancy.util;
 
 import WayofTime.bloodmagic.registry.ModItems;
-import com.google.common.base.Strings;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
@@ -24,7 +23,6 @@ import net.minecraftforge.fml.common.eventhandler.Event;
 import net.minecraftforge.oredict.OreDictionary;
 import tombenpotter.sanguimancy.Sanguimancy;
 import tombenpotter.sanguimancy.api.objects.MapKey;
-import tombenpotter.sanguimancy.registry.ItemsRegistry;
 
 import java.awt.*;
 import java.io.BufferedWriter;
@@ -41,7 +39,6 @@ public class RandomUtils {
     public static HashMap<String, Integer> oreDictColor = new HashMap<String, Integer>();
     public static Item.ToolMaterial corruptedMaterial = EnumHelper.addToolMaterial("corruptedToolMaterial", Integer.MAX_VALUE, 9000, 32, 10, 32);
     public static HashMap<MapKey, ItemStack> logToPlank = new HashMap<MapKey, ItemStack>();
-    public static ArrayList<ItemStack> oreLumpList = new ArrayList<ItemStack>();
 
     public static void dropItems(World world, BlockPos pos) {
         Random rand = new Random();
@@ -353,20 +350,6 @@ public class RandomUtils {
             persistTag.setTag(modName, modTag);
         }
         return modTag;
-    }
-
-    public static void setOreLumpList() {
-        for (String ore : OreDictionary.getOreNames()) {
-            if (!Strings.isNullOrEmpty(ore) && ore.startsWith("ore")) {
-                String output = ore.substring(3);
-                if (!OreDictionary.getOres(ore).isEmpty() && !OreDictionary.getOres("ingot" + output).isEmpty()) {
-                    ItemStack stack = new ItemStack(ItemsRegistry.oreLump);
-                    checkAndSetCompound(stack);
-                    stack.getTagCompound().setString("ore", output);
-                    oreLumpList.add(stack);
-                }
-            }
-        }
     }
 
     public static ItemStack getOrbForLevel(int orbLevel) {

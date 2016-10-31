@@ -53,7 +53,7 @@ repositories {
 dependencies {
     deobfCompile "mezz.jei:jei_${mc_version}:${jei_version}"
     deobfCompile "mcp.mobius.waila:Waila:${waila_version}_1.9.4:dev"
-    deobfCompile "info.amerifrance.guideapi:Guide-API:1.9.4-${guideapi_version}"
+    deobfCompile "info.amerifrance.guideapi:Guide-API:1.10.2-${guideapi_version}"
     deobfCompile "com.wayoftime.bloodmagic:BloodMagic:${bm_version}"
     deobfCompile "li.cil.oc:OpenComputers:MC${mc_version}-${oc_version}-dev"
 

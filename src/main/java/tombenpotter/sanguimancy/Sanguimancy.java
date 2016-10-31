@@ -15,10 +15,10 @@ import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import tombenpotter.oldsanguimancy.proxies.CommonProxy;
 import tombenpotter.sanguimancy.compat.computercraft.PeripheralProvider;
 import tombenpotter.sanguimancy.compat.waila.WailaCompatRegistry;
 import tombenpotter.sanguimancy.network.PacketHandler;
+import tombenpotter.sanguimancy.proxy.CommonProxy;
 import tombenpotter.sanguimancy.registry.*;
 import tombenpotter.sanguimancy.util.ConfigHandler;
 import tombenpotter.sanguimancy.util.EventHandler;
@@ -95,6 +95,5 @@ public class Sanguimancy {
     @Mod.EventHandler
     public void serverStarting(FMLServerStartingEvent event) {
         RandomUtils.setLogToPlank();
-        RandomUtils.setOreLumpList();
     }
 }
