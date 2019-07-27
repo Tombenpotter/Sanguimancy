@@ -20,7 +20,7 @@ public class ItemBlockAltarEmitter extends ItemBlock {
     }
 
     @SideOnly(Side.CLIENT)
-    public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean p_77624_4_) {
+    public void addInformation(ItemStack stack, EntityPlayer player, List<String> list, boolean p_77624_4_) {
         if (!GuiScreen.isShiftKeyDown())
             list.add(I18n.format("info.Sanguimancy.tooltip.shift.info"));
         else {
