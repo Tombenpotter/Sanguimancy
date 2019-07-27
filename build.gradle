@@ -18,7 +18,7 @@ plugins {
 
 apply plugin: 'maven-publish'
 
-def build_number = 'CUSTOM'
+def build_number = '2.1.0'
 
 if (System.getenv('BUILD_NUMBER') != null)
     build_number = System.getenv('BUILD_NUMBER')
@@ -52,7 +52,6 @@ repositories {
 
 dependencies {
     deobfCompile "mezz.jei:jei_${mc_version}:${jei_version}"
-    deobfCompile "mcp.mobius.waila:Waila:${waila_version}_1.9.4:dev"
     deobfCompile "info.amerifrance.guideapi:Guide-API:1.10.2-${guideapi_version}"
     deobfCompile "com.wayoftime.bloodmagic:BloodMagic:${bm_version}"
     deobfCompile "li.cil.oc:OpenComputers:MC${mc_version}-${oc_version}-dev"
@@ -61,7 +60,7 @@ dependencies {
 }
 
 minecraft {
-    version = "${mc_version}-${forge_version}"
+    version = "${mc_version}-14.23.5.2838"
     runDir = "run"
 
     replace "@VERSION@", project.version
@@ -69,8 +68,13 @@ minecraft {
 
     clientRunArgs += "--username=${username}"
 
-    if (project.hasProperty('mappings_version'))
-        mappings = project.mappings_version
+    // the mappings can be changed at any time, and must be in the following format.
+    // snapshot_YYYYMMDD   snapshot are built nightly.
+    // stable_#            stables are built at the discretion of the MCP team.
+    // Use non-default mappings at your own risk. they may not always work.
+    // simply re-run your setup task after changing the mappings to update your workspace.
+    mappings = "snapshot_20171003"
+    // makeObfSourceJar = false // an Srg named sources jar is made by default. uncomment this to disable.
 }
 
 processResources {
@@ -196,7 +200,6 @@ String getChangelogText() {
 
 def curseRelations = {
     optionalLibrary 'just-enough-items-jei'
-    optionalLibrary 'waila'
     optionalLibrary 'opencomputers'
     optionalLibrary 'computercraft'
     requiredLibrary 'blood-magic'
@@ -213,8 +216,8 @@ curseforge {
         releaseType = 'beta'
 
         relations curseRelations
-        addGameVersion '1.10'
-        addGameVersion '1.10.2'
+        addGameVersion '1.12'
+        addGameVersion '1.12.2'
 
         addArtifact javadocJar
         addArtifact sourceJar
