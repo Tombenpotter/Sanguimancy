@@ -70,75 +70,74 @@ public class SoulCorruptionHelper {
     }
 
     public static void spawnChickenFollower(EntityPlayer player) {
-        if (player.worldObj.rand.nextInt(10000) == 0) {
-            EntityChickenMinion minion = new EntityChickenMinion(player.worldObj);
+        if (player.world.rand.nextInt(10000) == 0) {
+            EntityChickenMinion minion = new EntityChickenMinion(player.world);
             minion.setPosition(player.posX, player.posY, player.posZ);
-            String owner = player.getUniqueID().toString();
-            minion.func_152115_b(owner);
+            minion.setOwnerId(player.getUniqueID());
             minion.setTamed(true);
-            if (!player.worldObj.isRemote) {
-                player.worldObj.spawnEntityInWorld(minion);
+            if (!player.world.isRemote) {
+                player.world.spawnEntity(minion);
             }
-            if (!player.worldObj.isRemote && ConfigHandler.serverMessagesWhenCorruptionEffect) {
-                MinecraftServer.getServer().getConfigurationManager().sendChatMsg(new ChatComponentText(String.format(StatCollector.translateToLocal("chat.Sanguimancy.chicken.minion"), player.getDisplayName())));
-            }
-            if (!player.worldObj.isRemote && ConfigHandler.playerMessageWhenCorruptionEffect) {
-                player.addChatComponentMessage(new ChatComponentText(String.format(StatCollector.translateToLocal("chat.Sanguimancy.chicken.minion"), player.getDisplayName())));
+//            if (!player.world.isRemote && ConfigHandler.serverMessagesWhenCorruptionEffect) {
+//                MinecraftServer.getServer().getConfigurationManager().sendChatMsg(new ChatComponentText(String.format(StatCollector.translateToLocal("chat.Sanguimancy.chicken.minion"), player.getDisplayName())));
+//            }
+            if (!player.world.isRemote && ConfigHandler.playerMessageWhenCorruptionEffect) {
+                player.sendMessage(new TextComponentString(I18n.format("chat.Sanguimancy.chicken.minion", player.getDisplayName())));
             }
         }
     }
 
     public static void randomTeleport(EntityPlayer player) {
-        if (player.worldObj.rand.nextInt(5000) == 0) {
-            player.worldObj.addWeatherEffect(new EntityLightningBolt(player.worldObj, player.posX, player.posY, player.posZ));
-            if (player.worldObj.rand.nextInt(10) == 0) {
+        if (player.world.rand.nextInt(5000) == 0) {
+            player.world.addWeatherEffect(new EntityLightningBolt(player.world, player.posX, player.posY, player.posZ, true));
+            if (player.world.rand.nextInt(10) == 0) {
                 player.addPotionEffect(new PotionEffect(Potion.blindness.id, 20, 0));
             }
-            if (player.worldObj.rand.nextInt(10) == 0) {
+            if (player.world.rand.nextInt(10) == 0) {
                 player.addPotionEffect(new PotionEffect(Potion.confusion.id, 20, 0));
             }
-            if (player.worldObj.rand.nextInt(10) == 0) {
+            if (player.world.rand.nextInt(10) == 0) {
                 player.addPotionEffect(new PotionEffect(Potion.hunger.id, 20, 0));
             }
-            if (player.worldObj.rand.nextInt(10) == 0) {
+            if (player.world.rand.nextInt(10) == 0) {
                 player.addPotionEffect(new PotionEffect(Potion.digSlowdown.id, 20, 0));
             }
-            if (player.worldObj.rand.nextInt(10) == 0) {
+            if (player.world.rand.nextInt(10) == 0) {
                 player.addPotionEffect(new PotionEffect(Potion.moveSlowdown.id, 20, 0));
             }
-            if (player.worldObj.rand.nextInt(10) == 0) {
+            if (player.world.rand.nextInt(10) == 0) {
                 player.addPotionEffect(new PotionEffect(Potion.weakness.id, 20, 0));
             }
-            int i = (int) (player.posX + player.worldObj.rand.nextInt(16) - player.worldObj.rand.nextInt(16));
-            int j = (int) (player.posY + player.worldObj.rand.nextInt(16) - player.worldObj.rand.nextInt(16));
-            int k = (int) (player.posZ + player.worldObj.rand.nextInt(16) - player.worldObj.rand.nextInt(16));
+            int i = (int) (player.posX + player.world.rand.nextInt(16) - player.world.rand.nextInt(16));
+            int j = (int) (player.posY + player.world.rand.nextInt(16) - player.world.rand.nextInt(16));
+            int k = (int) (player.posZ + player.world.rand.nextInt(16) - player.world.rand.nextInt(16));
             if (j <= 5) j = j + 10;
             player.setPositionAndUpdate(i, j, k);
             decrementCorruption(player);
 
-            if (!player.worldObj.isRemote && ConfigHandler.serverMessagesWhenCorruptionEffect) {
-                MinecraftServer.getServer().getConfigurationManager().sendChatMsg(new ChatComponentText(String.format(StatCollector.translateToLocal("chat.Sanguimancy.random.teleport"), player.getDisplayName())));
-            }
-            if (!player.worldObj.isRemote && ConfigHandler.playerMessageWhenCorruptionEffect) {
-                player.addChatComponentMessage(new ChatComponentText(String.format(StatCollector.translateToLocal("chat.Sanguimancy.random.teleport"), player.getDisplayName())));
+//            if (!player.world.isRemote && ConfigHandler.serverMessagesWhenCorruptionEffect) {
+//                MinecraftServer.getServer().getConfigurationManager().sendChatMsg(new ChatComponentText(String.format(StatCollector.translateToLocal("chat.Sanguimancy.random.teleport"), player.getDisplayName())));
+//            }
+            if (!player.world.isRemote && ConfigHandler.playerMessageWhenCorruptionEffect) {
+                player.sendMessage(new TextComponentString(I18n.format("chat.Sanguimancy.random.teleport", player.getDisplayName())));
             }
         }
     }
 
     public static void killGrass(EntityPlayer player) {
-        if (player.worldObj.rand.nextInt(10) == 0) {
+        if (player.world.rand.nextInt(10) == 0) {
             int x = (int) player.posX;
             int y = (int) player.posY - 1;
             int z = (int) player.posZ;
-            if (player.worldObj.getBlock(x, y, z) == Blocks.grass) player.worldObj.setBlock(x, y, z, Blocks.dirt);
+            if (player.world.getBlock(x, y, z) == Blocks.GRASS) player.world.setBlock(x, y, z, Blocks.DIRT);
         }
     }
 
     public static void hurtAndHealAnimals(EntityPlayer player) {
-        if (player.worldObj.rand.nextInt(10) == 0) {
+        if (player.world.rand.nextInt(10) == 0) {
             int range = 4;
             int rangeY = 4;
-            List<EntityAnimal> entities = player.worldObj.getEntitiesWithinAABB(EntityAnimal.class, AxisAlignedBB.getBoundingBox(player.posX - range, player.posY - rangeY, player.posZ - range, player.posX + range, player.posY + rangeY, player.posZ + range));
+            List<EntityAnimal> entities = player.world.getEntitiesWithinAABB(EntityAnimal.class, AxisAlignedBB.getBoundingBox(player.posX - range, player.posY - rangeY, player.posZ - range, player.posX + range, player.posY + rangeY, player.posZ + range));
             for (EntityAnimal animal : entities) {
                 if (animal.getClass() != EntityChickenMinion.class) {
                     animal.attackEntityFrom(DamageSource.causePlayerDamage(player), 1.0F);
@@ -171,24 +170,24 @@ public class SoulCorruptionHelper {
     }
 
     public static void spawnIllusion(EntityPlayer player) {
-        int i = (int) (player.posX + player.worldObj.rand.nextInt(16) - player.worldObj.rand.nextInt(16));
-        int j = (int) (player.posY + player.worldObj.rand.nextInt(16) - player.worldObj.rand.nextInt(16));
-        int k = (int) (player.posZ + player.worldObj.rand.nextInt(16) - player.worldObj.rand.nextInt(16));
+        int i = (int) (player.posX + player.world.rand.nextInt(16) - player.world.rand.nextInt(16));
+        int j = (int) (player.posY + player.world.rand.nextInt(16) - player.world.rand.nextInt(16));
+        int k = (int) (player.posZ + player.world.rand.nextInt(16) - player.world.rand.nextInt(16));
         if (j <= 0) j = j + 5;
-        if (player.worldObj.rand.nextInt(500) == 0 && player.worldObj.isAirBlock(i, j, k)) {
-            player.worldObj.setBlock(i, j, k, BlocksRegistry.illusion, player.worldObj.rand.nextInt(16), 3);
+        if (player.world.rand.nextInt(500) == 0 && player.world.isAirBlock(i, j, k)) {
+            player.world.setBlock(i, j, k, BlocksRegistry.illusion, player.world.rand.nextInt(16), 3);
         }
     }
 
     public static void loseHeart(EntityPlayer player) {
         if (!player.capabilities.isCreativeMode) {
-            if (player.worldObj.rand.nextInt(750) == 0) {
-                int level = player.worldObj.rand.nextInt(5);
+            if (player.world.rand.nextInt(750) == 0) {
+                int level = player.world.rand.nextInt(5);
                 player.addPotionEffect(new PotionEffect(PotionsRegistry.potionRemoveHeart.id, 1200, level, false));
 //                if (!player.worldObj.isRemote && ConfigHandler.serverMessagesWhenCorruptionEffect) {
 //                    MinecraftServer.getServer().getConfigurationManager().sendChatMsg(new ChatComponentText(String.format(StatCollector.translateToLocal("chat.Sanguimancy.loose.heart"), player.getDisplayName())));
 //                }
-                if (!player.worldObj.isRemote && ConfigHandler.playerMessageWhenCorruptionEffect) {
+                if (!player.world.isRemote && ConfigHandler.playerMessageWhenCorruptionEffect) {
                     player.sendMessage(new TextComponentString(I18n.format(StatCollector.translateToLocal("chat.Sanguimancy.loose.heart"), player.getDisplayName())));
                 }
             }
