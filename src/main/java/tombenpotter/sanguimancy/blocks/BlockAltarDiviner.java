@@ -29,11 +29,11 @@ public class BlockAltarDiviner extends BlockContainer {
     }
 
     @Override
-    public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, @Nullable ItemStack heldItem, EnumFacing side, float hitX, float hitY, float hitZ) {
+    public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
         TileAltarDiviner tile = (TileAltarDiviner) world.getTileEntity(pos);
         if (player.getHeldItem(EnumHand.MAIN_HAND) == null && tile.getInventory(null).getStackInSlot(0) != null) {
             ItemStack stack = tile.getInventory(null).getStackInSlot(0);
-            tile.getInventory(null).extractItem(0, stack.stackSize, false);
+            tile.getInventory(null).extractItem(0, stack.getCount(), false);
             player.inventory.addItemStackToInventory(stack);
 
             world.notifyBlockUpdate(pos, state, state, 3);
@@ -42,11 +42,11 @@ public class BlockAltarDiviner extends BlockContainer {
             tile.getInventory(null).setStackInSlot(0, stack.copy());
 
             if (!player.capabilities.isCreativeMode) {
-                for (int i = 0; i < stack.stackSize; i++) {
-                    if (stack.stackSize <= 0) {
+                for (int i = 0; i < stack.getCount(); i++) {
+                    if (stack.getCount() <= 0) {
                         player.inventory.deleteStack(stack);
                     } else {
-                        player.getHeldItem(EnumHand.MAIN_HAND).stackSize--;
+                        player.getHeldItem(EnumHand.MAIN_HAND).shrink(1);
                     }
                 }
             }

@@ -4,6 +4,7 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.Mod;
@@ -27,7 +28,10 @@ import tombenpotter.sanguimancy.util.enums.ModList;
 
 @Mod(modid = Sanguimancy.modid, name = Sanguimancy.name, version = Sanguimancy.version, dependencies = Sanguimancy.depend, guiFactory = "tombenpotter.sanguimancy.client.gui.ConfigGuiFactory")
 public class Sanguimancy {
-
+	static {
+		FluidRegistry.enableUniversalBucket();
+	}
+	
     public static final String modid = "Sanguimancy";
     public static final String name = "Sanguimancy";
     public static final String texturePath = "sanguimancy";

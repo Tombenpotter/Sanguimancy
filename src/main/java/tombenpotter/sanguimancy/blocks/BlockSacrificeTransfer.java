@@ -53,21 +53,22 @@ public class BlockSacrificeTransfer extends BlockContainer {
     }
 
     @Override
-    public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, @Nullable ItemStack heldItem, EnumFacing side, float hitX, float hitY, float hitZ) {
+    public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
         TileSacrificeTransfer tile = (TileSacrificeTransfer) world.getTileEntity(pos);
-
+        ItemStack heldItem = player.getHeldItem(EnumHand.MAIN_HAND);
+        
         if (tile != null && tile.getInventory(null).getStackInSlot(0) == null && heldItem != null) {
             ItemStack input = heldItem.copy();
-            input.stackSize = 1;
-            heldItem.stackSize--;
+            input.setCount(1);
+            heldItem.shrink(1);
             tile.getInventory(null).insertItem(0, input, false);
             return true;
         } else if (tile.getInventory(null).getStackInSlot(0) != null && heldItem == null) {
             if (!tile.getWorld().isRemote) {
                 EntityItem invItem = new EntityItem(tile.getWorld(), player.posX, player.posY + 0.25, player.posZ, tile.getInventory(null).getStackInSlot(0));
-                tile.getWorld().spawnEntityInWorld(invItem);
+                tile.getWorld().spawnEntity(invItem);
             }
-            tile.getInventory(null).extractItem(0, tile.getInventory(null).getStackInSlot(0).stackSize, false);
+            tile.getInventory(null).extractItem(0, tile.getInventory(null).getStackInSlot(0).getCount(), false);
             return true;
         }
 
@@ -91,8 +92,8 @@ public class BlockSacrificeTransfer extends BlockContainer {
                 } else if (stack.getTagCompound().getString("ownerUUID").equals(PlayerHelper.getUUIDFromPlayer(player).toString())) {
                     uuid = stack.getTagCompound().getString("ownerUUID");
                 } else {
-                    player.addChatComponentMessage(new TextComponentString(I18n.format("info.Sanguimancy.tooltip.sacrifice.transfer")));
-                    world.spawnEntityInWorld(new EntityLightningBolt(world, pos.getX(), pos.getY(), pos.getZ(), false));
+                    player.sendMessage(new TextComponentString(I18n.format("info.Sanguimancy.tooltip.sacrifice.transfer")));
+                    world.spawnEntity(new EntityLightningBolt(world, pos.getX(), pos.getY(), pos.getZ(), false));
                     player.setFire(100);
                 }
 

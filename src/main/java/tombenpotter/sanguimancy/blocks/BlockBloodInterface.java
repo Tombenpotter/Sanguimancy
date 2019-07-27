@@ -28,8 +28,9 @@ public class BlockBloodInterface extends BlockContainer {
     }
 
     @Override
-    public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, @Nullable ItemStack heldItem, EnumFacing side, float hitX, float hitY, float hitZ) {
+    public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
         TileEntity te = world.getTileEntity(pos);
+        ItemStack heldItem = player.getHeldItem(EnumHand.MAIN_HAND);
 
         if (te != null && te instanceof TileBloodInterface) {
             TileBloodInterface bloodInterface = (TileBloodInterface) te;

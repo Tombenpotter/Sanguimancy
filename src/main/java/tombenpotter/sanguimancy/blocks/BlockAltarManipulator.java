@@ -36,26 +36,26 @@ public class BlockAltarManipulator extends BlockContainer {
     }
 
     @Override
-    public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, @Nullable ItemStack heldItem, EnumFacing side, float hitX, float hitY, float hitZ) {
+    public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
         TileAltarManipulator tile = (TileAltarManipulator) world.getTileEntity(pos);
         if (player.getHeldItem(EnumHand.MAIN_HAND) == null && tile.getInventory(null).getStackInSlot(2) != null) {
             ItemStack stack = tile.getInventory(null).getStackInSlot(2);
-            tile.getInventory(null).extractItem(2, stack.stackSize, false);
+            tile.getInventory(null).extractItem(2, stack.getCount(), false);
             player.inventory.addItemStackToInventory(stack);
             tile.markForUpdate();
 
             return true;
         } else if (player.getHeldItem(EnumHand.MAIN_HAND) != null && player.getHeldItem(EnumHand.MAIN_HAND).isItemEqual(SanguimancyItemStacks.sanguineShifter) && tile.getInventory(null).getStackInSlot(2) == null) {
             ItemStack stack = player.getHeldItem(EnumHand.MAIN_HAND).copy();
-            stack.stackSize = 1;
+            stack.setCount(1);
             tile.getInventory(null).insertItem(2, stack, false);
             tile.sideToOutput = side.getIndex();
             if (!player.capabilities.isCreativeMode) {
-                for (int i = 0; i < stack.stackSize; i++) {
-                    if (stack.stackSize <= 0) {
+                for (int i = 0; i < stack.getCount(); i++) {
+                    if (stack.getCount() <= 0) {
                         player.inventory.deleteStack(stack);
                     } else {
-                        player.getHeldItem(EnumHand.MAIN_HAND).stackSize--;
+                        player.getHeldItem(EnumHand.MAIN_HAND).shrink(1);
                     }
                 }
             }

@@ -47,16 +47,16 @@ public class BlockAltarEmitter extends BlockContainer {
 
 
     @Override
-    public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, @Nullable ItemStack heldItem, EnumFacing side, float hitX, float hitY, float hitZ) {
+    public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
         if (world.getTileEntity(pos) != null && world.getTileEntity(pos) instanceof TileAltarEmitter && !world.isRemote) {
             TileAltarEmitter tile = (TileAltarEmitter) world.getTileEntity(pos);
             if (!player.isSneaking()) {
                 tile.bloodAsked += 100;
-                player.addChatMessage(new TextComponentString(I18n.format("chat.Sanguimancy.blood.required") + ": " + String.valueOf(tile.bloodAsked)));
+                player.sendMessage(new TextComponentString(I18n.format("chat.Sanguimancy.blood.required") + ": " + String.valueOf(tile.bloodAsked)));
             } else if (tile.bloodAsked >= 100) {
                 tile.bloodAsked -= 100;
-                player.addChatMessage(new TextComponentString(I18n.format("chat.Sanguimancy.blood.required") + ": " + String.valueOf(tile.bloodAsked)));
-                world.notifyNeighborsOfStateChange(pos, this);
+                player.sendMessage(new TextComponentString(I18n.format("chat.Sanguimancy.blood.required") + ": " + String.valueOf(tile.bloodAsked)));
+                world.notifyNeighborsOfStateChange(pos, this, true);
             }
             world.notifyBlockUpdate(pos, state, state, 3);
         }
