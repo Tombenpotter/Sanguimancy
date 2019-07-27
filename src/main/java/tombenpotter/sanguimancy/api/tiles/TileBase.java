@@ -65,10 +65,10 @@ public class TileBase extends TileEntity implements ICustomNBTTag {
     @Override
     public void markDirty() {
         super.markDirty(); // Mark dirty for gamesave
-        if (worldObj.isRemote) {
+        if (world.isRemote) {
             return;
         }
-        this.worldObj.notifyBlockUpdate(pos, worldObj.getBlockState(pos), worldObj.getBlockState(pos), 3); // Update block + TE via Network
+        this.world.notifyBlockUpdate(pos, world.getBlockState(pos), world.getBlockState(pos), 3); // Update block + TE via Network
     }
 
     public boolean noCooldown() {
@@ -80,6 +80,6 @@ public class TileBase extends TileEntity implements ICustomNBTTag {
     }
 
     public void markForUpdate() {
-        worldObj.notifyBlockUpdate(pos, worldObj.getBlockState(pos), worldObj.getBlockState(pos), 3);
+        world.notifyBlockUpdate(pos, world.getBlockState(pos), world.getBlockState(pos), 3);
     }
 }

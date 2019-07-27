@@ -21,13 +21,13 @@ public class TileAltarEmitter extends TileBase implements ITickable {
 
     @Override
     public void update() {
-        if (!worldObj.isRemote) {
+        if (!world.isRemote) {
             for (EnumFacing dir : EnumFacing.HORIZONTALS) {
                 BlockPos newPos = pos.add(dir.getDirectionVec());
-                if (!worldObj.isAirBlock(newPos) && worldObj.getBlockState(newPos).getBlock() instanceof BlockAltar) {
-                    if (worldObj.getTileEntity(newPos) != null && worldObj.getTileEntity(newPos) instanceof TileAltar) {
-                        BlockAltarEmitter block = (BlockAltarEmitter) worldObj.getBlockState(pos).getBlock();
-                        TileAltar tile = (TileAltar) worldObj.getTileEntity(newPos);
+                if (!world.isAirBlock(newPos) && world.getBlockState(newPos).getBlock() instanceof BlockAltar) {
+                    if (world.getTileEntity(newPos) != null && world.getTileEntity(newPos) instanceof TileAltar) {
+                        BlockAltarEmitter block = (BlockAltarEmitter) world.getBlockState(pos).getBlock();
+                        TileAltar tile = (TileAltar) world.getTileEntity(newPos);
                         int blood = tile.getCurrentBlood();
 
                         if (overAsked != oldOverAsked)
@@ -42,7 +42,7 @@ public class TileAltarEmitter extends TileBase implements ITickable {
                         }
 
                         if (overAsked != oldOverAsked)
-                            worldObj.notifyNeighborsOfStateChange(pos, block);
+                            world.notifyNeighborsOfStateChange(pos, block);
                     }
                 }
             }

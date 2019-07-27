@@ -23,14 +23,14 @@ public class TileAltarDiviner extends TileBaseInventory implements ITickable {
         if (noCooldown()) {
             for (EnumFacing dir : EnumFacing.VALUES) {
                 BlockPos newPos = pos.add(dir.getDirectionVec());
-                if (!worldObj.isAirBlock(newPos) && worldObj.getBlockState(newPos).getBlock() instanceof BlockAltar) {
-                    if (worldObj.getTileEntity(newPos) != null && worldObj.getTileEntity(newPos) instanceof TileAltar) {
-                        TileAltar tile = (TileAltar) worldObj.getTileEntity(newPos);
+                if (!world.isAirBlock(newPos) && world.getBlockState(newPos).getBlock() instanceof BlockAltar) {
+                    if (world.getTileEntity(newPos) != null && world.getTileEntity(newPos) instanceof TileAltar) {
+                        TileAltar tile = (TileAltar) world.getTileEntity(newPos);
 
                         if (getInventory(null).getStackInSlot(0) != null) {
-                            checkBloodAndMoveItems(tile, worldObj.getBlockState(pos));
+                            checkBloodAndMoveItems(tile, world.getBlockState(pos));
                         } else if (getInventory(null) == null && tile.getStackInSlot(0) != null) {
-                            moveItemFromAltar(tile, worldObj.getBlockState(pos));
+                            moveItemFromAltar(tile, world.getBlockState(pos));
                         }
                     }
                 }
@@ -44,24 +44,24 @@ public class TileAltarDiviner extends TileBaseInventory implements ITickable {
         if (AltarRecipeRegistry.getRecipeForInput(stack) != null && AltarRecipeRegistry.getRecipeForInput(stack).doesRequiredItemMatch(stack, tile.getTier())) {
             AltarRecipeRegistry.AltarRecipe recipe = AltarRecipeRegistry.getRecipeForInput(stack);
             int maxAmount = tile.getCurrentBlood() / recipe.getSyphon();
-            int amount = getInventory(null).getStackInSlot(0).stackSize;
+            int amount = getInventory(null).getStackInSlot(0).getCount();
 
 
             if (tile.getStackInSlot(0) == null && amount > 0 && amount <= maxAmount) {
-                stack.stackSize = amount;
+                stack.setCount(amount);
                 tile.setInventorySlotContents(0, stack);
                 getInventory(null).extractItem(0, amount, false);
 
                 tile.startCycle();
             } else if (tile.getStackInSlot(0) != null) {
                 ItemStack altarItem = tile.getStackInSlot(0).copy();
-                if (altarItem.isItemEqual(stack) && altarItem.stackSize < altarItem.getMaxStackSize()) {
+                if (altarItem.isItemEqual(stack) && altarItem.getCount() < altarItem.getMaxStackSize()) {
                     tile.getStackInSlot(0).stackSize += 1;
                     getInventory(null).extractItem(0, 1, false);
 
-                    worldObj.notifyBlockUpdate(pos, state, state, 3);
-                    IBlockState altar = worldObj.getBlockState(tile.getPos());
-                    worldObj.notifyBlockUpdate(tile.getPos(), altar, altar, 3);
+                    world.notifyBlockUpdate(pos, state, state, 3);
+                    IBlockState altar = world.getBlockState(tile.getPos());
+                    world.notifyBlockUpdate(tile.getPos(), altar, altar, 3);
 
                     cooldown = 10;
                 }
@@ -76,9 +76,9 @@ public class TileAltarDiviner extends TileBaseInventory implements ITickable {
             getInventory(null).insertItem(0, stack, false);
             tile.setInventorySlotContents(0, null);
 
-            worldObj.notifyBlockUpdate(pos, state, state, 3);
-            IBlockState altar = worldObj.getBlockState(tile.getPos());
-            worldObj.notifyBlockUpdate(tile.getPos(), altar, altar, 3);
+            world.notifyBlockUpdate(pos, state, state, 3);
+            IBlockState altar = world.getBlockState(tile.getPos());
+            world.notifyBlockUpdate(tile.getPos(), altar, altar, 3);
 
             cooldown = 30;
         }

@@ -54,9 +54,9 @@ public class TileBloodCleaner extends TileBaseSidedInventory implements ITickabl
             if (inventory.getStackInSlot(1) == null) {
                 inventory.setStackInSlot(1, ouput);
             } else if (inventory.getStackInSlot(1).isItemEqual(RecipeBloodCleanser.getRecipe(inventory.getStackInSlot(0)).fOutput.copy())) {
-                inventory.getStackInSlot(1).stackSize += ouput.stackSize;
+                inventory.getStackInSlot(1).grow(ouput.getCount());
             }
-            getInventory(null).extractItem(0, RecipeBloodCleanser.getRecipe(inventory.getStackInSlot(0)).fInput.stackSize, false);
+            getInventory(null).extractItem(0, RecipeBloodCleanser.getRecipe(inventory.getStackInSlot(0)).fInput.getCount(), false);
             tank.drain(Fluid.BUCKET_VOLUME, true);
         }
     }
@@ -86,7 +86,7 @@ public class TileBloodCleaner extends TileBaseSidedInventory implements ITickabl
             if (!(tank.getFluid().amount >= FluidContainerRegistry.BUCKET_VOLUME)) {
                 return false;
             }
-            int result = inventory.getStackInSlot(1).stackSize + output.stackSize;
+            int result = inventory.getStackInSlot(1).getCount() + output.getCount();
             return result <= inventory.getStackInSlot(1).getMaxStackSize();
         }
     }

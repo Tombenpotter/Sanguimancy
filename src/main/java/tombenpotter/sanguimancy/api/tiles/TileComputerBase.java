@@ -48,7 +48,7 @@ public abstract class TileComputerBase extends TileBaseInventory implements Mana
 
     @Override
     public void update() {
-        if (!worldObj.isRemote) serverUpdate();
+        if (!world.isRemote) serverUpdate();
         if (initialize) init();
     }
 

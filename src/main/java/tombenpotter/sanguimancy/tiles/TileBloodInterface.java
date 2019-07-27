@@ -35,8 +35,8 @@ public class TileBloodInterface extends TileComputerBase implements ITickable {
     }
 
     private void triggerUpdate() {
-        if (!worldObj.isRemote)
-            worldObj.notifyBlockUpdate(pos, worldObj.getBlockState(pos), worldObj.getBlockState(pos), 3);
+        if (!world.isRemote)
+            world.notifyBlockUpdate(pos, world.getBlockState(pos), world.getBlockState(pos), 3);
     }
 
     private ItemStack getOrb() {
@@ -87,8 +87,8 @@ public class TileBloodInterface extends TileComputerBase implements ITickable {
         int result = calcRedstone();
         if (result != redstone) {
             redstone = result;
-            if (worldObj != null && !worldObj.isRemote)
-                worldObj.notifyNeighborsOfStateChange(pos, worldObj.getBlockState(pos).getBlock());
+            if (world != null && !world.isRemote)
+                world.notifyNeighborsOfStateChange(pos, world.getBlockState(pos).getBlock(), true);
         }
     }
 
@@ -102,7 +102,7 @@ public class TileBloodInterface extends TileComputerBase implements ITickable {
     public void markDirty() {
         super.markDirty();
 
-        if (worldObj != null && !worldObj.isRemote) {
+        if (world != null && !world.isRemote) {
             PacketBloodInterfaceUpdate message = new PacketBloodInterfaceUpdate(this);
             PacketHandler.INSTANCE.sendToAll(message);
         }
