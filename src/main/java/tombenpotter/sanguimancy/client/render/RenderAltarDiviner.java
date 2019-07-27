@@ -25,7 +25,7 @@ public class RenderAltarDiviner extends TileEntitySpecialRenderer<TileAltarDivin
     }
 
     @Override
-    public void renderTileEntityAt(TileAltarDiviner tile, double x, double y, double z, float scale) {
+    public void renderTileEntityAt(TileAltarDiviner tile, double x, double y, double z, float partialTicks, int destroyStage) {
         renderModel((TileAltarDiviner) tileEntity, x, y, z);
         if (tileEntity instanceof TileAltarDiviner) {
             TileAltarDiviner tile = (TileAltarDiviner) tileEntity;

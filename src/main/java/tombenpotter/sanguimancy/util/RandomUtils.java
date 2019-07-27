@@ -59,8 +59,8 @@ public class RandomUtils {
                 entityItem.motionX = rand.nextGaussian() * factor;
                 entityItem.motionY = rand.nextGaussian() * factor + 0.2F;
                 entityItem.motionZ = rand.nextGaussian() * factor;
-                world.spawnEntityInWorld(entityItem);
-                item.stackSize = 0;
+                world.spawnEntity(entityItem);
+                item.setCount(0);
             }
         }
     }
@@ -76,7 +76,7 @@ public class RandomUtils {
             if (stack.hasTagCompound()) {
                 entityitem.getEntityItem().setTagCompound((NBTTagCompound) stack.getTagCompound().copy());
             }
-            world.spawnEntityInWorld(entityitem);
+            world.spawnEntity(entityitem);
             return entityitem;
         }
         return null;
@@ -121,15 +121,15 @@ public class RandomUtils {
                 return false;
             }
             if (!player.capabilities.isCreativeMode) {
-                if (container.stackSize == 1) {
+                if (container.getCount() == 1) {
                     container = container.copy();
                     player.inventory.setInventorySlotContents(player.inventory.currentItem, returnStack);
                 } else if (!player.inventory.addItemStackToInventory(returnStack)) {
                     return false;
                 }
                 handler.drain(fluid.amount, true);
-                container.stackSize--;
-                if (container.stackSize <= 0) {
+                container.shrink(1);
+                if (container.getCount() <= 0) {
                     container = null;
                 }
             } else {
@@ -162,9 +162,9 @@ public class RandomUtils {
     //Shamelessly ripped off of CoFH Lib
     public static ItemStack consumeItem(ItemStack stack) {
         Item item = stack.getItem();
-        boolean largerStack = stack.stackSize > 1;
+        boolean largerStack = stack.getCount() > 1;
         if (largerStack) {
-            stack.stackSize -= 1;
+            stack.shrink(1);
         }
         if (item.hasContainerItem(stack)) {
             ItemStack ret = item.getContainerItem(stack);
@@ -325,7 +325,7 @@ public class RandomUtils {
                         //Some weird crafting type
                     }
                     ItemStack plank = output.copy();
-                    plank.stackSize = 1;
+                    plank.setCount(1);
                     if (log != null) {
                         map.put(new MapKey(log.copy()), plank);
                     }

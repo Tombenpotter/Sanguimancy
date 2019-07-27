@@ -71,19 +71,19 @@ public class EntityChickenMinion extends EntityTameable {
         }
         this.field_70886_e += this.field_70889_i * 2.0F;
 
-        if (!this.worldObj.isRemote && !this.isChild() && --this.timeUntilNextEgg <= 0) {
+        if (!this.world.isRemote && !this.isChild() && --this.timeUntilNextEgg <= 0) {
             this.playSound(SoundEvents.ENTITY_CHICKEN_EGG, 1.0F, (this.rand.nextFloat() - this.rand.nextFloat()) * 0.2F + 1.0F);
             this.dropItem(Items.EGG, 1);
             this.timeUntilNextEgg = this.rand.nextInt(6000) + 6000;
         }
-        if (ticksLived > 36000 && !worldObj.isRemote) {
+        if (ticksLived > 36000 && !world.isRemote) {
             this.setDead();
         }
     }
 
     @Override
     public EntityAgeable createChild(EntityAgeable entityAgeable) {
-        return new EntityChicken(this.worldObj);
+        return new EntityChicken(this.world);
     }
 
     @Override

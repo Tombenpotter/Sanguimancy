@@ -38,7 +38,7 @@ public class EventHandler {
 
     @SubscribeEvent
     public void onPlayerSacrificed(LivingDeathEvent event) {
-        if (event.getEntity() != null && !event.getEntity().worldObj.isRemote) {
+        if (event.getEntity() != null && !event.getEntity().world.isRemote) {
             if (event.getEntity() instanceof EntityPlayer) {
                 EntityPlayer player = (EntityPlayer) event.getEntity();
 
@@ -64,13 +64,13 @@ public class EventHandler {
 
     @SubscribeEvent
     public void onPlayerJoinWorld(EntityJoinWorldEvent event) {
-        if (event.getEntity() != null && !event.getEntity().worldObj.isRemote && event.getEntity() instanceof EntityPlayer) {
+        if (event.getEntity() != null && !event.getEntity().world.isRemote && event.getEntity() instanceof EntityPlayer) {
             EntityPlayer player = (EntityPlayer) event.getEntity();
             NBTTagCompound tag = RandomUtils.getModTag(player, Sanguimancy.modid);
 
             if (!tag.getBoolean("hasInitialGuide") && ConfigHandler.addItemsOnFirstLogin) {
                 if (!player.inventory.addItemStackToInventory(GuideRegistry.getItemStackForBook(SanguimancyGuide.sanguimancyGuide).copy())) {
-                    RandomUtils.dropItemStackInWorld(player.worldObj, player.posX, player.posY, player.posZ, (GuideRegistry.getItemStackForBook(SanguimancyGuide.sanguimancyGuide).copy()));
+                    RandomUtils.dropItemStackInWorld(player.world, player.posX, player.posY, player.posZ, (GuideRegistry.getItemStackForBook(SanguimancyGuide.sanguimancyGuide).copy()));
                 }
                 tag.setBoolean("hasInitialGuide", true);
             }

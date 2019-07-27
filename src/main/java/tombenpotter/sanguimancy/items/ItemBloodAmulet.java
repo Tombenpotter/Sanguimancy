@@ -62,13 +62,13 @@ public class ItemBloodAmulet extends ItemFluidContainer {
     }
 
     @Override
-    public EnumActionResult onItemUse(ItemStack stack, EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+    public EnumActionResult onItemUse(EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
         if (world.getTileEntity(pos) != null && world.getTileEntity(pos) instanceof TileBloodTank) {
             TileBloodTank tile = (TileBloodTank) world.getTileEntity(pos);
             if (tile.tank.getFluid() != null && tile.tank.getFluid().getFluid() == BlockLifeEssence.getLifeEssence()) {
                 tile.drain(null, Fluid.BUCKET_VOLUME, true);
 
-                FluidHandlerItemStack handler = new FluidHandlerItemStack(stack, capacity);
+                FluidHandlerItemStack handler = new FluidHandlerItemStack(player.getHeldItem(EnumHand.MAIN_HAND), capacity);
                 handler.fill(new FluidStack(BlockLifeEssence.getLifeEssence(), Fluid.BUCKET_VOLUME), true);
                 return EnumActionResult.SUCCESS;
             }
