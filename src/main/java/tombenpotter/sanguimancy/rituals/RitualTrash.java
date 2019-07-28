@@ -1,8 +1,8 @@
 package tombenpotter.sanguimancy.rituals;
 
-import WayofTime.bloodmagic.api.ritual.*;
-import WayofTime.bloodmagic.api.saving.SoulNetwork;
-import WayofTime.bloodmagic.api.util.helper.NetworkHelper;
+import WayofTime.bloodmagic.ritual.*;
+import WayofTime.bloodmagic.core.data.SoulNetwork;
+import WayofTime.bloodmagic.util.helper.NetworkHelper;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -10,6 +10,7 @@ import tombenpotter.sanguimancy.Sanguimancy;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Consumer;
 
 public class RitualTrash extends Ritual {
 
@@ -63,4 +64,10 @@ public class RitualTrash extends Ritual {
     public Ritual getNewCopy() {
         return new RitualTrash();
     }
+
+	@Override
+	public void gatherComponents(Consumer<RitualComponent> arg0) {
+		// TODO Auto-generated method stub
+		
+	}
 }

@@ -81,7 +81,7 @@ public class ItemCorruptionCatalyst extends Item {
     }
 
     @Override
-    public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean par4) {
+    public void addInformation(ItemStack stack, EntityPlayer player, List<String> list, boolean par4) {
         if (!GuiScreen.isShiftKeyDown()) {
             list.add(I18n.format("info.Sanguimancy.tooltip.shift.info"));
         } else {

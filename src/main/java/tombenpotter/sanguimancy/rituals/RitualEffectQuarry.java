@@ -1,7 +1,9 @@
 package tombenpotter.sanguimancy.rituals;
 
+import WayofTime.bloodmagic.ritual.IMasterRitualStone;
+import net.minecraft.entity.player.EntityPlayer;
+
 public class RitualEffectQuarry {
-/*
     public static final int reagentDrain = 1000;
 
     @Override
@@ -43,7 +45,7 @@ public class RitualEffectQuarry {
             for (int i = 0; i < 6; i++) {
                 SpellHelper.sendIndexedParticleToAllAround(world, x, y, z, 20, world.provider.dimensionId, 3, x, y, z);
             }
-            /*
+            
             CubicBlockIterator iterator1 = new CubicBlockIterator(new BlockCoord(x, y, z), 17 * RitualUtils.getRangeMultiplier(hasTerrae, hasOrbisTerrae));
             while (iterator1.hasNext()) {
                 BlockCoord currentCoord = iterator1.next();
@@ -75,7 +77,7 @@ public class RitualEffectQuarry {
                     world.setBlock(currentCoord.x, currentCoord.y, currentCoord.z, Blocks.air, 0, 2);
                     SoulNetworkHandler.syphonFromNetwork(owner, getCostPerRefresh());
                 }
-            }/
+            }
         }
         return true;
     }
@@ -111,5 +113,4 @@ public class RitualEffectQuarry {
         quarryRitual.add(new RitualComponent(0, 2, 2, RitualComponent.DUSK));
         return quarryRitual;
     }
-    */
 }

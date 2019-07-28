@@ -1,7 +1,7 @@
 package tombenpotter.sanguimancy.util;
 
-import WayofTime.bloodmagic.api.util.helper.NetworkHelper;
-import WayofTime.bloodmagic.api.util.helper.PlayerHelper;
+import WayofTime.bloodmagic.util.helper.NetworkHelper;
+import WayofTime.bloodmagic.util.helper.PlayerHelper;
 import amerifrance.guideapi.api.GuideRegistry;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.resources.I18n;

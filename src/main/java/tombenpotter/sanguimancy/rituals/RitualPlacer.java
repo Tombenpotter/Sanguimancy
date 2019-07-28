@@ -1,7 +1,7 @@
 package tombenpotter.sanguimancy.rituals;
 
-import WayofTime.alchemicalWizardry.api.rituals.IMasterRitualStone;
-import WayofTime.alchemicalWizardry.api.rituals.RitualComponent;
+import WayofTime.bloodmagic.ritual.IMasterRitualStone;
+import WayofTime.bloodmagic.ritual.RitualComponent;
 import WayofTime.alchemicalWizardry.api.rituals.RitualEffect;
 import WayofTime.alchemicalWizardry.api.soulNetwork.SoulNetworkHandler;
 import WayofTime.alchemicalWizardry.common.spell.complex.effect.SpellHelper;
@@ -66,7 +66,7 @@ public class RitualPlacer extends RitualEffect {
 
     @Override
     public List<RitualComponent> getRitualComponentList() {
-        ArrayList<RitualComponent> placingRitual = new ArrayList();
+        ArrayList<RitualComponent> placingRitual = new ArrayList<RitualComponent>();
         placingRitual.add(new RitualComponent(3, 0, 3, RitualComponent.EARTH));
         placingRitual.add(new RitualComponent(3, 0, -3, RitualComponent.EARTH));
         placingRitual.add(new RitualComponent(-3, 0, 3, RitualComponent.EARTH));

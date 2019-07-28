@@ -40,7 +40,8 @@ public class ClientProxy extends CommonProxy {
     public void postLoad() {
     }
 
-    @Override
+    @SuppressWarnings("unchecked")
+	@Override
     public void registerRenders() {
         ClientRegistry.bindTileEntitySpecialRenderer(TileAltarDiviner.class, new RenderAltarDiviner());
         ClientRegistry.bindTileEntitySpecialRenderer(TileCorruptionCrystallizer.class, new RenderCorruptionCrystallizer());
@@ -68,7 +69,7 @@ public class ClientProxy extends CommonProxy {
     @Override
     @SideOnly(Side.CLIENT)
     public EntityPlayer getClientPlayer() {
-        return Minecraft.getMinecraft().thePlayer;
+        return Minecraft.getMinecraft().player;
     }
 
     @SideOnly(Side.CLIENT)
@@ -79,6 +80,6 @@ public class ClientProxy extends CommonProxy {
 
     @Override
     public World getClientWorld() {
-        return Minecraft.getMinecraft().theWorld;
+        return Minecraft.getMinecraft().world;
     }
 }

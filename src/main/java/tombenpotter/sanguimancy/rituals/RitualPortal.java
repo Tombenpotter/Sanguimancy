@@ -1,14 +1,14 @@
 package tombenpotter.sanguimancy.rituals;
 
 import WayofTime.alchemicalWizardry.ModBlocks;
-import WayofTime.alchemicalWizardry.api.rituals.*;
+import WayofTime.bloodmagic.ritual.*;
 import WayofTime.alchemicalWizardry.api.soulNetwork.SoulNetworkHandler;
 import WayofTime.alchemicalWizardry.common.spell.complex.effect.SpellHelper;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
 import tombenpotter.sanguimancy.registry.BlocksRegistry;
-import tombenpotter.sanguimancy.tile.TileDimensionalPortal;
+import tombenpotter.sanguimancy.tiles.TileDimensionalPortal;
 import tombenpotter.sanguimancy.util.RandomUtils;
 import tombenpotter.sanguimancy.util.singletons.LocationsHandler;
 import tombenpotter.sanguimancy.util.teleporting.PortalLocation;

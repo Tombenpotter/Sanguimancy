@@ -1,4 +1,4 @@
-ackage tombenpotter.sanguimancy.rituals;
+package tombenpotter.sanguimancy.rituals;
 
 import WayofTime.alchemicalWizardry.api.alchemy.energy.ReagentRegistry;
 import WayofTime.alchemicalWizardry.api.rituals.IMasterRitualStone;

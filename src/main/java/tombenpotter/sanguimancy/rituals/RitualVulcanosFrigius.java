@@ -1,8 +1,8 @@
 package tombenpotter.sanguimancy.rituals;
 
-import WayofTime.bloodmagic.api.ritual.*;
-import WayofTime.bloodmagic.api.saving.SoulNetwork;
-import WayofTime.bloodmagic.api.util.helper.NetworkHelper;
+import WayofTime.bloodmagic.ritual.*;
+import WayofTime.bloodmagic.core.data.SoulNetwork;
+import WayofTime.bloodmagic.util.helper.NetworkHelper;
 import WayofTime.bloodmagic.item.ItemComponent;
 import WayofTime.bloodmagic.tile.TileAlchemyArray;
 import net.minecraft.block.Block;

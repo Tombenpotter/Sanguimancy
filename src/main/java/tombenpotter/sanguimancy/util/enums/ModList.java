@@ -1,16 +1,14 @@
 package tombenpotter.sanguimancy.util.enums;
 
-import cpw.mods.fml.common.Loader;
+import net.minecraftforge.fml.common.Loader;
 
 public enum ModList {
     opencomputers(Names.OPENCOMPUTERS),
     computercraft(Names.COMPUTERCRAFT);
 
-    private String ID;
     private boolean loaded;
 
     ModList(String modId) {
-        ID = modId;
         loaded = Loader.isModLoaded(modId);
     }
 

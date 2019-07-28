@@ -1,9 +1,9 @@
 package tombenpotter.sanguimancy.rituals;
 
 import WayofTime.alchemicalWizardry.ModBlocks;
-import WayofTime.alchemicalWizardry.api.rituals.IMasterRitualStone;
-import WayofTime.alchemicalWizardry.api.rituals.RitualComponent;
-import WayofTime.alchemicalWizardry.api.rituals.RitualEffect;
+import WayofTime.bloodmagic.ritual.IMasterRitualStone;
+import WayofTime.bloodmagic.ritual.RitualComponent;
+import WayofTime.bloodmagic.ritual.RitualEffect;
 import WayofTime.alchemicalWizardry.api.soulNetwork.SoulNetworkHandler;
 import WayofTime.alchemicalWizardry.common.block.BloodRune;
 import WayofTime.alchemicalWizardry.common.bloodAltarUpgrade.AltarComponent;
@@ -103,7 +103,7 @@ public class RitualAltarBuilder extends RitualEffect {
 
     @Override
     public List<RitualComponent> getRitualComponentList() {
-        ArrayList<RitualComponent> altarBuilderRitual = new ArrayList();
+        ArrayList<RitualComponent> altarBuilderRitual = new ArrayList<RitualComponent>();
         for (int i = -12; i <= -8; i++) {
             altarBuilderRitual.add(new RitualComponent(i, -6, 13, RitualComponent.AIR));
             altarBuilderRitual.add(new RitualComponent(i, -6, -13, RitualComponent.FIRE));
@@ -150,7 +150,7 @@ public class RitualAltarBuilder extends RitualEffect {
 
     public boolean hasItem(IInventory inv, Item item, int damage) {
         for (int i = 0; i < inv.getSizeInventory(); i++) {
-            if (inv.getStackInSlot(i) != null && inv.getStackInSlot(i).stackSize > 0 && inv.getStackInSlot(i).getItem() == item && inv.getStackInSlot(i).getItemDamage() == damage)
+            if (inv.getStackInSlot(i) != null && inv.getStackInSlot(i).getCount() > 0 && inv.getStackInSlot(i).getItem() == item && inv.getStackInSlot(i).getItemDamage() == damage)
                 return true;
         }
         return false;
@@ -158,7 +158,7 @@ public class RitualAltarBuilder extends RitualEffect {
 
     public void consumeItem(IInventory inv, Item item, int damage) {
         for (int i = 0; i < inv.getSizeInventory(); i++) {
-            if (inv.getStackInSlot(i) != null && inv.getStackInSlot(i).stackSize > 0 && inv.getStackInSlot(i).getItem() == item && inv.getStackInSlot(i).getItemDamage() == damage) {
+            if (inv.getStackInSlot(i) != null && inv.getStackInSlot(i).getCount() > 0 && inv.getStackInSlot(i).getItem() == item && inv.getStackInSlot(i).getItemDamage() == damage) {
                 inv.decrStackSize(i, 1);
                 return;
             }
@@ -167,7 +167,7 @@ public class RitualAltarBuilder extends RitualEffect {
 
     public int getBloodRuneSlot(IInventory inv) {
         for (int i = 0; i < inv.getSizeInventory(); i++) {
-            if (inv.getStackInSlot(i) != null && inv.getStackInSlot(i).stackSize > 0 && inv.getStackInSlot(i).getItem() instanceof ItemBlock && Block.getBlockFromItem(inv.getStackInSlot(i).getItem()) instanceof BloodRune)
+            if (inv.getStackInSlot(i) != null && inv.getStackInSlot(i).getCount() > 0 && inv.getStackInSlot(i).getItem() instanceof ItemBlock && Block.getBlockFromItem(inv.getStackInSlot(i).getItem()) instanceof BloodRune)
                 return i;
         }
         return -1;
@@ -175,9 +175,9 @@ public class RitualAltarBuilder extends RitualEffect {
 
     public BlockAndMetadata getMundaneBlock(IInventory inv) {
         for (int i = 0; i < inv.getSizeInventory(); i++) {
-            if (inv.getStackInSlot(i) != null && inv.getStackInSlot(i).stackSize > 0 && inv.getStackInSlot(i).getItem() instanceof ItemBlock && !(Block.getBlockFromItem(inv.getStackInSlot(i).getItem()) instanceof BloodRune)) {
+            if (inv.getStackInSlot(i) != null && inv.getStackInSlot(i).getCount() > 0 && inv.getStackInSlot(i).getItem() instanceof ItemBlock && !(Block.getBlockFromItem(inv.getStackInSlot(i).getItem()) instanceof BloodRune)) {
                 Block block = Block.getBlockFromItem(inv.getStackInSlot(i).getItem());
-                if (block != null && block != Blocks.glowstone && block != ModBlocks.largeBloodStoneBrick && block != ModBlocks.blockCrystal) {
+                if (block != null && block != Blocks.GLOWSTONE && block != ModBlocks.largeBloodStoneBrick && block != ModBlocks.blockCrystal) {
                     BlockAndMetadata blockAndMetadata = new BlockAndMetadata(block, inv.getStackInSlot(i).getItemDamage());
                     inv.decrStackSize(i, 1);
                     return blockAndMetadata;

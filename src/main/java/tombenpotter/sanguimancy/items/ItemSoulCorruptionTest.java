@@ -1,16 +1,16 @@
 package tombenpotter.sanguimancy.items;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.IIcon;
-import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import tombenpotter.sanguimancy.Sanguimancy;
 import tombenpotter.sanguimancy.api.soulCorruption.SoulCorruptionHelper;
 
@@ -21,7 +21,7 @@ public class ItemSoulCorruptionTest extends Item {
     public IIcon[] icon = new IIcon[4];
 
     public ItemSoulCorruptionTest() {
-        setCreativeTab(Sanguimancy.tabSanguimancy);
+        setCreativeTab(Sanguimancy.creativeTab);
         setUnlocalizedName(Sanguimancy.modid + ".soulCorruption");
         setHasSubtypes(true);
     }
@@ -96,16 +96,16 @@ public class ItemSoulCorruptionTest extends Item {
                 SoulCorruptionHelper.negateCorruption(player);
             }
             if (stack.getItemDamage() == 3) {
-                player.addChatComponentMessage(new ChatComponentText(StatCollector.translateToLocal("chat.Sanguimancy.soul.corruption") + ": " + String.valueOf(SoulCorruptionHelper.getCorruptionLevel(player))));
+                player.sendMessage(new ChatComponentText(I18n.format("chat.Sanguimancy.soul.corruption") + ": " + String.valueOf(SoulCorruptionHelper.getCorruptionLevel(player))));
             }
         }
         return stack;
     }
 
     @Override
-    public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean par4) {
+    public void addInformation(ItemStack stack, EntityPlayer player, List<String> list, boolean par4) {
         if (stack.getItemDamage() == 0 || stack.getItemDamage() == 1 || stack.getItemDamage() == 2) {
-            list.add(StatCollector.translateToLocal("info.Sanguimancy.tooltip.creative.only"));
+            list.add(I18n.format("info.Sanguimancy.tooltip.creative.only"));
         }
     }
 }

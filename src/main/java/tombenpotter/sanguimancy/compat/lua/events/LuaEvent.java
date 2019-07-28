@@ -4,7 +4,7 @@ import dan200.computercraft.api.peripheral.IComputerAccess;
 import li.cil.oc.api.machine.Context;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.fml.common.Optional;
-import tombenpotter.oldsanguimancy.api.tile.TileComputerBase;
+import tombenpotter.sanguimancy.api.tiles.TileComputerBase;
 import tombenpotter.sanguimancy.util.enums.ModList;
 
 public abstract class LuaEvent {

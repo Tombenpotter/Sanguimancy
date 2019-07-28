@@ -1,10 +1,14 @@
 package tombenpotter.sanguimancy.rituals;
 
 import WayofTime.bloodmagic.ConfigHandler;
-import WayofTime.bloodmagic.api.BloodMagicAPI;
-import WayofTime.bloodmagic.api.ritual.*;
-import WayofTime.bloodmagic.api.saving.SoulNetwork;
-import WayofTime.bloodmagic.api.util.helper.NetworkHelper;
+import WayofTime.bloodmagic.api.impl.BloodMagicAPI;
+import WayofTime.bloodmagic.core.data.SoulNetwork;
+import WayofTime.bloodmagic.util.helper.NetworkHelper;
+import WayofTime.bloodmagic.ritual.AreaDescriptor;
+import WayofTime.bloodmagic.ritual.EnumRuneType;
+import WayofTime.bloodmagic.ritual.IMasterRitualStone;
+import WayofTime.bloodmagic.ritual.Ritual;
+import WayofTime.bloodmagic.ritual.RitualComponent;
 import WayofTime.bloodmagic.tile.TileAltar;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -36,7 +40,8 @@ public class RitualDrillOfTheDead extends Ritual {
         setMaximumVolumeAndDistanceOfRange(DAMAGE_RANGE, 0, 15, 15);
     }
 
-    @Override
+    @SuppressWarnings("deprecation")
+	@Override
     public void performRitual(IMasterRitualStone masterRitualStone) {
         World world = masterRitualStone.getWorldObj();
         SoulNetwork network = NetworkHelper.getSoulNetwork(masterRitualStone.getOwner());
@@ -88,7 +93,7 @@ public class RitualDrillOfTheDead extends Ritual {
                     continue;
 
                 if (entity.isEntityAlive() && !(entity instanceof EntityPlayer)) {
-                    if (entity.attackEntityFrom(DamageSource.outOfWorld, entity.getMaxHealth() * 2)) {
+                    if (entity.attackEntityFrom(DamageSource.OUT_OF_WORLD, entity.getMaxHealth() * 2)) {
                         tileAltar.sacrificialDaggerCall(SACRIFICE_AMOUNT, true);
 
                         totalEffects++;
