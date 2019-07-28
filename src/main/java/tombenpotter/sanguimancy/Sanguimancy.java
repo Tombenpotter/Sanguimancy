@@ -48,8 +48,8 @@ public class Sanguimancy {
 
     public static CreativeTabs creativeTab = new CreativeTabs("tab" + modid) {
         @Override
-        public Item getTabIconItem() {
-            return Items.APPLE;
+        public ItemStack getTabIconItem() {
+            return new ItemStack(Items.APPLE);
         }
     };
 
