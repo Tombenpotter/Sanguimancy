@@ -42,7 +42,7 @@ public class TileAltarEmitter extends TileBase implements ITickable {
                         }
 
                         if (overAsked != oldOverAsked)
-                            world.notifyNeighborsOfStateChange(pos, block);
+                            world.notifyNeighborsOfStateChange(pos, block, true);
                     }
                 }
             }

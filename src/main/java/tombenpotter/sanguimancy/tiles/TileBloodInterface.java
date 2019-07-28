@@ -1,7 +1,7 @@
 package tombenpotter.sanguimancy.tiles;
 
-import WayofTime.bloodmagic.api.Constants;
 import WayofTime.bloodmagic.orb.IBloodOrb;
+import WayofTime.bloodmagic.util.Constants;
 import WayofTime.bloodmagic.util.helper.NBTHelper;
 import WayofTime.bloodmagic.util.helper.NetworkHelper;
 import net.minecraft.item.ItemStack;

@@ -8,7 +8,6 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.fluids.Fluid;
-import net.minecraftforge.fluids.FluidContainerRegistry;
 import net.minecraftforge.fluids.FluidTank;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import tombenpotter.sanguimancy.api.tiles.TileBaseSidedInventory;
@@ -99,7 +98,8 @@ public class TileBloodCleaner extends TileBaseSidedInventory implements ITickabl
         return super.hasCapability(capability, facing);
     }
 
-    @Override
+    @SuppressWarnings("unchecked")
+	@Override
     public <T> T getCapability(Capability<T> capability, EnumFacing facing) {
         if (capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY && sidesAllowed.contains(facing)) {
             return (T) tank;

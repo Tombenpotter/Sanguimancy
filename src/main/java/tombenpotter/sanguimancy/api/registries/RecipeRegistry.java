@@ -1,6 +1,6 @@
 package tombenpotter.sanguimancy.api.registries;
 
-import WayofTime.bloodmagic.api.registry.AltarRecipeRegistry;
+import WayofTime.bloodmagic.core.registry.AltarRecipeRegistry;
 import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.item.crafting.IRecipe;
 

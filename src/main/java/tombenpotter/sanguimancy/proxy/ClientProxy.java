@@ -17,9 +17,11 @@ import tombenpotter.sanguimancy.client.particle.EntityColoredFlameFX;
 import tombenpotter.sanguimancy.client.render.*;
 import tombenpotter.sanguimancy.entity.EntityChickenMinion;
 import tombenpotter.sanguimancy.registry.BlocksRegistry;
+import tombenpotter.sanguimancy.tiles.TileItemSNPart;
 import tombenpotter.sanguimancy.tiles.TileAltarDiviner;
 import tombenpotter.sanguimancy.tiles.TileAltarManipulator;
 import tombenpotter.sanguimancy.tiles.TileBloodInterface;
+import tombenpotter.sanguimancy.tiles.TileCorruptionCrystallizer;
 import tombenpotter.sanguimancy.util.EventHandler;
 
 public class ClientProxy extends CommonProxy {
@@ -31,7 +33,6 @@ public class ClientProxy extends CommonProxy {
     @Override
     public void load() {
         registerRenders();
-        FMLCommonHandler.instance().bus().register(new EventHandler.ClientEventHandler());
         MinecraftForge.EVENT_BUS.register(new EventHandler.ClientEventHandler());
     }
 

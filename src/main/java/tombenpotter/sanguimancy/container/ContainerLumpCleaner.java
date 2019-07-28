@@ -44,7 +44,7 @@ public class ContainerLumpCleaner extends Container {
     @Override
     public ItemStack transferStackInSlot(EntityPlayer par1EntityPlayer, int par2) {
         ItemStack itemstack = null;
-        Slot slot = (Slot) this.inventorySlots.get(par2);
+        Slot slot = this.inventorySlots.get(par2);
         if (slot != null && slot.getHasStack()) {
             ItemStack itemstack1 = slot.getStack();
             itemstack = itemstack1.copy();
@@ -76,7 +76,7 @@ public class ContainerLumpCleaner extends Container {
             if (itemstack1.getCount() == itemstack.getCount()) {
                 return null;
             }
-            slot.onPickupFromSlot(par1EntityPlayer, itemstack1);
+            slot.onTake(par1EntityPlayer, itemstack1);
         }
         return itemstack;
     }

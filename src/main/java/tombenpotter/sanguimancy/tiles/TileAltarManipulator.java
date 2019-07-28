@@ -1,6 +1,6 @@
 package tombenpotter.sanguimancy.tiles;
 
-import WayofTime.bloodmagic.api.registry.AltarRecipeRegistry;
+import WayofTime.bloodmagic.core.registry.AltarRecipeRegistry;
 import WayofTime.bloodmagic.tile.TileAltar;
 import WayofTime.bloodmagic.util.Utils;
 import net.minecraft.block.state.IBlockState;
@@ -53,7 +53,7 @@ public class TileAltarManipulator extends TileBaseSidedInventory implements ITic
             } else if (tile.getStackInSlot(0) != null) {
                 ItemStack altarItem = tile.getStackInSlot(0).copy();
                 if (altarItem.isItemEqual(stack) && altarItem.getCount() < altarItem.getMaxStackSize()) {
-                    tile.getStackInSlot(0).stackSize += 1;
+                    tile.getStackInSlot(0).grow(1);
                     getInventory(null).extractItem(0, 1, false);
 
                     world.notifyBlockUpdate(pos, state, state, 3);
