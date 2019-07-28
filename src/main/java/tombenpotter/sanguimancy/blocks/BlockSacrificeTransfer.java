@@ -1,6 +1,7 @@
 package tombenpotter.sanguimancy.blocks;
 
 import WayofTime.bloodmagic.core.data.SoulNetwork;
+import WayofTime.bloodmagic.core.data.SoulTicket;
 import WayofTime.bloodmagic.util.helper.NetworkHelper;
 import WayofTime.bloodmagic.util.helper.PlayerHelper;
 import net.minecraft.block.BlockContainer;
@@ -98,7 +99,7 @@ public class BlockSacrificeTransfer extends BlockContainer {
 
                 if (!uuid.equals("nothing")) {
                     SoulNetwork network = NetworkHelper.getSoulNetwork(uuid);
-                    network.add(stack.getTagCompound().getInteger("bloodStolen"), Integer.MAX_VALUE);
+                    network.add(new SoulTicket(stack.getTagCompound().getInteger("bloodStolen")), Integer.MAX_VALUE);
                     player.setFire(120);
                     tile.getInventory(null).extractItem(0, 1, false);
                 }
