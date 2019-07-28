@@ -1,9 +1,9 @@
 package tombenpotter.sanguimancy.tiles;
 
 import WayofTime.bloodmagic.api.Constants;
-import WayofTime.bloodmagic.api.orb.IBloodOrb;
-import WayofTime.bloodmagic.api.util.helper.NBTHelper;
-import WayofTime.bloodmagic.api.util.helper.NetworkHelper;
+import WayofTime.bloodmagic.orb.IBloodOrb;
+import WayofTime.bloodmagic.util.helper.NBTHelper;
+import WayofTime.bloodmagic.util.helper.NetworkHelper;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ITickable;
@@ -32,11 +32,6 @@ public class TileBloodInterface extends TileComputerBase implements ITickable {
         this.addMethod(new LuaGetLifeEssence());
         this.addMethod(new LuaGetOrbMax());
         this.addMethod(new LuaGetOwner());
-    }
-
-    private void triggerUpdate() {
-        if (!world.isRemote)
-            world.notifyBlockUpdate(pos, world.getBlockState(pos), world.getBlockState(pos), 3);
     }
 
     private ItemStack getOrb() {
