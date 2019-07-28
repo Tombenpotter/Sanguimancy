@@ -4,16 +4,17 @@ package tombenpotter.sanguimancy.items;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.NonNullList;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import tombenpotter.sanguimancy.Sanguimancy;
 
 import java.util.ArrayList;
-import java.util.List;
+
+import javax.annotation.Nonnull;
 
 public class ItemResource extends Item {
-
-    ArrayList<String> namesList = new ArrayList<String>();
+    ArrayList<String> namesList = new ArrayList<>();
 
     public ItemResource() {
         setCreativeTab(Sanguimancy.creativeTab);
@@ -27,16 +28,18 @@ public class ItemResource extends Item {
         namesList.add(4, "manipulatorUpgrade");
     }
 
-
+    @Nonnull
     @Override
     public String getUnlocalizedName(ItemStack stack) {
         String name = namesList.get(stack.getItemDamage());
         return getUnlocalizedName() + "." + name;
     }
+    
+    @Override
     @SideOnly(Side.CLIENT)
-    public void getSubItems(Item item, CreativeTabs par2CreativeTabs, List list) {
+    public void getSubItems(@Nonnull CreativeTabs tab, @Nonnull NonNullList<ItemStack> items) {
         for (int i = 0; i < namesList.size(); i++) {
-            list.add(new ItemStack(this, 1, i));
+            items.add(new ItemStack(this, 1, i));
         }
     }
 }

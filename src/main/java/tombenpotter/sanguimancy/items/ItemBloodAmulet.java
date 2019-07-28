@@ -4,6 +4,7 @@ import WayofTime.bloodmagic.block.BlockLifeEssence;
 import WayofTime.bloodmagic.tile.TileBloodTank;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.resources.I18n;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -11,6 +12,7 @@ import net.minecraft.init.MobEffects;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.PotionEffect;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
@@ -18,7 +20,8 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fluids.Fluid;
-import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.FluidActionResult;
+import net.minecraftforge.fluids.FluidUtil;
 import net.minecraftforge.fluids.capability.ItemFluidContainer;
 import net.minecraftforge.fluids.capability.templates.FluidHandlerItemStack;
 import net.minecraftforge.fml.relauncher.Side;
@@ -27,6 +30,9 @@ import tombenpotter.sanguimancy.Sanguimancy;
 import tombenpotter.sanguimancy.util.RandomUtils;
 
 import java.util.List;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 public class ItemBloodAmulet extends ItemFluidContainer {
 
@@ -61,16 +67,14 @@ public class ItemBloodAmulet extends ItemFluidContainer {
         }
     }
 
+    @Nonnull
     @Override
     public EnumActionResult onItemUse(EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
-        if (world.getTileEntity(pos) != null && world.getTileEntity(pos) instanceof TileBloodTank) {
-            TileBloodTank tile = (TileBloodTank) world.getTileEntity(pos);
-            if (tile.tank.getFluid() != null && tile.tank.getFluid().getFluid() == BlockLifeEssence.getLifeEssence()) {
-                tile.drain(null, Fluid.BUCKET_VOLUME, true);
-
-                FluidHandlerItemStack handler = new FluidHandlerItemStack(player.getHeldItem(EnumHand.MAIN_HAND), capacity);
-                handler.fill(new FluidStack(BlockLifeEssence.getLifeEssence(), Fluid.BUCKET_VOLUME), true);
-                return EnumActionResult.SUCCESS;
+        TileEntity tmp = world.getTileEntity(pos);
+        if (tmp instanceof TileBloodTank) {
+        	TileBloodTank tile = (TileBloodTank) tmp;
+        	if (tile.getTank().getFluid() != null && tile.getTank().getFluid().getFluid() == BlockLifeEssence.getLifeEssence()) {
+        		return FluidUtil.tryFillContainer(player.getHeldItem(hand), tile.getTank(), Fluid.BUCKET_VOLUME, player, true) != FluidActionResult.FAILURE ? EnumActionResult.SUCCESS : EnumActionResult.FAIL;
             }
         }
         return EnumActionResult.FAIL;
@@ -78,15 +82,15 @@ public class ItemBloodAmulet extends ItemFluidContainer {
 
     @SideOnly(Side.CLIENT)
     @Override
-    public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean p_77624_4_) {
+    public void addInformation(ItemStack stack, @Nullable World world, List<String> tooltip, ITooltipFlag flag) {
         if (stack.hasTagCompound()) {
             if (!GuiScreen.isShiftKeyDown())
-                list.add(I18n.format("info.Sanguimancy.tooltip.shift.info"));
+                tooltip.add(I18n.format("info.Sanguimancy.tooltip.shift.info"));
             else {
                 NBTTagCompound tag = stack.getTagCompound().getCompoundTag("tank");
                 if (stack.hasTagCompound() && tag.getString("FluidName") != "") {
-                    list.add(I18n.format("info.Sanguimancy.tooltip.fluid") + ": " + RandomUtils.capitalizeFirstLetter(tag.getString("FluidName")));
-                    list.add(I18n.format("info.Sanguimancy.tooltip.amount") + ": " + tag.getInteger("Amount") + "/" + capacity + "mB");
+                    tooltip.add(I18n.format("info.Sanguimancy.tooltip.fluid") + ": " + RandomUtils.capitalizeFirstLetter(tag.getString("FluidName")));
+                    tooltip.add(I18n.format("info.Sanguimancy.tooltip.amount") + ": " + tag.getInteger("Amount") + "/" + capacity + "mB");
                 }
             }
         }
