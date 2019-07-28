@@ -1,6 +1,7 @@
 package tombenpotter.sanguimancy.rituals;
 
-import WayofTime.alchemicalWizardry.ModBlocks;
+import WayofTime.bloodmagic.altar.AltarComponent;
+import WayofTime.bloodmagic.core.RegistrarBloodMagicBlocks;
 import WayofTime.bloodmagic.ritual.IMasterRitualStone;
 import WayofTime.bloodmagic.ritual.RitualComponent;
 import WayofTime.bloodmagic.ritual.RitualEffect;
@@ -22,13 +23,14 @@ import tombenpotter.sanguimancy.api.objects.BlockAndMetadata;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 public class RitualAltarBuilder extends RitualEffect {
 
     @Override
     public void performEffect(IMasterRitualStone ritualStone) {
-        String owner = ritualStone.getOwner();
-        World world = ritualStone.getWorld();
+        UUID owner = ritualStone.getOwner();
+        World world = ritualStone.getWorldObj();
         int x = ritualStone.getXCoord();
         int y = ritualStone.getYCoord();
         int z = ritualStone.getZCoord();
@@ -52,9 +54,9 @@ public class RitualAltarBuilder extends RitualEffect {
         } else {
             if (world.getTotalWorldTime() % 15 == 0) {
                 if (world.getBlock(x, y + 2, z).isReplaceable(world, x, y + 2, z) && hasItem(tileEntity, Item.getItemFromBlock(ModBlocks.blockAltar), 0)) {
-                    world.setBlock(x, y + 2, z, ModBlocks.blockAltar);
-                    consumeItem(tileEntity, Item.getItemFromBlock(ModBlocks.blockAltar), 0);
-                    world.addWeatherEffect(new EntityLightningBolt(world, x, y + 2, z));
+                    world.setBlock(x, y + 2, z, RegistrarBloodMagicBlocks.ALTAR);
+                    consumeItem(tileEntity, Item.getItemFromBlock(RegistrarBloodMagicBlocks.ALTAR), 0);
+                    world.addWeatherEffect(new EntityLightningBolt(world, x, y + 2, z, false));
                     SoulNetworkHandler.syphonFromNetwork(owner, getCostPerRefresh());
                 }
                 for (int i = 2; i <= UpgradedAltars.highestAltar; i++) {
@@ -65,7 +67,7 @@ public class RitualAltarBuilder extends RitualEffect {
                             continue;
                         }
                         if (!altarComponent.isBloodRune()) {
-                            if (altarComponent.getBlock() == Blocks.stonebrick) {
+                            if (altarComponent.getBlock() == Blocks.STONEBRICK) {
                                 BlockAndMetadata blockAndMetadata = getMundaneBlock(tileEntity);
                                 if (blockAndMetadata != null) {
                                     world.setBlock(x + altarComponent.getX(), y + 2 + altarComponent.getY(), z + altarComponent.getZ(), blockAndMetadata.block, blockAndMetadata.metadata, 3);
@@ -73,7 +75,7 @@ public class RitualAltarBuilder extends RitualEffect {
                                     SoulNetworkHandler.syphonFromNetwork(owner, getCostPerRefresh());
                                     break;
                                 }
-                            } else if (altarComponent.getBlock() != Blocks.stonebrick && hasItem(tileEntity, Item.getItemFromBlock(altarComponent.getBlock()), altarComponent.getMetadata())) {
+                            } else if (altarComponent.getBlock() != Blocks.STONEBRICK && hasItem(tileEntity, Item.getItemFromBlock(altarComponent.getBlock()), altarComponent.getMetadata())) {
                                 world.setBlock(x + altarComponent.getX(), y + 2 + altarComponent.getY(), z + altarComponent.getZ(), altarComponent.getBlock(), altarComponent.getMetadata(), 3);
                                 consumeItem(tileEntity, Item.getItemFromBlock(altarComponent.getBlock()), altarComponent.getMetadata());
                                 world.addWeatherEffect(new EntityLightningBolt(world, x + altarComponent.getX(), y + 2 + altarComponent.getY(), z + altarComponent.getZ()));
@@ -177,7 +179,7 @@ public class RitualAltarBuilder extends RitualEffect {
         for (int i = 0; i < inv.getSizeInventory(); i++) {
             if (inv.getStackInSlot(i) != null && inv.getStackInSlot(i).getCount() > 0 && inv.getStackInSlot(i).getItem() instanceof ItemBlock && !(Block.getBlockFromItem(inv.getStackInSlot(i).getItem()) instanceof BloodRune)) {
                 Block block = Block.getBlockFromItem(inv.getStackInSlot(i).getItem());
-                if (block != null && block != Blocks.GLOWSTONE && block != ModBlocks.largeBloodStoneBrick && block != ModBlocks.blockCrystal) {
+                if (block != null && block != Blocks.GLOWSTONE && block != RegistrarBloodMagicBlocks.DECORATIVE_BRICK && block != RegistrarBloodMagicBlocks.DEMON_CRYSTAL) {
                     BlockAndMetadata blockAndMetadata = new BlockAndMetadata(block, inv.getStackInSlot(i).getItemDamage());
                     inv.decrStackSize(i, 1);
                     return blockAndMetadata;

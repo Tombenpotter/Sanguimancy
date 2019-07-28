@@ -1,7 +1,9 @@
 package tombenpotter.sanguimancy.rituals;
 
-import WayofTime.alchemicalWizardry.ModBlocks;
+import WayofTime.bloodmagic.core.RegistrarBloodMagicBlocks;
 import WayofTime.bloodmagic.ritual.*;
+import WayofTime.bloodmagic.ritual.portal.LocationsHandler;
+import WayofTime.bloodmagic.teleport.PortalLocation;
 import WayofTime.alchemicalWizardry.api.soulNetwork.SoulNetworkHandler;
 import WayofTime.alchemicalWizardry.common.spell.complex.effect.SpellHelper;
 import net.minecraft.block.Block;
@@ -10,18 +12,17 @@ import net.minecraft.world.World;
 import tombenpotter.sanguimancy.registry.BlocksRegistry;
 import tombenpotter.sanguimancy.tiles.TileDimensionalPortal;
 import tombenpotter.sanguimancy.util.RandomUtils;
-import tombenpotter.sanguimancy.util.singletons.LocationsHandler;
-import tombenpotter.sanguimancy.util.teleporting.PortalLocation;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 public class RitualPortal extends RitualEffect {
 
     @Override
     public boolean startRitual(IMasterRitualStone ritualStone, EntityPlayer player) {
-        String owner = ritualStone.getOwner();
-        World world = ritualStone.getWorld();
+        UUID owner = ritualStone.getOwner();
+        World world = ritualStone.getWorldObj();
         int x = ritualStone.getXCoord();
         int y = ritualStone.getYCoord();
         int z = ritualStone.getZCoord();
@@ -33,37 +34,37 @@ public class RitualPortal extends RitualEffect {
             if (direction == 1 || direction == 3) {
                 for (int i = x - 3; i <= x + 3; i++) {
                     for (int k = z - 2; k <= z + 2; k++) {
-                        if (!world.isAirBlock(i, y, k) && !(world.getBlock(i, y, k) == ModBlocks.ritualStone)) {
-                            name = RandomUtils.addStringToEnd(name, Block.blockRegistry.getNameForObject(world.getBlock(i, y, k)) + String.valueOf(world.getBlockMetadata(i, y, k)));
+                        if (!world.isAirBlock(i, y, k) && !(world.getBlock(i, y, k) == RegistrarBloodMagicBlocks.RITUAL_STONE)) {
+                            name = RandomUtils.addStringToEnd(name, Block.REGISTRY.getNameForObject(world.getBlock(i, y, k)) + String.valueOf(world.getBlockMetadata(i, y, k)));
                         }
                     }
                 }
                 for (int j = y + 1; j <= y + 5; j++) {
-                    if (!world.isAirBlock(x - 3, j, z) && !(world.getBlock(x - 3, j, z) == ModBlocks.ritualStone)) {
-                        name = RandomUtils.addStringToEnd(name, Block.blockRegistry.getNameForObject(world.getBlock(x - 3, j, z)) + String.valueOf(world.getBlockMetadata(x - 3, j, z)));
+                    if (!world.isAirBlock(x - 3, j, z) && !(world.getBlock(x - 3, j, z) == RegistrarBloodMagicBlocks.RITUAL_STONE)) {
+                        name = RandomUtils.addStringToEnd(name, Block.REGISTRY.getNameForObject(world.getBlock(x - 3, j, z)) + String.valueOf(world.getBlockMetadata(x - 3, j, z)));
                     }
                 }
                 for (int j = y + 1; j <= y + 5; j++) {
-                    if (!world.isAirBlock(x + 3, j, z) && !(world.getBlock(x + 3, j, z) == ModBlocks.ritualStone)) {
-                        name = RandomUtils.addStringToEnd(name, Block.blockRegistry.getNameForObject(world.getBlock(x + 3, j, z)) + String.valueOf(world.getBlockMetadata(x + 3, j, z)));
+                    if (!world.isAirBlock(x + 3, j, z) && !(world.getBlock(x + 3, j, z) == RegistrarBloodMagicBlocks.RITUAL_STONE)) {
+                        name = RandomUtils.addStringToEnd(name, Block.REGISTRY.getNameForObject(world.getBlock(x + 3, j, z)) + String.valueOf(world.getBlockMetadata(x + 3, j, z)));
                     }
                 }
             } else if (direction == 2 || direction == 4) {
                 for (int k = z - 3; k <= z + 3; k++) {
                     for (int i = x - 2; i <= x + 2; i++) {
-                        if (!world.isAirBlock(i, y, k) && !(world.getBlock(i, y, k) == ModBlocks.ritualStone)) {
-                            name = RandomUtils.addStringToEnd(name, Block.blockRegistry.getNameForObject(world.getBlock(i, y, k)) + String.valueOf(world.getBlockMetadata(i, y, k)));
+                        if (!world.isAirBlock(i, y, k) && !(world.getBlock(i, y, k) == RegistrarBloodMagicBlocks.RITUAL_STONE)) {
+                            name = RandomUtils.addStringToEnd(name, Block.REGISTRY.getNameForObject(world.getBlock(i, y, k)) + String.valueOf(world.getBlockMetadata(i, y, k)));
                         }
                     }
                 }
                 for (int j = y + 1; j <= y + 5; j++) {
-                    if (!world.isAirBlock(x, j, z - 3) && !(world.getBlock(x, j, z - 3) == ModBlocks.ritualStone)) {
-                        name = RandomUtils.addStringToEnd(name, Block.blockRegistry.getNameForObject(world.getBlock(x, j, z - 3)) + String.valueOf(world.getBlockMetadata(x, j, z - 3)));
+                    if (!world.isAirBlock(x, j, z - 3) && !(world.getBlock(x, j, z - 3) == RegistrarBloodMagicBlocks.RITUAL_STONE)) {
+                        name = RandomUtils.addStringToEnd(name, Block.REGISTRY.getNameForObject(world.getBlock(x, j, z - 3)) + String.valueOf(world.getBlockMetadata(x, j, z - 3)));
                     }
                 }
                 for (int j = y + 1; j <= y + 5; j++) {
-                    if (!world.isAirBlock(x, j, z + 3) && !(world.getBlock(x, j, z + 3) == ModBlocks.ritualStone)) {
-                        name = RandomUtils.addStringToEnd(name, Block.blockRegistry.getNameForObject(world.getBlock(x, j, z + 3)) + String.valueOf(world.getBlockMetadata(x, j, z + 3)));
+                    if (!world.isAirBlock(x, j, z + 3) && !(world.getBlock(x, j, z + 3) == RegistrarBloodMagicBlocks.RITUAL_STONE)) {
+                        name = RandomUtils.addStringToEnd(name, Block.REGISTRY.getNameForObject(world.getBlock(x, j, z + 3)) + String.valueOf(world.getBlockMetadata(x, j, z + 3)));
                     }
                 }
             }
@@ -79,8 +80,8 @@ public class RitualPortal extends RitualEffect {
 
     @Override
     public void performEffect(IMasterRitualStone ritualStone) {
-        String owner = ritualStone.getOwner();
-        World world = ritualStone.getWorld();
+        UUID owner = ritualStone.getOwner();
+        World world = ritualStone.getWorldObj();
         int x = ritualStone.getXCoord();
         int y = ritualStone.getYCoord();
         int z = ritualStone.getZCoord();
@@ -129,7 +130,7 @@ public class RitualPortal extends RitualEffect {
 
     @Override
     public void onRitualBroken(IMasterRitualStone ritualStone, RitualBreakMethod method) {
-        World world = ritualStone.getWorld();
+        World world = ritualStone.getWorldObj();
         int x = ritualStone.getXCoord();
         int y = ritualStone.getYCoord();
         int z = ritualStone.getZCoord();
@@ -164,7 +165,7 @@ public class RitualPortal extends RitualEffect {
 
     @Override
     public List<RitualComponent> getRitualComponentList() {
-        ArrayList<RitualComponent> portalRitual = new ArrayList();
+        ArrayList<RitualComponent> portalRitual = new ArrayList<RitualComponent>();
         portalRitual.add(new RitualComponent(1, 0, 0, RitualComponent.AIR));
         portalRitual.add(new RitualComponent(2, 0, 0, RitualComponent.WATER));
         portalRitual.add(new RitualComponent(-1, 0, 0, RitualComponent.FIRE));

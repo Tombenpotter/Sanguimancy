@@ -16,6 +16,7 @@ import tombenpotter.sanguimancy.util.RitualUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 public class RitualFelling extends RitualEffect {
 
@@ -23,9 +24,9 @@ public class RitualFelling extends RitualEffect {
 
     @Override
     public void performEffect(IMasterRitualStone ritualStone) {
-        String owner = ritualStone.getOwner();
+        UUID owner = ritualStone.getOwner();
         int currentEssence = SoulNetworkHandler.getCurrentEssence(owner);
-        World world = ritualStone.getWorld();
+        World world = ritualStone.getWorldObj();
         if (world.getWorldTime() % 10 != 5) {
             return;
         }
@@ -105,7 +106,7 @@ public class RitualFelling extends RitualEffect {
 
     @Override
     public List<RitualComponent> getRitualComponentList() {
-        ArrayList<RitualComponent> fellingRitual = new ArrayList();
+        ArrayList<RitualComponent> fellingRitual = new ArrayList<RitualComponent>();
         fellingRitual.add(new RitualComponent(1, 0, 0, RitualComponent.EARTH));
         fellingRitual.add(new RitualComponent(-1, 0, 0, RitualComponent.EARTH));
         fellingRitual.add(new RitualComponent(0, 0, 1, RitualComponent.EARTH));

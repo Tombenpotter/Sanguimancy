@@ -13,11 +13,12 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.IFluidHandler;
+import net.minecraftforge.fluids.capability.IFluidHandler;
 import tombenpotter.sanguimancy.util.RitualUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 public class RitualPump extends RitualEffect {
 
@@ -25,9 +26,9 @@ public class RitualPump extends RitualEffect {
 
     @Override
     public void performEffect(IMasterRitualStone ritualStone) {
-        String owner = ritualStone.getOwner();
+        UUID owner = ritualStone.getOwner();
         int currentEssence = SoulNetworkHandler.getCurrentEssence(owner);
-        World world = ritualStone.getWorld();
+        World world = ritualStone.getWorldObj();
         if (world.getWorldTime() % 10 != 5) {
             return;
         }
@@ -80,7 +81,7 @@ public class RitualPump extends RitualEffect {
 
     @Override
     public List<RitualComponent> getRitualComponentList() {
-        ArrayList<RitualComponent> pumpRitual = new ArrayList();
+        ArrayList<RitualComponent> pumpRitual = new ArrayList<RitualComponent>();
         pumpRitual.add(new RitualComponent(1, 0, 1, RitualComponent.WATER));
         pumpRitual.add(new RitualComponent(-1, 0, 1, RitualComponent.FIRE));
         pumpRitual.add(new RitualComponent(1, 0, -1, RitualComponent.EARTH));

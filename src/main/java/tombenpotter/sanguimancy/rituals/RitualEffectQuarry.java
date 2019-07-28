@@ -1,16 +1,30 @@
 package tombenpotter.sanguimancy.rituals;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
+
+import WayofTime.bloodmagic.core.RegistrarBloodMagicBlocks;
 import WayofTime.bloodmagic.ritual.IMasterRitualStone;
+import WayofTime.bloodmagic.ritual.RitualComponent;
+import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
+import net.minecraft.inventory.IInventory;
+import net.minecraft.server.MinecraftServer;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.world.World;
+import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.fluids.FluidRegistry;
 
 public class RitualEffectQuarry {
     public static final int reagentDrain = 1000;
 
     @Override
     public boolean startRitual(IMasterRitualStone ritualStone, EntityPlayer player) {
-        String owner = ritualStone.getOwner();
+        UUID owner = ritualStone.getOwner();
         int currentEssence = SoulNetworkHandler.getCurrentEssence(owner);
-        World world = ritualStone.getWorld();
+        World world = ritualStone.getWorldObj();
         int x = ritualStone.getXCoord();
         int y = ritualStone.getYCoord();
         int z = ritualStone.getZCoord();
@@ -52,7 +66,7 @@ public class RitualEffectQuarry {
                 Block block = currentCoord.getBlock(world);
                 Fluid fluid = FluidRegistry.lookupFluidForBlock(block);
                 if (fluid != null && FluidRegistry.isFluidRegistered(fluid)) {
-                    world.setBlock(currentCoord.x, currentCoord.y, currentCoord.z, Blocks.stone, 0, 2);
+                    world.setBlock(currentCoord.x, currentCoord.y, currentCoord.z, Blocks.STONE, 0, 2);
                     SoulNetworkHandler.syphonFromNetwork(owner, getCostPerRefresh());
                 }
             }
@@ -61,7 +75,7 @@ public class RitualEffectQuarry {
                 BlockCoord currentCoord = iterator.next();
                 Block block = currentCoord.getBlock(world);
                 MinecraftServer server = MinecraftServer.getServer();
-                if (!server.isBlockProtected(world, currentCoord.x, currentCoord.y, currentCoord.z, SpellHelper.getPlayerForUsername(owner)) && !(block == ModBlocks.blockMasterStone) && !(block == ModBlocks.ritualStone) && !(world.getTileEntity(currentCoord.x, currentCoord.y, currentCoord.z) instanceof IInventory) && !world.isAirBlock(currentCoord.x, currentCoord.y, currentCoord.z) && block.getBlockHardness(world, currentCoord.x, currentCoord.y, currentCoord.z) >= 0) {
+                if (!server.isBlockProtected(world, currentCoord.x, currentCoord.y, currentCoord.z, SpellHelper.getPlayerForUsername(owner)) && !(block == RegistrarBloodMagicBlocks.blockMasterStone) && !(block == RegistrarBloodMagicBlocks.RITUAL_STONE) && !(world.getTileEntity(currentCoord.x, currentCoord.y, currentCoord.z) instanceof IInventory) && !world.isAirBlock(currentCoord.x, currentCoord.y, currentCoord.z) && block.getBlockHardness(world, currentCoord.x, currentCoord.y, currentCoord.z) >= 0) {
                     if (hasCrystallos && hasTenebrae) {
                         RitualUtils.silkPlaceInInventory(block, world, currentCoord.x, currentCoord.y, currentCoord.z, tileEntity);
                         this.canDrainReagent(ritualStone, ReagentRegistry.crystallosReagent, reagentDrain, true);
@@ -74,7 +88,7 @@ public class RitualEffectQuarry {
                         RitualUtils.placeInInventory(block, world, currentCoord.x, currentCoord.y, currentCoord.z, tileEntity);
                         this.canDrainReagent(ritualStone, ReagentRegistry.tenebraeReagent, reagentDrain, true);
                     }
-                    world.setBlock(currentCoord.x, currentCoord.y, currentCoord.z, Blocks.air, 0, 2);
+                    world.setBlock(currentCoord.x, currentCoord.y, currentCoord.z, Blocks.AIR, 0, 2);
                     SoulNetworkHandler.syphonFromNetwork(owner, getCostPerRefresh());
                 }
             }
@@ -94,7 +108,7 @@ public class RitualEffectQuarry {
 
     @Override
     public List<RitualComponent> getRitualComponentList() {
-        ArrayList<RitualComponent> quarryRitual = new ArrayList();
+        ArrayList<RitualComponent> quarryRitual = new ArrayList<RitualComponent>();
         quarryRitual.add(new RitualComponent(1, 0, 1, RitualComponent.EARTH));
         quarryRitual.add(new RitualComponent(-1, 0, 1, RitualComponent.EARTH));
         quarryRitual.add(new RitualComponent(1, 0, -1, RitualComponent.EARTH));

@@ -5,8 +5,8 @@ import WayofTime.bloodmagic.ritual.IMasterRitualStone;
 import WayofTime.bloodmagic.ritual.Ritual;
 import WayofTime.bloodmagic.ritual.RitualComponent;
 import WayofTime.bloodmagic.core.data.SoulNetwork;
+import WayofTime.bloodmagic.core.RegistrarBloodMagicBlocks;
 import WayofTime.bloodmagic.util.helper.NetworkHelper;
-import WayofTime.bloodmagic.registry.ModBlocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import tombenpotter.sanguimancy.Sanguimancy;
@@ -34,7 +34,7 @@ public class RitualLighting extends Ritual {
         BlockPos pos = masterRitualStone.getBlockPos().add(world.rand.nextInt(15) - world.rand.nextInt(15), world.rand.nextInt(15) - world.rand.nextInt(15), world.rand.nextInt(15) - world.rand.nextInt(15));
 
         if (world.isAirBlock(pos) && world.getLight(pos) < 10) {
-            world.setBlockState(pos, ModBlocks.bloodLight.getDefaultState());
+            world.setBlockState(pos, RegistrarBloodMagicBlocks.BLOOD_LIGHT.getDefaultState());
             network.syphon(getRefreshCost());
         }
     }

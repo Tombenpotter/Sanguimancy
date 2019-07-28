@@ -21,6 +21,7 @@ import tombenpotter.sanguimancy.Sanguimancy;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Consumer;
 
 public class RitualDrillOfTheDead extends Ritual {
 
@@ -133,4 +134,10 @@ public class RitualDrillOfTheDead extends Ritual {
     public Ritual getNewCopy() {
         return new RitualDrillOfTheDead();
     }
+
+	@Override
+	public void gatherComponents(Consumer<RitualComponent> arg0) {
+		// TODO Auto-generated method stub
+		
+	}
 }

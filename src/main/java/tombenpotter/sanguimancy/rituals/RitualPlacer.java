@@ -14,13 +14,14 @@ import net.minecraft.world.World;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 public class RitualPlacer extends RitualEffect {
 
     @Override
     public void performEffect(IMasterRitualStone ritualStone) {
-        String owner = ritualStone.getOwner();
-        World world = ritualStone.getWorld();
+        UUID owner = ritualStone.getOwner();
+        World world = ritualStone.getWorldObj();
         int x = ritualStone.getXCoord();
         int y = ritualStone.getYCoord();
         int z = ritualStone.getZCoord();
@@ -45,7 +46,7 @@ public class RitualPlacer extends RitualEffect {
             for (int i = x - 2; i <= x + 2; i++) {
                 for (int k = z - 2; k <= z + 2; k++) {
                     for (int inv = 0; inv < tileEntity.getSizeInventory(); inv++) {
-                        if (world.getBlock(i, y, k).isReplaceable(world, i, y + 1, k) && tileEntity.getStackInSlot(inv) != null && tileEntity.getStackInSlot(inv).stackSize != 0) {
+                        if (world.getBlock(i, y, k).isReplaceable(world, i, y + 1, k) && tileEntity.getStackInSlot(inv) != null && tileEntity.getStackInSlot(inv).getCount() != 0) {
                             if (tileEntity.getStackInSlot(inv).getItem() instanceof ItemBlock && world.getBlock(i, y - 1, k) != null) {
                                 world.setBlock(i, y, k, Block.getBlockFromItem(tileEntity.getStackInSlot(inv).getItem()), tileEntity.getStackInSlot(inv).getItemDamage(), 3);
                                 tileEntity.decrStackSize(inv, 1);
