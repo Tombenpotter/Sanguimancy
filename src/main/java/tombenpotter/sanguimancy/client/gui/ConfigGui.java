@@ -1,6 +1,5 @@
 package tombenpotter.sanguimancy.client.gui;
 
-
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.resources.I18n;
 import net.minecraftforge.common.config.ConfigCategory;

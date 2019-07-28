@@ -7,10 +7,13 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.client.FMLClientHandler;
 import org.lwjgl.opengl.GL11;
+
+import tombenpotter.sanguimancy.Sanguimancy;
 import tombenpotter.sanguimancy.client.model.ModelCorruptionCrystallizer;
+import tombenpotter.sanguimancy.tiles.TileCorruptionCrystallizer;
 import tombenpotter.sanguimancy.util.SanguimancyItemStacks;
 
-public class RenderCorruptionCrystallizer extends TileEntitySpecialRenderer implements IItemRenderer {
+public class RenderCorruptionCrystallizer extends TileEntitySpecialRenderer<TileCorruptionCrystallizer> {
 
     public ModelCorruptionCrystallizer model = new ModelCorruptionCrystallizer();
     public ResourceLocation texture = new ResourceLocation(Sanguimancy.texturePath + ":textures/blocks/CorruptionCrystallizer.png");
