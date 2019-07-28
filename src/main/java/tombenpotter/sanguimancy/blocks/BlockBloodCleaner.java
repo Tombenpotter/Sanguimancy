@@ -1,6 +1,5 @@
 package tombenpotter.sanguimancy.blocks;
 
-import WayofTime.bloodmagic.block.BlockLifeEssence;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.BlockHorizontal;
 import net.minecraft.block.material.Material;
@@ -15,12 +14,14 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.Fluid;
-import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.FluidActionResult;
+import net.minecraftforge.fluids.FluidUtil;
+import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import tombenpotter.sanguimancy.Sanguimancy;
 import tombenpotter.sanguimancy.tiles.TileBloodCleaner;
 import tombenpotter.sanguimancy.util.RandomUtils;
 
-import javax.annotation.Nullable;
+import javax.annotation.Nonnull;
 
 public class BlockBloodCleaner extends BlockContainer {
 
@@ -44,7 +45,7 @@ public class BlockBloodCleaner extends BlockContainer {
             IBlockState iblockstate1 = worldIn.getBlockState(pos.south());
             IBlockState iblockstate2 = worldIn.getBlockState(pos.west());
             IBlockState iblockstate3 = worldIn.getBlockState(pos.east());
-            EnumFacing enumfacing = (EnumFacing) state.getValue(FACING);
+            EnumFacing enumfacing = state.getValue(FACING);
 
             if (enumfacing == EnumFacing.NORTH && iblockstate.isFullBlock() && !iblockstate1.isFullBlock()) {
                 enumfacing = EnumFacing.SOUTH;
@@ -60,18 +61,19 @@ public class BlockBloodCleaner extends BlockContainer {
         }
     }
 
+    @Nonnull
     @Override
     public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
         return this.getDefaultState().withProperty(FACING, placer.getHorizontalFacing().getOpposite());
     }
 
     @Override
-    public TileEntity createNewTileEntity(World world, int meta) {
+    public TileEntity createNewTileEntity(@Nonnull World world, int meta) {
         return new TileBloodCleaner();
     }
 
     @Override
-    public void breakBlock(World world, BlockPos pos, IBlockState state) {
+    public void breakBlock(World world, @Nonnull BlockPos pos, @Nonnull IBlockState state) {
         RandomUtils.dropItems(world, pos);
 
         super.breakBlock(world, pos, state);
@@ -80,18 +82,27 @@ public class BlockBloodCleaner extends BlockContainer {
     @Override
     public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
         TileBloodCleaner tile = (TileBloodCleaner) world.getTileEntity(pos);
-        if (RandomUtils.fillHandlerWithContainer(world, tile.getTank(null), player)) {
-            tile.markForUpdate();
-            return true;
+        ItemStack heldItem = player.getHeldItem(EnumHand.MAIN_HAND);
+        
+        if (tile == null) return true;
+        
+        if (heldItem.hasCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null)) {
+        	if (FluidUtil.tryEmptyContainer(heldItem, tile.getTank(null), Fluid.BUCKET_VOLUME, player, true) != FluidActionResult.FAILURE) {
+        		tile.markForUpdate();
+        		return true;
+        	}
+        	if (FluidUtil.tryFillContainer(heldItem, tile.getTank(null), Fluid.BUCKET_VOLUME, player, true) != FluidActionResult.FAILURE) {
+                tile.markForUpdate();
+                return true;
+            }
         }
-        if (RandomUtils.fillContainerFromHandler(world, tile.getTank(null), player, new FluidStack(BlockLifeEssence.getLifeEssence(), Fluid.BUCKET_VOLUME))) {
-            tile.markForUpdate();
-            return true;
-        }
-        if (FluidContainerRegistry.isContainer(heldItem)) {
-            tile.markForUpdate();
-            return true;
-        }
+        
+//		  Not sure if this is relevant
+//        if (RandomUtils.fillContainerFromHandler(world, tile.getTank(null), player, new FluidStack(BlockLifeEssence.getLifeEssence(), Fluid.BUCKET_VOLUME))) {
+//            tile.markForUpdate();
+//            return true;
+//        }
+
         player.openGui(Sanguimancy.instance, 0, world, pos.getX(), pos.getY(), pos.getZ());
         return true;
     }

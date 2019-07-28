@@ -10,18 +10,17 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import tombenpotter.sanguimancy.Sanguimancy;
 import tombenpotter.sanguimancy.tiles.TileAltarManipulator;
 import tombenpotter.sanguimancy.util.RandomUtils;
 import tombenpotter.sanguimancy.util.SanguimancyItemStacks;
-
-import javax.annotation.Nullable;
 
 public class BlockAltarManipulator extends BlockContainer {
 
     public BlockAltarManipulator(Material material) {
         super(material);
         setHardness(5.0F);
-        setCreativeTab(Sanguimancy.tabSanguimancy);
+        setCreativeTab(Sanguimancy.creativeTab);
     }
 
     @Override

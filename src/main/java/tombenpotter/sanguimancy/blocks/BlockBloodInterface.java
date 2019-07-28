@@ -1,6 +1,6 @@
 package tombenpotter.sanguimancy.blocks;
 
-import WayofTime.bloodmagic.api.orb.IBloodOrb;
+import WayofTime.bloodmagic.orb.IBloodOrb;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
@@ -15,8 +15,6 @@ import net.minecraft.world.World;
 import tombenpotter.sanguimancy.Sanguimancy;
 import tombenpotter.sanguimancy.tiles.TileBloodInterface;
 import tombenpotter.sanguimancy.util.RandomUtils;
-
-import javax.annotation.Nullable;
 
 public class BlockBloodInterface extends BlockContainer {
 
