@@ -6,6 +6,7 @@ import net.minecraft.entity.effect.EntityLightningBolt;
 import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
+import net.minecraft.init.MobEffects;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.server.MinecraftServer;
@@ -91,22 +92,22 @@ public class SoulCorruptionHelper {
         if (player.world.rand.nextInt(5000) == 0) {
             player.world.addWeatherEffect(new EntityLightningBolt(player.world, player.posX, player.posY, player.posZ, true));
             if (player.world.rand.nextInt(10) == 0) {
-                player.addPotionEffect(new PotionEffect(Potion.blindness.id, 20, 0));
+                player.addPotionEffect(new PotionEffect(MobEffects.BLINDNESS, 20, 0));
             }
             if (player.world.rand.nextInt(10) == 0) {
-                player.addPotionEffect(new PotionEffect(Potion.confusion.id, 20, 0));
+                player.addPotionEffect(new PotionEffect(MobEffects.NAUSEA, 20, 0));
             }
             if (player.world.rand.nextInt(10) == 0) {
-                player.addPotionEffect(new PotionEffect(Potion.hunger.id, 20, 0));
+                player.addPotionEffect(new PotionEffect(MobEffects.HUNGER, 20, 0));
             }
             if (player.world.rand.nextInt(10) == 0) {
-                player.addPotionEffect(new PotionEffect(Potion.digSlowdown.id, 20, 0));
+                player.addPotionEffect(new PotionEffect(MobEffects.MINING_FATIGUE, 20, 0));
             }
             if (player.world.rand.nextInt(10) == 0) {
-                player.addPotionEffect(new PotionEffect(Potion.moveSlowdown.id, 20, 0));
+                player.addPotionEffect(new PotionEffect(MobEffects.SLOWNESS, 20, 0));
             }
             if (player.world.rand.nextInt(10) == 0) {
-                player.addPotionEffect(new PotionEffect(Potion.weakness.id, 20, 0));
+                player.addPotionEffect(new PotionEffect(MobEffects.WEAKNESS, 20, 0));
             }
             int i = (int) (player.posX + player.world.rand.nextInt(16) - player.world.rand.nextInt(16));
             int j = (int) (player.posY + player.world.rand.nextInt(16) - player.world.rand.nextInt(16));
@@ -166,7 +167,7 @@ public class SoulCorruptionHelper {
     */
 
     public static void addWither(EntityLivingBase livingBase) {
-        livingBase.addPotionEffect(new PotionEffect(Potion.wither.id, 100));
+        livingBase.addPotionEffect(new PotionEffect(MobEffects.WITHER, 100));
     }
 
     public static void spawnIllusion(EntityPlayer player) {
@@ -188,7 +189,7 @@ public class SoulCorruptionHelper {
 //                    MinecraftServer.getServer().getConfigurationManager().sendChatMsg(new ChatComponentText(String.format(StatCollector.translateToLocal("chat.Sanguimancy.loose.heart"), player.getDisplayName())));
 //                }
                 if (!player.world.isRemote && ConfigHandler.playerMessageWhenCorruptionEffect) {
-                    player.sendMessage(new TextComponentString(I18n.format(StatCollector.translateToLocal("chat.Sanguimancy.loose.heart"), player.getDisplayName())));
+                    player.sendMessage(new TextComponentString(I18n.format("chat.Sanguimancy.loose.heart", player.getDisplayName())));
                 }
             }
         }
