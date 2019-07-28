@@ -1,5 +1,5 @@
 package tombenpotter.sanguimancy.compat.waila;
-
+/*
 import cpw.mods.fml.common.event.FMLInterModComms;
 
 public class WailaCompatRegistry {
@@ -11,3 +11,4 @@ public class WailaCompatRegistry {
         FMLInterModComms.sendMessage("Waila", "register", "tombenpotter.sanguimancy.compat.waila.WailaBloodTank.register");
     }
 }
+*/

@@ -1,5 +1,5 @@
 package tombenpotter.sanguimancy.compat.nei;
-
+/*
 import codechicken.nei.api.API;
 import codechicken.nei.api.IConfigureNEI;
 
@@ -22,3 +22,4 @@ public class NEIConfig implements IConfigureNEI {
         return Sanguimancy.version;
     }
 }
+*/

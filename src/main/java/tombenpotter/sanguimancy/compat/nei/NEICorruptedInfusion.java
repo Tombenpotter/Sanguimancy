@@ -1,5 +1,5 @@
 package tombenpotter.sanguimancy.compat.nei;
-
+/*
 import codechicken.nei.PositionedStack;
 import codechicken.nei.recipe.GuiRecipe;
 import codechicken.nei.recipe.TemplateRecipeHandler;
@@ -177,3 +177,4 @@ public class NEICorruptedInfusion extends TemplateRecipeHandler {
         }
     }
 }
+*/
