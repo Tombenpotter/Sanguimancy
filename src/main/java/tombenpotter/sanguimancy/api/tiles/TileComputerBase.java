@@ -26,9 +26,9 @@ import java.util.Set;
 
 
 @Optional.InterfaceList({
-        @Optional.Interface(iface = "dan200.computercraft.api.peripheral.IPeripheral", modid = ModList.Names.COMPUTERCRAFT),
-        @Optional.Interface(iface = "li.cil.oc.api.network.Environment", modid = ModList.Names.OPENCOMPUTERS),
-        @Optional.Interface(iface = "li.cil.oc.api.network.ManagedPeripheral", modid = ModList.Names.OPENCOMPUTERS)
+	@Optional.Interface(iface = "dan200.computercraft.api.peripheral.IPeripheral", modid = ModList.Names.COMPUTERCRAFT),
+	@Optional.Interface(iface = "li.cil.oc.api.network.Environment", modid = ModList.Names.OPENCOMPUTERS),
+	@Optional.Interface(iface = "li.cil.oc.api.network.ManagedPeripheral", modid = ModList.Names.OPENCOMPUTERS)
 })
 public abstract class TileComputerBase extends TileBaseInventory implements ManagedPeripheral, Environment, IPeripheral, ICustomNBTTag, ITickable {
     protected final String name;
@@ -184,7 +184,7 @@ public abstract class TileComputerBase extends TileBaseInventory implements Mana
             if (node instanceof Component)
                 ((Component) node).remove();
         }
-        this.onInvalidateOrUnload(worldObj, pos, false);
+        this.onInvalidateOrUnload(world, pos, false);
     }
 
     @Override
@@ -193,7 +193,7 @@ public abstract class TileComputerBase extends TileBaseInventory implements Mana
         super.invalidate();
         if (node instanceof Component)
             ((Component) node).remove();
-        this.onInvalidateOrUnload(worldObj, pos, true);
+        this.onInvalidateOrUnload(world, pos, true);
     }
 
     @Optional.Method(modid = ModList.Names.OPENCOMPUTERS)
