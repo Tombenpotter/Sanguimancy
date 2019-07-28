@@ -1,6 +1,5 @@
 package tombenpotter.sanguimancy.network.packets;
 
-
 import io.netty.buffer.ByteBuf;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
@@ -20,8 +19,8 @@ public class PacketBloodInterfaceUpdate implements IMessage {
     }
 
     public PacketBloodInterfaceUpdate(TileBloodInterface tileBloodInterface) {
-        this.pos = tileBloodInterface.pos;
-        ItemStack stack = tileBloodInterface.getStackInSlot(0);
+        this.pos = tileBloodInterface.getPos();
+        ItemStack stack = tileBloodInterface.getInventory(null).getStackInSlot(0);
         if (stack != null) {
             itemName = stack.getItem().getRegistryName();
             itemDamage = stack.getItemDamage();
@@ -30,7 +29,6 @@ public class PacketBloodInterfaceUpdate implements IMessage {
             }
         }
     }
-
 
     @Override
     public void fromBytes(ByteBuf buf) {
