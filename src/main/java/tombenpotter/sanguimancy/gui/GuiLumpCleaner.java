@@ -6,6 +6,8 @@ import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
 import org.lwjgl.opengl.GL11;
+
+import tombenpotter.sanguimancy.Sanguimancy;
 import tombenpotter.sanguimancy.container.ContainerLumpCleaner;
 import tombenpotter.sanguimancy.tiles.TileBloodCleaner;
 
@@ -14,7 +16,6 @@ import java.util.ArrayList;
 public class GuiLumpCleaner extends GuiContainer {
 
     public static final ResourceLocation gui = new ResourceLocation(Sanguimancy.texturePath, "textures/gui/LumpCleaner.png");
-    @SuppressWarnings("unused")
     public ContainerLumpCleaner container;
     public TileBloodCleaner te;
     String containerName = "Blood Cleanser";
@@ -27,8 +28,8 @@ public class GuiLumpCleaner extends GuiContainer {
 
     @Override
     protected void drawGuiContainerForegroundLayer(int x, int y) {
-        fontRendererObj.drawString(containerName, xSize / 2 - fontRendererObj.getStringWidth(containerName) / 2, 6, 4210752);
-        fontRendererObj.drawString(I18n.format("container.inventory"), 8, ySize - 96 + 2, 4210752);
+        fontRenderer.drawString(containerName, xSize / 2 - fontRenderer.getStringWidth(containerName) / 2, 6, 4210752);
+        fontRenderer.drawString(I18n.format("container.inventory"), 8, ySize - 96 + 2, 4210752);
     }
 
     @Override
@@ -62,7 +63,7 @@ public class GuiLumpCleaner extends GuiContainer {
             bloodStatus += " mB";
             ArrayList<String> toolTipList = new ArrayList<String>();
             toolTipList.add(bloodStatus);
-            drawHoveringText(toolTipList, mouseX, mouseY, fontRendererObj);
+            drawHoveringText(toolTipList, mouseX, mouseY, fontRenderer);
         }
     }
 }
