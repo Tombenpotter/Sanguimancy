@@ -2,13 +2,16 @@ package tombenpotter.sanguimancy.blocks.items;
 
 import net.minecraft.block.Block;
 import net.minecraft.client.resources.I18n;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
+import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.List;
+
+import javax.annotation.Nullable;
 
 public class ItemBlockIllusion extends ItemBlock {
 
@@ -98,7 +101,7 @@ public class ItemBlockIllusion extends ItemBlock {
 
     @SideOnly(Side.CLIENT)
     @Override
-    public void addInformation(ItemStack stack, EntityPlayer player, List<String> list, boolean p_77624_4_) {
-        list.add(I18n.format("info.Sanguimancy.tooltip.illusion"));
+    public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
+        tooltip.add(I18n.format("info.Sanguimancy.tooltip.illusion"));
     }
 }
