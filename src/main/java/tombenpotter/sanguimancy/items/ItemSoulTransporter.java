@@ -1,11 +1,14 @@
 package tombenpotter.sanguimancy.items;
 
+import WayofTime.bloodmagic.teleport.TeleportQueue;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.util.ActionResult;
 import net.minecraft.util.ChunkCoordinates;
+import net.minecraft.util.EnumHand;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -27,12 +30,12 @@ public class ItemSoulTransporter extends Item {
     }
 
     @Override
-    public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player) {
+    public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, EnumHand handIn) {
         if (!world.isRemote) {
             if (player.world.provider.dimensionId != 0) {
                 ChunkCoordinates chunkCoords = MinecraftServer.getServer().worldServerForDimension(0).getSpawnPoint();
                 chunkCoords.posY = MinecraftServer.getServer().worldServerForDimension(0).getTopSolidOrLiquidBlock(chunkCoords.posX, chunkCoords.posZ);
-                TeleportingQueue.getInstance().teleportToDim(world, 0, chunkCoords.posX, chunkCoords.posY, chunkCoords.posZ, player, player.getCommandSenderName());
+                TeleportQueue.getInstance().teleportToDim(world, 0, chunkCoords.posX, chunkCoords.posY, chunkCoords.posZ, player, player.getCommandSenderName());
             } else {
                 int dimID = ConfigHandler.snDimID;
                 int x, z;
@@ -48,7 +51,7 @@ public class ItemSoulTransporter extends Item {
                     x = chunkCoords.posX;
                     z = chunkCoords.posZ;
                 }
-                TeleportingQueue.getInstance().teleportToDim(world, dimID, x, 6, z, player, player.getCommandSenderName());
+                TeleportQueue.getInstance().teleportToDim(world, dimID, x, 6, z, player, player.getCommandSenderName());
             }
             player.inventory.consumeInventoryItem(this);
         }

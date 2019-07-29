@@ -6,7 +6,9 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ActionResult;
 import net.minecraft.util.ChatComponentText;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
@@ -76,7 +78,7 @@ public class ItemSoulCorruptionTest extends Item {
     }
 
     @Override
-    public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player) {
+    public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, EnumHand handIn) {
         if (!world.isRemote) {
             if (stack.getItemDamage() == 0) {
                 if (!player.isSneaking()) {

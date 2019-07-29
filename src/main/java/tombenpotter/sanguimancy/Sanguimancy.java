@@ -90,7 +90,7 @@ public class Sanguimancy {
     @Mod.EventHandler
     public void postInit(FMLPostInitializationEvent event) {
         RecipesRegistry.registerCustomModRecipes();
-        SanguimancyGuide.registerGuide();
+        SanguimancyGuide.buildBook();
         proxy.postLoad();
         isTTLoaded = Loader.isModLoaded("ThaumicTinkerer");
         isIguanaTweaksLoaded = Loader.isModLoaded("IguanaTweaksTConstruct");
