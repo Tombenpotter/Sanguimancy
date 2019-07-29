@@ -5,10 +5,10 @@ import WayofTime.bloodmagic.api.alchemyCrafting.AlchemyArrayEffectCrafting;
 import WayofTime.bloodmagic.api.alchemyCrafting.AlchemyCircleRenderer;
 import WayofTime.bloodmagic.api.altar.EnumAltarTier;
 import WayofTime.bloodmagic.api.recipe.ShapedBloodOrbRecipe;
-import WayofTime.bloodmagic.api.registry.AlchemyArrayRecipeRegistry;
-import WayofTime.bloodmagic.api.registry.AltarRecipeRegistry;
-import WayofTime.bloodmagic.api.registry.OrbRegistry;
 import WayofTime.bloodmagic.client.render.alchemyArray.BindingAlchemyCircleRenderer;
+import WayofTime.bloodmagic.core.registry.AlchemyArrayRecipeRegistry;
+import WayofTime.bloodmagic.core.registry.AltarRecipeRegistry.AltarRecipe;
+import WayofTime.bloodmagic.core.registry.OrbRegistry;
 import WayofTime.bloodmagic.item.ItemComponent;
 import WayofTime.bloodmagic.registry.ModBlocks;
 import WayofTime.bloodmagic.registry.ModItems;
@@ -33,7 +33,7 @@ public class RecipesRegistry {
             corruptedMineral, corruptedSword, corruptedPickaxe, corruptedShovel, corruptedAxe, toggledEtherealBlock,
             personalEtherealBlock, soulTransporter, sanguineShifter, altarManipulator;
     public static IRecipe[] bloodTank = new IRecipe[16];
-    public static AltarRecipeRegistry.AltarRecipe altarDiviner, attunedPlayerSacrificer, corruptionCatalyst, imbuedStick, etherealManifestation;
+    public static AltarRecipe altarDiviner, attunedPlayerSacrificer, corruptionCatalyst, imbuedStick, etherealManifestation;
     public static RecipeCorruptedInfusion poisonousPotato, rottenFlesh, crackedStoneBricks, bonemeal, soulSand, corruptedDemonShard, cobblestone, gravel,
             sand, dirt, corruptedEtherealBlock;
     public static ArrayList<RecipeCorruptedInfusion> oreLumpRecipes = new ArrayList<RecipeCorruptedInfusion>();
