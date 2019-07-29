@@ -1,4 +1,4 @@
-package tombenpotter.sanguimancy.tile;
+package tombenpotter.sanguimancy.tiles;
 
 import net.minecraft.nbt.NBTTagCompound;
 
@@ -18,19 +18,20 @@ public class TileToggleSNKnot extends TileSimpleSNKnot {
     }
 
     @Override
-    public void writeToNBT(NBTTagCompound tagCompound) {
+    public NBTTagCompound writeToNBT(NBTTagCompound tagCompound) {
         super.writeToNBT(tagCompound);
         tagCompound.setBoolean("isConsideredKnot", isConsideredKnot);
+        return tagCompound;
     }
 
     @Override
-    public void updateEntity() {
-        if (worldObj.getBlockPowerInput(xCoord, yCoord, zCoord) > 0) {
+    public void update() {
+        if (world.getBlockPowerInput(xCoord, yCoord, zCoord) > 0) {
             isConsideredKnot = false;
-            worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+            world.markBlockForUpdate(xCoord, yCoord, zCoord);
         } else {
             isConsideredKnot = true;
-            worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+            world.markBlockForUpdate(xCoord, yCoord, zCoord);
         }
     }
 }

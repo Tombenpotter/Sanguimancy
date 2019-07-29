@@ -1,8 +1,7 @@
-package tombenpotter.sanguimancy.tile;
+package tombenpotter.sanguimancy.tiles;
 
 import net.minecraft.nbt.NBTTagCompound;
 import tombenpotter.sanguimancy.Sanguimancy;
-import tombenpotter.sanguimancy.api.objects.BlockPostition;
 import tombenpotter.sanguimancy.api.tile.TileBaseSNBranch;
 
 public class TileSimpleSNBranch extends TileBaseSNBranch {
@@ -18,9 +17,10 @@ public class TileSimpleSNBranch extends TileBaseSNBranch {
         customNBTTag = tagCompound.getCompoundTag("customNBTTag");
     }
 
-    public void writeToNBT(NBTTagCompound tagCompound) {
+    public NBTTagCompound writeToNBT(NBTTagCompound tagCompound) {
         super.writeToNBT(tagCompound);
         tagCompound.setTag("customNBTTag", customNBTTag);
+        return tagCompound;
     }
 
     @Override
@@ -39,14 +39,14 @@ public class TileSimpleSNBranch extends TileBaseSNBranch {
     }
 
     @Override
-    public void onNetworkUpdate(BlockPostition originalPosition) {
-        Sanguimancy.proxy.addLinkingEffects(this, worldObj, xCoord, yCoord, zCoord);
+    public void onNetworkUpdate(BlockPos originalPosition) {
+        Sanguimancy.proxy.addLinkingEffects(this, world, xCoord, yCoord, zCoord);
     }
 
     @Override
-    public void updateEntity() {
-        if (worldObj.getWorldTime() % 100 == 0) {
-            Sanguimancy.proxy.addLinkingEffects(this, worldObj, xCoord, yCoord, zCoord);
+    public void update() {
+        if (world.getWorldTime() % 100 == 0) {
+            Sanguimancy.proxy.addLinkingEffects(this, world, xCoord, yCoord, zCoord);
         }
     }
 }

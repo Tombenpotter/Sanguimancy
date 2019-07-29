@@ -2,6 +2,7 @@ package tombenpotter.sanguimancy.items;
 
 import WayofTime.alchemicalWizardry.common.items.EnergyItems;
 import WayofTime.alchemicalWizardry.common.tileEntity.TETeleposer;
+import WayofTime.bloodmagic.teleport.TeleportQueue;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.client.resources.I18n;
@@ -14,7 +15,6 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import tombenpotter.sanguimancy.Sanguimancy;
 import tombenpotter.sanguimancy.util.RandomUtils;
-import tombenpotter.sanguimancy.util.teleporting.TeleportingQueue;
 
 import java.util.List;
 
@@ -54,9 +54,9 @@ public class ItemTelepositionSigil extends Item {
         int z = stack.stackTagCompound.getInteger("blockZ");
         if (!world.isRemote) {
             if (world.provider.dimensionId == getDimensionID(stack.stackTagCompound)) {
-                TeleportingQueue.getInstance().teleportSameDim(x, y + 1, z, player, RandomUtils.getItemOwner(stack));
+                TeleportQueue.getInstance().teleportSameDim(x, y + 1, z, player, RandomUtils.getItemOwner(stack));
             } else {
-                TeleportingQueue.getInstance().teleportToDim(world, getDimensionID(stack.stackTagCompound), x, y + 1, z, player, RandomUtils.getItemOwner(stack));
+                TeleportQueue.getInstance().teleportToDim(world, getDimensionID(stack.stackTagCompound), x, y + 1, z, player, RandomUtils.getItemOwner(stack));
             }
         }
         return stack;

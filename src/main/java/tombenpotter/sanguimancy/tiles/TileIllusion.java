@@ -1,8 +1,9 @@
-package tombenpotter.sanguimancy.tile;
+package tombenpotter.sanguimancy.tiles;
 
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.ITickable;
 
-public class TileIllusion extends TileEntity {
+public class TileIllusion extends TileEntity implements ITickable {
     public int timer;
 
     public TileIllusion() {
@@ -10,8 +11,8 @@ public class TileIllusion extends TileEntity {
     }
 
     @Override
-    public void updateEntity() {
-        if (timer <= 0) this.worldObj.setBlockToAir(this.xCoord, this.yCoord, this.zCoord);
+    public void update() {
+        if (timer <= 0) this.world.setBlockToAir(this.getPos());
         else timer--;
     }
 }

@@ -13,6 +13,7 @@ import tombenpotter.sanguimancy.compat.lua.events.LuaOrbMaxed;
 import tombenpotter.sanguimancy.compat.lua.methods.LuaGetLifeEssence;
 import tombenpotter.sanguimancy.compat.lua.methods.LuaGetOrbMax;
 import tombenpotter.sanguimancy.compat.lua.methods.LuaGetOwner;
+import tombenpotter.sanguimancy.compat.lua.methods.LuaGetStackInSlot;
 import tombenpotter.sanguimancy.network.PacketHandler;
 import tombenpotter.sanguimancy.network.packets.PacketBloodInterfaceUpdate;
 
@@ -28,7 +29,7 @@ public class TileBloodInterface extends TileComputerBase implements ITickable {
         super("BloodInterface", 1);
 
         redstoneUpdate = new Timer(5);
-        //this.addMethod(new LuaGetStackInSlot());
+        this.addMethod(new LuaGetStackInSlot());
         this.addMethod(new LuaGetLifeEssence());
         this.addMethod(new LuaGetOrbMax());
         this.addMethod(new LuaGetOwner());
@@ -74,8 +75,8 @@ public class TileBloodInterface extends TileComputerBase implements ITickable {
     }
 
     public void updateOrb() {
-        maxOrbLP = getOrb() == null ? 0 : ((IBloodOrb) getOrb().getItem()).getMaxEssence(getOrb().getItemDamage());
-        ownerName = getOrb() == null || !getOrb().hasTagCompound() || !getOrb().getTagCompound().hasKey(Constants.NBT.OWNER_UUID) ? null : getOrb().getTagCompound().getString(Constants.NBT.OWNER_UUID);
+        maxOrbLP = getOrb().isEmpty() ? 0 : ((IBloodOrb) getOrb().getItem()).getOrb(getOrb()).getCapacity();
+        ownerName = getOrb().isEmpty() || !getOrb().hasTagCompound() || !getOrb().getTagCompound().hasKey(Constants.NBT.OWNER_UUID) ? null : getOrb().getTagCompound().getString(Constants.NBT.OWNER_UUID);
     }
 
     public void updateRedstone() {

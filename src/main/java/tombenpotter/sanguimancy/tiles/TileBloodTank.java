@@ -3,6 +3,8 @@ package tombenpotter.sanguimancy.tiles;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.fluids.*;
+import net.minecraftforge.fluids.capability.IFluidHandler;
+import net.minecraftforge.fluids.capability.IFluidTankProperties;
 import tombenpotter.sanguimancy.api.tiles.TileBase;
 
 public class TileBloodTank extends TileBase implements IFluidHandler {
@@ -23,7 +25,7 @@ public class TileBloodTank extends TileBase implements IFluidHandler {
     }
 
     @Override
-    public void updateEntity() {
+    public void update() {
         if (world.getWorldTime() % 60 == 0) world.markBlockForUpdate(xCoord, yCoord, zCoord);
     }
 
@@ -70,4 +72,28 @@ public class TileBloodTank extends TileBase implements IFluidHandler {
         if (tank.getFluidAmount() != 0) tagCompound.setTag("tank", tank.writeToNBT(new NBTTagCompound()));
         tagCompound.setInteger("capacity", capacity);
     }
+
+	@Override
+	public IFluidTankProperties[] getTankProperties() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public int fill(FluidStack resource, boolean doFill) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public FluidStack drain(FluidStack resource, boolean doDrain) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public FluidStack drain(int maxDrain, boolean doDrain) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

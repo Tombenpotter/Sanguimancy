@@ -24,7 +24,8 @@ public abstract class TileBaseInventory extends TileBase implements ICapabilityP
         return super.hasCapability(capability, facing);
     }
 
-    @Override
+    @SuppressWarnings("unchecked")
+	@Override
     public <T> T getCapability(Capability<T> capability, EnumFacing facing) {
         if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
             return (T) inventory;

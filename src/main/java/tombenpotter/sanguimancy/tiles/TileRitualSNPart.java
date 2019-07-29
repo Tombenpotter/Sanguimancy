@@ -3,7 +3,6 @@ package tombenpotter.sanguimancy.tiles;
 import WayofTime.alchemicalWizardry.ModItems;
 import WayofTime.alchemicalWizardry.api.event.RitualRunEvent;
 import WayofTime.alchemicalWizardry.api.event.RitualStopEvent;
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -11,8 +10,9 @@ import net.minecraft.network.NetworkManager;
 import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.util.ChatComponentText;
+import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.common.MinecraftForge;
-import tombenpotter.sanguimancy.api.objects.BlockPostition;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import tombenpotter.sanguimancy.api.objects.ICustomNBTTag;
 import tombenpotter.sanguimancy.api.objects.SNKNotBoolean;
 import tombenpotter.sanguimancy.api.snManifestation.EnumSNType;
@@ -57,7 +57,7 @@ public class TileRitualSNPart extends TileBaseSNPart implements ICustomNBTTag {
     }
 
     @Override
-    public void onNetworkUpdate(BlockPostition originalPosition) {
+    public void onNetworkUpdate(BlockPos originalPosition) {
     }
 
     @Override
@@ -70,12 +70,13 @@ public class TileRitualSNPart extends TileBaseSNPart implements ICustomNBTTag {
     }
 
     @Override
-    public void writeToNBT(NBTTagCompound tagCompound) {
+    public NBTTagCompound writeToNBT(NBTTagCompound tagCompound) {
         super.writeToNBT(tagCompound);
         tagCompound.setTag("customNBTTag", customNBTTag);
         tagCompound.setInteger("xRitual", xRitual);
         tagCompound.setInteger("yRitual", yRitual);
         tagCompound.setInteger("zRitual", zRitual);
+        return tagCompound;
     }
 
     @Override
@@ -106,17 +107,17 @@ public class TileRitualSNPart extends TileBaseSNPart implements ICustomNBTTag {
     @Override
     public void markDirty() {
         super.markDirty(); // Mark dirty for gamesave
-        if (worldObj.isRemote) {
+        if (world.isRemote) {
             return;
         }
-        this.worldObj.markBlockForUpdate(xCoord, yCoord, zCoord); // Update block + TE via Network
+        this.world.markBlockForUpdate(xCoord, yCoord, zCoord); // Update block + TE via Network
     }
 
     @SubscribeEvent
     public void disableLinkedRitual(RitualRunEvent event) {
-        HashMap<BlockPostition, SNKNotBoolean> map = getComponentsInNetwork().hashMap;
-        for (BlockPostition postition : map.keySet()) {
-            if (map.get(postition).isSNKnot && map.get(postition).isSNKnotActive && (worldObj.getBlockPowerInput(xCoord, yCoord, zCoord) > 0 || worldObj.getStrongestIndirectPower(xCoord, yCoord, zCoord) > 0)) {
+        HashMap<BlockPos, SNKNotBoolean> map = getComponentsInNetwork().hashMap;
+        for (BlockPos postition : map.keySet()) {
+            if (map.get(postition).isSNKnot && map.get(postition).isSNKnotActive && (world.getBlockPowerInput(xCoord, yCoord, zCoord) > 0 || world.getStrongestIndirectPower(xCoord, yCoord, zCoord) > 0)) {
                 if (event.mrs.getXCoord() == xRitual && event.mrs.getYCoord() == yRitual && event.mrs.getZCoord() == zRitual) {
                     this.xRitual = event.mrs.getXCoord();
                     this.yRitual = event.mrs.getYCoord();
@@ -138,14 +139,14 @@ public class TileRitualSNPart extends TileBaseSNPart implements ICustomNBTTag {
     @SubscribeEvent
     public void removeMasterStone(RitualStopEvent event) {
         if (event.mrs.getXCoord() == xRitual && event.mrs.getYCoord() == yRitual && event.mrs.getZCoord() == zRitual) {
-            worldObj.setBlockToAir(xCoord, yCoord, zCoord);
+            world.setBlockToAir(xCoord, yCoord, zCoord);
         }
     }
 
     public boolean onBlockRightClicked(EntityPlayer player, ItemStack stack) {
         if (stack != null) {
             if (stack.isItemEqual(new ItemStack(ModItems.divinationSigil)) || stack.isItemEqual(new ItemStack(ModItems.itemSeerSigil))) {
-                if (!worldObj.isRemote) {
+                if (!world.isRemote) {
                     player.addChatComponentMessage(new ChatComponentText("x: " + String.valueOf(xRitual) + " y: " + String.valueOf(yRitual) + " z: " + String.valueOf(zRitual)));
                 }
                 return true;

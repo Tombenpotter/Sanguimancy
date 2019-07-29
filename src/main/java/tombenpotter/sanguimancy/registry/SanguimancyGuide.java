@@ -6,6 +6,7 @@ import WayofTime.bloodmagic.registry.ModItems;
 import amerifrance.guideapi.api.GuideRegistry;
 import amerifrance.guideapi.api.IPage;
 import amerifrance.guideapi.api.impl.Book;
+import amerifrance.guideapi.api.impl.BookBinder;
 import amerifrance.guideapi.api.impl.abstraction.CategoryAbstract;
 import amerifrance.guideapi.api.impl.abstraction.EntryAbstract;
 import amerifrance.guideapi.api.util.PageHelper;
@@ -17,6 +18,7 @@ import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.oredict.ShapedOreRecipe;
+import tombenpotter.sanguimancy.Sanguimancy;
 import tombenpotter.sanguimancy.api.guide.PageCorruptionRecipe;
 import tombenpotter.sanguimancy.recipes.RecipeCorruptedInfusion;
 import tombenpotter.sanguimancy.util.ConfigHandler;
@@ -28,7 +30,7 @@ import java.util.List;
 
 public class SanguimancyGuide {
 
-    public static Book sanguimancyGuide;
+    public static BookBinder sanguimancyGuide = new BookBinder(new ResourceLocation(Sanguimancy.modid, "guide_book"));
     public static List<CategoryAbstract> categories = new ArrayList<CategoryAbstract>();
 
     public static void registerGuide() {
@@ -36,17 +38,7 @@ public class SanguimancyGuide {
         createItemEntries();
         createRitualEntries();
         createBlockEntries();
-        BookBuilder sanguimancyBookBuilder = new BookBuilder();
-        sanguimancyBookBuilder
-                .setCategories(categories)
-                .setUnlocBookTitle("guide.Sanguimancy.book.title")
-                .setUnlocWelcomeMessage("guide.Sanguimancy.welcomeMessage")
-                .setUnlocDisplayName("guide.Sanguimancy.book.name")
-                .setBookColor(new Color(190, 10, 0))
-                .setAuthor(Sanguimancy.name)
-                .setItemTexture(Sanguimancy.texturePath + ":DelvingIntoTheDarkness");
 
-        sanguimancyGuide = sanguimancyBookBuilder.build();
         GuideRegistry.registerBook(sanguimancyGuide);
         GameRegistry.addRecipe(new ShapedOreRecipe(GuideRegistry.getItemStackForBook(sanguimancyGuide), "X", "Y", "O", 'X', "dyeBlack", 'O', ModItems.weakBloodOrb, 'Y', Items.writable_book));
     }

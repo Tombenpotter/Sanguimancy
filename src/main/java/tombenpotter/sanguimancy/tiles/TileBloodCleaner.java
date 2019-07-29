@@ -31,7 +31,7 @@ public class TileBloodCleaner extends TileBaseSidedInventory implements ITickabl
 
     @Override
     public void update() {
-        if (inventory.getStackInSlot(0) != null && canBloodClean()) {
+        if (!inventory.getStackInSlot(0).isEmpty() && canBloodClean()) {
             if (ticksLeft >= maxTicks) {
                 bloodClean();
                 ticksLeft = 0;
@@ -61,7 +61,7 @@ public class TileBloodCleaner extends TileBaseSidedInventory implements ITickabl
     }
 
     public boolean canBloodClean() {
-        if (getInventory(null).getStackInSlot(0) == null) {
+        if (getInventory(null).getStackInSlot(0).isEmpty()) {
             return false;
         } else {
             ItemStack input = getInventory(null).getStackInSlot(0);
@@ -71,18 +71,18 @@ public class TileBloodCleaner extends TileBaseSidedInventory implements ITickabl
             if (tank.getFluid() == null) {
                 return false;
             }
-            if (tank.getFluidAmount() < FluidContainerRegistry.BUCKET_VOLUME) {
+            if (tank.getFluidAmount() < Fluid.BUCKET_VOLUME) {
                 return false;
             }
             RecipeBloodCleanser recipe = RecipeBloodCleanser.getRecipe(input);
             ItemStack output = recipe.fOutput.copy();
-            if (inventory.getStackInSlot(1) == null) {
+            if (inventory.getStackInSlot(1).isEmpty()) {
                 return true;
             }
             if (!inventory.getStackInSlot(1).isItemEqual(output)) {
                 return false;
             }
-            if (!(tank.getFluid().amount >= FluidContainerRegistry.BUCKET_VOLUME)) {
+            if (!(tank.getFluid().amount >= Fluid.BUCKET_VOLUME)) {
                 return false;
             }
             int result = inventory.getStackInSlot(1).getCount() + output.getCount();

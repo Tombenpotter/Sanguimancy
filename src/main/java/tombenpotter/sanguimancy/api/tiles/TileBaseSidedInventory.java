@@ -25,7 +25,8 @@ public abstract class TileBaseSidedInventory extends TileBaseInventory {
         return super.hasCapability(capability, facing);
     }
 
-    @Override
+    @SuppressWarnings("unchecked")
+	@Override
     public <T> T getCapability(Capability<T> capability, EnumFacing facing) {
         if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY && sidesAllowed.contains(facing)) {
             return (T) inventory;

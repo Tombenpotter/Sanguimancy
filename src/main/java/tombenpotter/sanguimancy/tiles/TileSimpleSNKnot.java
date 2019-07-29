@@ -1,10 +1,9 @@
-package tombenpotter.sanguimancy.tile;
+package tombenpotter.sanguimancy.tiles;
 
 import WayofTime.alchemicalWizardry.ModItems;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import tombenpotter.sanguimancy.api.objects.BlockPostition;
-import tombenpotter.sanguimancy.api.tile.TileBaseSNKnot;
+import tombenpotter.sanguimancy.api.tiles.TileBaseSNKnot;
 
 public class TileSimpleSNKnot extends TileBaseSNKnot {
 
@@ -46,11 +45,12 @@ public class TileSimpleSNKnot extends TileBaseSNKnot {
     }
 
     @Override
-    public void writeToNBT(NBTTagCompound tagCompound) {
+    public NBTTagCompound writeToNBT(NBTTagCompound tagCompound) {
         super.writeToNBT(tagCompound);
         tagCompound.setString("knotOwner", knotOwner);
         tagCompound.setBoolean("knotActive", knotActive);
         tagCompound.setTag("customNBTTag", customNBTTag);
+        return tagCompound;
     }
 
     @Override
@@ -69,7 +69,7 @@ public class TileSimpleSNKnot extends TileBaseSNKnot {
     }
 
     @Override
-    public void onNetworkUpdate(BlockPostition originalPosition) {
+    public void onNetworkUpdate(BlockPos originalPosition) {
     }
 
     public boolean onBlockRightClicked(ItemStack stack) {

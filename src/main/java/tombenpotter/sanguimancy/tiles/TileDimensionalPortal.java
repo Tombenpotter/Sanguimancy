@@ -1,4 +1,4 @@
-package tombenpotter.sanguimancy.tile;
+package tombenpotter.sanguimancy.tiles;
 
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
@@ -25,13 +25,14 @@ public class TileDimensionalPortal extends TileEntity implements ICustomNBTTag {
         customNBTTag = tagCompound.getCompoundTag("customNBTTag");
     }
 
-    public void writeToNBT(NBTTagCompound tagCompound) {
+    public NBTTagCompound writeToNBT(NBTTagCompound tagCompound) {
         super.writeToNBT(tagCompound);
         tagCompound.setString("PortalRitualID", portalID);
         tagCompound.setInteger("masterStoneX", masterStoneX);
         tagCompound.setInteger("masterStoneY", masterStoneY);
         tagCompound.setInteger("masterStoneZ", masterStoneZ);
         tagCompound.setTag("customNBTTag", customNBTTag);
+		return tagCompound;
     }
 
     @Override

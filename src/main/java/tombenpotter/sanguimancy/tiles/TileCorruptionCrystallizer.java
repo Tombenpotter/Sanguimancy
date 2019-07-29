@@ -12,12 +12,13 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
+import net.minecraft.util.ITickable;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 import tombenpotter.sanguimancy.api.objects.ICustomNBTTag;
 import tombenpotter.sanguimancy.api.soulCorruption.SoulCorruptionHelper;
 
-public class TileCorruptionCrystallizer extends TileSegmentedReagentHandler implements ICustomNBTTag {
+public class TileCorruptionCrystallizer extends TileSegmentedReagentHandler implements ICustomNBTTag, ITickable {
 
     public int corruptionStored = 0;
     public String owner;
@@ -29,16 +30,16 @@ public class TileCorruptionCrystallizer extends TileSegmentedReagentHandler impl
     }
 
     @Override
-    public void updateEntity() {
-        if (!worldObj.isRemote) {
-            if (worldObj.getWorldTime() % 100 == 0) {
-                multiblockFormed = checkMultiblockTier(worldObj, this.xCoord, this.yCoord, this.zCoord);
-                worldObj.markBlockForUpdate(this.xCoord, this.yCoord, this.zCoord);
+    public void update() {
+        if (!world.isRemote) {
+            if (world.getWorldTime() % 100 == 0) {
+                multiblockFormed = checkMultiblockTier(world, this.xCoord, this.yCoord, this.zCoord);
+                world.markBlockForUpdate(this.xCoord, this.yCoord, this.zCoord);
             }
 
             if (!owner.equals("")) {
                 EntityPlayer player = SoulNetworkHandler.getPlayerForUsername(owner);
-                removeAndStoreCorruption(worldObj, player, this.xCoord, this.yCoord, this.zCoord);
+                removeAndStoreCorruption(world, player, this.xCoord, this.yCoord, this.zCoord);
             }
         }
     }
@@ -53,12 +54,14 @@ public class TileCorruptionCrystallizer extends TileSegmentedReagentHandler impl
     }
 
     @Override
-    public void writeToNBT(NBTTagCompound tagCompound) {
+    public NBTTagCompound writeToNBT(NBTTagCompound tagCompound) {
         super.writeToNBT(tagCompound);
         tagCompound.setString("owner", owner);
         tagCompound.setInteger("corruptionStored", corruptionStored);
         tagCompound.setBoolean("multiblockFormed", multiblockFormed);
         tagCompound.setTag("customNBTTag", customNBTTag);
+        
+        return tagCompound;
     }
 
     public boolean checkMultiblockTier(World world, int x, int y, int z) {

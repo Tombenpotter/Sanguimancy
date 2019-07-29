@@ -46,10 +46,11 @@ public class TileCamouflageBound extends TileCamouflage implements IBoundTile {
     }
 
     @Override
-    public void writeToNBT(NBTTagCompound tagCompound) {
+    public NBTTagCompound writeToNBT(NBTTagCompound tagCompound) {
         super.writeToNBT(tagCompound);
         NBTTagList owners = new NBTTagList();
         for (String s : this.ownerList) owners.appendTag(new NBTTagString(s));
         tagCompound.setTag("owners", owners);
+		return tagCompound;
     }
 }

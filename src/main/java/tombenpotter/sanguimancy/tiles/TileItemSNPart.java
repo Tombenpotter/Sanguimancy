@@ -11,6 +11,7 @@ import net.minecraft.network.NetworkManager;
 import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.util.ChatComponentText;
+import net.minecraft.util.ITickable;
 import net.minecraft.util.math.BlockPos;
 import tombenpotter.sanguimancy.api.objects.BlockPostition;
 import tombenpotter.sanguimancy.api.objects.SNKNotBoolean;
@@ -22,7 +23,7 @@ import tombenpotter.sanguimancy.util.singletons.BoundItems;
 
 import java.util.HashMap;
 
-public class TileItemSNPart extends TileBaseSNPart implements IInventory {
+public class TileItemSNPart extends TileBaseSNPart implements IInventory, ITickable {
 
     public ItemStack[] slots;
     private NBTTagCompound customNBTTag;
@@ -203,7 +204,7 @@ public class TileItemSNPart extends TileBaseSNPart implements IInventory {
     }
 
     public void disablePart(Boolean bool) {
-        if (!worldObj.isRemote) {
+        if (!world.isRemote) {
             BoundItems.getBoundItems().removeItem(getCustomNBTTag().getString("SavedItemName"));
             BoundItems.getBoundItems().addItem(getCustomNBTTag().getString("SavedItemName"), new BoundItemState(xCoord, yCoord, zCoord, world.provider.dimensionId, bool));
         }
@@ -220,7 +221,7 @@ public class TileItemSNPart extends TileBaseSNPart implements IInventory {
     }
 
     @Override
-    public void updateEntity() {
+    public void update() {
         if (world.getWorldTime() % 200 == 0) {
             HashMap<BlockPos, SNKNotBoolean> map = getComponentsInNetwork().hashMap;
             for (BlockPos postition : map.keySet()) {
@@ -234,4 +235,70 @@ public class TileItemSNPart extends TileBaseSNPart implements IInventory {
             }
         }
     }
+
+	@Override
+	public String getName() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean hasCustomName() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean isEmpty() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public ItemStack removeStackFromSlot(int index) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean isUsableByPlayer(EntityPlayer player) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public void openInventory(EntityPlayer player) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void closeInventory(EntityPlayer player) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public int getField(int id) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public void setField(int id, int value) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public int getFieldCount() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public void clear() {
+		// TODO Auto-generated method stub
+		
+	}
 }

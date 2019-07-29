@@ -68,7 +68,7 @@ public class ItemBlockBloodTank extends ItemBlock implements IFluidContainerItem
 
     @Override
     public int fill(ItemStack stack, FluidStack resource, boolean doFill) {
-        if (resource == null || stack.stackSize != 1) return 0;
+        if (resource == null || stack.getCount() != 1) return 0;
         int fillAmount = 0, capacity = getCapacity(stack);
         NBTTagCompound tag = stack.stackTagCompound, fluidTag = null;
         FluidStack fluid = null;

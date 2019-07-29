@@ -1,6 +1,6 @@
 package tombenpotter.sanguimancy.util;
 
-import WayofTime.bloodmagic.registry.ModItems;
+import WayofTime.bloodmagic.core.RegistrarBloodMagicBlocks;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
@@ -16,7 +16,6 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.DimensionManager;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.util.EnumHelper;
-import net.minecraftforge.fluids.FluidContainerRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fml.common.eventhandler.Event;
@@ -47,11 +46,11 @@ public class RandomUtils {
         IInventory inventory = (IInventory) tileEntity;
         for (int i = 0; i < inventory.getSizeInventory(); i++) {
             ItemStack item = inventory.getStackInSlot(i);
-            if (item != null && item.stackSize > 0) {
+            if (item != null && item.getCount() > 0) {
                 float rx = rand.nextFloat() * 0.8F + 0.1F;
                 float ry = rand.nextFloat() * 0.8F + 0.1F;
                 float rz = rand.nextFloat() * 0.8F + 0.1F;
-                EntityItem entityItem = new EntityItem(world, pos.getX() + rx, pos.getY() + ry, pos.getZ() + rz, new ItemStack(item.getItem(), item.stackSize, item.getItemDamage()));
+                EntityItem entityItem = new EntityItem(world, pos.getX() + rx, pos.getY() + ry, pos.getZ() + rz, new ItemStack(item.getItem(), item.getCount(), item.getItemDamage()));
                 if (item.hasTagCompound()) {
                     entityItem.getEntityItem().setTagCompound((NBTTagCompound) item.getTagCompound().copy());
                 }
@@ -355,19 +354,19 @@ public class RandomUtils {
     public static ItemStack getOrbForLevel(int orbLevel) {
         switch (orbLevel) {
             default:
-                return new ItemStack(ModItems.bloodOrb);
+                return new ItemStack(RegistrarBloodMagicBlocks.BLOOD_RUNE);
             case 1:
-                return new ItemStack(ModItems.bloodOrb, 1);
+                return new ItemStack(RegistrarBloodMagicBlocks.BLOOD_RUNE, 1);
             case 2:
-                return new ItemStack(ModItems.bloodOrb, 2);
+                return new ItemStack(RegistrarBloodMagicBlocks.BLOOD_RUNE, 2);
             case 3:
-                return new ItemStack(ModItems.bloodOrb, 3);
+                return new ItemStack(RegistrarBloodMagicBlocks.BLOOD_RUNE, 3);
             case 4:
-                return new ItemStack(ModItems.bloodOrb, 4);
+                return new ItemStack(RegistrarBloodMagicBlocks.BLOOD_RUNE, 4);
             case 5:
-                return new ItemStack(ModItems.bloodOrb, 5);
+                return new ItemStack(RegistrarBloodMagicBlocks.BLOOD_RUNE, 5);
             case 6:
-                return new ItemStack(ModItems.bloodOrb, 6);
+                return new ItemStack(RegistrarBloodMagicBlocks.BLOOD_RUNE, 6);
         }
     }
 }
