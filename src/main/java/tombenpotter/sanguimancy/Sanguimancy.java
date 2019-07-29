@@ -2,7 +2,6 @@ package tombenpotter.sanguimancy;
 
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Items;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fluids.FluidRegistry;
@@ -18,7 +17,7 @@ import net.minecraftforge.fml.common.network.NetworkRegistry;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import tombenpotter.sanguimancy.compat.computercraft.PeripheralProvider;
-import tombenpotter.sanguimancy.compat.waila.WailaCompatRegistry;
+//import tombenpotter.sanguimancy.compat.waila.WailaCompatRegistry;
 import tombenpotter.sanguimancy.network.PacketHandler;
 import tombenpotter.sanguimancy.proxy.CommonProxy;
 import tombenpotter.sanguimancy.registry.*;
@@ -82,9 +81,9 @@ public class Sanguimancy {
         FMLCommonHandler.instance().bus().register(new EventHandler());
         MinecraftForge.EVENT_BUS.register(new EventHandler());
         PacketHandler.registerPackets();
-        if (Loader.isModLoaded("Waila")) {
-            WailaCompatRegistry.register();
-        }
+//        if (Loader.isModLoaded("Waila")) {
+//            WailaCompatRegistry.register();
+//        }
         NetworkRegistry.INSTANCE.registerGuiHandler(this, proxy);
     }
 
