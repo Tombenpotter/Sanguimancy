@@ -2,7 +2,7 @@ package tombenpotter.sanguimancy.blocks;
 
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
-import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -10,10 +10,13 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.IIcon;
+import net.minecraft.util.EnumBlockRenderType;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
+import net.minecraft.util.NonNullList;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import net.minecraftforge.fluids.FluidContainerRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -23,6 +26,8 @@ import tombenpotter.sanguimancy.util.RandomUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.annotation.Nonnull;
 
 public class BlockBloodTank extends BlockContainer {
 
@@ -47,47 +52,45 @@ public class BlockBloodTank extends BlockContainer {
     }
 
     @Override
-    public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int p_149727_6_, float p_149727_7_, float p_149727_8_, float p_149727_9_) {
-        TileBloodTank fluidHandler = (TileBloodTank) world.getTileEntity(x, y, z);
+    public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+        TileBloodTank fluidHandler = (TileBloodTank) world.getTileEntity(pos);
         if (RandomUtils.fillHandlerWithContainer(world, fluidHandler, player)) {
-            world.markBlockForUpdate(x, y, z);
+            world.markBlockForUpdate(hitX, hitY, hitZ);
             return true;
         }
         if (RandomUtils.fillContainerFromHandler(world, fluidHandler, player, fluidHandler.tank.getFluid())) {
-            world.markBlockForUpdate(x, y, z);
+            world.markBlockForUpdate(hitX, hitY, hitZ);
             return true;
         }
         if (FluidContainerRegistry.isContainer(player.getCurrentEquippedItem())) {
-            world.markBlockForUpdate(x, y, z);
+            world.markBlockForUpdate(hitX, hitY, hitZ);
             return true;
         }
-        return super.onBlockActivated(world, x, y, z, player, p_149727_6_, p_149727_7_, p_149727_8_, p_149727_9_);
+        return super.onBlockActivated(world, pos, state, player, hand, facing, hitX, hitY, hitZ);
     }
 
     @Override
-    public void onBlockHarvested(World world, int x, int y, int z, int meta, EntityPlayer player) {
-        this.dropBlockAsItem(world, x, y, z, meta, 0);
-        super.onBlockHarvested(world, x, y, z, meta, player);
+    public void onBlockHarvested(World world, BlockPos pos, IBlockState state, EntityPlayer player) {
+        this.dropBlockAsItem(world, pos, state, 0);
+        super.onBlockHarvested(world, pos, state, player);
     }
 
     @Override
-    public ArrayList<ItemStack> getDrops(World world, int x, int y, int z, int metadata, int fortune) {
-        ArrayList<ItemStack> list = new ArrayList<ItemStack>();
-        if (world.getTileEntity(x, y, z) instanceof TileBloodTank) {
-            TileBloodTank tile = (TileBloodTank) world.getTileEntity(x, y, z);
-            ItemStack drop = new ItemStack(this, 1, metadata);
+    public void getDrops(@Nonnull NonNullList<ItemStack> drops, IBlockAccess world, BlockPos pos, IBlockState state, int fortune) {
+        if (world.getTileEntity(pos) instanceof TileBloodTank) {
+            TileBloodTank tile = (TileBloodTank) world.getTileEntity(pos);
+            ItemStack drop = new ItemStack(this, 1);
             NBTTagCompound tag = new NBTTagCompound();
             tile.writeToNBT(tag);
-            drop.stackTagCompound = tag;
-            list.add(drop);
+            drop.setTagCompound(tag);
+            drops.add(drop);
         }
-        return list;
     }
 
     @Override
-    public void onBlockPlacedBy(World world, int x, int y, int z, EntityLivingBase entityLiving, ItemStack stack) {
-        if (world.getTileEntity(x, y, z) != null && world.getTileEntity(x, y, z) instanceof TileBloodTank) {
-            TileBloodTank tile = (TileBloodTank) world.getTileEntity(x, y, z);
+    public void onBlockPlacedBy(World world, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack) {
+        if (world.getTileEntity(pos) != null && world.getTileEntity(pos) instanceof TileBloodTank) {
+            TileBloodTank tile = (TileBloodTank) world.getTileEntity(pos);
             NBTTagCompound tag = stack.getTagCompound();
             if (tag != null) {
                 tile.readFromNBT(tag);
@@ -96,28 +99,18 @@ public class BlockBloodTank extends BlockContainer {
     }
 
     @Override
-    public int getRenderBlockPass() {
-        return 1;
-    }
-
-    @Override
-    public boolean renderAsNormalBlock() {
+    public boolean isOpaqueCube(IBlockState state) {
         return false;
     }
 
     @Override
-    public boolean isOpaqueCube() {
-        return false;
+    public EnumBlockRenderType getRenderType(IBlockState state) {
+        return EnumBlockRenderType.MODEL;
     }
 
     @Override
-    public int getRenderType() {
-        return renderId;
-    }
-
-    @Override
-    public int getLightValue(IBlockAccess world, int x, int y, int z) {
-        TileEntity tile = world.getTileEntity(x, y, z);
+    public int getLightValue(IBlockState state, IBlockAccess world, BlockPos pos) {
+        TileEntity tile = world.getTileEntity(pos);
         if (tile instanceof TileBloodTank) {
             TileBloodTank tank = (TileBloodTank) tile;
             FluidStack fluid = tank.tank.getFluid();
@@ -162,7 +155,7 @@ public class BlockBloodTank extends BlockContainer {
     }
 
     @Override
-    public int damageDropped(int meta) {
-        return meta;
+    public int damageDropped(IBlockState state) {
+        return 0;
     }
 }

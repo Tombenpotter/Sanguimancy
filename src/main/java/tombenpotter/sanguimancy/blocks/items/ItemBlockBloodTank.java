@@ -7,10 +7,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.StatCollector;
-import net.minecraftforge.fluids.FluidContainerRegistry;
 import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.IFluidContainerItem;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import tombenpotter.sanguimancy.blocks.BlockBloodTank;
@@ -34,7 +31,7 @@ public class ItemBlockBloodTank extends ItemBlock implements IFluidContainerItem
         else {
             list.add(I18n.format("info.Sanguimancy.tooltip.capacity") + ": " + String.valueOf(getCapacity(stack)) + "mB");
             if (stack.hasTagCompound()) {
-                NBTTagCompound tag = stack.stackTagCompound.getCompoundTag("tank");
+                NBTTagCompound tag = stack.getTagCompound().getCompoundTag("tank");
                 if (tag.getString("FluidName") != "") {
                     list.add(I18n.format("info.Sanguimancy.tooltip.fluid") + ": " + RandomUtils.capitalizeFirstLetter(tag.getString("FluidName")));
                     list.add(I18n.format("info.Sanguimancy.tooltip.amount") + ": " + tag.getInteger("Amount") + "/" + getCapacity(stack) + "mB");
@@ -45,8 +42,8 @@ public class ItemBlockBloodTank extends ItemBlock implements IFluidContainerItem
 
     @Override
     public String getItemStackDisplayName(ItemStack stack) {
-        if (stack.hasTagCompound() && stack.stackTagCompound.hasKey("tank") && stack.stackTagCompound.getCompoundTag("tank").getString("FluidName") != "") {
-            NBTTagCompound tag = stack.stackTagCompound.getCompoundTag("tank");
+        if (stack.hasTagCompound() && stack.getTagCompound().hasKey("tank") && stack.getTagCompound().getCompoundTag("tank").getString("FluidName") != "") {
+            NBTTagCompound tag = stack.getTagCompound().getCompoundTag("tank");
             return super.getItemStackDisplayName(stack) + " (" + RandomUtils.capitalizeFirstLetter(RandomUtils.capitalizeFirstLetter(tag.getString("FluidName")) + ")");
         } else
             return super.getItemStackDisplayName(stack);
@@ -54,8 +51,8 @@ public class ItemBlockBloodTank extends ItemBlock implements IFluidContainerItem
 
     @Override
     public FluidStack getFluid(ItemStack stack) {
-        if (stack.hasTagCompound() && stack.stackTagCompound.hasKey("tank") && stack.stackTagCompound.getCompoundTag("tank").getString("FluidName") != "") {
-            NBTTagCompound tag = stack.stackTagCompound.getCompoundTag("tank");
+        if (stack.hasTagCompound() && stack.getTagCompound().hasKey("tank") && stack.getTagCompound().getCompoundTag("tank").getString("FluidName") != "") {
+            NBTTagCompound tag = stack.getTagCompound().getCompoundTag("tank");
             return FluidStack.loadFluidStackFromNBT(tag);
         }
         return null;
@@ -70,7 +67,7 @@ public class ItemBlockBloodTank extends ItemBlock implements IFluidContainerItem
     public int fill(ItemStack stack, FluidStack resource, boolean doFill) {
         if (resource == null || stack.getCount() != 1) return 0;
         int fillAmount = 0, capacity = getCapacity(stack);
-        NBTTagCompound tag = stack.stackTagCompound, fluidTag = null;
+        NBTTagCompound tag = stack.getTagCompound(), fluidTag = null;
         FluidStack fluid = null;
         if (tag == null || !tag.hasKey("tank") || (fluidTag = tag.getCompoundTag("tank")) == null || (fluid = FluidStack.loadFluidStackFromNBT(fluidTag)) == null)
             fillAmount = Math.min(capacity, resource.amount);
@@ -85,8 +82,10 @@ public class ItemBlockBloodTank extends ItemBlock implements IFluidContainerItem
             fillAmount = Math.min(capacity - fluid.amount, resource.amount);
         fillAmount = Math.max(fillAmount, 0);
         if (doFill) {
-            if (tag == null)
-                tag = stack.stackTagCompound = new NBTTagCompound();
+            if (tag == null) {
+                stack.setTagCompound(new NBTTagCompound());
+            	tag = stack.getTagCompound();
+            }
             fluid.amount += fillAmount;
             tag.setTag("tank", fluid.writeToNBT(fluidTag == null ? new NBTTagCompound() : fluidTag));
         }
@@ -95,7 +94,7 @@ public class ItemBlockBloodTank extends ItemBlock implements IFluidContainerItem
 
     @Override
     public FluidStack drain(ItemStack stack, int maxDrain, boolean doDrain) {
-        NBTTagCompound tag = stack.stackTagCompound, fluidTag = null;
+        NBTTagCompound tag = stack.getTagCompound(), fluidTag = null;
         FluidStack fluid = null;
         if (tag == null || !tag.hasKey("tank") || (fluidTag = tag.getCompoundTag("tank")) == null || (fluid = FluidStack.loadFluidStackFromNBT(fluidTag)) == null) {
             if (fluidTag != null)

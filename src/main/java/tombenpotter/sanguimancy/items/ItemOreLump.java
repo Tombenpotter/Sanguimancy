@@ -35,12 +35,12 @@ public class ItemOreLump extends Item {
     @Override
     @SuppressWarnings("unchecked")
     public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean par4) {
-        NBTTagCompound tag = stack.stackTagCompound;
+        NBTTagCompound tag = stack.getTagCompound();
 
         if (tag == null)
             stack.setTagCompound(new NBTTagCompound());
 
-        String oreName = stack.stackTagCompound.getString("ore");
+        String oreName = stack.getTagCompound().getString("ore");
 
         if (!oreName.equals("")) {
             if (!GuiScreen.isShiftKeyDown())
@@ -59,12 +59,12 @@ public class ItemOreLump extends Item {
 
     @Override
     public String getItemStackDisplayName(ItemStack stack) {
-        NBTTagCompound tag = stack.stackTagCompound;
+        NBTTagCompound tag = stack.getTagCompound();
 
         if (tag == null)
             stack.setTagCompound(new NBTTagCompound());
 
-        String oreName = stack.stackTagCompound.getString("ore");
+        String oreName = stack.getTagCompound().getString("ore");
 
         if (!oreName.equals(""))
             return I18n.format("item.Sanguimancy.oreLump.name", RandomUtils.capitalizeFirstLetter(oreName));
@@ -77,10 +77,10 @@ public class ItemOreLump extends Item {
     public int getColorFromItemStack(ItemStack stack, int pass) {
         if (pass == 1) {
             if (stack.hasTagCompound()) {
-                if (RandomUtils.oreDictColor.containsKey(stack.stackTagCompound.getString("ore"))) {
-                    return RandomUtils.oreDictColor.get(stack.stackTagCompound.getString("ore"));
+                if (RandomUtils.oreDictColor.containsKey(stack.getTagCompound().getString("ore"))) {
+                    return RandomUtils.oreDictColor.get(stack.getTagCompound().getString("ore"));
                 } else {
-                    return stack.stackTagCompound.getString("ore").hashCode();
+                    return stack.getTagCompound().getString("ore").hashCode();
                 }
             } else {
                 return 0;

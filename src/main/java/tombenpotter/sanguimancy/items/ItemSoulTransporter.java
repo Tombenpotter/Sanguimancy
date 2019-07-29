@@ -1,24 +1,19 @@
 package tombenpotter.sanguimancy.items;
 
 import WayofTime.bloodmagic.teleport.TeleportQueue;
-import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.ActionResult;
-import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.util.EnumHand;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import tombenpotter.sanguimancy.Sanguimancy;
 import tombenpotter.sanguimancy.util.ConfigHandler;
-import tombenpotter.sanguimancy.util.singletons.ClaimedChunks;
-import tombenpotter.sanguimancy.util.teleporting.TeleportingQueue;
 
 public class ItemSoulTransporter extends Item {
-
     public ItemSoulTransporter() {
         setCreativeTab(Sanguimancy.creativeTab);
         setUnlocalizedName(Sanguimancy.modid + ".soulTransporter");

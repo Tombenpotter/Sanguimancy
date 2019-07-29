@@ -35,14 +35,14 @@ public class ItemTelepositionSigil extends Item {
 
     @Override
     public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean par4) {
-        if (stack.stackTagCompound != null) {
+        if (stack.getTagCompound() != null) {
             if (!GuiScreen.isShiftKeyDown()) {
                 list.add(I18n.format("info.Sanguimancy.tooltip.teleposition.sigil.pun"));
                 list.add(I18n.format("info.Sanguimancy.tooltip.shift.info"));
             } else {
                 list.add(I18n.format("info.Sanguimancy.tooltip.teleposition.sigil.pun"));
-                list.add(I18n.format("info.Sanguimancy.tooltip.coordinates") + ": " + stack.stackTagCompound.getInteger("blockX") + ", " + stack.stackTagCompound.getInteger("blockZ") + ", " + stack.stackTagCompound.getInteger("blockZ"));
-                list.add(I18n.format("info.Sanguimancy.tooltip.bound.dimension") + ": " + getDimensionID(stack.stackTagCompound));
+                list.add(I18n.format("info.Sanguimancy.tooltip.coordinates") + ": " + stack.getTagCompound().getInteger("blockX") + ", " + stack.getTagCompound().getInteger("blockZ") + ", " + stack.getTagCompound().getInteger("blockZ"));
+                list.add(I18n.format("info.Sanguimancy.tooltip.bound.dimension") + ": " + getDimensionID(stack.getTagCompound()));
             }
         }
     }
@@ -51,14 +51,14 @@ public class ItemTelepositionSigil extends Item {
     public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, EnumHand handIn) {
         RandomUtils.checkAndSetCompound(stack);
         EnergyItems.checkAndSetItemOwner(stack, player);
-        int x = stack.stackTagCompound.getInteger("blockX");
-        int y = stack.stackTagCompound.getInteger("blockY");
-        int z = stack.stackTagCompound.getInteger("blockZ");
+        int x = stack.getTagCompound().getInteger("blockX");
+        int y = stack.getTagCompound().getInteger("blockY");
+        int z = stack.getTagCompound().getInteger("blockZ");
         if (!world.isRemote) {
-            if (world.provider.dimensionId == getDimensionID(stack.stackTagCompound)) {
+            if (world.provider.dimensionId == getDimensionID(stack.getTagCompound())) {
                 TeleportQueue.getInstance().teleportSameDim(x, y + 1, z, player, RandomUtils.getItemOwner(stack));
             } else {
-                TeleportQueue.getInstance().teleportToDim(world, getDimensionID(stack.stackTagCompound), x, y + 1, z, player, RandomUtils.getItemOwner(stack));
+                TeleportQueue.getInstance().teleportToDim(world, getDimensionID(stack.getTagCompound()), x, y + 1, z, player, RandomUtils.getItemOwner(stack));
             }
         }
         return stack;
@@ -70,10 +70,10 @@ public class ItemTelepositionSigil extends Item {
             RandomUtils.checkAndSetCompound(stack);
             EnergyItems.checkAndSetItemOwner(stack, player);
             if (world.getTileEntity(x, y, z) != null && world.getTileEntity(x, y, z) instanceof TETeleposer) {
-                stack.stackTagCompound.setInteger("blockX", x);
-                stack.stackTagCompound.setInteger("blockY", y);
-                stack.stackTagCompound.setInteger("blockZ", z);
-                stack.stackTagCompound.setInteger("dimensionId", world.provider.dimensionId);
+                stack.getTagCompound().setInteger("blockX", x);
+                stack.getTagCompound().setInteger("blockY", y);
+                stack.getTagCompound().setInteger("blockZ", z);
+                stack.getTagCompound().setInteger("dimensionId", world.provider.dimensionId);
                 return true;
             }
         }
