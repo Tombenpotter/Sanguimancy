@@ -2,7 +2,6 @@ package tombenpotter.sanguimancy.api.tiles;
 
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
-import net.minecraftforge.common.util.ForgeDirection;
 import tombenpotter.sanguimancy.api.objects.BoolAndBlockPosList;
 import tombenpotter.sanguimancy.api.objects.ICustomNBTTag;
 import tombenpotter.sanguimancy.api.objects.SNKNotBoolean;
@@ -31,11 +30,11 @@ public abstract class TileBaseSNPart extends TileEntity implements ISNPart, ICus
         if (getAdjacentISNComponents() != null) {
             for (BlockPos pos : getAdjacentISNComponents()) {
                 if (pos != null) {
-                    if (!blockPosList.hashMap.containsKey(pos) && pos.getTile(world) != null && pos.getTile(world) instanceof ISNKnot) {
-                        ISNKnot knot = (ISNKnot) pos.getTile(world);
+                    if (!blockPosList.hashMap.containsKey(pos) && world.getTileEntity(pos) != null && world.getTileEntity(pos) instanceof ISNKnot) {
+                        ISNKnot knot = (ISNKnot) world.getTileEntity(pos);
                         blockPosList.hashMap.put(pos, new SNKNotBoolean(knot.isSNKnot(), knot.isSNKnotactive()));
-                    } else if (!blockPosList.hashMap.containsKey(pos) && pos.getTile(world) != null && pos.getTile(world) instanceof ISNComponent) {
-                        ISNComponent component = (ISNComponent) pos.getTile(world);
+                    } else if (!blockPosList.hashMap.containsKey(pos) && world.getTileEntity(pos) != null && world.getTileEntity(pos) instanceof ISNComponent) {
+                        ISNComponent component = (ISNComponent) world.getTileEntity(pos);
                         blockPosList.hashMap.put(pos, new SNKNotBoolean(component.isSNKnot(), false));
                         component.getAdjacentComponents(this.getPos(), blockPosList);
                     }
@@ -49,11 +48,11 @@ public abstract class TileBaseSNPart extends TileEntity implements ISNPart, ICus
     public BoolAndBlockPosList getAdjacentComponents(BlockPos originalPosition, BoolAndBlockPosList blockPosList) {
         for (BlockPos pos : getAdjacentISNComponents()) {
             if (pos != null) {
-                if (!blockPosList.hashMap.containsKey(pos) && pos.getTile(world) != null && pos.getTile(world) instanceof ISNKnot) {
-                    ISNKnot knot = (ISNKnot) pos.getTile(world);
+                if (!blockPosList.hashMap.containsKey(pos) && world.getTileEntity(pos) != null && world.getTileEntity(pos) instanceof ISNKnot) {
+                    ISNKnot knot = (ISNKnot) world.getTileEntity(pos);
                     blockPosList.hashMap.put(pos, new SNKNotBoolean(knot.isSNKnot(), knot.isSNKnotactive()));
-                } else if (!blockPosList.hashMap.containsKey(pos) && pos.getTile(world) != null && pos.getTile(world) instanceof ISNComponent) {
-                    ISNComponent component = (ISNComponent) pos.getTile(world);
+                } else if (!blockPosList.hashMap.containsKey(pos) && world.getTileEntity(pos) != null && world.getTileEntity(pos) instanceof ISNComponent) {
+                    ISNComponent component = (ISNComponent) world.getTileEntity(pos);
                     blockPosList.hashMap.put(pos, new SNKNotBoolean(component.isSNKnot(), false));
                     component.getAdjacentComponents(this.getPos(), blockPosList);
                 }

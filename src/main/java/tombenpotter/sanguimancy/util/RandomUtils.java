@@ -52,7 +52,7 @@ public class RandomUtils {
                 float rz = rand.nextFloat() * 0.8F + 0.1F;
                 EntityItem entityItem = new EntityItem(world, pos.getX() + rx, pos.getY() + ry, pos.getZ() + rz, new ItemStack(item.getItem(), item.getCount(), item.getItemDamage()));
                 if (item.hasTagCompound()) {
-                    entityItem.getEntityItem().setTagCompound((NBTTagCompound) item.getTagCompound().copy());
+                    entityItem.getItem().setTagCompound((NBTTagCompound) item.getTagCompound().copy());
                 }
                 float factor = 0.05F;
                 entityItem.motionX = rand.nextGaussian() * factor;
@@ -73,7 +73,7 @@ public class RandomUtils {
             EntityItem entityitem = new EntityItem(world, x + d0, y + d1, z + d2, stack);
             entityitem.setPickupDelay(1);
             if (stack.hasTagCompound()) {
-                entityitem.getEntityItem().setTagCompound((NBTTagCompound) stack.getTagCompound().copy());
+                entityitem.getItem().setTagCompound((NBTTagCompound) stack.getTagCompound().copy());
             }
             world.spawnEntity(entityitem);
             return entityitem;

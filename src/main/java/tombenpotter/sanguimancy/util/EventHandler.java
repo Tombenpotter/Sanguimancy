@@ -105,7 +105,6 @@ public class EventHandler {
     */
 
     public static class ClientEventHandler {
-
         @SubscribeEvent(priority = EventPriority.HIGHEST)
         //This code is very much inspired by the one in ProfMobius' Waila mod
         public void onSanguimancyItemTooltip(ItemTooltipEvent event) {
@@ -114,9 +113,8 @@ public class EventHandler {
             if (stack != null) {
                 ResourceLocation id = Item.REGISTRY.getNameForObject(stack.getItem());
                 if (id != null && id.getResourceDomain().equals(Sanguimancy.modid) && stack.getTagCompound() != null && stack.getTagCompound().hasKey("ownerName")) {
-                    if (GuiScreen.isShiftKeyDown()) {
+                    if (GuiScreen.isShiftKeyDown())
                         event.getToolTip().add(I18n.format("info.Sanguimancy.tooltip.owner") + ": " + stack.getTagCompound().getString("ownerName"));
-                    }
                 }
             }
         }

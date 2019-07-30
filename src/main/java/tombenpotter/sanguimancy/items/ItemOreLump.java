@@ -1,14 +1,15 @@
 package tombenpotter.sanguimancy.items;
 
 import net.minecraft.client.gui.GuiScreen;
-import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.client.resources.I18n;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.IIcon;
+import net.minecraft.util.NonNullList;
+import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import tombenpotter.sanguimancy.Sanguimancy;
@@ -16,8 +17,9 @@ import tombenpotter.sanguimancy.util.RandomUtils;
 
 import java.util.List;
 
-public class ItemOreLump extends Item {
+import javax.annotation.Nullable;
 
+public class ItemOreLump extends Item {
     public IIcon overlayIcon;
 
     public ItemOreLump() {
@@ -33,8 +35,7 @@ public class ItemOreLump extends Item {
     }
 
     @Override
-    @SuppressWarnings("unchecked")
-    public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean par4) {
+    public void addInformation(ItemStack stack, @Nullable World world, List<String> tooltip, ITooltipFlag flagIn) {
         NBTTagCompound tag = stack.getTagCompound();
 
         if (tag == null)
@@ -44,17 +45,17 @@ public class ItemOreLump extends Item {
 
         if (!oreName.equals("")) {
             if (!GuiScreen.isShiftKeyDown())
-                list.add(I18n.format("info.Sanguimancy.tooltip.shift.info"));
+                tooltip.add(I18n.format("info.Sanguimancy.tooltip.shift.info"));
             else
-                list.add(String.format(I18n.format("info.Sanguimancy.tooltip.ore"), RandomUtils.capitalizeFirstLetter(oreName)));
+                tooltip.add(String.format(I18n.format("info.Sanguimancy.tooltip.ore"), RandomUtils.capitalizeFirstLetter(oreName)));
         }
     }
 
     @SideOnly(Side.CLIENT)
     @Override
-    @SuppressWarnings("unchecked")
-    public void getSubItems(Item item, CreativeTabs par2CreativeTabs, List list) {
-        for (ItemStack stack : RandomUtils.oreLumpList) list.add(stack);
+    public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> items) {
+        for (ItemStack stack : RandomUtils.oreLumpList)
+        	items.add(stack);
     }
 
     @Override

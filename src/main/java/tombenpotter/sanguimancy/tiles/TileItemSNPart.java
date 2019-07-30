@@ -13,7 +13,6 @@ import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.math.BlockPos;
-import tombenpotter.sanguimancy.api.objects.BlockPostition;
 import tombenpotter.sanguimancy.api.objects.SNKNotBoolean;
 import tombenpotter.sanguimancy.api.snManifestation.EnumSNType;
 import tombenpotter.sanguimancy.api.snManifestation.ISNKnot;
@@ -24,7 +23,6 @@ import tombenpotter.sanguimancy.util.singletons.BoundItems;
 import java.util.HashMap;
 
 public class TileItemSNPart extends TileBaseSNPart implements IInventory, ITickable {
-
     public ItemStack[] slots;
     private NBTTagCompound customNBTTag;
 
@@ -40,7 +38,7 @@ public class TileItemSNPart extends TileBaseSNPart implements IInventory, ITicka
     public ItemStack getStackInSlot(int par1) {
         return this.slots[par1];
     }
-
+    
     public ItemStack decrStackSize(int par1, int par2) {
         if (this.slots[par1] != null) {
             ItemStack itemstack;
@@ -81,12 +79,12 @@ public class TileItemSNPart extends TileBaseSNPart implements IInventory, ITicka
     }
 
     @Override
-    public String getInventoryName() {
+    public String getName() {
         return "Bound Item";
     }
 
     @Override
-    public boolean hasCustomInventoryName() {
+    public boolean hasCustomName() {
         return false;
     }
 
@@ -108,7 +106,7 @@ public class TileItemSNPart extends TileBaseSNPart implements IInventory, ITicka
     }
 
     @Override
-    public void writeToNBT(NBTTagCompound tagCompound) {
+    public NBTTagCompound writeToNBT(NBTTagCompound tagCompound) {
         super.writeToNBT(tagCompound);
         NBTTagList nbttaglist = new NBTTagList();
 
@@ -122,6 +120,8 @@ public class TileItemSNPart extends TileBaseSNPart implements IInventory, ITicka
         }
         tagCompound.setTag("Items", nbttaglist);
         tagCompound.setTag("customNBTTag", customNBTTag);
+        
+		return tagCompound;
     }
 
     public boolean onBlockRightClicked(EntityPlayer player, ItemStack stack) {
@@ -141,16 +141,18 @@ public class TileItemSNPart extends TileBaseSNPart implements IInventory, ITicka
     }
 
     @Override
-    public boolean isUseableByPlayer(EntityPlayer p_70300_1_) {
+    public boolean isUsableByPlayer(EntityPlayer player) {
         return false;
     }
 
     @Override
-    public void openInventory() {
+    public void openInventory(EntityPlayer player) {
+    	
     }
 
     @Override
-    public void closeInventory() {
+    public void closeInventory(EntityPlayer player) {
+    	
     }
 
     @Override
@@ -193,7 +195,7 @@ public class TileItemSNPart extends TileBaseSNPart implements IInventory, ITicka
     public void onNetworkUpdate(BlockPos originalPosition) {
         if (!getSNKnots().isEmpty()) {
             for (BlockPos postition : getSNKnots()) {
-                ISNKnot knot = (ISNKnot) postition.getTile(world);
+                ISNKnot knot = (ISNKnot) world.getTileEntity(postition);
                 BoundItems.getBoundItems().removeItem(getCustomNBTTag().getString("SavedItemName"));
                 BoundItems.getBoundItems().addItem(getCustomNBTTag().getString("SavedItemName"), new BoundItemState(xCoord, yCoord, zCoord, world.provider.dimensionId, knot.isSNKnotactive()));
             }
@@ -237,18 +239,6 @@ public class TileItemSNPart extends TileBaseSNPart implements IInventory, ITicka
     }
 
 	@Override
-	public String getName() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public boolean hasCustomName() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
 	public boolean isEmpty() {
 		// TODO Auto-generated method stub
 		return false;
@@ -258,24 +248,6 @@ public class TileItemSNPart extends TileBaseSNPart implements IInventory, ITicka
 	public ItemStack removeStackFromSlot(int index) {
 		// TODO Auto-generated method stub
 		return null;
-	}
-
-	@Override
-	public boolean isUsableByPlayer(EntityPlayer player) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public void openInventory(EntityPlayer player) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void closeInventory(EntityPlayer player) {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override

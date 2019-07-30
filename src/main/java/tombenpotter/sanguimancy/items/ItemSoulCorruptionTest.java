@@ -1,6 +1,7 @@
 package tombenpotter.sanguimancy.items;
 
 import net.minecraft.client.resources.I18n;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -15,8 +16,9 @@ import tombenpotter.sanguimancy.api.soulCorruption.SoulCorruptionHelper;
 
 import java.util.List;
 
-public class ItemSoulCorruptionTest extends Item {
+import javax.annotation.Nullable;
 
+public class ItemSoulCorruptionTest extends Item {
     public IIcon[] icon = new IIcon[4];
 
     public ItemSoulCorruptionTest() {
@@ -78,33 +80,28 @@ public class ItemSoulCorruptionTest extends Item {
     public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, EnumHand handIn) {
         if (!world.isRemote) {
             if (stack.getItemDamage() == 0) {
-                if (!player.isSneaking()) {
+                if (!player.isSneaking())
                     SoulCorruptionHelper.incrementCorruption(player);
-                } else {
+                else
                     SoulCorruptionHelper.addCorruption(player, 100);
-                }
             }
             if (stack.getItemDamage() == 1) {
-                if (!player.isSneaking()) {
+                if (!player.isSneaking())
                     SoulCorruptionHelper.decrementCorruption(player);
-                } else {
+                else
                     SoulCorruptionHelper.removeCorruption(player, 100);
-                }
             }
-            if (stack.getItemDamage() == 2) {
+            if (stack.getItemDamage() == 2)
                 SoulCorruptionHelper.negateCorruption(player);
-            }
-            if (stack.getItemDamage() == 3) {
+            if (stack.getItemDamage() == 3)
                 player.sendMessage(new ChatComponentText(I18n.format("chat.Sanguimancy.soul.corruption") + ": " + String.valueOf(SoulCorruptionHelper.getCorruptionLevel(player))));
-            }
         }
         return stack;
     }
 
     @Override
-    public void addInformation(ItemStack stack, EntityPlayer player, List<String> list, boolean par4) {
-        if (stack.getItemDamage() == 0 || stack.getItemDamage() == 1 || stack.getItemDamage() == 2) {
-            list.add(I18n.format("info.Sanguimancy.tooltip.creative.only"));
-        }
+    public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
+        if (stack.getItemDamage() == 0 || stack.getItemDamage() == 1 || stack.getItemDamage() == 2)
+            tooltip.add(I18n.format("info.Sanguimancy.tooltip.creative.only"));
     }
 }

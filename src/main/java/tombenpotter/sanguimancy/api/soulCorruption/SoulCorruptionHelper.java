@@ -12,6 +12,7 @@ import net.minecraft.potion.PotionEffect;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -127,10 +128,9 @@ public class SoulCorruptionHelper {
 
     public static void killGrass(EntityPlayer player) {
         if (player.world.rand.nextInt(10) == 0) {
-            int x = (int) player.posX;
-            int y = (int) player.posY - 1;
-            int z = (int) player.posZ;
-            if (player.world.getBlock(x, y, z) == Blocks.GRASS) player.world.setBlock(x, y, z, Blocks.DIRT);
+        	BlockPos pos = new BlockPos(player.posX, player.posY - 1, player.posZ);
+            if (player.world.getBlockState(pos).getBlock() == Blocks.GRASS)
+            	player.world.setBlockState(pos, Blocks.DIRT.getDefaultState());
         }
     }
 
@@ -171,12 +171,18 @@ public class SoulCorruptionHelper {
     }
 
     public static void spawnIllusion(EntityPlayer player) {
-        int i = (int) (player.posX + player.world.rand.nextInt(16) - player.world.rand.nextInt(16));
-        int j = (int) (player.posY + player.world.rand.nextInt(16) - player.world.rand.nextInt(16));
-        int k = (int) (player.posZ + player.world.rand.nextInt(16) - player.world.rand.nextInt(16));
-        if (j <= 0) j = j + 5;
-        if (player.world.rand.nextInt(500) == 0 && player.world.isAirBlock(i, j, k)) {
-            player.world.setBlock(i, j, k, BlocksRegistry.illusion, player.world.rand.nextInt(16), 3);
+    	int j = (int) (player.posY + player.world.rand.nextInt(16) - player.world.rand.nextInt(16));
+    	// Correct so its above bedrock slightly
+    	if (j <= 0) j = j + 5;
+    	
+    	BlockPos pos = new BlockPos(
+    			(player.posX + player.world.rand.nextInt(16) - player.world.rand.nextInt(16)),
+    			j,
+    			(player.posZ + player.world.rand.nextInt(16) - player.world.rand.nextInt(16))
+		);
+        
+        if (player.world.rand.nextInt(500) == 0 && player.world.isAirBlock(pos)) {
+            player.world.setBlock(pos, BlocksRegistry.illusion, player.world.rand.nextInt(16), 3);
         }
     }
 

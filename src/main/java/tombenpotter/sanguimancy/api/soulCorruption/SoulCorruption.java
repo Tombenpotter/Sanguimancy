@@ -3,12 +3,13 @@ package tombenpotter.sanguimancy.api.soulCorruption;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraftforge.common.IExtendedEntityProperties;
+import tombenpotter.sanguimancy.Sanguimancy;
 
 public class SoulCorruption implements IExtendedEntityProperties {
-
-    public static String ID = "SoulCorruption";
+    public static ResourceLocation Key = new ResourceLocation(Sanguimancy.modid, "sanguimancy.capability.soulCorruption");
     public int soulCorruption;
 
     public SoulCorruption() {
