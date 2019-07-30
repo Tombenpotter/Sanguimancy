@@ -1,30 +1,28 @@
 package tombenpotter.sanguimancy.blocks;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
-import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import tombenpotter.sanguimancy.Sanguimancy;
-import tombenpotter.sanguimancy.tile.TileIllusion;
+import tombenpotter.sanguimancy.tiles.TileIllusion;
 
 import java.util.List;
 
 public class BlockIllusion extends BlockContainer {
-
     public IIcon[] icon = new IIcon[16];
 
     public BlockIllusion(Material material) {
         super(material);
         this.setBlockUnbreakable();
         this.setResistance(10000F);
-        this.setCreativeTab(Sanguimancy.tabSanguimancy);
+        this.setCreativeTab(Sanguimancy.creativeTab);
     }
 
     @Override
@@ -49,7 +47,7 @@ public class BlockIllusion extends BlockContainer {
     }
 
     @SideOnly(Side.CLIENT)
-    public void getSubBlocks(Item id, CreativeTabs tab, List list) {
+    public void getSubBlocks(Item id, CreativeTabs tab, List<ItemStack> list) {
         for (int i = 0; i < 16; i++) list.add(new ItemStack(id, 1, i));
     }
 
@@ -64,8 +62,8 @@ public class BlockIllusion extends BlockContainer {
     }
 
     @Override
-    public int damageDropped(int meta) {
-        return meta;
+    public int damageDropped(IBlockState meta) {
+        return 0;
     }
 
     @Override
@@ -74,7 +72,7 @@ public class BlockIllusion extends BlockContainer {
     }
 
     @Override
-    public boolean isOpaqueCube() {
+    public boolean isOpaqueCube(IBlockState state) {
         return false;
     }
 }

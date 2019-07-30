@@ -1,10 +1,10 @@
 package tombenpotter.sanguimancy.compat.lua.events;
 
-import cpw.mods.fml.common.Optional;
 import dan200.computercraft.api.peripheral.IComputerAccess;
 import li.cil.oc.api.machine.Context;
 import net.minecraft.tileentity.TileEntity;
-import tombenpotter.sanguimancy.api.tile.TileComputerBase;
+import net.minecraftforge.fml.common.Optional;
+import tombenpotter.sanguimancy.api.tiles.TileComputerBase;
 import tombenpotter.sanguimancy.util.enums.ModList;
 
 public abstract class LuaEvent {

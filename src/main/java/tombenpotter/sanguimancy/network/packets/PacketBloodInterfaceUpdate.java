@@ -1,26 +1,28 @@
 package tombenpotter.sanguimancy.network.packets;
 
-import cpw.mods.fml.common.network.simpleimpl.IMessage;
 import io.netty.buffer.ByteBuf;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.BlockPos;
+import net.minecraftforge.fml.common.network.ByteBufUtils;
+import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import tombenpotter.sanguimancy.network.MessageHelper;
-import tombenpotter.sanguimancy.tile.TileBloodInterface;
+import tombenpotter.sanguimancy.tiles.TileBloodInterface;
 
 public class PacketBloodInterfaceUpdate implements IMessage {
-    public int posX, posY, posZ, itemID = -1, itemDamage = -1;
+    public BlockPos pos;
+    public ResourceLocation itemName = null;
+    public int itemDamage;
     public byte[] bytes = new byte[0];
 
     public PacketBloodInterfaceUpdate() {
     }
 
     public PacketBloodInterfaceUpdate(TileBloodInterface tileBloodInterface) {
-        this.posX = tileBloodInterface.xCoord;
-        this.posY = tileBloodInterface.yCoord;
-        this.posZ = tileBloodInterface.zCoord;
-        ItemStack stack = tileBloodInterface.getStackInSlot(0);
+        this.pos = tileBloodInterface.getPos();
+        ItemStack stack = tileBloodInterface.getInventory(null).getStackInSlot(0);
         if (stack != null) {
-            itemID = Item.getIdFromItem(stack.getItem());
+            itemName = stack.getItem().getRegistryName();
             itemDamage = stack.getItemDamage();
             if (stack.hasTagCompound() && stack.getTagCompound().hasKey("ownerName")) {
                 bytes = MessageHelper.stringToByteArray(stack.getTagCompound().getString("ownerName"));
@@ -28,14 +30,12 @@ public class PacketBloodInterfaceUpdate implements IMessage {
         }
     }
 
-
     @Override
     public void fromBytes(ByteBuf buf) {
-        this.posX = buf.readInt();
-        this.posY = buf.readInt();
-        this.posZ = buf.readInt();
+        this.pos = BlockPos.fromLong(buf.readLong());
+
         try {
-            this.itemID = buf.readInt();
+            this.itemName = new ResourceLocation(ByteBufUtils.readUTF8String(buf));
             this.itemDamage = buf.readInt();
             buf.readBytes(bytes);
         } catch (IndexOutOfBoundsException e) {
@@ -44,13 +44,13 @@ public class PacketBloodInterfaceUpdate implements IMessage {
 
     @Override
     public void toBytes(ByteBuf buf) {
-        buf.writeInt(this.posX);
-        buf.writeInt(this.posY);
-        buf.writeInt(this.posZ);
-        if (this.itemID >= 0) {
-            buf.writeInt(this.itemID);
+        buf.writeLong(pos.toLong());
+
+        if (this.itemName != null) {
+            ByteBufUtils.writeUTF8String(buf, itemName.toString());
             buf.writeInt(this.itemDamage);
-            if (bytes.length > 0) buf.writeBytes(bytes);
+            if (bytes.length > 0)
+                buf.writeBytes(bytes);
         }
     }
 }

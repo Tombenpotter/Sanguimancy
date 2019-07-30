@@ -1,7 +1,7 @@
 package tombenpotter.sanguimancy.compat.lua.methods;
 
-import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -13,7 +13,7 @@ public class LuaHelper {
         GameRegistry.UniqueIdentifier id = GameRegistry.findUniqueIdentifierFor(stack.getItem());
         if (id == null) return null;
         result.put("item", id.toString());
-        result.put("quantity", stack.stackSize);
+        result.put("quantity", stack.getCount());
         result.put("damage", stack.getItemDamage());
         result.put("name", stack.getDisplayName());
         if (stack.hasTagCompound())

@@ -1,26 +1,26 @@
 package tombenpotter.sanguimancy.items;
 
-import WayofTime.alchemicalWizardry.api.items.interfaces.IBindable;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
-import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.client.resources.I18n;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.IIcon;
-import net.minecraft.util.StatCollector;
+import net.minecraft.util.NonNullList;
+import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import tombenpotter.sanguimancy.Sanguimancy;
 
 import java.util.List;
 
-public class ItemPlayerSacrificer extends Item implements IBindable {
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
-    public IIcon[] icon = new IIcon[4];
+public class ItemPlayerSacrificer extends Item {
 
     public ItemPlayerSacrificer() {
-        setCreativeTab(Sanguimancy.tabSanguimancy);
+        setCreativeTab(Sanguimancy.creativeTab);
         setUnlocalizedName(Sanguimancy.modid + ".playerSacrificer");
         setHasSubtypes(true);
     }
@@ -54,22 +54,10 @@ public class ItemPlayerSacrificer extends Item implements IBindable {
     }
 
     @SideOnly(Side.CLIENT)
-    public void registerIcons(IIconRegister ri) {
-        this.icon[0] = ri.registerIcon(Sanguimancy.texturePath + ":UnattunedPlayerSacrificer");
-        this.icon[1] = ri.registerIcon(Sanguimancy.texturePath + ":AttunedPlayerSacrificer");
-        this.icon[2] = ri.registerIcon(Sanguimancy.texturePath + ":FocusedPlayerSacrificer");
-        this.icon[3] = ri.registerIcon(Sanguimancy.texturePath + ":FocusedPlayerSacrificer");
-    }
-
-    @SideOnly(Side.CLIENT)
-    public IIcon getIconFromDamage(int meta) {
-        return this.icon[meta];
-    }
-
-    @SideOnly(Side.CLIENT)
-    public void getSubItems(Item item, CreativeTabs par2CreativeTabs, List list) {
+    @Override
+    public void getSubItems(@Nonnull CreativeTabs tab, @Nonnull NonNullList<ItemStack> items) {
         for (int i = 0; i < 3; i++) {
-            list.add(new ItemStack(this, 1, i));
+            items.add(new ItemStack(this, 1, i));
         }
         ItemStack wayToDie = new ItemStack(this, 1, 3);
         NBTTagCompound tag = new NBTTagCompound();
@@ -77,23 +65,19 @@ public class ItemPlayerSacrificer extends Item implements IBindable {
         tag.setString("ownerName", "WayofFlowingTime");
         tag.setString("thiefName", "Tombenpotter");
         wayToDie.setTagCompound(tag);
-        list.add(wayToDie);
+        items.add(wayToDie);
     }
 
     @Override
-    public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean par4) {
-        if (!(stack.stackTagCompound == null) && stack.getItemDamage() == 2 || stack.getItemDamage() == 3) {
-            list.add(StatCollector.translateToLocal("info.Sanguimancy.tooltip.sacrifice.player.stolen") + ": " + stack.stackTagCompound.getInteger("bloodStolen"));
-            list.add(StatCollector.translateToLocal("info.Sanguimancy.tooltip.sacrifice.player.thief") + ": " + stack.stackTagCompound.getString("thiefName"));
+    public void addInformation(ItemStack stack, @Nullable World world, List<String> tooltip, ITooltipFlag flag) {
+        if (!(stack.getTagCompound() == null) && stack.getItemDamage() == 2 || stack.getItemDamage() == 3) {
+            tooltip.add(I18n.format("info.Sanguimancy.tooltip.sacrifice.player.stolen") + ": " + stack.getTagCompound().getInteger("bloodStolen"));
+            tooltip.add(I18n.format("info.Sanguimancy.tooltip.sacrifice.player.thief") + ": " + stack.getTagCompound().getString("thiefName"));
         }
     }
 
     @SideOnly(Side.CLIENT)
     public boolean hasEffect(ItemStack stack) {
-        if (!(stack.stackTagCompound == null) && stack.getItemDamage() == 2 || stack.getItemDamage() == 3) {
-            return true;
-        } else {
-            return false;
-        }
+    	return (!(stack.getTagCompound() == null) && stack.getItemDamage() == 2 || stack.getItemDamage() == 3);
     }
 }

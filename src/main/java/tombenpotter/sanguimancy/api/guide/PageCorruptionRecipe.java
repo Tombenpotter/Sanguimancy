@@ -1,25 +1,24 @@
 package tombenpotter.sanguimancy.api.guide;
 
-import amerifrance.guideapi.api.abstraction.CategoryAbstract;
-import amerifrance.guideapi.api.abstraction.EntryAbstract;
-import amerifrance.guideapi.api.base.Book;
-import amerifrance.guideapi.api.base.PageBase;
+import amerifrance.guideapi.api.impl.Book;
+import amerifrance.guideapi.api.impl.Page;
+import amerifrance.guideapi.api.impl.abstraction.CategoryAbstract;
+import amerifrance.guideapi.api.impl.abstraction.EntryAbstract;
 import amerifrance.guideapi.api.util.GuiHelper;
 import amerifrance.guideapi.gui.GuiBase;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.StatCollector;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import tombenpotter.sanguimancy.Sanguimancy;
 import tombenpotter.sanguimancy.recipes.RecipeCorruptedInfusion;
 
-public class PageCorruptionRecipe extends PageBase {
-
+public class PageCorruptionRecipe extends Page {
     public ItemStack[] input;
     public ItemStack output;
     public int minimumCorruption;
@@ -39,7 +38,7 @@ public class PageCorruptionRecipe extends PageBase {
         Minecraft.getMinecraft().getTextureManager().bindTexture(new ResourceLocation(Sanguimancy.texturePath + ":textures/gui/guide/altar.png"));
         guiBase.drawTexturedModalRect(guiLeft + 42, guiTop + 53, 0, 0, 150, 60);
 
-        guiBase.drawCenteredString(fontRenderer, StatCollector.translateToLocal("text.recipe.corrupted"), guiLeft + guiBase.xSize / 2, guiTop + 12, 0);
+        guiBase.drawCenteredString(fontRenderer, I18n.format("text.recipe.corrupted"), guiLeft + guiBase.xSize / 2, guiTop + 12, 0);
 
         int inputX = (1 + 1) * 20 + (guiLeft + guiBase.xSize / 7);
         int inputY = (1 * 20) + (guiTop + guiBase.ySize / 5);
@@ -53,7 +52,7 @@ public class PageCorruptionRecipe extends PageBase {
         }
 
         if (output == null) {
-            output = new ItemStack(Blocks.fire);
+            output = new ItemStack(Blocks.FIRE);
         }
         int outputX = (5 * 20) + (guiLeft + guiBase.xSize / 7);
         int outputY = (1 * 20) + (guiTop + guiBase.xSize / 5);
@@ -62,12 +61,12 @@ public class PageCorruptionRecipe extends PageBase {
             guiBase.renderToolTip(output, outputX, outputY);
         }
 
-        if (output.getItem() == Item.getItemFromBlock(Blocks.fire)) {
-            guiBase.drawCenteredString(fontRenderer, StatCollector.translateToLocal("text.furnace.error"), guiLeft + guiBase.xSize / 2, guiTop + 4 * guiBase.ySize / 6, 0xED073D);
+        if (output.getItem() == Item.getItemFromBlock(Blocks.FIRE)) {
+            guiBase.drawCenteredString(fontRenderer, I18n.format("text.furnace.error"), guiLeft + guiBase.xSize / 2, guiTop + 4 * guiBase.ySize / 6, 0xED073D);
             guiBase.drawCenteredString(fontRenderer, String.valueOf(minimumCorruption), guiLeft + guiBase.xSize / 2, guiTop + 4 * guiBase.ySize / 6 + 15, 0);
             guiBase.drawCenteredString(fontRenderer, String.valueOf(duration), guiLeft + guiBase.xSize / 2, guiTop + 4 * guiBase.ySize / 6 + 30, 0);
         }
-        guiBase.drawCenteredString(fontRenderer, String.format(StatCollector.translateToLocal("text.recipe.corruption.minCorruption"), String.valueOf(minimumCorruption)), guiLeft + guiBase.xSize / 2, guiTop + 4 * guiBase.ySize / 6, 0);
-        guiBase.drawCenteredString(fontRenderer, String.format(StatCollector.translateToLocal("text.recipe.corruption.duration"), String.valueOf(duration)), guiLeft + guiBase.xSize / 2, guiTop + 4 * guiBase.ySize / 6 + 15, 0);
+        guiBase.drawCenteredString(fontRenderer, I18n.format("text.recipe.corruption.minCorruption", String.valueOf(minimumCorruption)), guiLeft + guiBase.xSize / 2, guiTop + 4 * guiBase.ySize / 6, 0);
+        guiBase.drawCenteredString(fontRenderer, I18n.format("text.recipe.corruption.duration", String.valueOf(duration)), guiLeft + guiBase.xSize / 2, guiTop + 4 * guiBase.ySize / 6 + 15, 0);
     }
 }

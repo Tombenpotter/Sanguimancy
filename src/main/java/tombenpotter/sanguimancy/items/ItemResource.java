@@ -1,24 +1,23 @@
 package tombenpotter.sanguimancy.items;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
-import net.minecraft.client.renderer.texture.IIconRegister;
+
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.IIcon;
+import net.minecraft.util.NonNullList;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import tombenpotter.sanguimancy.Sanguimancy;
 
 import java.util.ArrayList;
-import java.util.List;
+
+import javax.annotation.Nonnull;
 
 public class ItemResource extends Item {
-
-    public IIcon[] icon = new IIcon[50];
-    ArrayList<String> namesList = new ArrayList<String>();
+    ArrayList<String> namesList = new ArrayList<>();
 
     public ItemResource() {
-        setCreativeTab(Sanguimancy.tabSanguimancy);
+        setCreativeTab(Sanguimancy.creativeTab);
         setUnlocalizedName(Sanguimancy.modid + ".resource");
         setHasSubtypes(true);
 
@@ -29,30 +28,18 @@ public class ItemResource extends Item {
         namesList.add(4, "manipulatorUpgrade");
     }
 
-    @SideOnly(Side.CLIENT)
-    public void registerIcons(IIconRegister ri) {
-        this.icon[0] = ri.registerIcon(Sanguimancy.texturePath + ":CorruptedDemonShard");
-        this.icon[1] = ri.registerIcon(Sanguimancy.texturePath + ":CorruptedMineral");
-        this.icon[2] = ri.registerIcon(Sanguimancy.texturePath + ":ImbuedStick");
-        this.icon[3] = ri.registerIcon(Sanguimancy.texturePath + ":EtherealManifestation");
-        this.icon[4] = ri.registerIcon(Sanguimancy.texturePath + ":ManipulatorUpgrade");
-    }
-
+    @Nonnull
     @Override
     public String getUnlocalizedName(ItemStack stack) {
         String name = namesList.get(stack.getItemDamage());
         return getUnlocalizedName() + "." + name;
     }
-
+    
+    @Override
     @SideOnly(Side.CLIENT)
-    public IIcon getIconFromDamage(int meta) {
-        return this.icon[meta];
-    }
-
-    @SideOnly(Side.CLIENT)
-    public void getSubItems(Item item, CreativeTabs par2CreativeTabs, List list) {
+    public void getSubItems(@Nonnull CreativeTabs tab, @Nonnull NonNullList<ItemStack> items) {
         for (int i = 0; i < namesList.size(); i++) {
-            list.add(new ItemStack(this, 1, i));
+            items.add(new ItemStack(this, 1, i));
         }
     }
 }

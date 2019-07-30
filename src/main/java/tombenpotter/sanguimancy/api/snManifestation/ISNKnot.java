@@ -1,8 +1,8 @@
 package tombenpotter.sanguimancy.api.snManifestation;
 
-import tombenpotter.sanguimancy.api.objects.BlockPostition;
-
 import java.util.ArrayList;
+
+import net.minecraft.util.math.BlockPos;
 
 public interface ISNKnot extends ISNComponent {
 
@@ -14,5 +14,5 @@ public interface ISNKnot extends ISNComponent {
 
     public void setKnotActive(boolean isActive);
 
-    public ArrayList<BlockPostition> getSNParts();
+    public ArrayList<BlockPos> getSNParts();
 }

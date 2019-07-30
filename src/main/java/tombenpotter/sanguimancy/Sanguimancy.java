@@ -1,52 +1,54 @@
 package tombenpotter.sanguimancy;
 
-import cpw.mods.fml.common.FMLCommonHandler;
-import cpw.mods.fml.common.Loader;
-import cpw.mods.fml.common.Mod;
-import cpw.mods.fml.common.SidedProxy;
-import cpw.mods.fml.common.event.*;
-import cpw.mods.fml.common.network.NetworkRegistry;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.item.Item;
+import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.fluids.FluidRegistry;
+import net.minecraftforge.fml.common.FMLCommonHandler;
+import net.minecraftforge.fml.common.Loader;
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.common.SidedProxy;
+import net.minecraftforge.fml.common.event.FMLInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
+import net.minecraftforge.fml.common.network.NetworkRegistry;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import tombenpotter.sanguimancy.compat.computercraft.PeripheralProvider;
-import tombenpotter.sanguimancy.compat.waila.WailaCompatRegistry;
+//import tombenpotter.sanguimancy.compat.waila.WailaCompatRegistry;
 import tombenpotter.sanguimancy.network.PacketHandler;
-import tombenpotter.sanguimancy.proxies.CommonProxy;
+import tombenpotter.sanguimancy.proxy.CommonProxy;
 import tombenpotter.sanguimancy.registry.*;
 import tombenpotter.sanguimancy.util.ConfigHandler;
 import tombenpotter.sanguimancy.util.EventHandler;
 import tombenpotter.sanguimancy.util.RandomUtils;
 import tombenpotter.sanguimancy.util.enums.ModList;
-import tombenpotter.sanguimancy.util.teleporting.TeleportingQueue;
 
 @Mod(modid = Sanguimancy.modid, name = Sanguimancy.name, version = Sanguimancy.version, dependencies = Sanguimancy.depend, guiFactory = "tombenpotter.sanguimancy.client.gui.ConfigGuiFactory")
 public class Sanguimancy {
-
+	static {
+		FluidRegistry.enableUniversalBucket();
+	}
+	
     public static final String modid = "Sanguimancy";
     public static final String name = "Sanguimancy";
     public static final String texturePath = "sanguimancy";
     public static final String clientProxy = "tombenpotter.sanguimancy.proxies.ClientProxy";
     public static final String commonProxy = "tombenpotter.sanguimancy.proxies.CommonProxy";
-    public static final String depend = "required-after:AWWayofTime;" + "required-after:guideapi;" + "after:Waila";
+    public static final String depend = "required-after:AWWayofTime;" + "required-after:guideapi;";
     public static final String channel = "Sanguimancy";
     public static final String version = "@VERSION@";
     public static boolean isTTLoaded = false;
     public static boolean isIguanaTweaksLoaded = false;
     public static boolean isAprilFools = false;
     public static Logger logger = LogManager.getLogger(Sanguimancy.name);
-    public static CreativeTabs tabSanguimancy = new CreativeTabs("tab" + Sanguimancy.modid) {
-        @Override
-        public ItemStack getIconItemStack() {
-            return new ItemStack(ItemsRegistry.playerSacrificer, 1, 0);
-        }
 
+    public static CreativeTabs creativeTab = new CreativeTabs("tab" + modid) {
         @Override
-        public Item getTabIconItem() {
-            return ItemsRegistry.playerSacrificer;
+        public ItemStack getTabIconItem() {
+            return new ItemStack(Items.APPLE);
         }
     };
 
@@ -57,7 +59,6 @@ public class Sanguimancy {
 
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent event) {
-        instance = this;
         ConfigHandler.init(event.getSuggestedConfigurationFile());
         RandomUtils.addOreDictColors();
         TileRegistry.registerTEs();
@@ -66,40 +67,30 @@ public class Sanguimancy {
         RecipesRegistry.registerShapedRecipes();
         RecipesRegistry.registerOrbRecipes();
         EntitiesRegistry.registerEntities();
-        PotionsRegistry.potionPreInit();
+        PotionsRegistry.registerPotions();
         if (ModList.computercraft.isLoaded()) PeripheralProvider.register();
-        RandomUtils.createSNDimension();
+//        RandomUtils.createSNDimension();
     }
 
     @Mod.EventHandler
     public void load(FMLInitializationEvent event) {
         proxy.load();
-        RitualRegistry.registerRituals();
+        RitualsRegistry.registerRituals();
         RecipesRegistry.registerAltarRecipes();
-        RecipesRegistry.registerAlchemyRecipes();
         RecipesRegistry.registerBindingRecipes();
-        PotionsRegistry.registerPotions();
         FMLCommonHandler.instance().bus().register(new EventHandler());
         MinecraftForge.EVENT_BUS.register(new EventHandler());
-        FMLCommonHandler.instance().bus().register(TeleportingQueue.getInstance());
         PacketHandler.registerPackets();
-        if (Loader.isModLoaded("Waila")) {
-            WailaCompatRegistry.register();
-        }
+//        if (Loader.isModLoaded("Waila")) {
+//            WailaCompatRegistry.register();
+//        }
         NetworkRegistry.INSTANCE.registerGuiHandler(this, proxy);
-    }
-
-    @Mod.EventHandler
-    public void imcCallback(FMLInterModComms.IMCEvent event) {
-        for (final FMLInterModComms.IMCMessage imcMessage : event.getMessages()) {
-            MessageRegistry.registerMessage(imcMessage.key, imcMessage);
-        }
     }
 
     @Mod.EventHandler
     public void postInit(FMLPostInitializationEvent event) {
         RecipesRegistry.registerCustomModRecipes();
-        SanguimancyGuide.registerGuide();
+        SanguimancyGuide.buildBook();
         proxy.postLoad();
         isTTLoaded = Loader.isModLoaded("ThaumicTinkerer");
         isIguanaTweaksLoaded = Loader.isModLoaded("IguanaTweaksTConstruct");
@@ -108,8 +99,5 @@ public class Sanguimancy {
     @Mod.EventHandler
     public void serverStarting(FMLServerStartingEvent event) {
         RandomUtils.setLogToPlank();
-        RandomUtils.setOreLumpList();
-        RandomUtils.setTranspositionBlockBlacklist();
-        RandomUtils.setTeleposerBlacklist();
     }
 }

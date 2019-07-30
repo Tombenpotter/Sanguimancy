@@ -1,7 +1,7 @@
 package tombenpotter.sanguimancy.compat.lua.methods;
 
 import net.minecraft.tileentity.TileEntity;
-import tombenpotter.sanguimancy.tile.TileBloodInterface;
+import tombenpotter.sanguimancy.tiles.TileBloodInterface;
 
 public class LuaGetLifeEssence extends LuaMethod {
     public LuaGetLifeEssence() {

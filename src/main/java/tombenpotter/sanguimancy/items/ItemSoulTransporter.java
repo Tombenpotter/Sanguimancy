@@ -1,23 +1,21 @@
 package tombenpotter.sanguimancy.items;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
-import net.minecraft.client.renderer.texture.IIconRegister;
+import WayofTime.bloodmagic.teleport.TeleportQueue;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.util.ChunkCoordinates;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.EnumHand;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import tombenpotter.sanguimancy.Sanguimancy;
 import tombenpotter.sanguimancy.util.ConfigHandler;
-import tombenpotter.sanguimancy.util.singletons.ClaimedChunks;
-import tombenpotter.sanguimancy.util.teleporting.TeleportingQueue;
 
 public class ItemSoulTransporter extends Item {
-
     public ItemSoulTransporter() {
-        setCreativeTab(Sanguimancy.tabSanguimancy);
+        setCreativeTab(Sanguimancy.creativeTab);
         setUnlocalizedName(Sanguimancy.modid + ".soulTransporter");
     }
 
@@ -27,12 +25,12 @@ public class ItemSoulTransporter extends Item {
     }
 
     @Override
-    public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player) {
+    public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, EnumHand handIn) {
         if (!world.isRemote) {
-            if (player.worldObj.provider.dimensionId != 0) {
+            if (player.world.provider.dimensionId != 0) {
                 ChunkCoordinates chunkCoords = MinecraftServer.getServer().worldServerForDimension(0).getSpawnPoint();
                 chunkCoords.posY = MinecraftServer.getServer().worldServerForDimension(0).getTopSolidOrLiquidBlock(chunkCoords.posX, chunkCoords.posZ);
-                TeleportingQueue.getInstance().teleportToDim(world, 0, chunkCoords.posX, chunkCoords.posY, chunkCoords.posZ, player, player.getCommandSenderName());
+                TeleportQueue.getInstance().teleportToDim(world, 0, chunkCoords.posX, chunkCoords.posY, chunkCoords.posZ, player, player.getCommandSenderName());
             } else {
                 int dimID = ConfigHandler.snDimID;
                 int x, z;
@@ -48,7 +46,7 @@ public class ItemSoulTransporter extends Item {
                     x = chunkCoords.posX;
                     z = chunkCoords.posZ;
                 }
-                TeleportingQueue.getInstance().teleportToDim(world, dimID, x, 6, z, player, player.getCommandSenderName());
+                TeleportQueue.getInstance().teleportToDim(world, dimID, x, 6, z, player, player.getCommandSenderName());
             }
             player.inventory.consumeInventoryItem(this);
         }

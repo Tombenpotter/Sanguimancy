@@ -4,10 +4,11 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.Slot;
-import net.minecraft.inventory.SlotFurnace;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.items.IItemHandler;
+import net.minecraftforge.items.SlotItemHandler;
 import tombenpotter.sanguimancy.registry.ItemsRegistry;
-import tombenpotter.sanguimancy.tile.TileBloodCleaner;
+import tombenpotter.sanguimancy.tiles.TileBloodCleaner;
 
 public class ContainerLumpCleaner extends Container {
 
@@ -15,7 +16,7 @@ public class ContainerLumpCleaner extends Container {
 
     public ContainerLumpCleaner(EntityPlayer player, TileBloodCleaner entity) {
         this.tile = entity;
-        createSlots(entity, player);
+        createSlots(entity.getInventory(null), player);
         bindPlayerInventory(player.inventory);
     }
 
@@ -30,20 +31,20 @@ public class ContainerLumpCleaner extends Container {
         }
     }
 
-    public void createSlots(TileBloodCleaner tile, EntityPlayer player) {
-        addSlotToContainer(new Slot(tile, 0, 52, 16));
-        addSlotToContainer(new SlotFurnace(player, tile, 1, 129, 34));
+    public void createSlots(IItemHandler itemHandler, EntityPlayer player) {
+        addSlotToContainer(new SlotItemHandler(itemHandler, 0, 52, 16));
+        addSlotToContainer(new SlotItemHandler(itemHandler, 1, 129, 34));
     }
 
     @Override
     public boolean canInteractWith(EntityPlayer player) {
-        return tile.isUseableByPlayer(player);
+        return true;
     }
 
     @Override
     public ItemStack transferStackInSlot(EntityPlayer par1EntityPlayer, int par2) {
         ItemStack itemstack = null;
-        Slot slot = (Slot) this.inventorySlots.get(par2);
+        Slot slot = this.inventorySlots.get(par2);
         if (slot != null && slot.getHasStack()) {
             ItemStack itemstack1 = slot.getStack();
             itemstack = itemstack1.copy();
@@ -67,15 +68,15 @@ public class ContainerLumpCleaner extends Container {
             } else if (!this.mergeItemStack(itemstack1, 2, 38, false)) {
                 return null;
             }
-            if (itemstack1.stackSize == 0) {
+            if (itemstack1.getCount() == 0) {
                 slot.putStack((ItemStack) null);
             } else {
                 slot.onSlotChanged();
             }
-            if (itemstack1.stackSize == itemstack.stackSize) {
+            if (itemstack1.getCount() == itemstack.getCount()) {
                 return null;
             }
-            slot.onPickupFromSlot(par1EntityPlayer, itemstack1);
+            slot.onTake(par1EntityPlayer, itemstack1);
         }
         return itemstack;
     }

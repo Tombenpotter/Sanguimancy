@@ -1,31 +1,26 @@
 package tombenpotter.sanguimancy.blocks;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
-import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.ChatComponentText;
-import net.minecraft.util.StatCollector;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import tombenpotter.sanguimancy.Sanguimancy;
-import tombenpotter.sanguimancy.tile.TileAltarEmitter;
+import tombenpotter.sanguimancy.tiles.TileAltarEmitter;
 
 public class BlockAltarEmitter extends BlockContainer {
 
     public BlockAltarEmitter(Material material) {
         super(material);
         setHardness(5.0F);
-        setCreativeTab(Sanguimancy.tabSanguimancy);
-    }
-
-    @SideOnly(Side.CLIENT)
-    @Override
-    public void registerBlockIcons(IIconRegister ri) {
-        this.blockIcon = ri.registerIcon(Sanguimancy.texturePath + ":AltarEmitter");
+        setCreativeTab(Sanguimancy.creativeTab);
     }
 
     @Override
@@ -34,35 +29,36 @@ public class BlockAltarEmitter extends BlockContainer {
     }
 
     @Override
-    public boolean canProvidePower() {
+    public boolean canProvidePower(IBlockState state) {
         return true;
     }
 
     @Override
-    public int isProvidingWeakPower(IBlockAccess access, int x, int y, int z, int p_149709_5_) {
-        if (access.getTileEntity(x, y, z) != null && access.getTileEntity(x, y, z) instanceof TileAltarEmitter) {
-            TileAltarEmitter tile = (TileAltarEmitter) access.getTileEntity(x, y, z);
-            if (tile.isOverBloodAsked)
+    public int getWeakPower(IBlockState blockState, IBlockAccess access, BlockPos pos, EnumFacing side) {
+        if (access.getTileEntity(pos) != null && access.getTileEntity(pos) instanceof TileAltarEmitter) {
+            TileAltarEmitter tile = (TileAltarEmitter) access.getTileEntity(pos);
+            if (tile.overAsked)
                 return 15;
         }
         return 0;
     }
 
+
     @Override
-    public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int p_149727_6_, float p_149727_7_, float p_149727_8_, float p_149727_9_) {
-        if (world.getTileEntity(x, y, z) != null && world.getTileEntity(x, y, z) instanceof TileAltarEmitter && !world.isRemote) {
-            TileAltarEmitter tile = (TileAltarEmitter) world.getTileEntity(x, y, z);
+    public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
+        if (world.getTileEntity(pos) != null && world.getTileEntity(pos) instanceof TileAltarEmitter && !world.isRemote) {
+            TileAltarEmitter tile = (TileAltarEmitter) world.getTileEntity(pos);
             if (!player.isSneaking()) {
                 tile.bloodAsked += 100;
-                player.addChatMessage(new ChatComponentText(StatCollector.translateToLocal("chat.Sanguimancy.blood.required") + ": " + String.valueOf(tile.bloodAsked)));
-                world.notifyBlocksOfNeighborChange(x, y, z, this);
+                player.sendMessage(new TextComponentString(I18n.format("chat.Sanguimancy.blood.required") + ": " + String.valueOf(tile.bloodAsked)));
             } else if (tile.bloodAsked >= 100) {
                 tile.bloodAsked -= 100;
-                player.addChatMessage(new ChatComponentText(StatCollector.translateToLocal("chat.Sanguimancy.blood.required") + ": " + String.valueOf(tile.bloodAsked)));
-                world.notifyBlocksOfNeighborChange(x, y, z, this);
+                player.sendMessage(new TextComponentString(I18n.format("chat.Sanguimancy.blood.required") + ": " + String.valueOf(tile.bloodAsked)));
+                world.notifyNeighborsOfStateChange(pos, this, true);
             }
-            world.markBlockForUpdate(x, y, z);
+            world.notifyBlockUpdate(pos, state, state, 3);
         }
         return true;
     }
+
 }

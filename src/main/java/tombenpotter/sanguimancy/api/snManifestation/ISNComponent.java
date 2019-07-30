@@ -1,21 +1,22 @@
 package tombenpotter.sanguimancy.api.snManifestation;
 
-import tombenpotter.sanguimancy.api.objects.BlockPostition;
 import tombenpotter.sanguimancy.api.objects.BoolAndBlockPosList;
 
 import java.util.ArrayList;
 
+import net.minecraft.util.math.BlockPos;
+
 public interface ISNComponent {
 
-    public BoolAndBlockPosList getAdjacentComponents(BlockPostition orignalPosition, BoolAndBlockPosList blockPosList);
+    public BoolAndBlockPosList getAdjacentComponents(BlockPos orignalPosition, BoolAndBlockPosList blockPosList);
 
-    public BlockPostition[] getAdjacentISNComponents();
+    public BlockPos[] getAdjacentISNComponents();
 
     public BoolAndBlockPosList getComponentsInNetwork();
 
     public boolean isSNKnot();
 
-    public void onNetworkUpdate(BlockPostition originalPosition);
+    public void onNetworkUpdate(BlockPos originalPosition);
 
-    public ArrayList<BlockPostition> getSNKnots();
+    public ArrayList<BlockPos> getSNKnots();
 }

@@ -1,7 +1,6 @@
 package tombenpotter.sanguimancy.api.objects;
 
 public class SNKNotBoolean {
-
     public final boolean isSNKnot;
     public final boolean isSNKnotActive;
 

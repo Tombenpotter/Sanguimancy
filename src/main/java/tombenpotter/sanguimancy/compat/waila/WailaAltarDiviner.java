@@ -1,5 +1,5 @@
 package tombenpotter.sanguimancy.compat.waila;
-
+/*
 import mcp.mobius.waila.api.IWailaConfigHandler;
 import mcp.mobius.waila.api.IWailaDataAccessor;
 import mcp.mobius.waila.api.IWailaDataProvider;
@@ -11,7 +11,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import tombenpotter.sanguimancy.blocks.BlockAltarDiviner;
-import tombenpotter.sanguimancy.tile.TileAltarDiviner;
+import tombenpotter.sanguimancy.tiles.TileAltarDiviner;
 
 import java.util.List;
 
@@ -54,3 +54,4 @@ public class WailaAltarDiviner implements IWailaDataProvider {
         return tag;
     }
 }
+*/

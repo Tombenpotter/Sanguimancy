@@ -1,9 +1,9 @@
 package tombenpotter.sanguimancy.client.particle;
 
-import net.minecraft.client.particle.EntityFlameFX;
+import net.minecraft.client.particle.ParticleFlame;
 import net.minecraft.world.World;
 
-public class EntityColoredFlameFX extends EntityFlameFX {
+public class EntityColoredFlameFX extends ParticleFlame {
 
     public EntityColoredFlameFX(World world, double x, double y, double z, double movX, double movY, double movZ, float red, float green, float blue) {
         super(world, x, y, z, movX, movY, movZ);

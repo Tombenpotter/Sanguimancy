@@ -1,27 +1,29 @@
 package tombenpotter.sanguimancy.items;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.gui.GuiScreen;
-import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.client.resources.I18n;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.IIcon;
-import net.minecraft.util.StatCollector;
+import net.minecraft.util.NonNullList;
+import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import tombenpotter.sanguimancy.Sanguimancy;
 import tombenpotter.sanguimancy.util.RandomUtils;
 
 import java.util.List;
 
-public class ItemOreLump extends Item {
+import javax.annotation.Nullable;
 
+public class ItemOreLump extends Item {
     public IIcon overlayIcon;
 
     public ItemOreLump() {
-        setCreativeTab(Sanguimancy.tabSanguimancy);
+        setCreativeTab(Sanguimancy.creativeTab);
         setUnlocalizedName(Sanguimancy.modid + ".oreLump");
         setHasSubtypes(true);
     }
@@ -33,43 +35,42 @@ public class ItemOreLump extends Item {
     }
 
     @Override
-    @SuppressWarnings("unchecked")
-    public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean par4) {
-        NBTTagCompound tag = stack.stackTagCompound;
+    public void addInformation(ItemStack stack, @Nullable World world, List<String> tooltip, ITooltipFlag flagIn) {
+        NBTTagCompound tag = stack.getTagCompound();
 
         if (tag == null)
             stack.setTagCompound(new NBTTagCompound());
 
-        String oreName = stack.stackTagCompound.getString("ore");
+        String oreName = stack.getTagCompound().getString("ore");
 
         if (!oreName.equals("")) {
             if (!GuiScreen.isShiftKeyDown())
-                list.add(StatCollector.translateToLocal("info.Sanguimancy.tooltip.shift.info"));
+                tooltip.add(I18n.format("info.Sanguimancy.tooltip.shift.info"));
             else
-                list.add(String.format(StatCollector.translateToLocal("info.Sanguimancy.tooltip.ore"), RandomUtils.capitalizeFirstLetter(oreName)));
+                tooltip.add(String.format(I18n.format("info.Sanguimancy.tooltip.ore"), RandomUtils.capitalizeFirstLetter(oreName)));
         }
     }
 
     @SideOnly(Side.CLIENT)
     @Override
-    @SuppressWarnings("unchecked")
-    public void getSubItems(Item item, CreativeTabs par2CreativeTabs, List list) {
-        for (ItemStack stack : RandomUtils.oreLumpList) list.add(stack);
+    public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> items) {
+        for (ItemStack stack : RandomUtils.oreLumpList)
+        	items.add(stack);
     }
 
     @Override
     public String getItemStackDisplayName(ItemStack stack) {
-        NBTTagCompound tag = stack.stackTagCompound;
+        NBTTagCompound tag = stack.getTagCompound();
 
         if (tag == null)
             stack.setTagCompound(new NBTTagCompound());
 
-        String oreName = stack.stackTagCompound.getString("ore");
+        String oreName = stack.getTagCompound().getString("ore");
 
         if (!oreName.equals(""))
-            return String.format(StatCollector.translateToLocal("item.Sanguimancy.oreLump.name"), RandomUtils.capitalizeFirstLetter(oreName));
+            return I18n.format("item.Sanguimancy.oreLump.name", RandomUtils.capitalizeFirstLetter(oreName));
         else
-            return StatCollector.translateToLocal("info.Sanguimancy.tooltip.any");
+            return I18n.format("info.Sanguimancy.tooltip.any");
     }
 
     @SideOnly(Side.CLIENT)
@@ -77,10 +78,10 @@ public class ItemOreLump extends Item {
     public int getColorFromItemStack(ItemStack stack, int pass) {
         if (pass == 1) {
             if (stack.hasTagCompound()) {
-                if (RandomUtils.oreDictColor.containsKey(stack.stackTagCompound.getString("ore"))) {
-                    return RandomUtils.oreDictColor.get(stack.stackTagCompound.getString("ore"));
+                if (RandomUtils.oreDictColor.containsKey(stack.getTagCompound().getString("ore"))) {
+                    return RandomUtils.oreDictColor.get(stack.getTagCompound().getString("ore"));
                 } else {
-                    return stack.stackTagCompound.getString("ore").hashCode();
+                    return stack.getTagCompound().getString("ore").hashCode();
                 }
             } else {
                 return 0;

@@ -1,5 +1,5 @@
 package tombenpotter.sanguimancy.compat.nei;
-
+/*
 import codechicken.nei.PositionedStack;
 import codechicken.nei.recipe.GuiRecipe;
 import codechicken.nei.recipe.TemplateRecipeHandler;
@@ -7,9 +7,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.StatCollector;
 import org.lwjgl.input.Mouse;
-import tombenpotter.sanguimancy.Sanguimancy;
 import tombenpotter.sanguimancy.recipes.RecipeBloodCleanser;
 
 import java.awt.*;
@@ -164,3 +162,4 @@ public class NEIBloodCleanser extends TemplateRecipeHandler {
         }
     }
 }
+*/

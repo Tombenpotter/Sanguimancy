@@ -19,7 +19,7 @@ import net.minecraftforge.client.IItemRenderer;
 import org.lwjgl.opengl.GL11;
 import tombenpotter.sanguimancy.Sanguimancy;
 import tombenpotter.sanguimancy.client.model.ModelCube;
-import tombenpotter.sanguimancy.tile.TileItemSNPart;
+import tombenpotter.sanguimancy.tiles.TileItemSNPart;
 import tombenpotter.sanguimancy.util.SanguimancyItemStacks;
 
 public class RenderBoundItem extends TileEntitySpecialRenderer implements IItemRenderer {

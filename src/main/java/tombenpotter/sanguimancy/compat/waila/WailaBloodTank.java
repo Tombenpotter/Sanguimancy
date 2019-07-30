@@ -1,5 +1,5 @@
 package tombenpotter.sanguimancy.compat.waila;
-
+/*
 import mcp.mobius.waila.api.IWailaConfigHandler;
 import mcp.mobius.waila.api.IWailaDataAccessor;
 import mcp.mobius.waila.api.IWailaDataProvider;
@@ -10,8 +10,8 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
-import tombenpotter.sanguimancy.blocks.BlockBloodTank;
-import tombenpotter.sanguimancy.tile.TileBloodTank;
+import tombenpotter.oldsanguimancy.old.ded.BlockBloodTank;
+import tombenpotter.oldsanguimancy.old.ded.TileBloodTank;
 import tombenpotter.sanguimancy.util.RandomUtils;
 
 import java.util.List;
@@ -56,3 +56,4 @@ public class WailaBloodTank implements IWailaDataProvider {
 
     }
 }
+*/

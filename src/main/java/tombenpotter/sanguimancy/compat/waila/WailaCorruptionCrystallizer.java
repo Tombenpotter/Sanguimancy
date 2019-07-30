@@ -1,5 +1,5 @@
 package tombenpotter.sanguimancy.compat.waila;
-
+/*
 import mcp.mobius.waila.api.IWailaConfigHandler;
 import mcp.mobius.waila.api.IWailaDataAccessor;
 import mcp.mobius.waila.api.IWailaDataProvider;
@@ -10,8 +10,6 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
-import tombenpotter.sanguimancy.blocks.BlockCorruptionCrystallizer;
-import tombenpotter.sanguimancy.tile.TileCorruptionCrystallizer;
 
 import java.util.List;
 
@@ -53,3 +51,4 @@ public class WailaCorruptionCrystallizer implements IWailaDataProvider {
         return tag;
     }
 }
+*/

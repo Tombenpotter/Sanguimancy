@@ -9,9 +9,12 @@ import net.minecraft.entity.passive.EntityTameable;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemSeeds;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.SoundEvent;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 public class EntityChickenMinion extends EntityTameable {
@@ -31,7 +34,7 @@ public class EntityChickenMinion extends EntityTameable {
         this.tasks.addTask(0, new EntityAISwimming(this));
         this.tasks.addTask(1, new EntityAIPanic(this, 1.4D));
         this.tasks.addTask(2, new EntityAIMate(this, 1.0D));
-        this.tasks.addTask(3, new EntityAITempt(this, 1.0D, Items.wheat_seeds, false));
+        this.tasks.addTask(3, new EntityAITempt(this, 1.0D, Items.WHEAT_SEEDS, false));
         this.tasks.addTask(4, new EntityAIFollowOwner(this, 1.1D, 1, 1));
         this.tasks.addTask(5, new EntityAIWander(this, 1.0D));
         this.tasks.addTask(6, new EntityAIWatchClosest(this, EntityPlayer.class, 6.0F));
@@ -40,15 +43,10 @@ public class EntityChickenMinion extends EntityTameable {
     }
 
     @Override
-    public boolean isAIEnabled() {
-        return true;
-    }
-
-    @Override
     public void applyEntityAttributes() {
         super.applyEntityAttributes();
-        this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(100.0D);
-        this.getEntityAttribute(SharedMonsterAttributes.movementSpeed).setBaseValue(0.35D);
+        this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(100.0D);
+        this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.35D);
     }
 
     @Override
@@ -73,43 +71,39 @@ public class EntityChickenMinion extends EntityTameable {
         }
         this.field_70886_e += this.field_70889_i * 2.0F;
 
-        if (!this.worldObj.isRemote && !this.isChild() && --this.timeUntilNextEgg <= 0) {
-            this.playSound("mob.chicken.plop", 1.0F, (this.rand.nextFloat() - this.rand.nextFloat()) * 0.2F + 1.0F);
-            this.dropItem(Items.egg, 1);
+        if (!this.world.isRemote && !this.isChild() && --this.timeUntilNextEgg <= 0) {
+            this.playSound(SoundEvents.ENTITY_CHICKEN_EGG, 1.0F, (this.rand.nextFloat() - this.rand.nextFloat()) * 0.2F + 1.0F);
+            this.dropItem(Items.EGG, 1);
             this.timeUntilNextEgg = this.rand.nextInt(6000) + 6000;
         }
-        if (ticksLived > 36000 && !worldObj.isRemote) {
+        if (ticksLived > 36000 && !world.isRemote) {
             this.setDead();
         }
     }
 
     @Override
-    public EntityAgeable createChild(EntityAgeable p_90011_1_) {
-        return new EntityChicken(this.worldObj);
+    public EntityAgeable createChild(EntityAgeable entityAgeable) {
+        return new EntityChicken(this.world);
     }
 
     @Override
-    public void fall(float p_70069_1_) {
+    public void fall(float distance, float damageMultiplier) {
     }
 
-    @Override
-    public String getLivingSound() {
-        return "mob.chicken.say";
+    public SoundEvent getAmbientSound() {
+        return SoundEvents.ENTITY_CHICKEN_AMBIENT;
     }
 
-    @Override
-    public String getHurtSound() {
-        return "mob.chicken.hurt";
+    public SoundEvent getHurtSound() {
+        return SoundEvents.ENTITY_CHICKEN_HURT;
     }
 
-    @Override
-    public String getDeathSound() {
-        return "mob.chicken.hurt";
+    public SoundEvent getDeathSound() {
+        return SoundEvents.ENTITY_CHICKEN_DEATH;
     }
 
-    @Override
-    public void func_145780_a(int p_145780_1_, int p_145780_2_, int p_145780_3_, Block p_145780_4_) {
-        this.playSound("mob.chicken.step", 0.15F, 1.0F);
+    public void playStepSound(BlockPos pos, Block blockIn) {
+        this.playSound(SoundEvents.ENTITY_CHICKEN_STEP, 0.15F, 1.0F);
     }
 
     @Override
@@ -124,7 +118,7 @@ public class EntityChickenMinion extends EntityTameable {
 
     @Override
     public Item getDropItem() {
-        return Item.getItemFromBlock(Blocks.cobblestone);
+        return Item.getItemFromBlock(Blocks.COBBLESTONE);
     }
 
     @Override
@@ -132,13 +126,13 @@ public class EntityChickenMinion extends EntityTameable {
         int j = this.rand.nextInt(3) + this.rand.nextInt(1 + p_70628_2_);
 
         for (int k = 0; k < j; ++k) {
-            this.dropItem(Item.getItemFromBlock(Blocks.cobblestone), 1);
+            this.dropItem(Item.getItemFromBlock(Blocks.COBBLESTONE), 1);
         }
 
         if (this.isBurning()) {
-            this.dropItem(Item.getItemFromBlock(Blocks.waterlily), 1);
+            this.dropItem(Item.getItemFromBlock(Blocks.WATERLILY), 1);
         } else {
-            this.dropItem(Item.getItemFromBlock(Blocks.stone), 1);
+            this.dropItem(Item.getItemFromBlock(Blocks.STONE), 1);
         }
     }
 }

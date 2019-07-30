@@ -1,44 +1,49 @@
 package tombenpotter.sanguimancy.items;
 
-import WayofTime.alchemicalWizardry.AlchemicalWizardry;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+import WayofTime.bloodmagic.block.BlockLifeEssence;
+import WayofTime.bloodmagic.tile.TileBloodTank;
 import net.minecraft.client.gui.GuiScreen;
-import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.client.resources.I18n;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.Item;
+import net.minecraft.init.MobEffects;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
-import net.minecraft.util.StatCollector;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.EnumActionResult;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.common.util.ForgeDirection;
-import net.minecraftforge.fluids.FluidContainerRegistry;
-import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.IFluidContainerItem;
+import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.fluids.FluidActionResult;
+import net.minecraftforge.fluids.FluidUtil;
+import net.minecraftforge.fluids.capability.ItemFluidContainer;
+import net.minecraftforge.fluids.capability.templates.FluidHandlerItemStack;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import tombenpotter.sanguimancy.Sanguimancy;
-import tombenpotter.sanguimancy.tile.TileBloodTank;
 import tombenpotter.sanguimancy.util.RandomUtils;
 
 import java.util.List;
 
-public class ItemBloodAmulet extends Item implements IFluidContainerItem {
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
+public class ItemBloodAmulet extends ItemFluidContainer {
 
     public int bloodLoss = 1200;
 
     public ItemBloodAmulet() {
-        setCreativeTab(Sanguimancy.tabSanguimancy);
+        super(Integer.MAX_VALUE);
+
+        setCreativeTab(Sanguimancy.creativeTab);
         setUnlocalizedName(Sanguimancy.modid + ".bloodAmulet");
         MinecraftForge.EVENT_BUS.register(this);
-    }
-
-    @SideOnly(Side.CLIENT)
-    public void registerIcons(IIconRegister ri) {
-        this.itemIcon = ri.registerIcon(Sanguimancy.texturePath + ":BloodAmulet");
     }
 
     @Override
@@ -47,110 +52,47 @@ public class ItemBloodAmulet extends Item implements IFluidContainerItem {
             EntityLivingBase livingBase = (EntityLivingBase) entity;
             float health = livingBase.getHealth();
             RandomUtils.checkAndSetCompound(stack);
-            if (health < 10F && stack.hasTagCompound() && getFluid(stack) != null) {
-                if (getFluid(stack).getFluidID() == new FluidStack(AlchemicalWizardry.lifeEssenceFluid, 1).getFluidID() && getFluid(stack).amount >= bloodLoss) {
+            FluidHandlerItemStack handler = new FluidHandlerItemStack(stack, capacity);
+
+            if (health < 10F && stack.hasTagCompound() && handler.getFluid() != null) {
+                if (handler.getFluid().getFluid() == BlockLifeEssence.getLifeEssence() && handler.getFluid().amount >= bloodLoss) {
                     livingBase.heal(1F);
                     livingBase.motionX = 0;
                     livingBase.motionY = 0;
                     livingBase.motionZ = 0;
-                    livingBase.addPotionEffect(new PotionEffect(Potion.blindness.id, 100, 1));
-                    if (drain(stack, bloodLoss, false) != null) {
-                        drain(stack, bloodLoss, true);
-                    }
+                    livingBase.addPotionEffect(new PotionEffect(MobEffects.BLINDNESS, 100, 1));
+                    handler.drain(bloodLoss, true);
                 }
             }
         }
     }
 
-    public boolean onItemUse(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int p_77648_7_, float p_77648_8_, float p_77648_9_, float p_77648_10_) {
-        if (world.getTileEntity(x, y, z) != null && world.getTileEntity(x, y, z) instanceof TileBloodTank) {
-            TileBloodTank tile = (TileBloodTank) world.getTileEntity(x, y, z);
-            if (tile.tank.getFluid() != null && tile.tank.getFluid().getFluidID() == AlchemicalWizardry.lifeEssenceFluid.getID()) {
-                tile.drain(ForgeDirection.UNKNOWN, FluidContainerRegistry.BUCKET_VOLUME, true);
-                fill(stack, new FluidStack(AlchemicalWizardry.lifeEssenceFluid, FluidContainerRegistry.BUCKET_VOLUME), true);
-                return true;
+    @Nonnull
+    @Override
+    public EnumActionResult onItemUse(EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+        TileEntity tmp = world.getTileEntity(pos);
+        if (tmp instanceof TileBloodTank) {
+        	TileBloodTank tile = (TileBloodTank) tmp;
+        	if (tile.getTank().getFluid() != null && tile.getTank().getFluid().getFluid() == BlockLifeEssence.getLifeEssence()) {
+        		return FluidUtil.tryFillContainer(player.getHeldItem(hand), tile.getTank(), Fluid.BUCKET_VOLUME, player, true) != FluidActionResult.FAILURE ? EnumActionResult.SUCCESS : EnumActionResult.FAIL;
             }
         }
-        return false;
+        return EnumActionResult.FAIL;
     }
 
     @SideOnly(Side.CLIENT)
     @Override
-    public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean p_77624_4_) {
+    public void addInformation(ItemStack stack, @Nullable World world, List<String> tooltip, ITooltipFlag flag) {
         if (stack.hasTagCompound()) {
             if (!GuiScreen.isShiftKeyDown())
-                list.add(StatCollector.translateToLocal("info.Sanguimancy.tooltip.shift.info"));
+                tooltip.add(I18n.format("info.Sanguimancy.tooltip.shift.info"));
             else {
-                NBTTagCompound tag = stack.stackTagCompound.getCompoundTag("tank");
+                NBTTagCompound tag = stack.getTagCompound().getCompoundTag("tank");
                 if (stack.hasTagCompound() && tag.getString("FluidName") != "") {
-                    list.add(StatCollector.translateToLocal("info.Sanguimancy.tooltip.fluid") + ": " + RandomUtils.capitalizeFirstLetter(tag.getString("FluidName")));
-                    list.add(StatCollector.translateToLocal("info.Sanguimancy.tooltip.amount") + ": " + tag.getInteger("Amount") + "/" + getCapacity(stack) + "mB");
+                    tooltip.add(I18n.format("info.Sanguimancy.tooltip.fluid") + ": " + RandomUtils.capitalizeFirstLetter(tag.getString("FluidName")));
+                    tooltip.add(I18n.format("info.Sanguimancy.tooltip.amount") + ": " + tag.getInteger("Amount") + "/" + capacity + "mB");
                 }
             }
         }
-    }
-
-    @Override
-    public FluidStack getFluid(ItemStack stack) {
-        if (stack.hasTagCompound() && stack.stackTagCompound.hasKey("tank") && stack.stackTagCompound.getCompoundTag("tank").getString("FluidName") != "") {
-            NBTTagCompound tag = stack.stackTagCompound.getCompoundTag("tank");
-            return FluidStack.loadFluidStackFromNBT(tag);
-        }
-        return null;
-    }
-
-    @Override
-    public int getCapacity(ItemStack container) {
-        return Integer.MAX_VALUE;
-    }
-
-    @Override
-    public int fill(ItemStack stack, FluidStack resource, boolean doFill) {
-        if (resource == null || stack.stackSize != 1) return 0;
-        if (resource.getFluidID() != AlchemicalWizardry.lifeEssenceFluid.getID()) {
-            return 0;
-        }
-        int fillAmount = 0, capacity = getCapacity(stack);
-        NBTTagCompound tag = stack.stackTagCompound, fluidTag = null;
-        FluidStack fluid = null;
-        if (tag == null || !tag.hasKey("tank") || (fluidTag = tag.getCompoundTag("tank")) == null || (fluid = FluidStack.loadFluidStackFromNBT(fluidTag)) == null)
-            fillAmount = Math.min(capacity, resource.amount);
-        if (fluid == null) {
-            if (doFill) {
-                fluid = resource.copy();
-                fluid.amount = 0;
-            }
-        } else if (!fluid.isFluidEqual(resource))
-            return 0;
-        else
-            fillAmount = Math.min(capacity - fluid.amount, resource.amount);
-        fillAmount = Math.max(fillAmount, 0);
-        if (doFill) {
-            if (tag == null)
-                tag = stack.stackTagCompound = new NBTTagCompound();
-            fluid.amount += fillAmount;
-            tag.setTag("tank", fluid.writeToNBT(fluidTag == null ? new NBTTagCompound() : fluidTag));
-        }
-        return fillAmount;
-    }
-
-    @Override
-    public FluidStack drain(ItemStack stack, int maxDrain, boolean doDrain) {
-        NBTTagCompound tag = stack.stackTagCompound, fluidTag = null;
-        FluidStack fluid = null;
-        if (tag == null || !tag.hasKey("tank") || (fluidTag = tag.getCompoundTag("tank")) == null || (fluid = FluidStack.loadFluidStackFromNBT(fluidTag)) == null) {
-            if (fluidTag != null)
-                tag.removeTag("tank");
-            return null;
-        }
-        int drainAmount = Math.min(maxDrain, fluid.amount);
-        if (doDrain) {
-            tag.removeTag("tank");
-            fluid.amount -= drainAmount;
-            if (fluid.amount > 0)
-                fill(stack, fluid, true);
-        }
-        fluid.amount = drainAmount;
-        return fluid;
     }
 }

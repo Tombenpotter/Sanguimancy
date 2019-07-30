@@ -1,6 +1,6 @@
 package tombenpotter.sanguimancy.network.events;
 
-import cpw.mods.fml.common.eventhandler.Event;
+import net.minecraftforge.fml.common.eventhandler.Event;
 
 public class EventSoulCorruption extends Event {
     public final String ownerName;

@@ -26,7 +26,7 @@ public class RecipeBloodCleanser {
     public static RecipeBloodCleanser getRecipe(ItemStack input) {
         for (RecipeBloodCleanser recipe : recipeList) {
             if (recipe != null)
-                if (recipe.fInput.isItemEqual(input) && recipe.fInput.stackTagCompound.equals(input.stackTagCompound)) {
+                if (recipe.fInput.isItemEqual(input) && recipe.fInput.getTagCompound().equals(input.getTagCompound())) {
                     return recipe;
                 }
         }
@@ -47,7 +47,7 @@ public class RecipeBloodCleanser {
     public static boolean isRecipeValid(ItemStack input) {
         RecipeBloodCleanser recipe = getRecipe(input);
         if (recipe != null)
-            if (recipe.fInput.isItemEqual(input) && recipe.fOutput != null && recipe.fInput.stackTagCompound.equals(input.stackTagCompound)) {
+            if (recipe.fInput.isItemEqual(input) && recipe.fOutput != null && recipe.fInput.getTagCompound().equals(input.getTagCompound())) {
                 return true;
             }
         return false;
