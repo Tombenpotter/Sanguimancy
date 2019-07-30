@@ -29,8 +29,8 @@ import java.util.ArrayList;
 public class RecipesRegistry {
 
     public static IRecipe altarEmitter, sacrificeTransferrer, corruptionReader, unattunedPlayerSacrificer, corruptionCrystallizer, lumpCleaner,
-            bloodAmulet, bloodstoneStairs, largeBloodstoneStairs, bloodstoneSlab, largeBloodstoneSlab, chunkClaimer, wand, bloodInterface,
-            corruptedMineral, corruptedSword, corruptedPickaxe, corruptedShovel, corruptedAxe, toggledEtherealBlock,
+            bloodAmulet, bloodstoneStairs, largeBloodstoneStairs, bloodstoneSlab, largeBloodstoneSlab, chunkClaimer, bloodInterface,
+            toggledEtherealBlock,
             personalEtherealBlock, soulTransporter, sanguineShifter, altarManipulator;
     public static IRecipe[] bloodTank = new IRecipe[16];
     public static AltarRecipe altarDiviner, attunedPlayerSacrificer, corruptionCatalyst, imbuedStick, etherealManifestation;
@@ -50,12 +50,6 @@ public class RecipesRegistry {
         GameRegistry.addShapedRecipe(new ItemStack(ModBlocks.bloodStoneBrick), "X", "X", 'X', SanguimancyItemStacks.bloodstoneSlab);
 //        GameRegistry.addShapedRecipe(new ItemStack(ModBlocks.largeBloodStoneBrick), "X", "X", 'X', SanguimancyItemStacks.largeBloodstoneSlab);
         chunkClaimer = GameRegistry.addShapedRecipe(SanguimancyItemStacks.chunkClaimer, " X ", "XYX", " X ", 'X', new ItemStack(ModItems.slate, 1, 3), 'Y', SanguimancyItemStacks.corruptedDemonShard);
-//        wand = GameRegistry.addShapedRecipe(SanguimancyItemStacks.wand, "XYX", "XZX", "XZX", 'X', new ItemStack(ModItems.slate, 1, 1), 'Y', ModItems.itemComplexSpellCrystal, 'Z', Items.STICK);
-        corruptedMineral = GameRegistry.addShapedRecipe(SanguimancyItemStacks.corruptedMineral, " X ", " Y ", "ZYA", 'X', new ItemStack(Items.SKULL, 1, 1), 'Y', Blocks.STONE, 'Z', Items.DIAMOND, 'A', Items.GOLD_INGOT);
-        corruptedSword = GameRegistry.addShapedRecipe(SanguimancyItemStacks.corruptedSword, " X ", " X ", " Y ", 'X', SanguimancyItemStacks.corruptedMineral, 'Y', SanguimancyItemStacks.imbuedStick);
-        corruptedPickaxe = GameRegistry.addShapedRecipe(SanguimancyItemStacks.corruptedPickaxe, "XXX", " Y ", " Y ", 'X', SanguimancyItemStacks.corruptedMineral, 'Y', SanguimancyItemStacks.imbuedStick);
-        corruptedShovel = GameRegistry.addShapedRecipe(SanguimancyItemStacks.corruptedShovel, " X ", " Y ", " Y ", 'X', SanguimancyItemStacks.corruptedMineral, 'Y', SanguimancyItemStacks.imbuedStick);
-        corruptedAxe = GameRegistry.addShapedRecipe(SanguimancyItemStacks.corruptedAxe, "XX ", "XY ", " Y ", 'X', SanguimancyItemStacks.corruptedMineral, 'Y', SanguimancyItemStacks.imbuedStick);
         toggledEtherealBlock = GameRegistry.addShapedRecipe(new ItemStack(BlocksRegistry.etherealToggledBlock, 8), "XXX", "XYX", "XXX", 'Y', Blocks.REDSTONE_BLOCK, 'X', SanguimancyItemStacks.etherealBlock);
         personalEtherealBlock = GameRegistry.addShapedRecipe(new ItemStack(BlocksRegistry.etherealPersonalBlock, 8), "XXX", "XYX", "XXX", 'X', SanguimancyItemStacks.etherealBoundBlock, 'Y', Items.NAME_TAG);
         bloodInterface = GameRegistry.addShapedRecipe(SanguimancyItemStacks.bloodInterface, "XYX", "XZX", "XXX", 'X', Blocks.STONE, 'Y', new ItemStack(ModBlocks.bloodRune, 1, 0), 'Z', new ItemStack(Items.COMPARATOR));
@@ -95,11 +89,6 @@ public class RecipesRegistry {
         altarManipulator = RecipeRegistry.getLatestCraftingRecipe();
 
         GameRegistry.addRecipe(new ShapedBloodOrbRecipe(ModBlocks.bloodTank, "XZX", "AYA", "XZX", 'X', new ItemStack(Blocks.STAINED_GLASS, 1, 14), 'Y', OrbRegistry.getOrbStack(ModItems.orbApprentice), 'Z', new ItemStack(Blocks.OBSIDIAN), 'A', new ItemStack(ModItems.slate, 1, 0)));
-        bloodTank[0] = RecipeRegistry.getLatestCraftingRecipe();
-        for (int i = 0; i < 15; i++) {
-            GameRegistry.addRecipe(new ShapedBloodOrbRecipe(new ItemStack(ModBlocks.bloodTank, 1, i + 1), "XSX", "TOT", "XTX", 'X', new ItemStack(Blocks.STAINED_GLASS, 1, 14), 'S', new ItemStack(ModItems.slate, 1, 3), 'T', new ItemStack(ModBlocks.bloodTank, 1, i), 'O', OrbRegistry.getOrbStack(ModItems.orbArchmage)));
-            bloodTank[i + 1] = RecipeRegistry.getLatestCraftingRecipe();
-        }
     }
 
     public static void registerBindingRecipes() {

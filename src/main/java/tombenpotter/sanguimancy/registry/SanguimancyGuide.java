@@ -2,7 +2,6 @@ package tombenpotter.sanguimancy.registry;
 
 import WayofTime.bloodmagic.compat.guideapi.page.PageAltarRecipe;
 import WayofTime.bloodmagic.core.RegistrarBloodMagicBlocks;
-import WayofTime.bloodmagic.registry.ModItems;
 import amerifrance.guideapi.api.IGuideBook;
 import amerifrance.guideapi.api.IPage;
 import amerifrance.guideapi.api.impl.Book;
@@ -148,46 +147,10 @@ public class SanguimancyGuide implements IGuideBook {
         playerSacrificingStonesPages.addAll(PageHelper.pagesForLongText(I18n.format("guide.Sanguimancy.entry.sacrificingStones.3"), SanguimancyItemStacks.focusedPlayerSacrificer));
         entries.put(new ResourceLocation(Sanguimancy.modid, "guide.Sanguimancy.entry.sacrificingStones"), new Entry(playerSacrificingStonesPages, "Player Sacrificing Stones", true));
 
-//        Unused
-//        ArrayList<IPage> wandPages = new ArrayList<IPage>();
-//        wandPages.addAll(PageHelper.pagesForLongText(StatCollector.translateToLocal("guide.Sanguimancy.entry.wand"), SanguimancyItemStacks.wand));
-//        wandPages.add(new PageIRecipe(RecipesRegistry.wand));
-//        entries.add(new EntryUniText(wandPages, "item.Sanguimancy.spellWand.name"));
-//
-//        ArrayList<IPage> corruptedAxePages = new ArrayList<IPage>();
-//        corruptedAxePages.addAll(PageHelper.pagesForLongText(StatCollector.translateToLocal("guide.Sanguimancy.entry.corruptedAxe"), SanguimancyItemStacks.corruptedAxe));
-//        corruptedAxePages.add(new PageIRecipe(RecipesRegistry.corruptedAxe));
-//        entries.add(new EntryUniText(corruptedAxePages, "item.Sanguimancy.corruptedAxe.name"));
-//
-//        ArrayList<IPage> corruptedPickaxePages = new ArrayList<IPage>();
-//        corruptedPickaxePages.addAll(PageHelper.pagesForLongText(StatCollector.translateToLocal("guide.Sanguimancy.entry.corruptedPickaxe"), SanguimancyItemStacks.corruptedPickaxe));
-//        corruptedPickaxePages.add(new PageIRecipe(RecipesRegistry.corruptedPickaxe));
-//        entries.add(new EntryUniText(corruptedPickaxePages, "item.Sanguimancy.corruptedPickaxe.name"));
-//
-//        ArrayList<IPage> corruptedShovelPages = new ArrayList<IPage>();
-//        corruptedShovelPages.addAll(PageHelper.pagesForLongText(StatCollector.translateToLocal("guide.Sanguimancy.entry.corruptedShovel"), SanguimancyItemStacks.corruptedShovel));
-//        corruptedShovelPages.add(new PageIRecipe(RecipesRegistry.corruptedShovel));
-//        entries.add(new EntryUniText(corruptedShovelPages, "item.Sanguimancy.corruptedShovel.name"));
-//
-//        ArrayList<IPage> corruptedSwordPages = new ArrayList<IPage>();
-//        corruptedSwordPages.addAll(PageHelper.pagesForLongText(StatCollector.translateToLocal("guide.Sanguimancy.entry.corruptedSword"), SanguimancyItemStacks.corruptedSword));
-//        corruptedSwordPages.add(new PageIRecipe(RecipesRegistry.corruptedSword));
-//        entries.add(new EntryUniText(corruptedSwordPages, "item.Sanguimancy.corruptedSword.name"));
-
         ArrayList<IPage> soulTranporterPages = new ArrayList<IPage>();
         soulTranporterPages.addAll(PageHelper.pagesForLongText(StatCollector.translateToLocal("guide.Sanguimancy.entry.soulTransporter"), SanguimancyItemStacks.soulTransporter));
         soulTranporterPages.add(BloodMagicGuide.getOrbPageForRecipe(RecipesRegistry.soulTransporter));
         entries.add(new EntryUniText(soulTranporterPages, "item.Sanguimancy.soulTransporter.name"));
-
-        ArrayList<IPage> telepositionSigilIPages = new ArrayList<IPage>();
-        telepositionSigilIPages.addAll(PageHelper.pagesForLongText(StatCollector.translateToLocal("guide.Sanguimancy.entry.telepositionSigil"), SanguimancyItemStacks.telepositionSigil));
-        telepositionSigilIPages.add(BloodMagicGuide.getOrbPageForRecipe(RecipesRegistry.telepositionSigil));
-        entries.add(new EntryUniText(telepositionSigilIPages, "item.Sanguimancy.telepositionSigil.name"));
-
-        ArrayList<IPage> transpositionSigilPages = new ArrayList<IPage>();
-        transpositionSigilPages.addAll(PageHelper.pagesForLongText(StatCollector.translateToLocal("guide.Sanguimancy.entry.transpositionSigil"), SanguimancyItemStacks.transpositionSigil));
-        transpositionSigilPages.add(BloodMagicGuide.getOrbPageForRecipe(RecipesRegistry.transpositionSigil));
-        entries.add(new EntryUniText(transpositionSigilPages, "item.Sanguimancy.transpositionSigil.name"));
 
         categories.add(new CategoryItemStack(entries, "guide.Sanguimancy.category.items", SanguimancyItemStacks.corruptedSword));
     }
@@ -195,23 +158,10 @@ public class SanguimancyGuide implements IGuideBook {
     public static void createRitualEntries() {
         List<EntryAbstract> entries = new ArrayList<EntryAbstract>();
 
-        if (ConfigHandler.enableAltarBuilder) {
-            ArrayList<IPage> altarBuilderPages = new ArrayList<IPage>();
-            altarBuilderPages.addAll(PageHelper.pagesForLongText(StatCollector.translateToLocal("guide.Sanguimancy.entry.altar.builder")));
-            entries.add(new EntryUniText(altarBuilderPages, "ritual.Sanguimancy.altar.builder"));
-        }
-
         if (ConfigHandler.enableDrillOfTheDead) {
             ArrayList<IPage> drillOfTheDeadPages = new ArrayList<IPage>();
             drillOfTheDeadPages.addAll(PageHelper.pagesForLongText(StatCollector.translateToLocal("guide.Sanguimancy.entry.drillOfTheDead")));
             entries.add(new EntryUniText(drillOfTheDeadPages, "ritual.Sanguimancy.drill.dead"));
-        }
-
-        if (ConfigHandler.enableFelling) {
-            ArrayList<IPage> timbermanPages = new ArrayList<IPage>();
-            timbermanPages.addAll(PageHelper.pagesForLongText(StatCollector.translateToLocal("guide.Sanguimancy.entry.timberman")));
-            entries.add(new EntryUniText(timbermanPages, "ritual.Sanguimancy.feller"));
-            ;
         }
 
         if (ConfigHandler.enableIllumination) {
@@ -224,26 +174,6 @@ public class SanguimancyGuide implements IGuideBook {
             ArrayList<IPage> vulcanosFrigiusPages = new ArrayList<IPage>();
             vulcanosFrigiusPages.addAll(PageHelper.pagesForLongText(StatCollector.translateToLocal("guide.Sanguimancy.entry.vulcanosFrigius")));
             entries.add(new EntryUniText(vulcanosFrigiusPages, "ritual.Sanguimancy.vulcanos.frigius"));
-        }
-
-        if (ConfigHandler.enablePlacer) {
-            ArrayList<IPage> fillerPages = new ArrayList<IPage>();
-            fillerPages.addAll(PageHelper.pagesForLongText(StatCollector.translateToLocal("guide.Sanguimancy.entry.filler")));
-            entries.add(new EntryUniText(fillerPages, "ritual.Sanguimancy.placer"));
-        }
-
-        if (ConfigHandler.enablePortal) {
-            ArrayList<IPage> portalPages = new ArrayList<IPage>();
-            portalPages.addAll(PageHelper.pagesForLongText(StatCollector.translateToLocal("guide.Sanguimancy.entry.portal.1")));
-            portalPages.add(new PageUnlocImage("guide.Sanguimancy.entry.portal.picture", new ResourceLocation(Sanguimancy.texturePath + ":textures/screenshots/PortalExample.png"), true));
-            portalPages.addAll(PageHelper.pagesForLongText(StatCollector.translateToLocal("guide.Sanguimancy.entry.portal.2")));
-            entries.add(new EntryUniText(portalPages, "ritual.Sanguimancy.portal"));
-        }
-
-        if (ConfigHandler.enablePump) {
-            ArrayList<IPage> pumpPages = new ArrayList<IPage>();
-            pumpPages.addAll(PageHelper.pagesForLongText(StatCollector.translateToLocal("guide.Sanguimancy.entry.pump")));
-            entries.add(new EntryUniText(pumpPages, "ritual.Sanguimancy.pump"));
         }
 
         if (ConfigHandler.enableTrash) {
@@ -286,13 +216,6 @@ public class SanguimancyGuide implements IGuideBook {
         decorativeBlocksPages.add(new PageIRecipe(RecipesRegistry.bloodstoneStairs));
         decorativeBlocksPages.add(new PageIRecipe(RecipesRegistry.largeBloodstoneStairs));
         entries.add(new EntryUniText(decorativeBlocksPages, "guide.Sanguimancy.entryName.decorativeBlocks"));
-
-        ArrayList<IPage> bloodTankPages = new ArrayList<IPage>();
-        bloodTankPages.addAll(PageHelper.pagesForLongText(StatCollector.translateToLocal("guide.Sanguimancy.entry.bloodTank"), SanguimancyItemStacks.bloodTank));
-        for (IRecipe recipe : RecipesRegistry.bloodTank) {
-            bloodTankPages.add(BloodMagicGuide.getOrbPageForRecipe(recipe));
-        }
-        entries.add(new EntryUniText(bloodTankPages, "tile.Sanguimancy.bloodTank.name"));
 
         ArrayList<IPage> corruptionCrystallizerPages = new ArrayList<IPage>();
         corruptionCrystallizerPages.addAll(PageHelper.pagesForLongText(StatCollector.translateToLocal("guide.Sanguimancy.entry.corruptionCrystallizer"), SanguimancyItemStacks.corruptionCrystallizer));
